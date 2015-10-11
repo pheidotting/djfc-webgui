@@ -98,3 +98,54 @@ input[type="checkbox"] {
 input[type=file] {
 	display:inline;
 }
+
+.persoonsgegevens_links{
+	width:500px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 10px;
+	margin-top: 0px;
+	float: left;
+}
+.persoonsgegevens_links label {
+	float: left;
+	margin-bottom: 0px;
+	width: 189px;
+}
+.persoonsgegevens_links input{
+	width:289px !important;
+}
+
+.persoonsgegevens_rechts{
+	width:500px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 10px;
+	margin-left:525px;
+}
+.persoonsgegevens_rechts label {
+	float: left;
+	margin-bottom: 0px;
+	width: 189px;
+}
+.persoonsgegevens_rechts input{
+	width:289px !important;
+}
+
+.persoonsgegevens_details{
+	width:460px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 10px;
+}
+.persoonsgegevens_details label {
+	float: left;
+	margin-bottom: 0px;
+	width: 179px;
+}
+.persoonsgegevens_details input{
+	width:259px !important;
+}
+.persoonsgegevens_details textarea {
+	width:259px !important;
+}

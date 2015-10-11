@@ -20,10 +20,10 @@ define(['jquery',
 
 			ko.applyBindings(relatie);
 
-			if(relatie.opmerkingen().length > 0){
-				$("#opmerkingenDialog").dialog();
-			}
-			$("#persoonsGegevensDialog").dialog();
+//			if(relatie.opmerkingen().length > 0){
+//				$("#opmerkingenDialog").dialog();
+//			}
+//			$("#persoonsGegevensDialog").dialog();
 		}).fail(function(data){
 			commonFunctions.nietMeerIngelogd(data);
 		});
