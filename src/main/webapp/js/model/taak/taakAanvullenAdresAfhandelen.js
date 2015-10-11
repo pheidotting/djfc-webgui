@@ -18,7 +18,7 @@ define([ "commons/3rdparty/log",
 		_thisTaak.postcode = ko.observable(data.postcode).extend({required: true});
 		_thisTaak.plaats = ko.observable(data.plaats).extend({required: true});
 
-		$.get( "../dejonge/rest/medewerker/gebruiker/lees", {"id" : data.gerelateerdAan}, function(data) {
+		dataservices.leesRelatie(data.gerelateerdAan).done(function(data){
 			_thisTaak.relatie(data);
 			_thisTaak.straat(data.straat);
 			_thisTaak.huisnummer(data.huisnummer);
@@ -58,37 +58,21 @@ define([ "commons/3rdparty/log",
 			_thisTaak.relatie().postcode = _thisTaak.postcode();
 			_thisTaak.relatie().plaats = _thisTaak.plaats();
 			
-			logger.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaan : ");
 			logger.debug(ko.toJSON(_thisTaak.relatie()));
-			$.ajax({
-				url: '../dejonge/rest/medewerker/gebruiker/opslaan',
-				type: 'POST',
-				data: ko.toJSON(_thisTaak.relatie()) ,
-				contentType: 'application/json; charset=utf-8',
-				success: function (response) {
-					var afhandelenTaak = new AfhandelenTaak(_thisTaak.taakId());
-					
-					logger.debug("Versturen naar ../dejonge/rest/medewerker/taak/afhandelen : ");
-					logger.debug(ko.toJSON(afhandelenTaak));
-					$.ajax({
-						url: '../dejonge/rest/medewerker/taak/afhandelen',
-						type: 'POST',
-						data: ko.toJSON(afhandelenTaak) ,
-						contentType: 'application/json; charset=utf-8',
-						success: function (response) {
-							document.location.hash='#taken';
-							commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-						},
-						error: function (data) {
-							commonFunctions.plaatsFoutmelding(data);
-						}
-					});
-				},
-				error: function (data) {
-					commonFunctions.plaatsFoutmelding(data);
-				}
-			});
+			dataservices.opslaanRelatie(ko.toJSON(_thisTaak.relatie())).done(function(response){
+				var afhandelenTaak = new AfhandelenTaak(_thisTaak.taakId());
 
+				logger.debug(ko.toJSON(afhandelenTaak));
+
+				dataservices.afhandelenTaak(ko.toJSON(afhandelenTaak)).done(function(response){
+					document.location.hash='#taken';
+					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
+				}).fail(function(data){
+					commonFunctions.plaatsFoutmelding(data);
+				});
+			}).fail(function(data){
+				commonFunctions.plaatsFoutmelding(data);
+			});
 		};
 		
 		_thisTaak.terug = function(){

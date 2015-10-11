@@ -1,8 +1,9 @@
 define([ "commons/3rdparty/log",
          "commons/validation",
          "commons/opmaak",
-         "knockout"],
-     function(logger, validation, opmaak, ko) {
+         "knockout",
+         'dataservices'],
+     function(logger, validation, opmaak, ko, dataservices) {
 
 	return function taak(data) {
 		_this = this;
@@ -22,11 +23,11 @@ define([ "commons/3rdparty/log",
 
 		_this.vrijgeven = function(taak){
 			logger.debug("vrijgeven taak met id " + taak.id());
-			$.get('../dejonge/rest/medewerker/taak/vrijgeven', {"id" : taak.id()});
+			dataservices.vrijgevenTaak(taak.id());
 		};
 		_this.oppakken = function(taak){
 			logger.debug("oppakken taak met id " + taak.id());
-			$.get('../dejonge/rest/medewerker/taak/oppakken', {"id" : taak.id()});
+			dataservices.oppakkenTaak(taak.id());
 			document.location.hash='#taak/' + taak.id();
 		};
 	};

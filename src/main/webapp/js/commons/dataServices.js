@@ -156,6 +156,26 @@ define(["commons/3rdparty/log",
 
             opslaanAangifte: function(data){
                 return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_AANGIFTE'), data);
+            },
+
+            leesTaak: function(id){
+                return this.voerUitGet(navRegister.bepaalUrl('LEES_TAAK'), {"id" : id});
+            },
+
+            lijstTaken: function(){
+                return this.voerUitGet(navRegister.bepaalUrl'LIJST_TAKEN');
+            },
+
+            afhandelenTaak: function(data){
+                return this.voerUitPost(navRegister.bepaalUrl('AFHANDELEN_TAAK'), data);
+            },
+
+            oppakkenTaak: function(id){
+                return this.voerUitGet(navRegister.bepaalUrl('OPPAKKEN_TAAK'), {"id" : id});
+            },
+
+            vrijgevenTaak: function(id){
+                return this.voerUitGet(navRegister.bepaalUrl('VRIJGEVEN_TAAK'), {"id" : id});
             }
 
         }

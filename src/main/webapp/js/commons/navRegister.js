@@ -49,6 +49,12 @@ define([ "commons/3rdparty/log"],
                 var AFRONDEN_AANGIFTE = 'AFRONDEN_AANGIFTE';
                 var OPSLAAN_AANGIFTE = 'OPSLAAN_AANGIFTE';
 
+                var LEES_TAAK = 'LEES_TAAK';
+                var LIJST_TAKEN = 'LIJST_TAKEN';
+                var AFHANDELEN_TAAK = 'AFHANDELEN_TAAK';
+                var VRIJGEVEN_TAAK = 'VRIJGEVEN_TAAK';
+                var OPPAKKEN_TAAK = 'OPPAKKEN_TAAK';
+
                 if(welkeFunctie == INLOGGEN){
                     return BASISURL_RELATIEBEHEER + "/authorisatie/authorisatie/inloggen";
                 }else if(welkeFunctie == INGELOGDE_GEBRUIKER){
@@ -125,6 +131,17 @@ define([ "commons/3rdparty/log"],
                     return BASISURL_RELATIEBEHEER + "/medewerker/aangifte/afronden";
                 }else if(welkeFunctie == OPSLAAN_AANGIFTE){
                     return BASISURL_RELATIEBEHEER + "/medewerker/aangifte/opslaan";
+
+                }else if(welkeFunctie == LEES_TAAK){
+                    return BASISURL_RELATIEBEHEER + "/medewerker/taak/lees";
+                }else if(welkeFunctie == LIJST_TAKEN){
+                    return BASISURL_RELATIEBEHEER + "/medewerker/taak/lijst";
+                }else if(welkeFunctie == AFHANDELEN_TAAK){
+                    return BASISURL_RELATIEBEHEER + "/medewerker/taak/afhandelen";
+                }else if(welkeFunctie == VRIJGEVEN_TAAK){
+                    return BASISURL_RELATIEBEHEER + "/medewerker/taak/vrijgeven";
+                }else if(welkeFunctie == OPPAKKEN_TAAK){
+                    return BASISURL_RELATIEBEHEER + "/medewerker/taak/oppakken";
                 }
             }
         }

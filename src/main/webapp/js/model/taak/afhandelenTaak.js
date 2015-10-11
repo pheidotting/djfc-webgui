@@ -1,6 +1,6 @@
 define([ "commons/3rdparty/log",
          "knockout"],
-     function(logger, ko) {
+	function(logger, ko) {
 
 	return function afhandelenTaak(id) {
 		_afhandelenTaak = this;
