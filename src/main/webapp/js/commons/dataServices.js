@@ -1,14 +1,18 @@
 define(["commons/3rdparty/log",
-        "navRegister"],
+        "navRegister",],
     function(log, navRegister) {
 
         return {
-            inloggen: function(data){
+            voerUitGet: function(url, data){
+                return $.get(url, data);
+            },
+
+            voerUitPost: function(url, data){
                 var deferred = $.Deferred();
 
                 $.ajax({
                     type: "POST",
-                    url: navRegister.bepaalUrl('INLOGGEN'),
+                    url: url,
                     contentType: "application/json",
                     data: data,
                     success: function (response) {
@@ -22,412 +26,136 @@ define(["commons/3rdparty/log",
                 return deferred.promise();
             },
 
+            inloggen: function(data){
+                return this.voerUitPost(navRegister.bepaalUrl('INLOGGEN'), data);
+            },
+
             haalIngelogdeGebruiker: function(){
-                var deferred = $.Deferred();
-
-                $.ajax({
-                    url: navRegister.bepaalUrl('INGELOGDE_GEBRUIKER'),
-                    type: 'GET',
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (data) {
-                        return deferred.reject();
-                    }
-	            });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('INGELOGDE_GEBRUIKER'));
 	        },
 
             uitloggen: function(){
-                $.ajax({
-                    url: navRegister.bepaalUrl('UITLOGGEN'),
-                    type: 'GET'
-                })
+                return this.voerUitGet(navRegister.bepaalUrl('UITLOGGEN'));
             },
 
             lijstRelaties: function(zoekTerm){
-                var deferred = $.Deferred();
-
-                $.get(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm});
             },
 
             leesRelatie: function(id){
-                var deferred = $.Deferred();
-
-                $.ajax({
-                    type: "GET",
-                    url: navRegister.bepaalUrl('LEES_RELATIE'),
-                    async: false,
-                    dataType: "json",
-                    data: {
-                        id : id
-                    },
-                    context: this,
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id});
             },
 
             opslaanRelatie: function(data){
-                var deferred = $.Deferred();
-
-				$.ajax({
-					url: navRegister.bepaalUrl('OPSLAAN_RELATIE'),
-					type: 'POST',
-					data: data,
-					contentType: 'application/json; charset=utf-8',
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-				});
-
-                return deferred.promise();
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_RELATIE'), data);
             },
 
             verwijderRelatie: function(id){
-                $.ajax({
-                    type: "GET",
-                    url: navRegister.bepaalUrl('VERWIJDER_RELATIE'),
-                    dataType:'json',
-                    data: {
-                        id : id
-                    }
-                });
+                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_RELATIE'), {id : id});
             },
 
             lijstBedrijven: function(relatieId){
-                var deferred = $.Deferred();
-
-                $.ajax({
-                    type: "GET",
-                    url: navRegister.bepaalUrl('LIJST_BEDRIJVEN_BIJ_RELATIE'),
-                    async: false,
-                    dataType: "json",
-                    data: {
-                        relatieId : relatieId
-                    },
-                    context: this,
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BEDRIJVEN_BIJ_RELATIE'), {relatieId : relatieId});
             },
 
             opslaanBedrijf: function(data){
-                var deferred = $.Deferred();
-
-				$.ajax({
-					type: "POST",
-					url: navRegister.bepaalUrl('OPSLAAN_BEDRIJF'),
-					contentType: "application/json",
-			        data: data,
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-				});
-
-                return deferred.promise();
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_BEDRIJF'), data);
             },
 
             leesBedrijf: function(id){
-                var deferred = $.Deferred();
-
-                $.get(navRegister.bepaalUrl('LEES_BEDRIJF'), {"id" : id}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LEES_BEDRIJF'), {"id" : id});
             },
 
             lijstVerzekeringsmaatschappijen: function(){
-                var deferred = $.Deferred();
-
-                $.get(navRegister.bepaalUrl('LIJST_VERZEKERINGSMAATSCHAPPIJEN'), {}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_VERZEKERINGSMAATSCHAPPIJEN'));
             },
 
             leesPolis: function(polisId){
-                var deferred = $.Deferred();
-
-				$.get(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId}, function(response) {
-                    return deferred.resolve(response);
-				});
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId});
             },
 
             lijstPolissen: function(relatieId){
-                var deferred = $.Deferred();
-
-                $.ajax({
-                    type: "GET",
-                    url: navRegister.bepaalUrl('LIJST_POLISSEN'),
-                    async: false,
-                    dataType: "json",
-                    data: {
-                        relatieId : relatieId
-                    },
-                    context: this,
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    }
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_POLISSEN'), {relatieId : relatieId});
             },
 
             verwijderBijlage: function(id){
-				$.get(navRegister.bepaalUrl('VERWIJDER_BIJLAGE'), {"id" : id}, function() {});
+                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_BIJLAGE'), {"id" : id});
             },
 
             beindigPolis: function(id){
-				$.get(navRegister.bepaalUrl('BEEINDIG_POLIS'), {"id" : id}, function() {});
+                return this.voerUitGet(navRegister.bepaalUrl('BEEINDIG_POLIS'), {"id" : id});
             },
 
             opslaanPolis: function(data){
-                var deferred = $.Deferred();
-
-				$.ajax({
-					type: "POST",
-					url: navRegister.bepaalUrl('OPSLAAN_POLIS'),
-					contentType: "application/json",
-		            data: data,
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-		    	});
-
-                return deferred.promise();
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_POLIS'), data);
             },
 
             verwijderPolis: function(id){
-				$.get(navRegister.bepaalUrl('VERWIJDER_POLIS'), {"id" : id}, function() {});
+                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_POLIS'), {"id" : id});
             },
 
             opslaanSchade: function(data){
-                var deferred = $.Deferred();
-
-		    	$.ajax({
-		            url: navRegister.bepaalUrl('OPSLAAN_SCHADE'),
-		            type: 'POST',
-		            data: data ,
-		            contentType: 'application/json; charset=utf-8',
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-		        });
-
-                return deferred.promise();
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_SCHADE'), data);
             },
 
             verwijderSchade: function(id){
-				$.get(navRegister.bepaalUrl('VERWIJDER_SCHADE'), {"id" : id}, function() {});
+                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_SCHADE'), {"id" : id});
             },
 
             lijstStatusSchade: function(){
-                var deferred = $.Deferred();
-
-                $.get(navRegister.bepaalUrl('LIJST_STATUS_SCHADE'), {"id" : id}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_STATUS_SCHADE'), {"id" : id});
             },
 
             leesSchade: function(id){
-                var deferred = $.Deferred();
-
-                $.get( "../dejonge/rest/medewerker/schade/lees", {"id" : subId}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LEES_SCHADE'), {"id" : id});
             },
 
             lijstSchades: function(relatieId){
-                var deferred = $.Deferred();
-
-                $.ajax({
-                    type: "GET",
-                    url: navRegister.bepaalUrl('LIJST_SCHADES'),
-                    async: false,
-                    dataType: "json",
-                    data: {
-                        relatieId : relatieId
-                    },
-                    context: this,
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_SCHADES'), {relatieId : relatieId});
             },
 
             lijstSoortenHypotheek: function(id){
-                var deferred = $.Deferred();
-
-                $.get(navRegister.bepaalUrl('LIJST_SOORTEN_HYPOTHEEK'), {"id" : id}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_SOORTEN_HYPOTHEEK'), {"id" : id});
             },
 
             lijstHypothekenInclDePakketten: function(relatieId){
-                var deferred = $.Deferred();
-
-    			$.get(navRegister.bepaalUrl('LIJST_HYPOTHEKEN_INCL_PAKKETTEN'), {relatieId : relatieId}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_HYPOTHEKEN_INCL_PAKKETTEN'), {relatieId : relatieId});
             },
 
             leesHypotheek: function(id){
-                var deferred = $.Deferred();
-
-    			$.get(navRegister.bepaalUrl('LEES_HYPOTHEEK'), {id : id}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LEES_HYPOTHEEK'), {id : id});
             },
 
             lijstHypotheken: function(relatieId){
-                var deferred = $.Deferred();
-
-    			$.get(navRegister.bepaalUrl('LIJST_HYPOTHEKEN'), {relatieId : relatieId}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_HYPOTHEKEN'), {relatieId : relatieId});
             },
 
             lijstHypotheekPakketten: function(relatieId){
-                var deferred = $.Deferred();
-
-    			$.get(navRegister.bepaalUrl('LIJST_HYPOTHEEKPAKKETTEN'), {relatieId : relatieId}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_HYPOTHEEKPAKKETTEN'), {relatieId : relatieId});
             },
 
             opslaanHypotheek: function(data){
-                var deferred = $.Deferred();
-
-		    	$.ajax({
-		            url: navRegister.bepaalUrl('OPSLAAN_HYPOTHEEK'),
-		            type: 'POST',
-		            data: data,
-		            contentType: 'application/json; charset=utf-8',
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-		        });
-
-                return deferred.promise();
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_HYPOTHEEK'), data);
             },
 
             verwijderHypotheek: function(id){
-				$.get(navRegister.bepaalUrl('VERWIJDER_HYPOTHEEK'), {"id" : id}, function() {});
+                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_HYPOTHEEK'), {"id" : id});
             },
 
             lijstOpenAangiftes: function(relatie){
-                var deferred = $.Deferred();
-
-    			$.get(navRegister.bepaalUrl('LIJST_OPEN_AANGIFTES'), {relatie : relatie}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_OPEN_AANGIFTES'), {relatie : relatie});
             },
 
             lijstGeslotenAangiftes: function(relatie){
-                var deferred = $.Deferred();
-
-    			$.get(navRegister.bepaalUrl('LIJST_GESLOTEN_AANGIFTES'), {relatie : relatie}, function(response) {
-                    return deferred.resolve(response);
-                });
-
-                return deferred.promise();
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_GESLOTEN_AANGIFTES'), {relatie : relatie});
             },
 
             afrondenAangifte: function(data){
-                var deferred = $.Deferred();
-
-		    	$.ajax({
-		            url: navRegister.bepaalUrl('AFRONDEN_AANGIFTE'),
-		            type: 'POST',
-		            data: data,
-		            contentType: 'application/json; charset=utf-8',
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-		        });
-
-                return deferred.promise();
+                return this.voerUitPost(navRegister.bepaalUrl('AFRONDEN_AANGIFTE'), data);
             },
 
             opslaanAangifte: function(data){
-                var deferred = $.Deferred();
-
-		    	$.ajax({
-		            url: navRegister.bepaalUrl('OPSLAAN_AANGIFTE'),
-		            type: 'POST',
-		            data: data,
-		            contentType: 'application/json; charset=utf-8',
-                    success: function(response) {
-                        return deferred.resolve(response);
-                    },
-                    error: function (response) {
-                        return deferred.reject(response);
-                    }
-		        });
-
-                return deferred.promise();
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_AANGIFTE'), data);
             }
 
         }
