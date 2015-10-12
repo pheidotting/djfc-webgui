@@ -1,8 +1,9 @@
 define(['jquery',
          'knockout',
          'commons/3rdparty/log',
-         'commons/commonFunctions'],
-	function ($, ko, log, commonFunctions) {
+         'commons/commonFunctions',
+         'redirect'],
+	function ($, ko, log, commonFunctions, redirect) {
 
 	return function opmerkingModel (data){
 		_this = this;
@@ -42,7 +43,7 @@ define(['jquery',
 //	    				uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadSchade' + int + 'File');
 //	    			}
 	            	commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-	            	document.location.hash = "#beherenRelatie/" + relatieId + "/schades";
+					redirect.redirect('BEHEREN_RELATIE', relatieId, 'schades');
 	            },
 	            error: function (data) {
 	            	commonFunctions.plaatsFoutmelding(data);

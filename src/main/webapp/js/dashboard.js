@@ -1,5 +1,6 @@
-define(['jquery'],
-    function($) {
+define(['jquery',
+		'redirect'],
+    function($, redirect) {
 
 	return function(){
 		$('#content').load('templates/dashboard/dashboard.html', function(response, status, xhr) {
@@ -10,12 +11,12 @@ define(['jquery'],
 			}
 
 			$('#zoeken').click(function(){
-				document.location.hash='#lijstRelaties/' + $('#zoekTerm').val();
+				redirect.redirect('LIJST_RELATIES', $('#zoekTerm').val());
 			});
 			
 			$('#zoekTerm').on("keypress", function(e) {
 	            if (e.keyCode == 13) {
-					document.location.hash='#lijstRelaties/' + $('#zoekTerm').val();
+	            	redirect.redirect('LIJST_RELATIES', $('#zoekTerm').val());
 	            }
 			});
 		});

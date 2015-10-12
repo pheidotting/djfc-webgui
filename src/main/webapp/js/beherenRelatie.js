@@ -12,8 +12,9 @@ define(['jquery',
         'js/beherenRelatieAangifte',
         'js/beherenRelatieAangiftes',
         'commons/3rdparty/log',
-        'commons/commonFunctions'],
-    function($, beherenRelatie, beherenRelatieBedrijven, beherenRelatieBedrijf, beherenRelatiePolissen, beherenRelatiePolis, beherenRelatieSchades, beherenRelatieSchade, beherenRelatieHypotheken, beherenRelatieHypotheek, beherenRelatieBijlages, beherenRelatieAangifte, beherenRelatieAangiftes, log, commonFunctions) {
+        'commons/commonFunctions',
+        'redirect'],
+    function($, beherenRelatie, beherenRelatieBedrijven, beherenRelatieBedrijf, beherenRelatiePolissen, beherenRelatiePolis, beherenRelatieSchades, beherenRelatieSchade, beherenRelatieHypotheken, beherenRelatieHypotheek, beherenRelatieBijlages, beherenRelatieAangifte, beherenRelatieAangiftes, log, commonFunctions, redirect) {
 
 	return function(relatieId, actie, subId){
 		$('#content').load('templates/beherenRelatieTemplate.html', function(response, status, xhr) {
@@ -77,51 +78,51 @@ define(['jquery',
 				//Navigatie
 				$("#beherenRelatie").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId;
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId);
 				});
 				$("#bedrijven").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/bedrijven';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'bedrijven');
 				});
 				$("#bedrijf").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/bedrijf/0';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'bedrijf', '0');
 				});
 				$("#polissen").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/polissen';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'polissen');
 				});
 				$("#polis").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/polis/0';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'polis', '0');
 				});
 				$("#schades").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/schades';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'schades');
 				});
 				$("#schade").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/schade/0';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'schade', '0');
 				});
 				$("#hypotheken").click(function(){
 					commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/hypotheken';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'hypotheken');
 				});
 				$("#hypotheek").click(function(){
 					commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/hypotheek/0';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'hypotheek', '0');
 				});
 				$("#bijlages").click(function(){
 			    	commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/bijlages';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'bijlages');
 				});
 				$("#aangiftes").click(function(){
 					commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/aangiftes';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'aangiftes');
 				});
 				$("#aangifte").click(function(){
 					commonFunctions.verbergMeldingen();
-					document.location.hash='#beherenRelatie/' + relatieId + '/aangifte/0';
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'aangifte', '0');
 				});
 			}
 		});

@@ -163,7 +163,7 @@ define(["commons/3rdparty/log",
             },
 
             lijstTaken: function(){
-                return this.voerUitGet(navRegister.bepaalUrl'LIJST_TAKEN');
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_TAKEN'));
             },
 
             afhandelenTaak: function(data){

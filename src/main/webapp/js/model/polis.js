@@ -6,8 +6,9 @@ define(['jquery',
          'model/bijlage',
          "commons/opmaak",
          'dataservices',
-         'navRegister'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataservices, navRegister) {
+         'navRegister',
+         'redirect'],
+	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataservices, navRegister, redirect) {
 
 	return function polisModel (data){
 		var _polis = this;
@@ -96,7 +97,7 @@ define(['jquery',
 	    _polis.bewerkPolis = function(polis){
 			commonFunctions.verbergMeldingen();
 			log.debug("Polis bewerken met id " + polis.id() + " en Relatie id : " + polis.relatie());
-	    	document.location.hash = "#beherenRelatie/" + polis.relatie() + "/polis/" + polis.id();
+			redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polis', polis.id());
 	    };
 
 	    _polis.beeindigPolis = function(polis){
@@ -158,7 +159,7 @@ define(['jquery',
 //						commonFunctions.uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadPolis' + int + 'File');
 //					}
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					document.location.hash = "#beherenRelatie/" + polis.relatie() + "/polissen";
+					redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
 	    		}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
 	    		});

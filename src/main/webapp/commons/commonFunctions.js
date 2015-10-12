@@ -1,6 +1,7 @@
 define([ "commons/3rdparty/log",
-         'dataservices'],
-         function(log, dataservices) {
+         'dataservices',
+         'redirect'],
+	function(log, dataservices, redirect) {
 
 	var refreshIntervalId;
 
@@ -45,7 +46,7 @@ define([ "commons/3rdparty/log",
 		nietMeerIngelogd: function(data){
         	log.error("FOUT opgehaald : " + JSON.stringify(data));
         	log.error("naar inlogscherm");
-			document.location.hash='#inloggen';
+			redirect.redirect('INLOGGEN');
 			this.plaatsFoutmelding("Sessie verlopen, graag opnieuw inloggen");
 		},
 
@@ -61,7 +62,7 @@ define([ "commons/3rdparty/log",
 			$('#ingelogdeGebruiker').html("");
 			$('#uitloggen').hide();
 			$('#homeKnop').hide();
-			document.location.hash='#inloggen';
+			redirect.redirect('INLOGGEN');
 		},
 
 		haalIngelogdeGebruiker: function(){
@@ -81,7 +82,7 @@ define([ "commons/3rdparty/log",
 				$('#ingelogdeGebruiker').html("");
 				$('#uitloggen').hide();
 				$('#homeKnop').hide();
-				document.location.hash='#inloggen';
+				redirect.redirect('INLOGGEN');
 			});
 		},
 

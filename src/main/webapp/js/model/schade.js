@@ -6,8 +6,9 @@ define(['jquery',
          'model/bijlage',
          'model/opmerking',
          "commons/opmaak",
-         'dataservices'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataservices) {
+         'dataservices',
+         'redirect'],
+	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataservices, redirect) {
 
 	return function schadeModel (data){
 		self = this;
@@ -131,7 +132,7 @@ define(['jquery',
 						uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadSchade' + int + 'File');
 					}
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					document.location.hash = "#beherenRelatie/" + schade.relatie() + "/schades";
+					redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'schades');
 	    		}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
 	    		});
@@ -139,11 +140,11 @@ define(['jquery',
 		};
 
 	    self.bewerkSchade = function(schade){
-	    	document.location.hash = "#beherenRelatie/" + schade.relatie() + "/schade/" + schade.id();
+			redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'schade', schade.id());
 	    };
 
 	    self.plaatsOpmerking = function(schade){
-	    	document.location.hash = "#beherenRelatie/" + schade.relatie() + "/opmerking/s" + schade.id();
+			redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'opmerking', 's' + schade.id());
 	    };
 	};
 });

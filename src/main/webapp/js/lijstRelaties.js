@@ -5,8 +5,9 @@ define(['jquery',
         'commons/commonFunctions',
         'commons/block',
         'commons/3rdparty/log',
-		'dataservices'],
-     function($, ko, LijstRelaties, Relatie, functions, block, log, dataservices) {
+		'dataservices',
+		'redirect'],
+	function($, ko, LijstRelaties, Relatie, functions, block, log, dataservices, redirect) {
 
 	return function(zoekTerm){
 		var lijst = new LijstRelaties();
@@ -32,12 +33,12 @@ define(['jquery',
 			}
 		
 			$('#zoeken').click(function(){
-				document.location.hash='#lijstRelaties/' + $('#zoekTerm').val();
+				redirect.redirect('LIJST_RELATIES', $('#zoekTerm').val());
 			});
 
 			$('#zoekTerm').on("keypress", function(e) {
 	            if (e.keyCode == 13) {
-					document.location.hash='#lijstRelaties/' + $('#zoekTerm').val();
+					redirect.redirect('LIJST_RELATIES', $('#zoekTerm').val());
 	            }
 			});
 		});

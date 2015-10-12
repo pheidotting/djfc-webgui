@@ -12,7 +12,8 @@ requirejs.config({
         'blockUI': 'http://malsup.github.com/jquery.blockUI',
         jqueryUI: '../commons/3rdparty/jquery-ui-1.10.3',
         dataservices: '../js/commons/dataServices',
-        navRegister: '../js/commons/navRegister'
+        navRegister: '../js/commons/navRegister',
+        redirect: '../js/commons/redirect'
     },
 	shim: {
         "knockoutValidation": ["knockout"],

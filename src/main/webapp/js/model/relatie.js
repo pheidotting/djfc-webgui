@@ -142,14 +142,14 @@ define(['jquery',
 				log.debug(ko.toJSON(_thisRelatie));
 				var foutmelding;
 				dataservices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(response){
-					document.location.hash='#lijstRelaties';
+					redirect.redirect('LIJST_RELATIES');
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response){
 					commonFunctions.plaatsFoutmelding(data);
 					foutmelding = true;
 				});
 				if(foutmelding == undefined || foutmelding == null){
-					document.location.hash='#lijstRelaties';
+					redirect.redirect('LIJST_RELATIES');
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}
 	    	}
@@ -159,12 +159,12 @@ define(['jquery',
 			log.debug("verwijderen Relatie met id " + relatie.id());
 
 			dataservices.verwijderRelatie(ko.utils.unwrapObservable(relatie.id));
-			document.location.hash='#lijstRelaties';
+			redirect.redirect('LIJST_RELATIES');
 		},
 
 		_thisRelatie.naarDetailScherm = function(relatie){
 			commonFunctions.verbergMeldingen();
-			document.location.hash='#beherenRelatie/' + ko.utils.unwrapObservable(relatie.id);
+			redirect.redirect('BEHEREN_RELATIE', ko.utils.unwrapObservable(relatie.id));
 		}
 
         _thisRelatie.opzoekenAdres = function(adres){

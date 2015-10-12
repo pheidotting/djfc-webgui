@@ -6,8 +6,9 @@ define(['jquery',
          'moment',
          'model/bijlage',
          'commons/commonFunctions',
-         'dataservices'],
-         function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataservices) {
+         'dataservices',
+         'redirect'],
+	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataservices, redirect) {
 
 	return function hypotheek(data) {
 		_this = this;
@@ -169,7 +170,7 @@ define(['jquery',
 						uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadHypotheek' + int + 'File');
 					}
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					document.location.hash = "#beherenRelatie/" + hypotheek.relatie() + "/hypotheken";
+					redirect.redirect('BEHEREN_RELATIE', hypotheek.relatie(), 'hypotheken');
 	    		}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
 		        });
@@ -178,7 +179,7 @@ define(['jquery',
 
 	    self.bewerkHypotheek = function(hypotheek){
 	    	commonFunctions.verbergMeldingen();
-	    	document.location.hash = "#beherenRelatie/" + hypotheek.relatie() + "/hypotheek/" + ko.utils.unwrapObservable(hypotheek.id);
+					redirect.redirect('BEHEREN_RELATIE', hypotheek.relatie(), 'hypotheek', ko.utils.unwrapObservable(hypotheek.id));
 	    };
 
 		_this.berekenEinddatumLening = function(hypotheek){

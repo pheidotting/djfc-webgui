@@ -20,7 +20,7 @@ define([ "commons/3rdparty/log",
 			}
 	    };
 	    self.plaatsOpmerking = function(schade){
-	    	document.location.hash = "#beherenRelatie/" + _relatieId + "/opmerking/h" + ko.utils.unwrapObservable(schade.id);
+			redirect.redirect('BEHEREN_RELATIE', _relatieId, 'opmerking', 'h' + ko.utils.unwrapObservable(schade.id));
 	    };
 	};
 });

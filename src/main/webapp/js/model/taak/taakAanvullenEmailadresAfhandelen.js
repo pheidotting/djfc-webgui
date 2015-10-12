@@ -6,8 +6,9 @@ define([ "commons/3rdparty/log",
          'commons/block',
          'model/relatie',
          'js/model/taak/afhandelenTaak',
-         'dataservices'],
-	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, AfhandelenTaak, dataservices) {
+         'dataservices',
+         'redirect'],
+	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, AfhandelenTaak, dataservices, redirect) {
 
 	return function taakAanvullenAdresAfhandelen(data) {
 		_thisTaak = this;
@@ -39,7 +40,7 @@ define([ "commons/3rdparty/log",
 				logger.debug(ko.toJSON(afhandelenTaak));
 
 				dataservices.afhandelenTaak(ko.toJSON(afhandelenTaak)).done(function(response){
-					document.location.hash='#taken';
+					redirect.redirect('TAKEN');
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
@@ -50,7 +51,7 @@ define([ "commons/3rdparty/log",
 		};
 		
 		_thisTaak.terug = function(){
-			document.location.hash = "#taken";
+			redirect.redirect('TAKEN');
 		};
 	};
 });

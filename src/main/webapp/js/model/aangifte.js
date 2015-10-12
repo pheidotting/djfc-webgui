@@ -4,8 +4,9 @@ define(['jquery',
          'commons/3rdparty/log',
          'commons/commonFunctions',
          'dataservices',
-         'navRegister'],
-	function ($, ko, Bijlage, log, commonFunctions, dataservices, navRegister) {
+         'navRegister',
+         'redirect'],
+	function ($, ko, Bijlage, log, commonFunctions, dataservices, navRegister, redirect) {
 
 	return function aangifteModel (data){
 		aangifte = this;
@@ -39,7 +40,7 @@ define(['jquery',
 
 		aangifte.afronden = function(aangifte){
 			dataservices.afrondenAangifte(JSON.stringify(aangifte.id())).done(function(data){
-				document.location.hash = "#beherenRelatie/" + aangifte.relatie() + "/aangiftes";
+                redirect.redirect('BEHEREN_RELATIE', aangifte.relatie(), 'aangiftes');
 			}).fail(function(data){
 				commonFunctions.plaatsFoutmelding(data);
 			});
@@ -61,7 +62,7 @@ define(['jquery',
 				}
 				commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				log.debug("aangifte id : " + aangifte.relatie());
-				document.location.hash = "#beherenRelatie/" + aangifte.relatie();
+                redirect.redirect('BEHEREN_RELATIE', aangifte.relatie());
     		}).fail(function(data){
 				commonFunctions.plaatsFoutmelding(data);
     		});

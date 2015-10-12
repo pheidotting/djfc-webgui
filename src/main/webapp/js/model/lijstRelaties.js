@@ -3,8 +3,9 @@ define(['jquery',
          'model/relatie',
          'commons/commonFunctions',
          'knockoutValidation',
-         'blockUI'],
-	function ($, ko, Relatie, functions, blockUI) {
+         'blockUI',
+         'redirect'],
+	function ($, ko, Relatie, functions, blockUI, redirect) {
 
 	return function(){
 		var relatieLijstModel = ko.validatedObservable({
@@ -15,12 +16,12 @@ define(['jquery',
 				functions.verbergMeldingen();
 				$(document).ajaxStop($.unblockUI);
 				$.blockUI({ message: '<img src="images/ajax-loader.gif">'});
-				document.location.hash='#beherenRelatie/' + relatie.id;
+				redirect.redirect('BEHEREN_RELATIE', relatie.id);
 			},
 
 			toevoegenNieuweRelatie : function(){
 				functions.verbergMeldingen();
-				document.location.hash='#beherenRelatie/0';
+				redirect.redirect('BEHEREN_RELATIE', '0');
 			}
 		});
 

@@ -2,8 +2,9 @@ define(['jquery',
          'knockout',
          'commons/commonFunctions',
          'commons/block',
-         'dataservices'],
-	function ($, ko, commonFunctions, block, dataservices) {
+         'dataservices',
+         'redirect'],
+	function ($, ko, commonFunctions, block, dataservices, redirect) {
 
 	return function(){
 		var inlogModel = ko.validatedObservable({
@@ -17,7 +18,7 @@ define(['jquery',
 					block.block();
 					dataservices.inloggen(ko.toJSON(this)).done(function(){
 						commonFunctions.haalIngelogdeGebruiker();
-						document.location.hash='#dashboard';
+						redirect.redirect('DASHBOARD');
 					}).fail(function(result){
 						commonFunctions.plaatsFoutmelding(result);
 					});
