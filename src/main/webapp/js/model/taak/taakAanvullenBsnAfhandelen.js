@@ -6,9 +6,9 @@ define([ "commons/3rdparty/log",
          'commons/block',
          'model/relatie',
          'js/model/taak/afhandelenTaak',
-         'dataservices',
+         'dataServices',
          'redirect'],
-	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, AfhandelenTaak, dataservices, redirect) {
+	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, AfhandelenTaak, dataServices, redirect) {
 
 	return function taakAanvullenAdresAfhandelen(data) {
 		_thisTaak = this;
@@ -16,7 +16,7 @@ define([ "commons/3rdparty/log",
 		_thisTaak.relatie = ko.observable('');
 		_thisTaak.bsn = ko.observable(data.bsn);
 
-		dataservices.leesRelatie(data.gerelateerdAan).done(function(data){
+		dataServices.leesRelatie(data.gerelateerdAan).done(function(data){
 			_thisTaak.relatie(data);
 			_thisTaak.bsn(data.bsn);
 		});
@@ -33,12 +33,12 @@ define([ "commons/3rdparty/log",
 			_thisTaak.relatie().bsn = _thisTaak.bsn();
 			
 			logger.debug(ko.toJSON(_thisTaak.relatie()));
-			dataservices.opslaanRelatie(ko.toJSON(_thisTaak.relatie())).done(function(response){
+			dataServices.opslaanRelatie(ko.toJSON(_thisTaak.relatie())).done(function(response){
 				var afhandelenTaak = new AfhandelenTaak(_thisTaak.taakId());
 
 				logger.debug(ko.toJSON(afhandelenTaak));
 
-				dataservices.afhandelenTaak(ko.toJSON(afhandelenTaak)).done(function(response){
+				dataServices.afhandelenTaak(ko.toJSON(afhandelenTaak)).done(function(response){
 					redirect.redirect('TAKEN');
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(data){

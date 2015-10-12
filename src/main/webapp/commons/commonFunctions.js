@@ -1,7 +1,7 @@
 define([ "commons/3rdparty/log",
-         'dataservices',
+         'dataServices',
          'redirect'],
-	function(log, dataservices, redirect) {
+	function(log, dataServices, redirect) {
 
 	var refreshIntervalId;
 
@@ -58,7 +58,7 @@ define([ "commons/3rdparty/log",
  		},
 
 		uitloggen: function(){
-			dataservices.uitloggen();
+			dataServices.uitloggen();
 			$('#ingelogdeGebruiker').html("");
 			$('#uitloggen').hide();
 			$('#homeKnop').hide();
@@ -68,7 +68,7 @@ define([ "commons/3rdparty/log",
 		haalIngelogdeGebruiker: function(){
 			log.debug("Haal ingelogde gebruiker");
 
-			dataservices.haalIngelogdeGebruiker().done(function(response){
+			dataServices.haalIngelogdeGebruiker().done(function(response){
 				if(response.kantoor != null){
 					log.debug("Ingelogde gebruiker : " + response.gebruikersnaam + ", (" + response.kantoor + ")");
 					$('#ingelogdeGebruiker').html("Ingelogd als : " + response.gebruikersnaam + ", (" + response.kantoor + ")");

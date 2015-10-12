@@ -5,9 +5,9 @@ define(['jquery',
         'commons/commonFunctions',
         'commons/block',
         'commons/3rdparty/log',
-		'dataservices',
+		'dataServices',
 		'redirect'],
-	function($, ko, LijstRelaties, Relatie, functions, block, log, dataservices, redirect) {
+	function($, ko, LijstRelaties, Relatie, functions, block, log, dataServices, redirect) {
 
 	return function(zoekTerm){
 		var lijst = new LijstRelaties();
@@ -18,7 +18,7 @@ define(['jquery',
 				log.debug("ophalen lijst met Relaties");
 				block.block();
 
-				dataservices.lijstRelaties(zoekTerm).done(function(data) {
+				dataServices.lijstRelaties(zoekTerm).done(function(data) {
 					log.debug("opgehaald " + JSON.stringify(data));
 					if(data != undefined){
 						$.each(data.jsonRelaties, function(i, item) {

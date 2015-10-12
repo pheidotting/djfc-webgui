@@ -19,7 +19,7 @@ define([ "commons/3rdparty/log",
 		_thisTaak.postcode = ko.observable(data.postcode).extend({required: true});
 		_thisTaak.plaats = ko.observable(data.plaats).extend({required: true});
 
-		dataservices.leesRelatie(data.gerelateerdAan).done(function(data){
+		dataServices.leesRelatie(data.gerelateerdAan).done(function(data){
 			_thisTaak.relatie(data);
 			_thisTaak.straat(data.straat);
 			_thisTaak.huisnummer(data.huisnummer);
@@ -60,12 +60,12 @@ define([ "commons/3rdparty/log",
 			_thisTaak.relatie().plaats = _thisTaak.plaats();
 			
 			logger.debug(ko.toJSON(_thisTaak.relatie()));
-			dataservices.opslaanRelatie(ko.toJSON(_thisTaak.relatie())).done(function(response){
+			dataServices.opslaanRelatie(ko.toJSON(_thisTaak.relatie())).done(function(response){
 				var afhandelenTaak = new AfhandelenTaak(_thisTaak.taakId());
 
 				logger.debug(ko.toJSON(afhandelenTaak));
 
-				dataservices.afhandelenTaak(ko.toJSON(afhandelenTaak)).done(function(response){
+				dataServices.afhandelenTaak(ko.toJSON(afhandelenTaak)).done(function(response){
 					redirect.redirect('TAKEN');
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(data){

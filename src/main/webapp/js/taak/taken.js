@@ -2,12 +2,12 @@ define(['jquery',
         'knockout',
         'js/model/taak/taken',
          'knockout',
-         'dataservices'],
-    function($, ko, Taken, ko, dataservices) {
+         'dataServices'],
+    function($, ko, Taken, ko, dataServices) {
 
 	return function(){
 		$('#content').load('templates/taken/taken.html', function(){
-			dataservices.lijstTaken().done(function(data){
+			dataServices.lijstTaken().done(function(data){
 				ko.applyBindings(new Taken(data));
 			});
 		});

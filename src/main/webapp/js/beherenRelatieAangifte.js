@@ -4,14 +4,14 @@ define(['jquery',
         'model/aangiftes',
         'commons/block',
         'commons/3rdparty/log',
-        'dataservices'],
-    function($, ko, Aangifte, Aangiftes, block, log, dataservices) {
+        'dataServices'],
+    function($, ko, Aangifte, Aangiftes, block, log, dataServices) {
 
 	return function(relatieId) {
 		block.block();
 		log.debug("Ophalen openstaande aangiftes voor Relatie met id : " + relatieId);
 
-		dataservices.lijstOpenAangiftes(relatieId).done(function(data) {
+		dataServices.lijstOpenAangiftes(relatieId).done(function(data) {
 			ko.applyBindings(new Aangiftes(data));
 	    });
 	};

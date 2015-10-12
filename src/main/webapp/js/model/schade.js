@@ -6,9 +6,9 @@ define(['jquery',
          'model/bijlage',
          'model/opmerking',
          "commons/opmaak",
-         'dataservices',
+         'dataServices',
          'redirect'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataservices, redirect) {
+	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataServices, redirect) {
 
 	return function schadeModel (data){
 		self = this;
@@ -126,7 +126,7 @@ define(['jquery',
 	    	}else{
 	    		log.debug("Versturen : " + ko.toJSON(schade));
 
-	    		dataservices.opslaanSchade(ko.toJSON(schade)).done(function(){
+	    		dataServices.opslaanSchade(ko.toJSON(schade)).done(function(){
 					for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
 						var formData = new FormData($('#schadeMeldForm')[0]);
 						uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadSchade' + int + 'File');

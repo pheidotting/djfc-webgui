@@ -3,17 +3,17 @@ define(['jquery',
         "js/model/taak/taken",
         "commons/3rdparty/log",
         'commons/block',
-        'dataservices',
+        'dataServices',
         "js/model/taak/taakAanvullenAdresAfhandelen",
         "js/model/taak/taakAanvullenBsnAfhandelen",
         "js/model/taak/taakAanvullenEmailadresAfhandelen"],
-    function($, ko, Taken, logger, block, dataservices, TaakAanvullenAdresAfhandelen, TaakAanvullenBsnAfhandelen, taakAanvullenEmailadresAfhandelen) {
+    function($, ko, Taken, logger, block, dataServices, TaakAanvullenAdresAfhandelen, TaakAanvullenBsnAfhandelen, taakAanvullenEmailadresAfhandelen) {
 
 	return function(id){
 		block.block();
 		logger.debug("Afhandelen taak met id " + id);
 
-		dataservices.leesTaak(id).done(function(data){
+		dataServices.leesTaak(id).done(function(data){
 			$('#content').load("templates/taken/AfhandelenTaakTemplate.html", function(){
 				$('#taakContent').load("templates/taken/Afhandelen" + data.soortTaak + ".html", function(){
 					if(data.soortTaak == "AanvullenAdresTaak"){

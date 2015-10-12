@@ -3,14 +3,14 @@ define(['jquery',
         'model/bedrijf',
         'commons/block',
         'commons/3rdparty/log',
-        'dataservices'],
-    function($, ko, Bedrijf, block, log, dataservices) {
+        'dataServices'],
+    function($, ko, Bedrijf, block, log, dataServices) {
 
 	return function(bedrijfId, relatieId) {
 		block.block();
 		log.debug("Ophalen Bedrijf met id : " + bedrijfId);
 
-		dataservices.leesBedrijf(subId).done(function(data){
+		dataServices.leesBedrijf(subId).done(function(data){
 			var bedrijf = new Bedrijf(data);
 			bedrijf.relatie(relatieId);
 			ko.applyBindings(bedrijf);

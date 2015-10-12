@@ -6,9 +6,9 @@ define(['jquery',
          'moment',
          'model/bijlage',
          'commons/commonFunctions',
-         'dataservices',
+         'dataServices',
          'redirect'],
-	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataservices, redirect) {
+	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataServices, redirect) {
 
 	return function hypotheek(data) {
 		_this = this;
@@ -16,7 +16,7 @@ define(['jquery',
 		_this.soortenHypotheek = ko.observableArray();
 
 		_this.soorten = function(){
-			dataservices.lijstSoortenHypotheek().done(function (data) {
+			dataServices.lijstSoortenHypotheek().done(function (data) {
 				$.each(data, function(i, item) {
 					_this.soortenHypotheek.push(new SoortHypotheek(item));
 				});
@@ -163,7 +163,7 @@ define(['jquery',
 	    	}else{
 	    		log.debug("Versturen : " + ko.toJSON(hypotheek));
 
-	    		dataservices.opslaanHypotheek(ko.toJSON(hypotheek)).done(function(data){
+	    		dataServices.opslaanHypotheek(ko.toJSON(hypotheek)).done(function(data){
 					_this.id(data.foutmelding);
 					for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
 						var formData = new FormData($('#hypotheekForm')[0]);

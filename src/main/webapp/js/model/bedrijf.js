@@ -2,9 +2,9 @@ define(['jquery',
          'knockout',
          'commons/3rdparty/log',
          'commons/commonFunctions',
-		 'dataservices',
+		 'dataServices',
 		 'redirect'],
-	function ($, ko, log, commonFunctions, dataservices, redirect) {
+	function ($, ko, log, commonFunctions, dataServices, redirect) {
 
 	return function bedrijfModel (data){
 		_this = this;
@@ -41,7 +41,7 @@ define(['jquery',
 				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaanBedrijf : ");
 				log.debug(ko.toJSON(_this));
 
-				dataservices.opslaanBedrijf(ko.toJSON(bedrijf)).done(function(){
+				dataServices.opslaanBedrijf(ko.toJSON(bedrijf)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					redirect.redirect('BEHEREN_RELATIE', bedrijf.relatie(), 'bedrijven');
 				}).fail(function(data){

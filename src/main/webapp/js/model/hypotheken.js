@@ -1,8 +1,8 @@
 define([ "commons/3rdparty/log",
          "commons/validation",
          "pages/beherenRelatie/details/model/hypotheek",
-         'dataservices'],
-	function(log, validation, hypotheek, dataservices) {
+         'dataServices'],
+	function(log, validation, hypotheek, dataServices) {
 
 	return function hypotheken(data) {
 		var _this = this;
@@ -16,7 +16,7 @@ define([ "commons/3rdparty/log",
 			var r=confirm("Weet je zeker dat je deze hypotheek wilt verwijderen?");
 			if (r==true) {
 				_this.hypotheken.remove(hypotheek);
-				dataservices.verwijderHypotheek(ko.utils.unwrapObservable(hypotheek.id));
+				dataServices.verwijderHypotheek(ko.utils.unwrapObservable(hypotheek.id));
 			}
 	    };
 	    self.plaatsOpmerking = function(schade){

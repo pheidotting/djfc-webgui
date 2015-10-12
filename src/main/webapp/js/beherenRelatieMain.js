@@ -5,14 +5,14 @@ define(['jquery',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'jqueryUI',
-        'dataservices'],
-     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataservices) {
+        'dataServices'],
+     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices) {
 
 	return function(relatieId) {
 		block.block();
 		log.debug("ophalen Relatie met id " + relatieId);
 
-		dataservices.leesRelatie(relatieId).done(function(data){
+		dataServices.leesRelatie(relatieId).done(function(data){
 			log.debug("opgehaald : " + JSON.stringify(data));
 			ko.validation.registerExtenders();
 

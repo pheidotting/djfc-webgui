@@ -8,8 +8,8 @@ define(['jquery',
          'moment',
          'commons/3rdparty/log',
          'commons/validation',
-         'dataservices'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Opmerking, Adres, moment, log, validation, dataservices) {
+         'dataServices'],
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Opmerking, Adres, moment, log, validation, dataServices) {
 
 	return function relatieModel (data){
 		_thisRelatie = this;
@@ -141,7 +141,7 @@ define(['jquery',
 				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaan : ");
 				log.debug(ko.toJSON(_thisRelatie));
 				var foutmelding;
-				dataservices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(response){
+				dataServices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(response){
 					redirect.redirect('LIJST_RELATIES');
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response){
@@ -158,7 +158,7 @@ define(['jquery',
 		_thisRelatie.verwijderenRelatie = function(relatie){
 			log.debug("verwijderen Relatie met id " + relatie.id());
 
-			dataservices.verwijderRelatie(ko.utils.unwrapObservable(relatie.id));
+			dataServices.verwijderRelatie(ko.utils.unwrapObservable(relatie.id));
 			redirect.redirect('LIJST_RELATIES');
 		},
 

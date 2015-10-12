@@ -3,8 +3,8 @@ define(['jquery',
          'knockout',
          'commons/3rdparty/log',
          'commons/commonFunctions',
-         'dataservices'],
-	function ($, Schade, ko, log, commonFunctions, dataservices) {
+         'dataServices'],
+	function ($, Schade, ko, log, commonFunctions, dataServices) {
 
 	return function schadesModel (data, relatieId) {
 		selfSchades = this;
@@ -18,7 +18,7 @@ define(['jquery',
 			var r=confirm("Weet je zeker dat je deze schade wilt verwijderen?");
 			if (r==true) {
 				selfSchades.schades.remove(schade);
-				dataservices.verwijderSchade(ko.utils.unwrapObservable(schade.id));
+				dataServices.verwijderSchade(ko.utils.unwrapObservable(schade.id));
 			}
 	    };
     };

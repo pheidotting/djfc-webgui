@@ -2,9 +2,9 @@ define([ "commons/3rdparty/log",
          "commons/validation",
          "commons/opmaak",
          "knockout",
-         'dataservices',
+         'dataServices',
          'redirect'],
-     function(logger, validation, opmaak, ko, dataservices, redirect) {
+     function(logger, validation, opmaak, ko, dataServices, redirect) {
 
 	return function taak(data) {
 		_this = this;
@@ -24,11 +24,11 @@ define([ "commons/3rdparty/log",
 
 		_this.vrijgeven = function(taak){
 			logger.debug("vrijgeven taak met id " + taak.id());
-			dataservices.vrijgevenTaak(taak.id());
+			dataServices.vrijgevenTaak(taak.id());
 		};
 		_this.oppakken = function(taak){
 			logger.debug("oppakken taak met id " + taak.id());
-			dataservices.oppakkenTaak(taak.id());
+			dataServices.oppakkenTaak(taak.id());
 			redirect.redirect('TAAK', taak.id());
 		};
 	};

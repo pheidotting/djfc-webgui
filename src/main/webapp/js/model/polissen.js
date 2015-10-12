@@ -3,8 +3,8 @@ define(['jquery',
          'knockout',
          'commons/3rdparty/log',
          'commons/commonFunctions',
-         'dataservices'],
-	function ($, Polis, ko, log, commonFunctions, dataservices) {
+         'dataServices'],
+	function ($, Polis, ko, log, commonFunctions, dataServices) {
 
 	return function polissenModel (data, relatieId) {
 		_thisPolissen = this;
@@ -19,7 +19,7 @@ define(['jquery',
 			var r=confirm("Weet je zeker dat je deze polis wilt verwijderen?");
 			if (r==true) {
 				_thisPolissen.polissen.remove(polis);
-				dataservices.verwijderPolis(ko.utils.unwrapObservable(polis.id));
+				dataServices.verwijderPolis(ko.utils.unwrapObservable(polis.id));
 			}
 	    };
     };

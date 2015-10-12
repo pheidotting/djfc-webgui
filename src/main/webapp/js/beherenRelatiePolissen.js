@@ -4,14 +4,14 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions',
-        'dataservices'],
-     function($, ko, Polissen, block, log, commonFunctions, dataservices) {
+        'dataServices'],
+     function($, ko, Polissen, block, log, commonFunctions, dataServices) {
 
 	return function(relatieId) {
 		log.debug("Ophalen polissen bij Relatie met id " + relatieId);
 		block.block();
 
-		dataservices.lijstPolissen(relatieId).done(function(data){
+		dataServices.lijstPolissen(relatieId).done(function(data){
 			log.debug("opgehaald : " + JSON.stringify(data));
 			ko.validation.registerExtenders();
 

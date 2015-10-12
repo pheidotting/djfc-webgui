@@ -4,12 +4,12 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions',
-        'dataservices'],
-     function($, ko, Schade, block, log, commonFunctions, dataservices) {
+        'dataServices'],
+     function($, ko, Schade, block, log, commonFunctions, dataServices) {
 
 	return function(polisId, relatieId) {
 		block.block();
-		dataservices.lijstPolissen(relatieId).done(function(data) {
+		dataServices.lijstPolissen(relatieId).done(function(data) {
 			var $select = $('#polisVoorSchademelding');
 			$.each(data, function(key, value) {
 				var polisTitel = value.soort + " (" + value.polisNummer + ")";
@@ -17,7 +17,7 @@ define(['jquery',
 			    $('<option>', { value : value.id }).text(polisTitel).appendTo($select);
 			});
 
-            dataservices.lijstStatusSchade().done(function(data) {
+            dataServices.lijstStatusSchade().done(function(data) {
 				var $select = $('#statusSchade');
 				$.each(data, function(key, value) {
 				    $('<option>', { value : value }).text(value).appendTo($select);
@@ -25,7 +25,7 @@ define(['jquery',
 				if(subId != null && subId != "0"){
 					log.debug("ophalen Schade met id " + subId);
 
-					dataservices.leesSchade(subId).done(function(data) {
+					dataServices.leesSchade(subId).done(function(data) {
 						log.debug("applybindings met " + JSON.stringify(data));
 						var schade = new Schade(data);
 						schade.relatie(relatieId);

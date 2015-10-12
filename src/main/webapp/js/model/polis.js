@@ -5,10 +5,10 @@ define(['jquery',
          'moment',
          'model/bijlage',
          "commons/opmaak",
-         'dataservices',
+         'dataServices',
          'navRegister',
          'redirect'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataservices, navRegister, redirect) {
+	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect) {
 
 	return function polisModel (data){
 		var _polis = this;
@@ -101,7 +101,7 @@ define(['jquery',
 	    };
 
 	    _polis.beeindigPolis = function(polis){
-	    	dataservices.beindigPolis(polis.id());
+	    	dataServices.beindigPolis(polis.id());
 			_polis.eindDatum(moment().format("DD-MM-YYYY"));
 	    };
 
@@ -110,7 +110,7 @@ define(['jquery',
 			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
 			if (r==true) {
 				_polis.bijlages.remove(bijlage);
-				dataservices.verwijderBijlage(bijlage.id());
+				dataServices.verwijderBijlage(bijlage.id());
 			}
 		};
 
@@ -153,7 +153,7 @@ define(['jquery',
 	    		commonFunctions.verbergMeldingen();
 	    		log.debug("versturen naar " + navRegister.bepaalUrl('OPSLAAN_POLIS'));
 	    		log.debug(ko.toJSON(polis));
-	    		dataservices.opslaanPolis(ko.toJSON(polis)).done(function(){
+	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
 //					for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
 //						var formData = new FormData($('#polisForm')[0]);
 //						commonFunctions.uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadPolis' + int + 'File');

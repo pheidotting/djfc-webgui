@@ -3,10 +3,10 @@ define(['jquery',
          'model/bijlage',
          'commons/3rdparty/log',
          'commons/commonFunctions',
-         'dataservices',
+         'dataServices',
          'navRegister',
          'redirect'],
-	function ($, ko, Bijlage, log, commonFunctions, dataservices, navRegister, redirect) {
+	function ($, ko, Bijlage, log, commonFunctions, dataServices, navRegister, redirect) {
 
 	return function aangifteModel (data){
 		aangifte = this;
@@ -39,7 +39,7 @@ define(['jquery',
 //		}
 
 		aangifte.afronden = function(aangifte){
-			dataservices.afrondenAangifte(JSON.stringify(aangifte.id())).done(function(data){
+			dataServices.afrondenAangifte(JSON.stringify(aangifte.id())).done(function(data){
                 redirect.redirect('BEHEREN_RELATIE', aangifte.relatie(), 'aangiftes');
 			}).fail(function(data){
 				commonFunctions.plaatsFoutmelding(data);
@@ -52,7 +52,7 @@ define(['jquery',
     		log.debug("versturen naar " + navRegister.bepaalUrl('OPSLAAN_AANGIFTE'));
     		log.debug(ko.toJSON(aangifte));
 
-    		dataservices.opslaanAangifte(ko.toJSON(aangifte)).done(function(data){
+    		dataServices.opslaanAangifte(ko.toJSON(aangifte)).done(function(data){
 				aangifte.id(data);
 				for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
 					var formData = new FormData($('#aangifteForm')[0]);
