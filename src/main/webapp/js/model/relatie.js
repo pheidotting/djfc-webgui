@@ -1,15 +1,17 @@
 define(['jquery',
         'commons/commonFunctions',
-         'knockout',
-         'model/rekeningNummer',
-         'model/telefoonNummer',
-         'model/opmerking',
-         'model/adres',
-         'moment',
-         'commons/3rdparty/log',
-         'commons/validation',
-         'dataServices'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Opmerking, Adres, moment, log, validation, dataServices) {
+        'knockout',
+        'model/rekeningNummer',
+        'model/telefoonNummer',
+        'model/opmerking',
+        'model/adres',
+        'model/bijlage',
+        'moment',
+        'commons/3rdparty/log',
+        'commons/validation',
+        'dataServices',
+        'navRegister'],
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Opmerking, Adres, Bijlage, moment, log, validation, dataServices, navRegister) {
 
 	return function relatieModel (data){
 		_thisRelatie = this;
@@ -106,28 +108,61 @@ define(['jquery',
 //			_thisRelatie.telefoonnummers().remove(telefoon);
 			_thisRelatie.telefoonnummers.valueHasMutated();
 		};
+
+		_thisRelatie.bijlages = ko.observableArray();
+		if(data.bijlages != null){
+			$.each(data.bijlages, function(i, item){
+				var bijlage = new Bijlage(item);
+				_thisRelatie.bijlages().push(bijlage);
+			});
+		};
+
+		_thisRelatie.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
+			$('uploadprogress').show();
+
+			uploaden().done(function(bijlage){
+				console.log(ko.toJSON(bijlage));
+				_thisRelatie.bijlages().push(bijlage);
+				_thisRelatie.bijlages.valueHasMutated();
+				$('#uploadPolis1File').val("");
+			});
+		};
+
+		uploaden = function(){
+			var deferred = $.Deferred();
+
+			var formData = new FormData($('#relatieForm')[0]);
+			commonFunctions.uploadBestand(formData, navRegister.bepaalUrl('UPLOAD_BIJLAGE_BIJ_RELATIE')).done(function(response) {
+				console.log(response);
+
+				var bijlageData = {};
+				bijlageData.id = response;
+				bijlageData.soortBijlage = 'Relatie';
+				bijlageData.bestandsNaam = $('#bijlageFile').val().replace("C:\\fakepath\\", "");
+				bijlageData.datumUpload = moment().format("DD-MM-YYYY HH:mm");
+
+				return deferred.resolve(new Bijlage(bijlageData));
+			});
+			return deferred.promise();
+		}
+
 		
 		_thisRelatie.nieuweOpmerking = ko.observable();
 		_thisRelatie.opmerkingOpslaan = function(){
 			log.debug(_thisRelatie.nieuweOpmerking());
 			if(_thisRelatie.nieuweOpmerking() != ''){
-		    	$.ajax({
-		            url: '/rest/authorisatie/authorisatie/ingelogdeGebruiker',
-		            type: 'GET',
-		            contentType: 'application/json; charset=utf-8',
-		            success: function (response) {
-	            		var opmerking = new Opmerking('');
-	            		opmerking.medewerker(response.gebruikersnaam);
-	            		opmerking.tijd(new moment());
-	            		opmerking.opmerking(_thisRelatie.nieuweOpmerking());
-	            		
-	            		log.debug(ko.toJSON(opmerking));
+			    dataServices.haalIngelogdeGebruiker().done(function(response){
+                    var opmerking = new Opmerking('');
+                    opmerking.medewerker(response.gebruikersnaam);
+                    opmerking.tijd(new moment());
+                    opmerking.opmerking(_thisRelatie.nieuweOpmerking());
 
-	            		_thisRelatie.opmerkingen().push(opmerking);
+                    log.debug(ko.toJSON(opmerking));
+
+                    _thisRelatie.opmerkingen().push(opmerking);
 //	            		_thisRelatie.valueHasMutated();
-	            		_thisRelatie.nieuweOpmerking('');
-	            		
-		            }
+                    _thisRelatie.nieuweOpmerking('');
 		    	});
 			}
 	    };

@@ -5,7 +5,7 @@ define(['jquery',
          'knockoutValidation',
          'blockUI',
          'redirect'],
-	function ($, ko, Relatie, functions, blockUI, redirect) {
+	function ($, ko, Relatie, functions, kv, blockUI, redirect) {
 
 	return function(){
 		var relatieLijstModel = ko.validatedObservable({
