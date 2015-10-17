@@ -13,27 +13,15 @@
     </properties>
 
     <dependencies>
-        <!-- DJFC Commons -->
-        <dependency>
-            <groupId>nl.lakedigital.djfc.commons</groupId>
-            <artifactId>json</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>nl.lakedigital.djfc.controllerinterfaces</groupId>
-            <artifactId>djfc-controllerinterfaces</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
         <!--Javax WS -->
-        <dependency>
+        <!--dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
             <version>0.11</version>
-        </dependency>
+        </--dependency-->
 
         <!-- Diversen -->
-        <dependency>
+        <!--dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.3</version>
@@ -42,17 +30,17 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.4</version>
-        </dependency>
+        </dependency-->
 
         <!-- Test -->
-        <dependency>
+        <!--dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-        </dependency>
+        </dependency-->
 
         <!-- Test, Selenium -->
-        <dependency>
+        <!--dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>LATEST</version>
@@ -63,10 +51,10 @@
             <artifactId>selenium-server</artifactId>
             <version>LATEST</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
 
         <!-- WireMock -->
-        <dependency>
+        <!--dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock</artifactId>
             <version>1.54</version>
@@ -78,17 +66,17 @@
                     <artifactId>jetty</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency-->
 
         <!-- Jetty Proxy -->
-        <dependency>
+        <!--dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-proxy</artifactId>
             <version>9.3.0.M2</version>
-        </dependency>
+        </dependency-->
 
         <!-- Spring MVC -->
-        <dependency>
+        <!--dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.5.0</version>
@@ -108,19 +96,11 @@
             <artifactId>javax.jms-api</artifactId>
             <version>LATEST</version>
         </dependency>
-
-        <!--
-        <dependency>
-            <groupId>nl.lakedigital</groupId>
-            <artifactId>archief</artifactId>
-            <version>0.0.18</version>
-        </dependency>
--->
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
-        </dependency>
+        </dependency-->
 
     </dependencies>
     <build>
