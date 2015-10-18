@@ -28,8 +28,6 @@ define([ "commons/3rdparty/log"],
                             {naam: 'VERWIJDER_POLIS',                   url: BASISURL_RELATIEBEHEER + '/medewerker/polis/verwijder'},
 
                             {naam: 'VERWIJDER_BIJLAGE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/verwijder'},
-                            {naam: 'UPLOAD_BIJLAGE_BIJ_POLIS',          url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadPolis1File'},
-                            {naam: 'UPLOAD_BIJLAGE_BIJ_RELATIE',        url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadBijlageBijRelatie'},
                             {naam: 'UPLOAD_BIJLAGE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadBijlage'},
 
                             {naam: 'OPSLAAN_SCHADE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/schade/opslaan'},

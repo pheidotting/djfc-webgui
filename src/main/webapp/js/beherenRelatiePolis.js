@@ -4,8 +4,9 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions',
-        'dataServices'],
-     function($, ko, Polis, block, log, commonFunctions, dataServices) {
+        'dataServices',
+        'fileUpload'],
+     function($, ko, Polis, block, log, commonFunctions, dataServices, fileUpload) {
 
 	return function(polisId, relatieId) {
 		block.block();
@@ -40,12 +41,16 @@ define(['jquery',
 					log.debug(JSON.stringify(data));
 					var polis = new Polis(data);
 					polis.relatie(relatieId);
-					ko.applyBindings(polis);
+					fileUpload.init().done(function(){
+						ko.applyBindings(polis);
+					});
 			    });
 			}else{
 				var polis = new Polis('');
 				polis.relatie(relatieId);
-				ko.applyBindings(polis);
+				fileUpload.init().done(function(){
+					ko.applyBindings(polis);
+				});
 			}
 		});
 	};
