@@ -5,8 +5,9 @@ define(['jquery',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'jqueryUI',
-        'dataServices'],
-     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices) {
+        'dataServices',
+        'fileUpload'],
+     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices, fileUpload) {
 
 	return function(relatieId) {
 		block.block();
@@ -18,7 +19,9 @@ define(['jquery',
 
 			var relatie = new Relatie(data);
 
-			ko.applyBindings(relatie);
+            fileUpload.init().done(function(){
+			    ko.applyBindings(relatie);
+            });
 
 //			if(relatie.opmerkingen().length > 0){
 //				$("#opmerkingenDialog").dialog();

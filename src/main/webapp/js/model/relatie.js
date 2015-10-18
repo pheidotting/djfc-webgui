@@ -10,8 +10,10 @@ define(['jquery',
         'commons/3rdparty/log',
         'commons/validation',
         'dataServices',
-        'navRegister'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Opmerking, Adres, Bijlage, moment, log, validation, dataServices, navRegister) {
+        'navRegister',
+        'redirect',
+        'fileUpload'],
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Opmerking, Adres, Bijlage, moment, log, validation, dataServices, navRegister, redirect, fileUpload) {
 
 	return function relatieModel (data){
 		_thisRelatie = this;
@@ -31,6 +33,7 @@ define(['jquery',
 		};
 		_thisRelatie.identificatie = ko.observable(data.identificatie).extend({email: true});
 		_thisRelatie.id = ko.observable(data.id);
+		_thisRelatie.soortEntiteit = ko.observable('Relatie');
 		_thisRelatie.voornaam = ko.observable(data.voornaam).extend({required: true});
 		_thisRelatie.roepnaam = ko.observable(data.roepnaam);
 		_thisRelatie.tussenvoegsel = ko.observable(data.tussenvoegsel);
@@ -121,31 +124,13 @@ define(['jquery',
 			log.debug("Nieuwe bijlage upload");
 			$('uploadprogress').show();
 
-			uploaden().done(function(bijlage){
+			fileUpload.uploaden().done(function(bijlage){
 				console.log(ko.toJSON(bijlage));
 				_thisRelatie.bijlages().push(bijlage);
 				_thisRelatie.bijlages.valueHasMutated();
-				$('#uploadPolis1File').val("");
 			});
 		};
 
-		uploaden = function(){
-			var deferred = $.Deferred();
-
-			var formData = new FormData($('#relatieForm')[0]);
-			commonFunctions.uploadBestand(formData, navRegister.bepaalUrl('UPLOAD_BIJLAGE_BIJ_RELATIE')).done(function(response) {
-				console.log(response);
-
-				var bijlageData = {};
-				bijlageData.id = response;
-				bijlageData.soortBijlage = 'Relatie';
-				bijlageData.bestandsNaam = $('#bijlageFile').val().replace("C:\\fakepath\\", "");
-				bijlageData.datumUpload = moment().format("DD-MM-YYYY HH:mm");
-
-				return deferred.resolve(new Bijlage(bijlageData));
-			});
-			return deferred.promise();
-		}
 
 		
 		_thisRelatie.nieuweOpmerking = ko.observable();

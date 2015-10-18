@@ -13,6 +13,7 @@ requirejs.config({
         jqueryUI: '../commons/3rdparty/jquery-ui-1.10.3',
         dataServices: '../js/commons/dataServices',
         navRegister: '../js/commons/navRegister',
+        fileUpload: '../js/commons/fileUpload',
         redirect: '../js/commons/redirect'
     },
 	shim: {
