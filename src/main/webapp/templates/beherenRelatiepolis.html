@@ -48,7 +48,7 @@
 		<option value="Zorg">Zorg</option>
 	</select>
 </div>
-<form enctype="multipart/form-data" id="polisForm">
+<!--form enctype="multipart/form-data" id="polisForm"-->
 	<input type="hidden" id="polisId" />
 	<div class="form-group">
 		<label for="status">Status</label>
@@ -106,7 +106,10 @@
 		<label for="omschrijvingVerzekering">Omschrijving Verzekering</label>
 		<textarea id="omschrijvingVerzekering" placeholder="Omschrijving Verzekering..." data-bind="value: omschrijvingVerzekering"></textarea>
 	</div>
-						
+
+    <div id="fileUpload"></div>
+
+    <!--
 	<table class="table">
 		<tr>
 			<th>Bijlage</th>
@@ -136,7 +139,7 @@
                data-bind="event: {change: nieuwePolisUpload}"/>
         <progress id="uploadprogress" style="display:none;"></progress>
 	</div>
-</form>
+</form-->
 <div class="form-group">
 	<label for="opslaanPolis">&nbsp;</label>
 	<button id="opslaanPolis" class=" btn btn-primary" data-bind="click: opslaan">Opslaan</button>

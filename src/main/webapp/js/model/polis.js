@@ -7,8 +7,9 @@ define(['jquery',
          "commons/opmaak",
          'dataServices',
          'navRegister',
-         'redirect'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect) {
+         'redirect',
+         'fileUpload'],
+	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload) {
 
 	return function polisModel (data){
 		var _polis = this;
@@ -26,6 +27,7 @@ define(['jquery',
 		};
 		_polis.relatie = ko.observable(data.relatie);
 		_polis.id = ko.observable(data.id);
+		_polis.soortEntiteit = ko.observable('Polis');
 		_polis.status = ko.observable(data.status);
 		_polis.polisNummer = ko.observable(data.polisNummer).extend({required: true});
 		_polis.kenmerk = ko.observable(data.kenmerk);
@@ -118,11 +120,10 @@ define(['jquery',
 			log.debug("Nieuwe polis upload");
 			$('uploadprogress').show();
 
-			uploaden().done(function(bijlage){
+			fileUpload.uploaden().done(function(bijlage){
 				console.log(ko.toJSON(bijlage));
 				_polis.bijlages().push(bijlage);
 				_polis.bijlages.valueHasMutated();
-				$('#uploadPolis1File').val("");
 			});
 		};
 
