@@ -16,7 +16,7 @@ define(["commons/3rdparty/log",
                     contentType: "application/json",
                     data: data,
                     success: function (response) {
-                        return deferred.resolve();
+                        return deferred.resolve(response);
                     },
                     error: function (data) {
                         return deferred.reject(data);

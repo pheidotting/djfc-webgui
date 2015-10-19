@@ -5,48 +5,74 @@ define(['jquery',
          'commons/commonFunctions',
          'dataServices',
          'navRegister',
-         'redirect'],
-	function ($, ko, Bijlage, log, commonFunctions, dataServices, navRegister, redirect) {
+         'redirect',
+         'fileUpload'],
+	function ($, ko, Bijlage, log, commonFunctions, dataServices, navRegister, redirect, fileUpload) {
 
 	return function aangifteModel (data){
-		aangifte = this;
+		_aangifte = this;
 
-		aangifte.id = ko.observable(data.id);
-		aangifte.jaar = ko.observable(data.jaar);
-		aangifte.datumAfgerond = ko.observable(data.datumAfgerond);
-		aangifte.uitstelTot = ko.observable(data.uitstelTot);
-		aangifte.afgerondDoor = ko.observable(data.afgerondDoor);
-		aangifte.relatie = ko.observable(data.relatie);
-		aangifte.bijlages = ko.observableArray();
+		_aangifte.id = ko.observable(data.id);
+		_aangifte.soortEntiteit = ko.observable('Aangifte');
+		_aangifte.jaar = ko.observable(data.jaar);
+		_aangifte.datumAfgerond = ko.observable(data.datumAfgerond);
+		_aangifte.uitstelTot = ko.observable(data.uitstelTot);
+		_aangifte.afgerondDoor = ko.observable(data.afgerondDoor);
+		_aangifte.relatie = ko.observable(data.relatie);
+		_aangifte.bijlages = ko.observableArray();
 		if(data.bijlages != null){
 			var bijlages = [];
 			$.each(data.bijlages, function(i, item){
-				aangifte.bijlages.push(new Bijlage(item));
+				_aangifte.bijlages.push(new Bijlage(item));
 			});
 		}
 
-		aangifte.idDiv = ko.computed(function() {
+		_aangifte.idDiv = ko.computed(function() {
 	        return "collapsable" + data.id;
 		}, this);
-		aangifte.idDivLink = ko.computed(function() {
+		_aangifte.idDivLink = ko.computed(function() {
 	        return "#collapsable" + data.id;
 		}, this);
 
-//		aangifte.veranderDatum = function(){
+//		_aangifte.veranderDatum = function(){
 //			log.debug("datum1");
 //			log.debug(datum);
 //			datum(commonFunctions.zetDatumOm(datum()));
 //		}
 
-		aangifte.afronden = function(aangifte){
+		_aangifte.afronden = function(aangifte){
 			dataServices.afrondenAangifte(JSON.stringify(aangifte.id())).done(function(data){
                 redirect.redirect('BEHEREN_RELATIE', aangifte.relatie(), 'aangiftes');
 			}).fail(function(data){
 				commonFunctions.plaatsFoutmelding(data);
 			});
 	    };
-	    
-	    aangifte.opslaan = function(aangifte){
+
+        _aangifte.nieuwePolisUpload = function (){
+            log.debug("Nieuwe bijlage upload");
+            $('uploadprogress').show();
+
+            if(_aangifte.id() == null){
+        		dataServices.opslaanAangifte(ko.toJSON(_aangifte)).done(function(data){
+	    			_aangifte.id(data);
+                    _aangifte.id.valueHasMutated();
+
+                    fileUpload.uploaden().done(function(bijlage){
+                        console.log(ko.toJSON(bijlage));
+                        _aangifte.bijlages().push(bijlage);
+                        _aangifte.bijlages.valueHasMutated();
+                    });
+	    		});
+            } else {
+                fileUpload.uploaden().done(function(bijlage){
+                    console.log(ko.toJSON(bijlage));
+                    _aangifte.bijlages().push(bijlage);
+                    _aangifte.bijlages.valueHasMutated();
+                });
+            }
+        };
+
+	    _aangifte.opslaan = function(aangifte){
 			aangifte.bijlages([]);
     		commonFunctions.verbergMeldingen();
     		log.debug("versturen naar " + navRegister.bepaalUrl('OPSLAAN_AANGIFTE'));
@@ -54,12 +80,6 @@ define(['jquery',
 
     		dataServices.opslaanAangifte(ko.toJSON(aangifte)).done(function(data){
 				aangifte.id(data);
-				for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
-					var formData = new FormData($('#aangifteForm')[0]);
-					log.debug("Versturen naar ../dejonge/rest/medewerker/bijlage/uploadAangifte" + int + 'File')
-					log.debug(JSON.stringify(formData));
-					uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadAangifte' + int + 'File');
-				}
 				commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				log.debug("aangifte id : " + aangifte.relatie());
                 redirect.redirect('BEHEREN_RELATIE', aangifte.relatie());
