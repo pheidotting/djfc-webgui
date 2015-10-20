@@ -7,8 +7,9 @@ define(['jquery',
          'model/bijlage',
          'commons/commonFunctions',
          'dataServices',
-         'redirect'],
-	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataServices, redirect) {
+         'redirect',
+         'fileUpload'],
+	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataServices, redirect, fileUpload) {
 
 	return function hypotheek(data) {
 		_this = this;
@@ -33,6 +34,7 @@ define(['jquery',
 			datum(commonFunctions.zetDatumOm(datum()));
 		}
 		_this.id = ko.observable(data.id);
+		_this.soortEntiteit = ko.observable('Hypotheek');
 		_this.bank = ko.observable(data.bank);
 		_this.boxI = ko.observable(data.boxI).extend({number: true});
 		_this.boxIII = ko.observable(data.boxIII).extend({number: true});
@@ -164,11 +166,6 @@ define(['jquery',
 	    		log.debug("Versturen : " + ko.toJSON(hypotheek));
 
 	    		dataServices.opslaanHypotheek(ko.toJSON(hypotheek)).done(function(data){
-					_this.id(data.foutmelding);
-					for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
-						var formData = new FormData($('#hypotheekForm')[0]);
-						uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadHypotheek' + int + 'File');
-					}
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					redirect.redirect('BEHEREN_RELATIE', hypotheek.relatie(), 'hypotheken');
 	    		}).fail(function(data){
@@ -176,6 +173,30 @@ define(['jquery',
 		        });
 	    	}
 		};
+
+        _this.nieuwePolisUpload = function (){
+            log.debug("Nieuwe bijlage upload");
+            $('uploadprogress').show();
+
+            if(_this.id() == null){
+        		dataServices.opslaanHypotheek(ko.toJSON(_this)).done(function(data){
+	    			_this.id(data.foutmelding);
+                    _this.id.valueHasMutated();
+
+                    fileUpload.uploaden().done(function(bijlage){
+                        console.log(ko.toJSON(bijlage));
+                        _this.bijlages().push(bijlage);
+                        _this.bijlages.valueHasMutated();
+                    });
+	    		});
+            } else {
+                fileUpload.uploaden().done(function(bijlage){
+                    console.log(ko.toJSON(bijlage));
+                    _this.bijlages().push(bijlage);
+                    _this.bijlages.valueHasMutated();
+                });
+            }
+        };
 
 	    self.bewerkHypotheek = function(hypotheek){
 	    	commonFunctions.verbergMeldingen();
