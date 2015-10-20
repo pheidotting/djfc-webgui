@@ -124,11 +124,25 @@ define(['jquery',
 			log.debug("Nieuwe bijlage upload");
 			$('uploadprogress').show();
 
-			fileUpload.uploaden().done(function(bijlage){
-				console.log(ko.toJSON(bijlage));
-				_thisRelatie.bijlages().push(bijlage);
-				_thisRelatie.bijlages.valueHasMutated();
-			});
+            if(_thisRelatie.id() == null){
+        		dataServices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(data){
+	    			_thisRelatie.id(data.foutmelding);
+                    _thisRelatie.id.valueHasMutated();
+
+					fileUpload.uploaden().done(function(bijlage){
+						console.log(ko.toJSON(bijlage));
+						_thisRelatie.bijlages().push(bijlage);
+						_thisRelatie.bijlages.valueHasMutated();
+						redirect.redirect('BEHEREN_RELATIE', _thisRelatie.id());
+					});
+	    		});
+            } else {
+				fileUpload.uploaden().done(function(bijlage){
+					console.log(ko.toJSON(bijlage));
+					_thisRelatie.bijlages().push(bijlage);
+					_thisRelatie.bijlages.valueHasMutated();
+				});
+			}
 		};
 
 
