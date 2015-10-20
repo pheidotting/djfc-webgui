@@ -4,8 +4,9 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions',
-        'dataServices'],
-     function($, ko, Schade, block, log, commonFunctions, dataServices) {
+         'dataServices',
+         'fileUpload'],
+    function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload) {
 
 	return function(polisId, relatieId) {
 		block.block();
@@ -29,13 +30,17 @@ define(['jquery',
 						log.debug("applybindings met " + JSON.stringify(data));
 						var schade = new Schade(data);
 						schade.relatie(relatieId);
-						ko.applyBindings(schade);
+                        fileUpload.init().done(function(){
+                            ko.applyBindings(schade);
+                        });
 				    });
 				}else{
 					log.debug("applybindings met een nieuw Schade object");
 					var schade = new Schade('');
 					schade.relatie(relatieId);
-					ko.applyBindings(schade);
+                    fileUpload.init().done(function(){
+    					ko.applyBindings(schade);
+                    });
 				}
 			});
 		});

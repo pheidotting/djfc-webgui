@@ -7,8 +7,9 @@ define(['jquery',
          'model/opmerking',
          "commons/opmaak",
          'dataServices',
-         'redirect'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataServices, redirect) {
+         'redirect',
+         'fileUpload'],
+	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataServices, redirect, fileUpload) {
 
 	return function schadeModel (data){
 		self = this;
@@ -24,6 +25,7 @@ define(['jquery',
 			return opmaak.maakBedragOp(bedrag());
 		};
 	    self.id = ko.observable(data.id);
+		self.soortEntiteit = ko.observable('Schade');
 	    self.relatie = ko.observable(data.relatie);
 	    self.polis = ko.observable(data.polis).extend({validation: {
 	        validator: function (val) {
@@ -119,6 +121,31 @@ define(['jquery',
 			});
 		}
 
+        self.nieuwePolisUpload = function (){
+            log.debug("Nieuwe bijlage upload");
+            $('uploadprogress').show();
+
+            if(self.id() == null){
+        		dataServices.opslaanSchade(ko.toJSON(self)).done(function(data){
+	    			self.id(data.foutmelding);
+                    self.id.valueHasMutated();
+
+                    fileUpload.uploaden().done(function(bijlage){
+                        console.log(ko.toJSON(bijlage));
+                        self.bijlages().push(bijlage);
+                        self.bijlages.valueHasMutated();
+                        redirect.redirect('BEHEREN_RELATIE', self.relatie(), 'schade', self.id());
+                    });
+	    		});
+            } else {
+                fileUpload.uploaden().done(function(bijlage){
+                    console.log(ko.toJSON(bijlage));
+                    self.bijlages().push(bijlage);
+                    self.bijlages.valueHasMutated();
+                });
+            }
+        };
+
 		self.opslaan = function(schade){
 	    	var result = ko.validation.group(schade, {deep: true});
 	    	if(!schade.isValid()){
@@ -127,10 +154,6 @@ define(['jquery',
 	    		log.debug("Versturen : " + ko.toJSON(schade));
 
 	    		dataServices.opslaanSchade(ko.toJSON(schade)).done(function(){
-					for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
-						var formData = new FormData($('#schadeMeldForm')[0]);
-						uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadSchade' + int + 'File');
-					}
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'schades');
 	    		}).fail(function(data){
