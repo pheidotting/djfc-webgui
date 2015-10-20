@@ -36,6 +36,11 @@ define([ "commons/3rdparty/log",
 			$('#alertDanger').html("Er is een fout opgetreden : " + foutmelding.foutmelding);
  		},
 
+ 		plaatsFoutmeldingString: function(melding){
+			$('#alertDanger').show();
+			$('#alertDanger').html("Er is een fout opgetreden : " + melding);
+ 		},
+
  		plaatsMelding: function(melding){
  			$("html, body").animate({ scrollTop: 0 }, "slow");
 			$('#alertSucces').show();

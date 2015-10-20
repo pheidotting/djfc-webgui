@@ -118,13 +118,33 @@ define(['jquery',
 
 		_polis.nieuwePolisUpload = function (){
 			log.debug("Nieuwe polis upload");
+            commonFunctions.verbergMeldingen();
 			$('uploadprogress').show();
 
-			fileUpload.uploaden().done(function(bijlage){
-				console.log(ko.toJSON(bijlage));
-				_polis.bijlages().push(bijlage);
-				_polis.bijlages.valueHasMutated();
-			});
+            if(_polis.soort() == ""){
+                $('#bijlageFile').val("");
+                commonFunctions.plaatsFoutmeldingString("Kies eerst een soort polis");
+            } else {
+                if(_polis.id() == null){
+                    dataServices.opslaanPolis(ko.toJSON(_polis)).done(function(data){
+                        _polis.id(data.foutmelding);
+                        _polis.id.valueHasMutated();
+
+                        fileUpload.uploaden().done(function(bijlage){
+                            console.log(ko.toJSON(bijlage));
+                            _polis.bijlages().push(bijlage);
+                            _polis.bijlages.valueHasMutated();
+                            redirect.redirect('BEHEREN_RELATIE', _polis.relatie(), 'polis', _polis.id());
+                        });
+                    });
+                } else {
+                    fileUpload.uploaden().done(function(bijlage){
+                        console.log(ko.toJSON(bijlage));
+                        _polis.bijlages().push(bijlage);
+                        _polis.bijlages.valueHasMutated();
+                    });
+                }
+            }
 		};
 
 	    _polis.opslaan = function(polis){
@@ -136,10 +156,6 @@ define(['jquery',
 	    		log.debug("versturen naar " + navRegister.bepaalUrl('OPSLAAN_POLIS'));
 	    		log.debug(ko.toJSON(polis));
 	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
-//					for (var int = 1; int <= $('#hoeveelFiles').val(); int++) {
-//						var formData = new FormData($('#polisForm')[0]);
-//						commonFunctions.uploadBestand(formData, '../dejonge/rest/medewerker/bijlage/uploadPolis' + int + 'File');
-//					}
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
 	    		}).fail(function(data){

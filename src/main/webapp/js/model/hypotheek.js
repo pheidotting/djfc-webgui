@@ -187,6 +187,7 @@ define(['jquery',
                         console.log(ko.toJSON(bijlage));
                         _this.bijlages().push(bijlage);
                         _this.bijlages.valueHasMutated();
+                        redirect.redirect('BEHEREN_RELATIE', self.relatie(), 'hypotheek', _this.id());
                     });
 	    		});
             } else {
