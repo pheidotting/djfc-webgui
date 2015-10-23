@@ -54,6 +54,8 @@ define([ "commons/3rdparty/log"],
                             {naam: 'AFHANDELEN_TAAK',                   url: BASISURL_RELATIEBEHEER + '/medewerker/taak/afhandelen'},
                             {naam: 'VRIJGEVEN_TAAK',                    url: BASISURL_RELATIEBEHEER + '/medewerker/taak/vrijgeven'},
                             {naam: 'OPPAKKEN_TAAK',                     url: BASISURL_RELATIEBEHEER + '/medewerker/taak/oppakken'},
+
+                            {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
                         ];
 
                 var url = '';

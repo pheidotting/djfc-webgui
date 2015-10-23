@@ -176,6 +176,10 @@ define(["commons/3rdparty/log",
 
             vrijgevenTaak: function(id){
                 return this.voerUitGet(navRegister.bepaalUrl('VRIJGEVEN_TAAK'), {"id" : id});
+            },
+
+            opslaanOpmerking: function(opmerking){
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_OPMERKING'), opmerking);
             }
 
         }

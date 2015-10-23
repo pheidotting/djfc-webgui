@@ -1,0 +1,18 @@
+<div id="opmerkingen" data-bind="foreach: opmerkingenModel.opmerkingen">
+    <b>
+        <span data-bind="text: medewerker" />, <span data-bind="text: tijd" />
+    </b>
+    <br />
+    <div style="white-space: pre-wrap" data-bind="text: opmerking, click: startBewerken, attr:{id: 'tekst' + id()}"></div>
+    <div data-bind="attr:{id: 'edit' + id()}" style="display: none;">
+        <textarea data-bind="value: opmerking" rows="5"></textarea><br />
+        <button data-bind="click: opslaan">Opslaan</button>
+        <button data-bind="click: annuleren">Annuleren</button>
+    </div>
+    <br />
+</div>
+<label>
+    Nieuwe opmerking:
+</label>
+<textarea data-bind="value: opmerkingenModel.nieuweOpmerking" rows="5"></textarea><br />
+<button class="btn btn-primary" data-bind="click: opmerkingenModel.opmerkingOpslaan">Opslaan</button>

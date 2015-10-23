@@ -3,7 +3,6 @@ define(['jquery',
         'knockout',
         'model/rekeningNummer',
         'model/telefoonNummer',
-        'model/opmerking',
         'model/adres',
         'model/bijlage',
         'moment',
@@ -12,11 +11,14 @@ define(['jquery',
         'dataServices',
         'navRegister',
         'redirect',
-        'fileUpload'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Opmerking, Adres, Bijlage, moment, log, validation, dataServices, navRegister, redirect, fileUpload) {
+        'fileUpload',
+        'opmerkingenModel'],
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Adres, Bijlage, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
 	return function relatieModel (data){
 		_thisRelatie = this;
+
+		_thisRelatie.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, data.id);
 
 		_thisRelatie.veranderDatum = function(datum){
 			datum(commonFunctions.zetDatumOm(datum()));
@@ -60,12 +62,6 @@ define(['jquery',
 
 		_thisRelatie.bsn = ko.observable(data.bsn);
 		_thisRelatie.zakelijkeKlant = ko.observable(data.zakelijkeKlant);
-		_thisRelatie.opmerkingen = ko.observableArray();
-		if(data.opmerkingen != null){
-			$.each(data.opmerkingen, function(i, item) {
-				_thisRelatie.opmerkingen().push(new Opmerking(item));
-			});
-		}
 		_thisRelatie.rekeningnummers = ko.observableArray();
 		if(data.rekeningnummers != null){
 			$.each(data.rekeningnummers, function(i, item) {
@@ -144,27 +140,6 @@ define(['jquery',
 				});
 			}
 		};
-
-
-		
-		_thisRelatie.nieuweOpmerking = ko.observable();
-		_thisRelatie.opmerkingOpslaan = function(){
-			log.debug(_thisRelatie.nieuweOpmerking());
-			if(_thisRelatie.nieuweOpmerking() != ''){
-			    dataServices.haalIngelogdeGebruiker().done(function(response){
-                    var opmerking = new Opmerking('');
-                    opmerking.medewerker(response.gebruikersnaam);
-                    opmerking.tijd(new moment());
-                    opmerking.opmerking(_thisRelatie.nieuweOpmerking());
-
-                    log.debug(ko.toJSON(opmerking));
-
-                    _thisRelatie.opmerkingen().push(opmerking);
-//	            		_thisRelatie.valueHasMutated();
-                    _thisRelatie.nieuweOpmerking('');
-		    	});
-			}
-	    };
 
 		_thisRelatie.opslaan = function(){
 	    	var result = ko.validation.group(_thisRelatie, {deep: true});

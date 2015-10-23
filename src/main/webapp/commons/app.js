@@ -14,6 +14,8 @@ requirejs.config({
         dataServices: '../js/commons/dataServices',
         navRegister: '../js/commons/navRegister',
         fileUpload: '../js/commons/fileUpload',
+        opmerkingenLoader: '../js/commons/opmerkingenLoader',
+        opmerkingenModel: '../js/commons/opmerkingenModel',
         redirect: '../js/commons/redirect'
     },
 	shim: {

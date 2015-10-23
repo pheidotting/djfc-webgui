@@ -6,8 +6,9 @@ define(['jquery',
         'commons/commonFunctions',
         'jqueryUI',
         'dataServices',
-        'fileUpload'],
-     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices, fileUpload) {
+        'fileUpload',
+        'opmerkingenLoader'],
+     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices, fileUpload, opmerkingenLoader) {
 
 	return function(relatieId) {
 		block.block();
@@ -20,13 +21,10 @@ define(['jquery',
 			var relatie = new Relatie(data);
 
             fileUpload.init().done(function(){
-			    ko.applyBindings(relatie);
+                new opmerkingenLoader(relatieId).init().done(function(){
+                    ko.applyBindings(relatie);
+                });
             });
-
-//			if(relatie.opmerkingen().length > 0){
-//				$("#opmerkingenDialog").dialog();
-//			}
-//			$("#persoonsGegevensDialog").dialog();
 		}).fail(function(data){
 			commonFunctions.nietMeerIngelogd(data);
 		});
