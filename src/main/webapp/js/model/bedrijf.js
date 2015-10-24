@@ -3,11 +3,14 @@ define(['jquery',
          'commons/3rdparty/log',
          'commons/commonFunctions',
 		 'dataServices',
-		 'redirect'],
-	function ($, ko, log, commonFunctions, dataServices, redirect) {
+		 'redirect',
+         'opmerkingenModel'],
+	function ($, ko, log, commonFunctions, dataServices, redirect, opmerkingenModel) {
 
 	return function bedrijfModel (data){
 		_this = this;
+
+		_this.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, data.id);
 
 		_this.id = ko.observable(data.id);
 		_this.naam = ko.observable(data.naam).extend({required: true});
