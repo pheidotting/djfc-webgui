@@ -109,37 +109,12 @@
 
     <div id="fileUpload"></div>
 
-    <!--
-	<table class="table">
-		<tr>
-			<th>Bijlage</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-		</tr>
-		<tbody data-bind="foreach: bijlages">
-			<tr>
-                <td>
-                    <span data-bind="text: omschrijvingOfBestandsNaam, attr:{id: 'tekst' + id()}, click: startEditModus"></span>
+	<hr />
 
-                    <div data-bind="attr:{id: 'edit' + id()}" style="display: none;">
-                        <input type="text" data-bind="value: omschrijvingOfBestandsNaam"/>
-                        <button data-bind="click: stopEditModus">Opslaan</button>
-                        <button data-bind="click: stopEditModusAnnuleren">Annuleren</button>
-                    </div>
-                </td>
-                <td><a data-bind="attr:{href: url}, title: omschrijvingOfBestandsNaam"
-                       target="_blank">Download</a></td>
-                <td data-bind="click: $parent.verwijderBijlage" style="cursor:pointer;">Verwijderen</td>
-			</tr>
-		</tbody>
-	</table>
+	<div id="opmerkingen"></div>
 
-	<div class="form-group" id="uploadPolis1">
-        <input type="file" id="uploadPolis1File" name="uploadPolis1File"
-               data-bind="event: {change: nieuwePolisUpload}"/>
-        <progress id="uploadprogress" style="display:none;"></progress>
-	</div>
-</form-->
+	<hr />
+
 <div class="form-group">
 	<label for="opslaanPolis">&nbsp;</label>
 	<button id="opslaanPolis" class=" btn btn-primary" data-bind="click: opslaan">Opslaan</button>

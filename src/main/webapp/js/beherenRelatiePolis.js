@@ -5,8 +5,9 @@ define(['jquery',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'dataServices',
-        'fileUpload'],
-     function($, ko, Polis, block, log, commonFunctions, dataServices, fileUpload) {
+        'fileUpload',
+        'opmerkingenLoader'],
+     function($, ko, Polis, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
 	return function(polisId, relatieId) {
 		block.block();
@@ -42,14 +43,18 @@ define(['jquery',
 					var polis = new Polis(data);
 					polis.relatie(relatieId);
 					fileUpload.init().done(function(){
-						ko.applyBindings(polis);
+						new opmerkingenLoader(relatieId).init().done(function(){
+							ko.applyBindings(polis);
+						});
 					});
 			    });
 			}else{
 				var polis = new Polis('');
 				polis.relatie(relatieId);
 				fileUpload.init().done(function(){
-					ko.applyBindings(polis);
+					new opmerkingenLoader(relatieId).init().done(function(){
+						ko.applyBindings(polis);
+					});
 				});
 			}
 		});

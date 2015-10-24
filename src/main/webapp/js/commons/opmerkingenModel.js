@@ -41,12 +41,12 @@ define(["commons/3rdparty/log",
                         opmerking.relatie(_k.relatie());
 
                         log.debug(ko.toJSON(opmerking));
-
-                        _k.opmerkingen().push(opmerking);
-                        _k.opmerkingen.valueHasMutated();
-                        _k.nieuweOpmerking('');
-
-                        dataServices.opslaanOpmerking(ko.toJSON(opmerking));
+                        dataServices.opslaanOpmerking(ko.toJSON(opmerking)).done(function(id){
+                            opmerking.id(id);
+                            _k.opmerkingen().push(opmerking);
+                            _k.opmerkingen.valueHasMutated();
+                            _k.nieuweOpmerking('');
+                        });
                     });
                 }
             }

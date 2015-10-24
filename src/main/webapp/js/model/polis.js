@@ -8,11 +8,14 @@ define(['jquery',
          'dataServices',
          'navRegister',
          'redirect',
-         'fileUpload'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload) {
+         'fileUpload',
+         'opmerkingenModel'],
+	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
 	return function polisModel (data){
 		var _polis = this;
+
+		_polis.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, data.id, null);
 
 		_polis.veranderDatum = function(datum){
 			datum(commonFunctions.zetDatumOm(datum()));
