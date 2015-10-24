@@ -3,8 +3,9 @@ define(['jquery',
         "commons/3rdparty/log",
          "js/model/hypotheek",
          'dataServices',
-         'fileUpload'],
-	function($, ko, logger, hypotheek, dataServices, fileUpload){
+        'fileUpload',
+        'opmerkingenLoader'],
+	function($, ko, logger, hypotheek, dataServices, fileUpload, opmerkingenLoader){
 
 	return function(polisId, relatieId) {
 		logger.debug("aanmaken nieuw hypotheek model");
@@ -32,7 +33,9 @@ define(['jquery',
 					logger.debug("Gegevens opgehaald voor hypotheek, applyBindings");
 					logger.debug(data);
                     fileUpload.init().done(function(){
-    					ko.applyBindings(new hypotheek(data));
+						new opmerkingenLoader(relatieId).init().done(function(){
+	    					ko.applyBindings(new hypotheek(data));
+						});
                     });
 				});
 			});

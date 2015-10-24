@@ -8,11 +8,14 @@ define(['jquery',
          'commons/commonFunctions',
          'dataServices',
          'redirect',
-         'fileUpload'],
-	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataServices, redirect, fileUpload) {
+         'fileUpload',
+         'opmerkingenModel'],
+	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataServices, redirect, fileUpload, opmerkingenModel) {
 
 	return function hypotheek(data) {
 		_this = this;
+
+		_this.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, data.id, null, null);
 
 		_this.soortenHypotheek = ko.observableArray();
 
