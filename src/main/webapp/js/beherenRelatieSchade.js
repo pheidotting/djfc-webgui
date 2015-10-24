@@ -5,8 +5,9 @@ define(['jquery',
         'commons/3rdparty/log',
         'commons/commonFunctions',
          'dataServices',
-         'fileUpload'],
-    function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload) {
+        'fileUpload',
+        'opmerkingenLoader'],
+    function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
 	return function(polisId, relatieId) {
 		block.block();
@@ -31,7 +32,9 @@ define(['jquery',
 						var schade = new Schade(data);
 						schade.relatie(relatieId);
                         fileUpload.init().done(function(){
-                            ko.applyBindings(schade);
+							new opmerkingenLoader(relatieId).init().done(function(){
+	                            ko.applyBindings(schade);
+							});
                         });
 				    });
 				}else{
@@ -39,7 +42,9 @@ define(['jquery',
 					var schade = new Schade('');
 					schade.relatie(relatieId);
                     fileUpload.init().done(function(){
-    					ko.applyBindings(schade);
+						new opmerkingenLoader(relatieId).init().done(function(){
+	    					ko.applyBindings(schade);
+						});
                     });
 				}
 			});

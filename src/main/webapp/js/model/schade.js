@@ -8,11 +8,14 @@ define(['jquery',
          "commons/opmaak",
          'dataServices',
          'redirect',
-         'fileUpload'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataServices, redirect, fileUpload) {
+         'fileUpload',
+         'opmerkingenModel'],
+	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataServices, redirect, fileUpload, opmerkingenModel) {
 
 	return function schadeModel (data){
 		self = this;
+
+		self.opmerkingenModel = new opmerkingenModel(data.opmerkingen, data.id, null, null, null);
 
 		self.veranderDatum = function(datum){
 			datum(commonFunctions.zetDatumOm(datum()));
