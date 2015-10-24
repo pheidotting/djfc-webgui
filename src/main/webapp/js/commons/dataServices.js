@@ -180,6 +180,10 @@ define(["commons/3rdparty/log",
 
             opslaanOpmerking: function(opmerking){
                 return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_OPMERKING'), opmerking);
+            },
+
+            ophalenAdresOpPostcode: function(postcode, huisnummer){
+                return this.voerUitGet(navRegister.bepaalUrl('OPHALEN_ADRES_OP_POSTCODE'), {"postcode" : postcode, "huisnummer" : huisnummer});
             }
 
         }

@@ -6,8 +6,10 @@ define([ "commons/3rdparty/log",
          'commons/block',
          'model/relatie',
          'js/model/taak/afhandelenTaak',
-         'redirect'],
-	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, AfhandelenTaak, redirect) {
+         'commons/3rdparty/log',
+         'redirect',
+         'dataServices'],
+	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, AfhandelenTaak, log, redirect, dataServices) {
 
 	return function taakAanvullenAdresAfhandelen(data) {
 		_thisTaak = this;
@@ -30,24 +32,24 @@ define([ "commons/3rdparty/log",
 
 		_thisTaak.taakId = ko.observable(data.id);
 		
-		_thisTaak.opzoekenAdres = function(){
-			_thisTaak.postcode(_thisTaak.postcode().toUpperCase());
-			$.ajax({
-				type: "GET",
-				url: 'http://api.postcodeapi.nu/' + _thisTaak.postcode() + '/' + _thisTaak.huisnummer(),
-				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-				headers: { 'Api-Key': '0eaff635fe5d9be439582d7501027f34d5a3ca9d'},
-		        success: function (data) {
-		        	logger.debug(JSON.stringify(data));
-		        	_thisTaak.straat(data.resource.street);
-		        	_thisTaak.plaats(data.resource.town);
-		        },
-		        error: function(data) {
-		        	logger.debug(JSON.stringify(data));
-		        	_thisTaak.straat('');
-		        	_thisTaak.plaats('');
-		        }
-			});
+		_thisTaak.opzoekenAdres = function(adres){
+            log.debug(ko.toJSON(adres));
+            adres.postcode(adres.postcode().toUpperCase().replace(" ", ""));
+
+            dataServices.ophalenAdresOpPostcode(adres.postcode(), adres.huisnummer()).done(function(data){
+                log.debug(JSON.stringify(data));
+                if(data.resource!=undefined) {
+                    adres.straat(data.resource.street);
+                    adres.plaats(data.resource.town);
+                } else {
+                    adres.straat('');
+                    adres.plaats('');
+                }
+            }).fail(function(data){
+                log.debug(JSON.stringify(data));
+                adres.straat('');
+                adres.plaats('');
+            });
 		};
 		
 		_thisTaak.opslaan = function(){

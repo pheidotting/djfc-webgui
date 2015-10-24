@@ -179,22 +179,21 @@ define(['jquery',
         _thisRelatie.opzoekenAdres = function(adres){
             log.debug(ko.toJSON(adres));
             adres.postcode(adres.postcode().toUpperCase().replace(" ", ""));
-            $.ajax({
-                type: "GET",
-                url: 'http://api.postcodeapi.nu/' + adres.postcode() + '/' + adres.huisnummer(),
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                headers: { 'Api-Key': '0eaff635fe5d9be439582d7501027f34d5a3ca9d'},
-                success: function (data) {
-                    log.debug(JSON.stringify(data));
+
+            dataServices.ophalenAdresOpPostcode(adres.postcode(), adres.huisnummer()).done(function(data){
+                log.debug(JSON.stringify(data));
+                if(data.resource!=undefined) {
                     adres.straat(data.resource.street);
                     adres.plaats(data.resource.town);
                     adres.postcode(adres.zetPostcodeOm(adres.postcode()));
-                },
-                error: function(data) {
-                    log.debug(JSON.stringify(data));
+                } else {
                     adres.straat('');
                     adres.plaats('');
                 }
+            }).fail(function(data){
+                log.debug(JSON.stringify(data));
+                adres.straat('');
+                adres.plaats('');
             });
         };
     };
