@@ -38,8 +38,8 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('UITLOGGEN'));
             },
 
-            lijstRelaties: function(zoekTerm){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm});
+            lijstRelaties: function(zoekTerm, weglaten){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm, "weglaten" : weglaten});
             },
 
             leesRelatie: function(id){
@@ -52,6 +52,15 @@ define(["commons/3rdparty/log",
 
             verwijderRelatie: function(id){
                 return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_RELATIE'), {id : id});
+            },
+
+            koppelOnderlingeRelatie: function(relatie, relatieMet, soortRelatie){
+                var data = {};
+                data.relatie = relatie;
+                data.relatieMet = relatieMet;
+                data.soortRelatie = soortRelatie;
+
+                return this.voerUitPost(navRegister.bepaalUrl('KOPPELEN_ONDERLINGE_RELATIE'), JSON.stringify(data));
             },
 
             lijstBedrijven: function(relatieId){

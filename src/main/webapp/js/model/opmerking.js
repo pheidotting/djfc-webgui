@@ -17,6 +17,7 @@ define(['jquery',
 		_this.polis = ko.observable(data.polis);
 		_this.relatie = ko.observable(data.relatie);
 		_this.bedrijf = ko.observable(data.bedrijf);
+		_this.aangifte = ko.observable(data.aangifte);
 		_this.tijd = ko.observable(data.tijd);
 		_this.medewerker = ko.observable(data.medewerker);
 		_this.medewerkerId = ko.observable(data.medewerkerId);

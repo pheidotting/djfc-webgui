@@ -14,6 +14,7 @@ define([ "commons/3rdparty/log"],
                             {naam: 'LEES_RELATIE',                      url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/lees'},
                             {naam: 'OPSLAAN_RELATIE',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaan'},
                             {naam: 'VERWIJDER_RELATIE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/verwijderen'},
+                            {naam: 'KOPPELEN_ONDERLINGE_RELATIE',       url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/koppelenOnderlingeRelatie'},
 
                             {naam: 'LIJST_BEDRIJVEN_BIJ_RELATIE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bedrijf/lijst'},
                             {naam: 'OPSLAAN_BEDRIJF',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanBedrijf'},

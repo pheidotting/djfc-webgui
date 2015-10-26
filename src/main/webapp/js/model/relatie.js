@@ -3,6 +3,7 @@ define(['jquery',
         'knockout',
         'model/rekeningNummer',
         'model/telefoonNummer',
+        'model/onderlingeRelatie',
         'model/adres',
         'model/bijlage',
         'moment',
@@ -13,7 +14,7 @@ define(['jquery',
         'redirect',
         'fileUpload',
         'opmerkingenModel'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, Adres, Bijlage, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
 	return function relatieModel (data){
 		_thisRelatie = this;
@@ -40,6 +41,7 @@ define(['jquery',
 		_thisRelatie.roepnaam = ko.observable(data.roepnaam);
 		_thisRelatie.tussenvoegsel = ko.observable(data.tussenvoegsel);
 		_thisRelatie.achternaam = ko.observable(data.achternaam).extend({required: true});
+		_thisRelatie.zoekTerm = ko.observable();
 
 		_thisRelatie.adressen = ko.observableArray();
 		if(data.adressen != null){
@@ -74,6 +76,53 @@ define(['jquery',
 				_thisRelatie.telefoonnummers().push(new TelefoonNummer(item));
 			});
 		}
+		_thisRelatie.onderlingeRelaties = ko.observableArray();
+		if(data.onderlingeRelaties != null){
+			$.each(data.onderlingeRelaties, function(i, item) {
+				_thisRelatie.onderlingeRelaties().push(new OnderlingeRelatie(item));
+			});
+		}
+
+		_thisRelatie.voegRelatieToe = function(){
+    		_thisRelatie.lijst.removeAll();
+			$("#onderlingeRelatieDialog").dialog();
+		}
+
+		_thisRelatie.opslaanOnderlingeRelatie = function(ol) {
+            $('#foutmeldingGeenSoortRelatie').hide();
+		    if($('#soortRelatie').val() == ""){
+		        $('#foutmeldingGeenSoortRelatie').show();
+		    } else {
+	    		$("#onderlingeRelatieDialog").dialog("close");
+                dataServices.koppelOnderlingeRelatie(_thisRelatie.id(), ol.id, $('#soortRelatie').val());
+
+                var onderlingeRelatie = new OnderlingeRelatie('');
+                onderlingeRelatie.relatieMet(ol.voornaam + ' ' + ol.achternaam);
+                onderlingeRelatie.idRelatieMet(ol.id);
+                onderlingeRelatie.soortRelatie($('#soortRelatie option:selected').text());
+
+				_thisRelatie.onderlingeRelaties().push(onderlingeRelatie);
+				_thisRelatie.onderlingeRelaties.valueHasMutated();
+		    }
+		};
+
+		_thisRelatie.lijst = ko.observableArray();
+
+		_thisRelatie.zoekRelaties = function(){
+    		_thisRelatie.lijst.removeAll();
+            dataServices.lijstRelaties(_thisRelatie.zoekTerm(), _thisRelatie.id()).done(function(data) {
+                log.debug("opgehaald " + JSON.stringify(data));
+                if(data != undefined){
+                    $.each(data.jsonRelaties, function(i, item) {
+                        log.debug(JSON.stringify(item));
+                        var a = item;
+                        _thisRelatie.lijst().push(a);
+                    });
+                    _thisRelatie.lijst.valueHasMutated();
+                }
+            });
+		}
+
 		_thisRelatie.geboorteDatum = ko.observable(data.geboorteDatumOpgemaakt).extend({validation: {
 	        validator: function (val) {
 	        	if(val != undefined){

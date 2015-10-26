@@ -150,3 +150,6 @@ input[type=file] {
 	width:259px !important;
 }
 
+.ui-dialog {
+	width: 950px !important;
+}

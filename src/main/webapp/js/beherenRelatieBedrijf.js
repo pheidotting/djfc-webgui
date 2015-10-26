@@ -12,6 +12,7 @@ define(['jquery',
 		log.debug("Ophalen Bedrijf met id : " + bedrijfId);
 
 		dataServices.leesBedrijf(subId).done(function(data){
+			log.debug(JSON.stringify(data));
 			var bedrijf = new Bedrijf(data);
 			bedrijf.relatie(relatieId);
 			new opmerkingenLoader(relatieId).init().done(function(){

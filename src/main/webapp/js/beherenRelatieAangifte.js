@@ -5,8 +5,9 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'dataServices',
-        'fileUpload'],
-    function($, ko, Aangifte, Aangiftes, block, log, dataServices, fileUpload) {
+        'fileUpload',
+        'opmerkingenLoader'],
+    function($, ko, Aangifte, Aangiftes, block, log, dataServices, fileUpload, opmerkingenLoader) {
 
 	return function(relatieId) {
 		block.block();
@@ -14,7 +15,9 @@ define(['jquery',
 
 		dataServices.lijstOpenAangiftes(relatieId).done(function(data) {
             fileUpload.init().done(function(){
-    			ko.applyBindings(new Aangiftes(data));
+                new opmerkingenLoader(relatieId).init().done(function(){
+                        ko.applyBindings(new Aangiftes(data));
+                });
             });
 	    });
 	};

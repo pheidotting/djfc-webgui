@@ -6,11 +6,14 @@ define(['jquery',
          'dataServices',
          'navRegister',
          'redirect',
-         'fileUpload'],
-	function ($, ko, Bijlage, log, commonFunctions, dataServices, navRegister, redirect, fileUpload) {
+         'fileUpload',
+         'opmerkingenModel'],
+	function ($, ko, Bijlage, log, commonFunctions, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
 	return function aangifteModel (data){
 		_aangifte = this;
+
+		_aangifte.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, null, data.id);
 
 		_aangifte.id = ko.observable(data.id);
 		_aangifte.soortEntiteit = ko.observable('Aangifte');

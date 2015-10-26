@@ -7,8 +7,8 @@ define(["commons/3rdparty/log",
         'moment'],
     function(log, commonFunctions, Opmerking, navRegister, ko, dataServices, moment) {
 
-        return function KO(data, schade, hypotheek, polis, relatie, bedrijf){
-            log.debug(schade + " - " + hypotheek + " - " + polis + " - " + relatie);
+        return function KO(data, schade, hypotheek, polis, relatie, bedrijf, aangifte){
+            log.debug(schade + " - " + hypotheek + " - " + polis + " - " + relatie + " - " + bedrijf + " - " + aangifte);
 
             _k = this;
 
@@ -19,6 +19,7 @@ define(["commons/3rdparty/log",
             _k.polis = ko.observable(polis);
             _k.relatie = ko.observable(relatie);
             _k.bedrijf = ko.observable(bedrijf);
+            _k.aangifte = ko.observable(aangifte);
 
             if(data != null){
                 $.each(data, function(i, item) {
@@ -41,6 +42,7 @@ define(["commons/3rdparty/log",
                         opmerking.polis(_k.polis());
                         opmerking.relatie(_k.relatie());
                         opmerking.bedrijf(_k.bedrijf());
+                        opmerking.aangifte(_k.aangifte());
 
                         log.debug(ko.toJSON(opmerking));
                         dataServices.opslaanOpmerking(ko.toJSON(opmerking)).done(function(id){
