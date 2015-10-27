@@ -168,13 +168,13 @@
                     </domain>
                     <components>
                         <component>
-                            <name>djfc-webgui</name>
-                            <artifact>target/djfc-webgui.war</artifact>
+                            <name>gui</name>
+                            <artifact>target/gui.war</artifact>
                         </component>
                     </components>
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>djfc-webgui</finalName>
+        <finalName>gui</finalName>
     </build>
 </project>

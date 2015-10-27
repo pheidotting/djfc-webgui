@@ -17,47 +17,6 @@
 
 	<!-- Eigen CSS -->
 	<link rel="stylesheet" href="lakedigital.css">
-
-	<script type="text/javascript">
-		function uploadBestand(formData, url, bijlages){
-			var ret = "";
-    	    $.ajax({
-				url: url,
-    	        type: 'POST',
-    	        xhr: function() {  // Custom XMLHttpRequest
-    	            var myXhr = $.ajaxSettings.xhr();
-    	            if(myXhr.upload){ // Check if upload property exists
-    	                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
-    	            }
-    	            return myXhr;
-    	        },
-    	        data: formData,
-    	        cache: false,
-    	        contentType: false,
-    	        processData: false,
-	            success: function (response) {
-	     			<!--$("html, body").animate({ scrollTop: 0 }, "slow");-->
-	    			<!--$('#alertSucces').show();-->
-	    			<!--$('#alertSucces').html("De gegevens zijn opgeslagen");-->
-	    			<!--refreshIntervalId = setInterval(this.verbergMeldingen, 10000);-->
-	    			console.log(response);
-	    			ret = response;
-	    			console.log(bijlages);
-	            },
-	            error: function (data) {
-	    			$('#alertDanger').show();
-	    			$('#alertDanger').html("Er is een fout opgetreden : " + data);
-	            }
-    	    });
-    	    function progressHandlingFunction(e){
-    	        if(e.lengthComputable){
-    	            $('progress').attr({value:e.loaded,max:e.total});
-    	        }
-    	    }
-
-			return ret;
-		}
-	</script>
 </head>
 <body id="body">
 	<img id="homeKnop" src="images/home.png" alt="Naar de lijst met Relaties" style="cursor:pointer; display:none;float:left;" onclick="document.location.hash='#dashboard'" />

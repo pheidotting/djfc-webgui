@@ -84,6 +84,7 @@ define([ "commons/3rdparty/log",
 				$('#uitloggen').show();
 				$('#homeKnop').show();
 			}).fail(function(){
+				log.debug("Niet ingelogd, naar de inlogpagina");
 				$('#ingelogdeGebruiker').html("");
 				$('#uitloggen').hide();
 				$('#homeKnop').hide();

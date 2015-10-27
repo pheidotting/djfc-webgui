@@ -1,5 +1,5 @@
-define([ "commons/3rdparty/log"],
-    function(log) {
+define([ ],
+    function() {
 
         return {
 
@@ -59,6 +59,7 @@ define([ "commons/3rdparty/log"],
                             {naam: 'OPPAKKEN_TAAK',                     url: BASISURL_RELATIEBEHEER + '/medewerker/taak/oppakken'},
 
                             {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
+                            {naam: 'LOG4JAVASCRIPT',                    url: BASISURL_RELATIEBEHEER + '/authorisatie/authorisatie/log4javascript'},
                         ];
 
                 var url = '';
@@ -69,7 +70,7 @@ define([ "commons/3rdparty/log"],
                         break;
                     }
                 }
-                log.debug(url);
+//                log.debug(url);
 
                 return url;
 
