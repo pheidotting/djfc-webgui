@@ -5,11 +5,12 @@ define([ "commons/3rdparty/log",
          "knockout",
          'commons/block',
          'model/relatie',
+         'model/adres',
          'js/model/taak/afhandelenTaak',
          'commons/3rdparty/log',
          'redirect',
          'dataServices'],
-	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, AfhandelenTaak, log, redirect, dataServices) {
+	function(logger, validation, opmaak, commonFunctions, ko, block, Relatie, Adres, AfhandelenTaak, log, redirect, dataServices) {
 
 	return function taakAanvullenAdresAfhandelen(data) {
 		_thisTaak = this;
@@ -55,14 +56,16 @@ define([ "commons/3rdparty/log",
 		_thisTaak.opslaan = function(){
 			block.block();
 
-			_thisTaak.relatie().straat = _thisTaak.straat();
-			_thisTaak.relatie().huisnummer = _thisTaak.huisnummer();
-			_thisTaak.relatie().toevoeging = _thisTaak.toevoeging();
-			_thisTaak.relatie().postcode = _thisTaak.postcode();
-			_thisTaak.relatie().plaats = _thisTaak.plaats();
+			var adres = new Adres('');
+			adres.straat = _thisTaak.straat();
+			adres.huisnummer = _thisTaak.huisnummer();
+			adres.toevoeging = _thisTaak.toevoeging();
+			adres.postcode = _thisTaak.postcode();
+			adres.plaats = _thisTaak.plaats();
+			adres.relatie = _thisTaak.relatie().id;
 			
-			logger.debug(ko.toJSON(_thisTaak.relatie()));
-			dataServices.opslaanRelatie(ko.toJSON(_thisTaak.relatie())).done(function(response){
+			logger.debug(ko.toJSON(adres));
+			dataServices.opslaanAdresBijRelatie(adres).done(function(response){
 				var afhandelenTaak = new AfhandelenTaak(_thisTaak.taakId());
 
 				logger.debug(ko.toJSON(afhandelenTaak));

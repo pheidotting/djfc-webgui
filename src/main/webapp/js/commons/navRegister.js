@@ -15,6 +15,7 @@ define([ ],
                             {naam: 'OPSLAAN_RELATIE',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaan'},
                             {naam: 'VERWIJDER_RELATIE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/verwijderen'},
                             {naam: 'KOPPELEN_ONDERLINGE_RELATIE',       url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/koppelenOnderlingeRelatie'},
+                            {naam: 'OPSLAAN_ADRES_BIJ_RELATIE',         url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanAdresBijRelatie'},
 
                             {naam: 'LIJST_BEDRIJVEN_BIJ_RELATIE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bedrijf/lijst'},
                             {naam: 'OPSLAAN_BEDRIJF',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanBedrijf'},

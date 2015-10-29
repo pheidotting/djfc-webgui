@@ -63,6 +63,12 @@ define(["commons/3rdparty/log",
                 return this.voerUitPost(navRegister.bepaalUrl('KOPPELEN_ONDERLINGE_RELATIE'), JSON.stringify(data));
             },
 
+            opslaanAdresBijRelatie: function(adres){
+                var data = JSON.stringify(adres);
+                LOGGER.debug(data);
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRES_BIJ_RELATIE'), data);
+            },
+
             lijstBedrijven: function(relatieId){
                 return this.voerUitGet(navRegister.bepaalUrl('LIJST_BEDRIJVEN_BIJ_RELATIE'), {relatieId : relatieId});
             },
