@@ -3,10 +3,7 @@ define([ "commons/3rdparty/log",
          'redirect'],
 	function(log, dataServices, redirect) {
 
-	var refreshIntervalId;
-
 	return {
-		
 		zetDatumOm: function(datumZonderStreepjes){
 			var datumMetStreepjes = datumZonderStreepjes;
 			if(datumZonderStreepjes != undefined && datumZonderStreepjes.length == 8 && this.isNumeric(datumZonderStreepjes)){
@@ -56,10 +53,12 @@ define([ "commons/3rdparty/log",
 		},
 
  		verbergMeldingen: function(){
-			clearInterval(refreshIntervalId);
- 			$("html, body").animate({ scrollTop: 0 }, "slow");
-			$('#alertSucces').hide();
-			$('#alertDanger').hide();
+			if(refreshIntervalId != undefined || refreshIntervalId != 0){
+                clearInterval(this.refreshIntervalId);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                $('#alertSucces').hide();
+                $('#alertDanger').hide();
+            }
  		},
 
 		uitloggen: function(){
