@@ -8,7 +8,7 @@ define(['jquery',
         'dataServices',
         'fileUpload',
         'opmerkingenLoader'],
-     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices, fileUpload, opmerkingenLoader) {
+    function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices, fileUpload, opmerkingenLoader) {
 
 	return function(relatieId) {
 		block.block();

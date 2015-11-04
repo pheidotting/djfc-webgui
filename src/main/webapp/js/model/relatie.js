@@ -245,5 +245,9 @@ define(['jquery',
                 adres.plaats('');
             });
         };
+
+        _thisRelatie.annuleren = function(){
+            redirect.redirect('LIJST_RELATIES');
+        }
     };
 });
