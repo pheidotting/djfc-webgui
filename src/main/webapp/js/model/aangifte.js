@@ -90,5 +90,9 @@ define(['jquery',
 				commonFunctions.plaatsFoutmelding(data);
     		});
 		};
+
+		_aangifte.annuleren = function(){
+			redirect.redirect('BEHEREN_RELATIE', _aangifte.relatie(), 'aangiftes');
+		}
     };
 });
