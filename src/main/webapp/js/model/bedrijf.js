@@ -52,5 +52,9 @@ define(['jquery',
 				});
 			}
 		};
+
+		_bedrijf.annuleren = function(){
+			redirect.redirect('BEHEREN_RELATIE', _bedrijf.relatie(), 'bedrijven');
+		}
     };
 });
