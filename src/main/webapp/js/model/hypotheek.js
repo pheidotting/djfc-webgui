@@ -221,6 +221,10 @@ define(['jquery',
 			}
 		}
 
+		_hypotheek.annuleren = function(){
+			redirect.redirect('BEHEREN_RELATIE', _hypotheek.relatie(), 'hypotheken');
+		}
+
 	};
 
 	function SoortHypotheek(data){
