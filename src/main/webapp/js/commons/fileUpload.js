@@ -1,8 +1,9 @@
 define(["commons/3rdparty/log",
         'commons/commonFunctions',
         'model/bijlage',
+         'commons/block',
         'navRegister',],
-    function(log, commonFunctions, Bijlage, navRegister) {
+    function(log, commonFunctions, Bijlage, block, navRegister) {
 
         return {
             init: function(){
@@ -18,6 +19,8 @@ define(["commons/3rdparty/log",
             },
 
             uploaden: function(){
+    			block.block();
+
                 var deferred = $.Deferred();
 
                 var formData = new FormData($('#fileUploadForm')[0]);
