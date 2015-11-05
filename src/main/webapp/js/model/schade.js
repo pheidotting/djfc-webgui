@@ -172,5 +172,10 @@ define(['jquery',
 	    self.plaatsOpmerking = function(schade){
 			redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'opmerking', 's' + schade.id());
 	    };
+
+		self.annuleren = function(){
+			redirect.redirect('BEHEREN_RELATIE', self.relatie(), 'schades');
+		}
+
 	};
 });
