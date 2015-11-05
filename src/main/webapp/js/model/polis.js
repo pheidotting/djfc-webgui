@@ -166,5 +166,9 @@ define(['jquery',
 	    		});
 	    	}
 		};
+
+		_polis.annuleren = function(){
+			redirect.redirect('BEHEREN_RELATIE', _polis.relatie(), 'polissen');
+		};
     };
 });
