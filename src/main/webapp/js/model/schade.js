@@ -12,7 +12,7 @@ define(['jquery',
          'opmerkingenModel'],
 	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataServices, redirect, fileUpload, opmerkingenModel) {
 
-	return function schadeModel (data){
+	return function schadeModel (data, relatieId){
 		self = this;
 
 		self.opmerkingenModel = new opmerkingenModel(data.opmerkingen, data.id, null, null, null);
@@ -29,7 +29,7 @@ define(['jquery',
 		};
 	    self.id = ko.observable(data.id);
 		self.soortEntiteit = ko.observable('Schade');
-	    self.relatie = ko.observable(data.relatie);
+	    self.relatie = ko.observable(relatieId);
 	    self.polis = ko.observable(data.polis).extend({validation: {
 	        validator: function (val) {
 	        	if(ko.utils.unwrapObservable(self.polis) == "Kies een polis uit de lijst.."){
