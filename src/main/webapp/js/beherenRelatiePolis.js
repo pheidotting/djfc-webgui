@@ -16,7 +16,7 @@ define(['jquery',
 		dataServices.lijstVerzekeringsmaatschappijen().done(function(data){
 			var $select = $('#verzekeringsMaatschappijen');
 			$.each(data, function(key, value) {
-			    $('<option>', { value : value }).text(value).appendTo($select);
+			    $('<option>', { value : key }).text(value).appendTo($select);
 			});
 		});
 

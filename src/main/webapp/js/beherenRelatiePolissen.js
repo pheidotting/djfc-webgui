@@ -13,9 +13,22 @@ define(['jquery',
 
 		dataServices.lijstPolissen(relatieId).done(function(data){
 			log.debug("opgehaald : " + JSON.stringify(data));
-			ko.validation.registerExtenders();
 
-			ko.applyBindings(new Polissen(data));
+			dataServices.lijstVerzekeringsmaatschappijen().done(function(maatschappijen){
+                $.each(data, function(key, value) {
+                    if(value.maatschappij != null) {
+                        $.each(maatschappijen, function(keyM, valueM) {
+                            if(keyM == value.maatschappij){
+                                value.maatschappij = valueM;
+                            }
+                        });
+                    }
+                });
+                ko.validation.registerExtenders();
+
+                ko.applyBindings(new Polissen(data));
+			});
+
 		}).fail(function(data){
 			commonFunctions.nietMeerIngelogd(data);
 		});
