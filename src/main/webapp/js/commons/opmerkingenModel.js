@@ -54,6 +54,18 @@ define(["commons/3rdparty/log",
                     });
                 }
             }
+
+            _k.verwijder = function(opmerking){
+                var r = confirm("Weet je zeker dat je deze opmerking wilt verwijderen?");
+                if (r == true) {
+                    log.debug("verwijder opmerking met id " + opmerking.id());
+                    dataServices.verwijderOpmerking(opmerking.id()).done(function(){
+                        _k.opmerkingen.remove(opmerking);
+                        _k.opmerkingen.valueHasMutated();
+                    });
+                }
+            };
+
         }
     }
 );
