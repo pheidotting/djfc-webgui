@@ -1,6 +1,6 @@
 <div id="opmerkingen" data-bind="foreach: opmerkingenModel.opmerkingen">
     <b>
-        <span data-bind="text: medewerker" />, <span data-bind="text: tijd" />
+        <span data-bind="text: medewerker" />, <span data-bind="text: tijd" /> <span data-bind="click: $parent.opmerkingenModel.verwijder" style="cursor:pointer">Verwijder</span>
     </b>
     <br />
     <div style="white-space: pre-wrap" data-bind="text: opmerking, click: startBewerken, attr:{id: 'tekst' + id()}"></div>

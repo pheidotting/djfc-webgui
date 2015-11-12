@@ -197,6 +197,10 @@ define(["commons/3rdparty/log",
                 return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_OPMERKING'), opmerking);
             },
 
+            verwijderOpmerking: function(id){
+                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_OPMERKING'), {"id" : id});
+            },
+
             ophalenAdresOpPostcode: function(postcode, huisnummer){
                 return this.voerUitGet(navRegister.bepaalUrl('OPHALEN_ADRES_OP_POSTCODE'), {"postcode" : postcode, "huisnummer" : huisnummer});
             }

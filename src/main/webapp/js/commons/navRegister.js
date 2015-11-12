@@ -60,6 +60,8 @@ define([ ],
                             {naam: 'OPPAKKEN_TAAK',                     url: BASISURL_RELATIEBEHEER + '/medewerker/taak/oppakken'},
 
                             {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
+                            {naam: 'VERWIJDER_OPMERKING',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijder'},
+
                             {naam: 'LOG4JAVASCRIPT',                    url: BASISURL_RELATIEBEHEER + '/authorisatie/authorisatie/log4javascript'},
                         ];
 
