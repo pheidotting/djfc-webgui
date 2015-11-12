@@ -58,6 +58,7 @@ define(['jquery',
 		_polis.soort = ko.observable(data.soort).extend({required: true});
 		_polis.premie = ko.observable(data.premie);
 		_polis.betaalfrequentie = ko.observable(data.betaalfrequentie);
+		_polis.dekking = ko.observable(data.dekking);
 		_polis.bedrijf = ko.observable(data.bedrijf);
 		_polis.omschrijvingVerzekering = ko.observable(data.omschrijvingVerzekering);
 		_polis.idDiv = ko.computed(function() {
