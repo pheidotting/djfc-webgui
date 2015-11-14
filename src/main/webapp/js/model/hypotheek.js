@@ -16,6 +16,8 @@ define(['jquery',
 		_hypotheek = this;
 
 		_hypotheek.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, data.id, null, null);
+        _hypotheek.readOnly = ko.observable(false);
+        _hypotheek.notReadOnly = ko.observable(true);
 
 		_hypotheek.soortenHypotheek = ko.observableArray();
 

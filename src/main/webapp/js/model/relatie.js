@@ -20,6 +20,8 @@ define(['jquery',
 		_thisRelatie = this;
 
 		_thisRelatie.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, data.id);
+        _thisRelatie.readOnly = ko.observable(false);
+        _thisRelatie.notReadOnly = ko.observable(true);
 
 		_thisRelatie.veranderDatum = function(datum){
 			datum(commonFunctions.zetDatumOm(datum()));

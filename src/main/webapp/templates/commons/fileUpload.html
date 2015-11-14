@@ -11,7 +11,8 @@
             <tbody data-bind="foreach: bijlages">
             <tr>
                 <td>
-                    <span data-bind="text: omschrijvingOfBestandsNaam, attr:{id: 'tekst' + id()}, click: startEditModus"></span>
+                    <span data-bind="text: omschrijvingOfBestandsNaam, attr:{id: 'tekst' + id()}, click: startEditModus, visible: $parent.notReadOnly"></span>
+                    <span data-bind="text: omschrijvingOfBestandsNaam, attr:{id: 'tekst' + id()}, visible: $parent.readOnly"></span>
 
                     <div data-bind="attr:{id: 'edit' + id()}" style="display: none;">
                         <input type="text" data-bind="value: omschrijvingOfBestandsNaam"/>
@@ -21,12 +22,12 @@
                 </td>
                 <td><a data-bind="attr:{href: url}, title: omschrijvingOfBestandsNaam"
                        target="_blank">Download</a></td>
-                <td data-bind="click: $parent.verwijderBijlage" style="cursor:pointer;">Verwijderen</td>
+                <td data-bind="click: $parent.verwijderBijlage, visible: $parent.notReadOnly" style="cursor:pointer;">Verwijderen</td>
             </tr>
             </tbody>
         </table>
 
-        <div class="form-group" id="bijlage">
+        <div class="form-group" id="bijlage" data-bind="visible: notReadOnly">
             <input type="file" id="bijlageFile" name="bijlageFile" data-bind="event: {change: nieuwePolisUpload}"/>
             <progress id="uploadprogress" style="display:none;"></progress>
         </div>

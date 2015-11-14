@@ -12,11 +12,13 @@ define(['jquery',
          'opmerkingenModel'],
 	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
-	return function polisModel (data){
+	return function polisModel (data, readOnly){
 		var _polis = this;
 
 		_polis.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, data.id, null);
 
+        _polis.readOnly = ko.observable(readOnly);
+        _polis.notReadOnly = ko.observable(!readOnly);
 		_polis.veranderDatum = function(datum){
 			datum(commonFunctions.zetDatumOm(datum()));
 		};
@@ -105,6 +107,12 @@ define(['jquery',
 			commonFunctions.verbergMeldingen();
 			log.debug("Polis bewerken met id " + polis.id() + " en Relatie id : " + polis.relatie());
 			redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polis', polis.id());
+	    };
+
+	    _polis.polisInzien = function(polis){
+			commonFunctions.verbergMeldingen();
+			log.debug("Polis inzien met id " + polis.id() + " en Relatie id : " + polis.relatie());
+			redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polisInzien', polis.id());
 	    };
 
 	    _polis.beeindigPolis = function(polis){

@@ -9,7 +9,7 @@ define(['jquery',
         'opmerkingenLoader'],
      function($, ko, Polis, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
-	return function(polisId, relatieId) {
+	return function(polisId, relatieId, readOnly) {
 		block.block();
 		log.debug("Ophalen lijst met verzekeringsmaatschappijen");
 
@@ -47,7 +47,7 @@ define(['jquery',
 
 				dataServices.leesPolis(polisId).done(function(data){
 					log.debug(JSON.stringify(data));
-					var polis = new Polis(data);
+					var polis = new Polis(data, readOnly);
 					polis.relatie(relatieId);
 					fileUpload.init().done(function(){
 						new opmerkingenLoader(relatieId).init().done(function(){
@@ -56,7 +56,7 @@ define(['jquery',
 					});
 			    });
 			}else{
-				var polis = new Polis('');
+				var polis = new Polis('', readOnly);
 				polis.relatie(relatieId);
 				fileUpload.init().done(function(){
 					new opmerkingenLoader(relatieId).init().done(function(){

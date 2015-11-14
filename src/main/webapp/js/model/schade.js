@@ -17,6 +17,8 @@ define(['jquery',
 
 		self.opmerkingenModel = new opmerkingenModel(data.opmerkingen, data.id, null, null, null);
 
+        self.readOnly = ko.observable(false);
+        self.notReadOnly = ko.observable(true);
 		self.veranderDatum = function(datum){
 			datum(commonFunctions.zetDatumOm(datum()));
 		};

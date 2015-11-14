@@ -15,7 +15,7 @@ define(['jquery',
             log.debug("opgehaald : " + JSON.stringify(data));
             ko.validation.registerExtenders();
 
-            ko.applyBindings(new Schades(data));
+            ko.applyBindings(new Schades(data, relatieId));
 		}).fail(function(data){
             commonFunctions.nietMeerIngelogd(data);
 		});

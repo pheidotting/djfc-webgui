@@ -11,7 +11,7 @@ define(['jquery',
 
 		selfSchades.schades = ko.observableArray();
 		$.each(data, function(i, item){
-			selfSchades.schades.push(new Schade(item, log, relatieId));
+			selfSchades.schades.push(new Schade(item, relatieId));
 		});
 
 		selfSchades.verwijderPolis = function(schade){

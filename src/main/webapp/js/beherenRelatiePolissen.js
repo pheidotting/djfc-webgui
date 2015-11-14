@@ -27,6 +27,7 @@ define(['jquery',
                 ko.validation.registerExtenders();
 
                 ko.applyBindings(new Polissen(data));
+                $.unblockUI();
 			});
 
 		}).fail(function(data){

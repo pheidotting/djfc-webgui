@@ -31,12 +31,21 @@ define(['jquery',
 			}
 			if (status == "success") {
 				//Op basis van actie de actieve tab bepalen
-				if(actie == undefined || actie == null){
-					 actie = "";
+				var pagina = "";
+				if(actie != undefined && actie != null){
+					pagina = actie;
+				}
+				if(actie == undefined || actie == null) {
+				    actie = "";
+                }
+
+				//Uitzondering
+				if(pagina == 'polisInzien') {
+					pagina= "polis";
 				}
 
 				//Onderliggende pagina aanroepen
-				$('#details').load("templates/beherenRelatie" + actie + ".html", function(){
+				$('#details').load("templates/beherenRelatie" + pagina + ".html", function(){
 					if(actie == ""){
 						new beherenRelatie(relatieId);
 					}else if(actie == "bedrijven"){
@@ -46,7 +55,9 @@ define(['jquery',
 					}else if(actie == "polissen"){
 						new beherenRelatiePolissen(relatieId);
 					}else if(actie == "polis"){
-						new beherenRelatiePolis(subId, relatieId);
+						new beherenRelatiePolis(subId, relatieId, false);
+					}else if(actie == "polisInzien"){
+						new beherenRelatiePolis(subId, relatieId, true);
 					}else if(actie == "schades"){
 						new beherenRelatieSchades(relatieId);
 					}else if(actie == "schade"){
@@ -95,6 +106,10 @@ define(['jquery',
 				$("#polis").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'polis', '0');
+				});
+				$("#polisInzien").click(function(){
+			    	commonFunctions.verbergMeldingen();
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'polisInzien', '0');
 				});
 				$("#schades").click(function(){
 			    	commonFunctions.verbergMeldingen();

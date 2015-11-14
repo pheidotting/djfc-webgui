@@ -20,7 +20,7 @@ define(['jquery',
 
 			var relatie = new Relatie(data);
 
-            fileUpload.init().done(function(){
+            new fileUpload.init().done(function(){
                 new opmerkingenLoader(relatieId).init().done(function(){
                     ko.applyBindings(relatie);
                 });
