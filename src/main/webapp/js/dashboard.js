@@ -10,14 +10,12 @@ define(['jquery',
 				});
 			}
 
-			$('#zoeken').click(function(){
-				redirect.redirect('LIJST_RELATIES', $('#zoekTerm').val());
+			$('#naarParticulier').click(function(){
+				redirect.redirect('LIJST_RELATIES');
 			});
 			
-			$('#zoekTerm').on("keypress", function(e) {
-	            if (e.keyCode == 13) {
-	            	redirect.redirect('LIJST_RELATIES', $('#zoekTerm').val());
-	            }
+			$('#naarZakelijk').click(function(){
+				redirect.redirect('LIJST_BEDRIJVEN');
 			});
 		});
 	};

@@ -4,6 +4,7 @@ define([ "commons/3rdparty/log"],
         return {
             redirect: function(waarnaartoe, var1, var2, var3, var4, var5) {
                 var vars = [{naam: 'LIJST_RELATIES',    url: '#lijstRelaties'},
+                            {naam: 'LIJST_BEDRIJVEN',   url: '#lijstBedrijven'},
                             {naam: 'INLOGGEN',          url: '#inloggen'},
                             {naam: 'BEHEREN_RELATIE',   url: '#beherenRelatie'},
                             {naam: 'DASHBOARD',         url: '#dashboard'},
@@ -19,7 +20,6 @@ define([ "commons/3rdparty/log"],
                         break;
                     }
                 }
-                log.debug(url);
 
                 if(var1 != undefined){
                     log.debug(var1);
