@@ -20,6 +20,13 @@ define(['jquery',
 			});
 		});
 
+		dataServices.lijstParticulierePolissen().done(function(data){
+			var $select = $('#soortVerzekering');
+			$.each(data, function(key, value) {
+			    $('<option>', { value : value }).text(value).appendTo($select);
+			});
+		});
+
 		dataServices.lijstBedrijven(relatieId).done(function(data){
 			if(data.length > 0){
 				$.getScript("js/model/bedrijven.js", function(dataX, textStatus, jqxhr) {

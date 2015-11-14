@@ -22,6 +22,7 @@ define([ ],
                             {naam: 'LEES_BEDRIJF',                      url: BASISURL_RELATIEBEHEER + '/medewerker/bedrijf/lees'},
 
                             {naam: 'LIJST_VERZEKERINGSMAATSCHAPPIJEN',  url: BASISURL_RELATIEBEHEER + '/medewerker/overig/lijstVerzekeringsMaatschappijen'},
+                            {naam: 'LIJST_PARTICULIEREPOLISSEN',        url: BASISURL_RELATIEBEHEER + '/medewerker/polis/alleParticulierePolisSoorten'},
 
                             {naam: 'LEES_POLIS',                        url: BASISURL_RELATIEBEHEER + '/medewerker/polis/lees'},
                             {naam: 'LIJST_POLISSEN',                    url: BASISURL_RELATIEBEHEER + '/medewerker/polis/lijst'},

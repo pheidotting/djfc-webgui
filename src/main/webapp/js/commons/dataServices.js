@@ -85,6 +85,10 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('LIJST_VERZEKERINGSMAATSCHAPPIJEN'));
             },
 
+            lijstParticulierePolissen: function(){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_PARTICULIEREPOLISSEN'));
+            },
+
             leesPolis: function(polisId){
                 return this.voerUitGet(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId});
             },
