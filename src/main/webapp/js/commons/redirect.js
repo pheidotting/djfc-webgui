@@ -9,7 +9,8 @@ define([ "commons/3rdparty/log"],
                             {naam: 'BEHEREN_RELATIE',   url: '#beherenRelatie'},
                             {naam: 'DASHBOARD',         url: '#dashboard'},
                             {naam: 'TAAK',              url: '#taak'},
-                            {naam: 'TAKEN',             url: '#takEN'}
+                            {naam: 'TAKEN',             url: '#taken'},
+                            {naam: 'BEHEREN_BEDRIJF',   url: '#beherenBedrijf'}
                             ];
 
                 var url = '';
@@ -43,7 +44,7 @@ define([ "commons/3rdparty/log"],
                 }
 
                 log.debug(url);
-                document.location.hash=url;
+                document.location.hash = url;
             }
         }
     }

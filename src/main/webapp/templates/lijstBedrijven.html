@@ -1,0 +1,24 @@
+<img src="images/add.png" alt="Toevoegen Relatie" id="toevoegenNieuweRelatie" data-bind="click: toevoegenNieuweRelatie" style="cursor:pointer;" />
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Zoekopdracht..." id="zoekTerm">
+        <button class="btn btn-default" type="button" id="zoeken">Zoek</button>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<table class="table">
+	<tr>
+		<th>Naam</th>
+		<th>Adres</th>
+	</tr>
+	<tbody data-bind="foreach: lijst">
+		<tr>
+			<td data-bind="text : naam, click: $parent.naarDetailScherm" name="naam" style="cursor:pointer;"></td>
+			<td data-bind="text : adresOpgemaakt, click: $parent.naarDetailScherm" name="adres" style="cursor:pointer;"></td>
+		</tr>
+	</tbody>
+</table>

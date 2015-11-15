@@ -72,7 +72,9 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 	});
 
 	app.route('GET', '#lijstBedrijven', function(context) {
+		console.log('adsfowejjfweajfiuerhgheirhguhdvndfjnj');
 		new lijstBedrijven();
+		console.log('adsfowejjfweajfiuerhgheirhguhdvndfjnj');
 	});
 
 	app.route('GET', '#lijstRelaties/:zoekTerm', function(context) {
