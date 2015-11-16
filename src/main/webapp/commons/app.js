@@ -71,17 +71,20 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 		new lijstRelaties();
 	});
 
-	app.route('GET', '#lijstBedrijven', function(context) {
-		console.log('adsfowejjfweajfiuerhgheirhguhdvndfjnj');
-		new lijstBedrijven();
-		console.log('adsfowejjfweajfiuerhgheirhguhdvndfjnj');
-	});
-
 	app.route('GET', '#lijstRelaties/:zoekTerm', function(context) {
 		zoekTerm = this.params['zoekTerm'];
 		new lijstRelaties(zoekTerm);
 	});
-	
+
+	app.route('GET', '#lijstBedrijven', function(context) {
+		new lijstBedrijven();
+	});
+
+	app.route('GET', '#lijstBedrijven/:zoekTerm', function(context) {
+		zoekTerm = this.params['zoekTerm'];
+		new lijstBedrijven(zoekTerm);
+	});
+
 	app.route('GET', '#beherenRelatie/:id/:actie/:subId', function(context) {
 		id = this.params['id'];
 		actie = this.params['actie'];

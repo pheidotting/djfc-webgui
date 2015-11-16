@@ -69,8 +69,8 @@ define(["commons/3rdparty/log",
                 return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRES_BIJ_RELATIE'), data);
             },
 
-            lijstBedrijven: function(relatieId){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BEDRIJVEN_BIJ_RELATIE'), {relatieId : relatieId});
+            lijstBedrijven: function(zoekTerm){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BEDRIJVEN_BIJ_RELATIE'), {zoekTerm : zoekTerm});
             },
 
             opslaanBedrijf: function(data){
