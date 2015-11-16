@@ -12,11 +12,11 @@ define(['jquery',
 
 			lijst : ko.observableArray(),
 
-			naarDetailScherm : function(relatie){
+			naarDetailScherm : function(bedrijf){
 				functions.verbergMeldingen();
 				$(document).ajaxStop($.unblockUI);
 				$.blockUI({ message: '<img src="images/ajax-loader.gif">'});
-				redirect.redirect('BEHEREN_BEDRIJF', relatie.id);
+				redirect.redirect('BEHEREN_BEDRIJF', bedrijf.id);
 			},
 
 			toevoegenNieuweRelatie : function(){
