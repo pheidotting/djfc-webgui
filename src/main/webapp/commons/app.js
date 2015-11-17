@@ -37,10 +37,11 @@ requirejs(['jquery',
            'js/lijstRelaties',
            'js/lijstBedrijven',
            'js/beherenRelatie',
+           'js/beherenBedrijf',
            'js/taak/taken',
            'js/taak/afhandelenTaak',
            'js/dashboard'],
-function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, beherenRelatie, taken, afhandelenTaak, dashboard) {
+function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, beherenRelatie, beherenBedrijf, taken, afhandelenTaak, dashboard) {
 	commonFunctions.haalIngelogdeGebruiker();
 	window.setInterval(commonFunctions.haalIngelogdeGebruiker, 300000);
 
@@ -83,6 +84,32 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 	app.route('GET', '#lijstBedrijven/:zoekTerm', function(context) {
 		zoekTerm = this.params['zoekTerm'];
 		new lijstBedrijven(zoekTerm);
+	});
+
+	app.route('GET', '#beherenBedrijf/:id/:actie/:subId', function(context) {
+	    console.log("beherenBedrijf");
+		id = this.params['id'];
+		actie = this.params['actie'];
+		subId = this.params['subId'];
+		new beherenBedrijf(id, actie, subId);
+	});
+
+	app.route('GET', '#beherenBedrijf/:id/:actie', function(context) {
+	    console.log("beherenBedrijf");
+		id = this.params['id'];
+		actie = this.params['actie'];
+		new beherenBedrijf(id, actie);
+	});
+
+	app.route('GET', '#beherenBedrijf/:id', function(context) {
+	    console.log("beherenBedrijf");
+		id = this.params['id'];
+		new beherenBedrijf(id);
+	});
+
+	app.route('GET', '#beherenBedrijf', function(context) {
+	    console.log("beherenBedrijf");
+		new beherenBedrijf(null);
 	});
 
 	app.route('GET', '#beherenRelatie/:id/:actie/:subId', function(context) {

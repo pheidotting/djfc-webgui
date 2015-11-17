@@ -181,6 +181,9 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.3.0.M2</version>
                 <configuration>
+                    <httpConnector>
+                        <port>7072</port>
+                    </httpConnector>
                     <webApp>
                         <contextPath>/dejonge</contextPath>
                         <descriptor>
@@ -238,7 +241,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.1.1.v20140108</version>
@@ -271,7 +274,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
         </plugins>
         <finalName>gui</finalName>
     </build>

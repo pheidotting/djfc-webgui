@@ -27,7 +27,7 @@ public class BeherenBedrijfSchermTest {
     private final String BASIS_URL = "http://localhost:7072/dejonge/index.html#";
 
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(8089);
+    public WireMockRule wireMockRule = new WireMockRule(8080);
 private Gson gson=new Gson();
 //
 //
@@ -46,12 +46,17 @@ private Gson gson=new Gson();
 
 
 
+//        Thread.sleep(1000000);
+
+
         DesiredCapabilities desiredCapabilities=new DesiredCapabilities();
         desiredCapabilities.setBrowserName("chrome");
         desiredCapabilities.setPlatform(Platform.MAC);
 
                 driver =  new FirefoxDriver(desiredCapabilities);
 Hulp.naarAdres(driver,BASIS_URL+"beherenBedrijf");
+
+                Thread.sleep(100000);
 
 
         verify(getRequestedFor(urlEqualTo("/dejonge/rest/authorisatie/authorisatie/ingelogdeGebruiker")));
