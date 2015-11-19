@@ -4,10 +4,11 @@ define(['jquery',
 //        'js/beherenBedrijfPolis',
 //        'js/beherenBedrijfSchades',
 //        'js/beherenBedrijfSchade',
+        'js/beherenBedrijfJaarCijfers',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'redirect'],
-    function($, beherenBedrijf, log, commonFunctions, redirect) {
+    function($, beherenBedrijf, beherenBedrijfJaarCijfers, log, commonFunctions, redirect) {
 
 	return function(bedrijfId, actie, subId){
 		$('#content').load('templates/beherenBedrijfTemplate.html', function(response, status, xhr) {
@@ -41,6 +42,8 @@ define(['jquery',
 				$('#details').load("templates/beherenBedrijf" + pagina + ".html", function(){
 					if(actie == ""){
 						new beherenBedrijf(bedrijfId);
+					}else if(actie == "jaarcijfers"){
+						new beherenBedrijfJaarCijfers(bedrijfId);
 					}
 					_bedrijfId = bedrijfId;
 					_subId = subId;
@@ -79,6 +82,10 @@ define(['jquery',
 				$("#schade").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'schade', '0');
+				});
+				$("#jaarcijfers").click(function(){
+			    	commonFunctions.verbergMeldingen();
+			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'jaarcijfers');
 				});
 			}
 		});

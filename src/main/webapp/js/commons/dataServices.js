@@ -207,8 +207,11 @@ define(["commons/3rdparty/log",
 
             ophalenAdresOpPostcode: function(postcode, huisnummer){
                 return this.voerUitGet(navRegister.bepaalUrl('OPHALEN_ADRES_OP_POSTCODE'), {"postcode" : postcode, "huisnummer" : huisnummer});
-            }
+            },
 
+            ophalenJaarCijfers: function(bedrijfsId){
+                return this.voerUitGet(navRegister.bepaalUrl('JAARCIJFERS_LIJST'), {'bedrijfsId' : bedrijfsId});
+            }
         }
     }
 );

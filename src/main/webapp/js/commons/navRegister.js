@@ -64,6 +64,8 @@ define([ ],
                             {naam: 'VERWIJDER_OPMERKING',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijder'},
 
                             {naam: 'LOG4JAVASCRIPT',                    url: BASISURL_RELATIEBEHEER + '/authorisatie/authorisatie/log4javascript'},
+
+                            {naam: 'JAARCIJFERS_LIJST',                 url: BASISURL_RELATIEBEHEER + '/medewerker/jaarcijfers/lijst'},
                         ];
 
                 var url = '';
