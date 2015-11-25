@@ -211,6 +211,10 @@ define(["commons/3rdparty/log",
 
             ophalenJaarCijfers: function(bedrijfsId){
                 return this.voerUitGet(navRegister.bepaalUrl('JAARCIJFERS_LIJST'), {'bedrijfsId' : bedrijfsId});
+            },
+
+            ophalenRisicoAnalyse: function(bedrijfsId){
+                return this.voerUitGet(navRegister.bepaalUrl('RISICOANALYSE_LEES'), {'bedrijfsId' : bedrijfsId});
             }
         }
     }

@@ -21,6 +21,8 @@ define(['jquery',
 		_this.tijd = ko.observable(data.tijd);
 		_this.medewerker = ko.observable(data.medewerker);
 		_this.medewerkerId = ko.observable(data.medewerkerId);
+		_this.jaarcijfers = ko.observable(data.jaarcijfers);
+		_this.risicoAnalyse = ko.observable(data.risicoAnalyse);
 		_this.soort = ko.computed(function() {
 			var soort = "Persoon";
 			if(_this.schade() != null){
@@ -31,6 +33,9 @@ define(['jquery',
 			}
 			if(_this.polis() != null){
 				soort = "Polis";
+			}
+			if(_this.jaarcijfers() != null){
+				soort = "JaarCijfers";
 			}
 			return soort;
 		}, this);
