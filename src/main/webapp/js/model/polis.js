@@ -167,6 +167,8 @@ define(['jquery',
 	    	}else{
 	    		commonFunctions.verbergMeldingen();
 	    		log.debug("versturen naar " + navRegister.bepaalUrl('OPSLAAN_POLIS'));
+				_polis.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, data.id, null);
+				_polis.bijlages = ko.observableArray();
 	    		log.debug(ko.toJSON(polis));
 	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
