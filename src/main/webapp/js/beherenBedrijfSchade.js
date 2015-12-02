@@ -9,9 +9,9 @@ define(['jquery',
         'opmerkingenLoader'],
     function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
-	return function(polisId, relatieId) {
+	return function(polisId, bedrijfId) {
 		block.block();
-		dataServices.lijstPolissenBijBedrijf(relatieId).done(function(data) {
+		dataServices.lijstPolissenBijBedrijf(bedrijfId).done(function(data) {
 			var $select = $('#polisVoorSchademelding');
 			$.each(data, function(key, value) {
 				var polisTitel = value.soort + " (" + value.polisNummer + ")";
@@ -30,9 +30,8 @@ define(['jquery',
 					dataServices.leesSchade(subId).done(function(data) {
 						log.debug("applybindings met " + JSON.stringify(data));
 						var schade = new Schade(data);
-						schade.relatie(relatieId);
                         fileUpload.init().done(function(){
-							new opmerkingenLoader(relatieId).init().done(function(){
+							new opmerkingenLoader(bedrijfId).init().done(function(){
 	                            ko.applyBindings(schade);
 							});
                         });
@@ -40,9 +39,9 @@ define(['jquery',
 				}else{
 					log.debug("applybindings met een nieuw Schade object");
 					var schade = new Schade('');
-					schade.relatie(relatieId);
+					schade.bedrijf(bedrijfId);
                     fileUpload.init().done(function(){
-						new opmerkingenLoader(relatieId).init().done(function(){
+						new opmerkingenLoader(bedrijfId).init().done(function(){
 	    					ko.applyBindings(schade);
 						});
                     });

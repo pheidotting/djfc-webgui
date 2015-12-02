@@ -158,11 +158,17 @@ define(['jquery',
 	    	if(!schade.isValid()){
 	    		result.showAllMessages(true);
 	    	}else{
+				schade.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, data.id, null);
+				schade.bijlages = ko.observableArray();
 	    		log.debug("Versturen : " + ko.toJSON(schade));
 
 	    		dataServices.opslaanSchade(ko.toJSON(schade)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'schades');
+					if(schade.relatie() != undefined){
+						redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'schades');
+					} else {
+						redirect.redirect('BEHEREN_BEDRIJF', schade.bedrijf(), 'schades');
+					}
 	    		}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
 	    		});
