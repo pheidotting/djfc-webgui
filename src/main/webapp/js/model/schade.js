@@ -32,6 +32,7 @@ define(['jquery',
 	    self.id = ko.observable(data.id);
 		self.soortEntiteit = ko.observable('Schade');
 	    self.relatie = ko.observable(relatieId);
+	    self.bedrijf = ko.observable(data.bedrijf);
 	    self.polis = ko.observable(data.polis).extend({validation: {
 	        validator: function (val) {
 	        	if(ko.utils.unwrapObservable(self.polis) == "Kies een polis uit de lijst.."){
@@ -149,6 +150,7 @@ define(['jquery',
                     self.bijlages.valueHasMutated();
                 });
             }
+			$.unblockUI();
         };
 
 		self.opslaan = function(schade){
@@ -169,6 +171,10 @@ define(['jquery',
 
 	    self.bewerkSchade = function(schade){
 			redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'schade', schade.id());
+	    };
+
+	    self.bewerkSchadeBedrijf = function(schade){
+			redirect.redirect('BEHEREN_BEDRIJF', schade.bedrijf(), 'schade', schade.id());
 	    };
 
 	    self.plaatsOpmerking = function(schade){

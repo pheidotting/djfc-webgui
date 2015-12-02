@@ -2,10 +2,14 @@ define(['jquery',
         'js/beherenBedrijfMain',
         'js/beherenBedrijfJaarCijfers',
         'js/beherenBedrijfRisicoAnalyse',
+        'js/beherenBedrijfPolissen',
+        'js/beherenBedrijfPolis',
+        'js/beherenBedrijfSchades',
+        'js/beherenBedrijfSchade',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'redirect'],
-    function($, beherenBedrijf, beherenBedrijfJaarCijfers, beherenBedrijfRisicoAnalyse, log, commonFunctions, redirect) {
+    function($, beherenBedrijf, beherenBedrijfJaarCijfers, beherenBedrijfRisicoAnalyse, beherenBedrijfPolissen, beherenBedrijfPolis, beherenBedrijfSchades, beherenBedrijfSchade, log, commonFunctions, redirect) {
 
 	return function(bedrijfId, actie, subId){
 		$('#content').load('templates/beherenBedrijfTemplate.html', function(response, status, xhr) {
@@ -41,8 +45,16 @@ define(['jquery',
 						new beherenBedrijf(bedrijfId);
 					}else if(actie == "jaarcijfers"){
 						new beherenBedrijfJaarCijfers(bedrijfId);
-					}else if(actie = "risicoanalyse"){
+					}else if(actie == "risicoanalyse"){
 					    new beherenBedrijfRisicoAnalyse(bedrijfId);
+					}else if(actie == "polissen"){
+					    new beherenBedrijfPolissen(bedrijfId);
+					}else if(actie == "polis"){
+					    new beherenBedrijfPolis(subId);
+					}else if(actie == "schades"){
+					    new beherenBedrijfSchades(bedrijfId);
+					}else if(actie == "schade"){
+					    new beherenBedrijfSchade(subId, bedrijfId);
 					}
 					_bedrijfId = bedrijfId;
 					_subId = subId;

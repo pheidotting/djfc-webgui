@@ -89,12 +89,20 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('LIJST_PARTICULIEREPOLISSEN'));
             },
 
+            lijstZakelijkePolissen: function(){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_ZAKELIJKEPOLISSEN'));
+            },
+
             leesPolis: function(polisId){
                 return this.voerUitGet(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId});
             },
 
             lijstPolissen: function(relatieId){
                 return this.voerUitGet(navRegister.bepaalUrl('LIJST_POLISSEN'), {relatieId : relatieId});
+            },
+
+            lijstPolissenBijBedrijf: function(bedrijfId){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_POLISSEN_BIJ_BEDRIJF'), {bedrijfId : bedrijfId});
             },
 
             verwijderBijlage: function(id){
@@ -131,6 +139,10 @@ define(["commons/3rdparty/log",
 
             lijstSchades: function(relatieId){
                 return this.voerUitGet(navRegister.bepaalUrl('LIJST_SCHADES'), {relatieId : relatieId});
+            },
+
+            lijstSchadesBijBedrijf: function(bedrijfId){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_SCHADES_BIJ_BEDRIJF'), {bedrijfId : bedrijfId});
             },
 
             lijstSoortenHypotheek: function(id){

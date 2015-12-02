@@ -63,6 +63,7 @@ define(['jquery',
 		_polis.dekking = ko.observable(data.dekking);
 		_polis.verzekerdeZaak = ko.observable(data.verzekerdeZaak);
 		_polis.bedrijf = ko.observable(data.bedrijf);
+		_polis.bedrijfsId = ko.observable(data.bedrijfsId);
 		_polis.omschrijvingVerzekering = ko.observable(data.omschrijvingVerzekering);
 		_polis.idDiv = ko.computed(function() {
 	        return "collapsable" + data.id;
@@ -120,6 +121,18 @@ define(['jquery',
 			_polis.eindDatum(moment().format("DD-MM-YYYY"));
 	    };
 
+	    _polis.bewerkPolisBedrijf = function(polis){
+			commonFunctions.verbergMeldingen();
+			log.debug("Polis bewerken met id " + polis.id() + " en Bedrijf id : " + polis.bedrijf());
+			redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polis', polis.id());
+	    };
+
+	    _polis.polisInzienBedrijf = function(polis){
+			commonFunctions.verbergMeldingen();
+			log.debug("Polis inzien met id " + polis.id() + " en Bedrijf id : " + polis.bedrijf());
+			redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polisInzien', polis.id());
+	    };
+
 	    _polis.verwijderBijlage = function(bijlage){
 			commonFunctions.verbergMeldingen();
 			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
@@ -172,7 +185,11 @@ define(['jquery',
 	    		log.debug(ko.toJSON(polis));
 	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
+					if(polis.relatie() != undefined){
+						redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
+					} else {
+						redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polissen');
+					}
 	    		}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
 	    		});
