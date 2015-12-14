@@ -74,6 +74,8 @@ define(["commons/3rdparty/log",
             },
 
             opslaanBedrijf: function(data){
+                log.debug(JSON.stringify(data));
+
                 return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_BEDRIJF'), data);
             },
 

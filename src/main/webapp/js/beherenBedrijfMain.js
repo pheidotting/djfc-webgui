@@ -7,8 +7,10 @@ define(['jquery',
         'jqueryUI',
         'dataServices',
         'fileUpload',
-        'opmerkingenLoader'],
-    function($, ko, Bedrijf, block, log, commonFunctions, jqueryUI, dataServices, fileUpload, opmerkingenLoader) {
+        'opmerkingenLoader',
+        'adressenLoader',
+        'telefoonnummersLoader'],
+    function($, ko, Bedrijf, block, log, commonFunctions, jqueryUI, dataServices, fileUpload, opmerkingenLoader, adressenLoader, telefoonnummersLoader) {
 
 	return function(bedrijfId) {
 		block.block();
@@ -22,9 +24,14 @@ define(['jquery',
 
             new fileUpload.init().done(function(){
                 new opmerkingenLoader(bedrijfId).init().done(function(){
-                    log.debug("Do the knockout magic");
-                    log.debug(JSON.stringify(bedrijf));
-                    ko.applyBindings(bedrijf);
+                    new adressenLoader(bedrijfId).init().done(function(){
+                        new telefoonnummersLoader(bedrijfId).init().done(function(){
+                            log.debug("Do the knockout magic");
+                            log.debug(JSON.stringify(bedrijf));
+                            ko.applyBindings(bedrijf);
+        			        $.unblockUI();
+                        });
+                    });
                 });
             });
 		}).fail(function(data){

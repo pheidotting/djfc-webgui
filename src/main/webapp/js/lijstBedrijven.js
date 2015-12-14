@@ -28,6 +28,7 @@ define(['jquery',
 
 						log.debug("Bedrijven opgehaald, applyBindings");
 						ko.applyBindings(lijst);
+						$.unblockUI();
 					}
 				});
 			}

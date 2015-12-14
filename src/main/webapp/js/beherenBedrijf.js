@@ -45,7 +45,7 @@ define(['jquery',
 						new beherenBedrijf(bedrijfId);
 					}else if(actie == "jaarcijfers"){
 						new beherenBedrijfJaarCijfers(bedrijfId);
-					}else if(actie == "risicoanalyse"){
+					}else if(actie == "risicoanalyses"){
 					    new beherenBedrijfRisicoAnalyse(bedrijfId);
 					}else if(actie == "polissen"){
 					    new beherenBedrijfPolissen(bedrijfId);
@@ -100,7 +100,7 @@ define(['jquery',
 				});
 				$("#risicoanalyes").click(function(){
 			    	commonFunctions.verbergMeldingen();
-			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'risicoanalyes');
+			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'risicoanalyses');
 				});
 			}
 		});

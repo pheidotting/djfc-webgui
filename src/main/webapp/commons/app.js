@@ -16,6 +16,10 @@ requirejs.config({
         fileUpload: '../js/commons/fileUpload',
         opmerkingenLoader: '../js/commons/opmerkingenLoader',
         opmerkingenModel: '../js/commons/opmerkingenModel',
+        adressenLoader: '../js/commons/adressenLoader',
+        adressenModel: '../js/commons/adressenModel',
+        telefoonnummersLoader: '../js/commons/telefoonnummersLoader',
+        telefoonnummersModel: '../js/commons/telefoonnummersModel',
         redirect: '../js/commons/redirect'
     },
 	shim: {
@@ -95,7 +99,6 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 	});
 
 	app.route('GET', '#beherenBedrijf/:id/:actie', function(context) {
-	    console.log("beherenBedrijf");
 		id = this.params['id'];
 		actie = this.params['actie'];
 		new beherenBedrijf(id, actie);

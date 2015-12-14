@@ -8,6 +8,10 @@ define(['jquery',
 	return function adresModel (data){
 	    thisAdres = this;
 
+        thisAdres.verwijderAdres = function(){
+            log.debug("afsjdoijweoijoijfoiwojoawjeojweiajiurhfuhregiuhiugh");
+        };
+
         thisAdres.zetPostcodeOm = function(postcode){
             log.debug(postcode);
             if(postcode != null){

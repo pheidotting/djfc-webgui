@@ -3,16 +3,21 @@ define(['jquery',
          'commons/3rdparty/log',
          'commons/commonFunctions',
          'model/bijlage',
+         'model/contactpersoon',
 		 'dataServices',
 		 'redirect',
          'fileUpload',
-         'opmerkingenModel'],
-	function ($, ko, log, commonFunctions, Bijlage, dataServices, redirect, fileUpload, opmerkingenModel) {
+         'opmerkingenModel',
+         'adressenModel',
+         'telefoonnummersModel'],
+	function ($, ko, log, commonFunctions, Bijlage, Contactpersoon, dataServices, redirect, fileUpload, opmerkingenModel, adressenModel, telefoonnummersModel) {
 
 	return function bedrijfModel (data){
 		_bedrijf = this;
 
 		_bedrijf.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, data.id, null);
+		_bedrijf.adressenModel = new adressenModel(data.adressen, data.id);
+		_bedrijf.telefoonnummersModel = new telefoonnummersModel(data.telefoonnummers, data.id);
 
         _bedrijf.readOnly = ko.observable(false);
         _bedrijf.notReadOnly = ko.observable(true);
@@ -20,12 +25,19 @@ define(['jquery',
 		_bedrijf.id = ko.observable(data.id);
 		_bedrijf.naam = ko.observable(data.naam).extend({required: true});
 		_bedrijf.kvk = ko.observable(data.kvk);
-		_bedrijf.straat = ko.observable(data.straat);
-		_bedrijf.huisnummer = ko.observable(data.huisnummer).extend({ number: true });
-		_bedrijf.toevoeging = ko.observable(data.toevoeging);
-		_bedrijf.postcode = ko.observable(data.postcode);
-		_bedrijf.plaats = ko.observable(data.plaats);
-		_bedrijf.relatie = ko.observable(data.relatie);
+		_bedrijf.rechtsvorm = ko.observable(data.rechtsvorm);
+		_bedrijf.email = ko.observable(data.email);
+		_bedrijf.internetadres = ko.observable(data.internetadres);
+		_bedrijf.hoedanigheid = ko.observable(data.hoedanigheid);
+		_bedrijf.cAoVerplichtingen = ko.observable(data.cAoVerplichtingen);
+		_bedrijf.contactpersonen = ko.observableArray();
+		if(data.contactpersonen != null){
+			$.each(data.contactpersonen, function(i, item){
+				var contactpersoon = new Contactpersoon(item);
+				_bedrijf.contactpersonen().push(contactpersoon);
+			});
+		};
+		_bedrijf.soortEntiteit = ko.observable('Bedrijf');
 		_bedrijf.bijlages = ko.observableArray();
 		if(data.bijlages != null){
 			$.each(data.bijlages, function(i, item){
@@ -48,18 +60,26 @@ define(['jquery',
 			redirect.redirect('BEHEREN_RELATIE', bedrijf.relatie(), 'bedrijf', bedrijf.id());
 	    };
 
+        _bedrijf.adressen = ko.observableArray();
+        _bedrijf.telefoonnummers = ko.observableArray();
+
 		_bedrijf.opslaan = function(bedrijf){
 	    	var result = ko.validation.group(bedrijf, {deep: true});
 	    	if(!bedrijf.isValid()){
 	    		result.showAllMessages(true);
 	    	}else{
 				commonFunctions.verbergMeldingen();
-				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaanBedrijf : ");
-				log.debug(ko.toJSON(_bedrijf));
+
+                _bedrijf.opmerkingenModel.opmerkingen = null;
+                _bedrijf.bijlages = null;
+                _bedrijf.adressen = _bedrijf.adressenModel.adressen();
+                _bedrijf.telefoonnummers = _bedrijf.telefoonnummersModel.telefoonnummers();
+                _bedrijf.adressenModel = null;
+                _bedrijf.telefoonnummersModel = null;
 
 				dataServices.opslaanBedrijf(ko.toJSON(bedrijf)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					redirect.redirect('BEHEREN_RELATIE', bedrijf.relatie(), 'bedrijven');
+					redirect.redirect('LIJST_BEDRIJVEN');
 				}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
 				});
