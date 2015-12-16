@@ -144,8 +144,11 @@ define(['jquery',
 			_thisRelatie.rekeningnummers.valueHasMutated();
 		};
 
-		_thisRelatie.verwijderRekening = function(nummer){
-//			_thisRelatie.rekeningnummers().remove(nummer);
+		_thisRelatie.verwijderRekening = function(rekening){
+			log.debug("Verwijderen rekening " + ko.toJSON(rekening));
+			_thisRelatie.rekeningnummers.remove(function (item) {
+			    return item().rekeningnummer() == rekening.rekeningnummer() && item().bic() == rekening.bic();
+			});
 			_thisRelatie.rekeningnummers.valueHasMutated();
 		};
 
@@ -155,7 +158,10 @@ define(['jquery',
 		};
 
 		_thisRelatie.verwijderTelefoonNummer = function(telefoon) {
-//			_thisRelatie.telefoonnummers().remove(telefoon);
+			log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
+			_thisRelatie.telefoonnummers.remove(function (item) {
+                return item().telefoonnummer() == telefoon.telefoonnummer() && item().soort() == telefoon.soort();
+            });
 			_thisRelatie.telefoonnummers.valueHasMutated();
 		};
 
