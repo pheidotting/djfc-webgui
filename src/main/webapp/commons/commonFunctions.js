@@ -55,7 +55,6 @@ define([ "commons/3rdparty/log",
  		verbergMeldingen: function(){
 			if(refreshIntervalId != undefined || refreshIntervalId != 0){
                 clearInterval(this.refreshIntervalId);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
                 $('#alertSucces').hide();
                 $('#alertDanger').hide();
             }
