@@ -233,14 +233,9 @@ define(['jquery',
 
             dataServices.ophalenAdresOpPostcode(adres.postcode(), adres.huisnummer()).done(function(data){
                 log.debug(JSON.stringify(data));
-                if(data.resource!=undefined) {
-                    adres.straat(data.resource.street);
-                    adres.plaats(data.resource.town);
-                    adres.postcode(adres.zetPostcodeOm(adres.postcode()));
-                } else {
-                    adres.straat('');
-                    adres.plaats('');
-                }
+				adres.straat(data.straat);
+				adres.plaats(data.plaats);
+				adres.postcode(adres.zetPostcodeOm(adres.postcode()));
             }).fail(function(data){
                 log.debug(JSON.stringify(data));
                 adres.straat('');

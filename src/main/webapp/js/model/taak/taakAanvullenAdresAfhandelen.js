@@ -39,13 +39,9 @@ define([ "commons/3rdparty/log",
 
             dataServices.ophalenAdresOpPostcode(adres.postcode(), adres.huisnummer()).done(function(data){
                 log.debug(JSON.stringify(data));
-                if(data.resource!=undefined) {
-                    adres.straat(data.resource.street);
-                    adres.plaats(data.resource.town);
-                } else {
-                    adres.straat('');
-                    adres.plaats('');
-                }
+				adres.straat(data.straat);
+				adres.plaats(data.plaats);
+				adres.postcode(adres.zetPostcodeOm(adres.postcode()));
             }).fail(function(data){
                 log.debug(JSON.stringify(data));
                 adres.straat('');

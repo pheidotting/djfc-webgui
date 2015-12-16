@@ -2,24 +2,24 @@ define(['jquery',
         'commons/commonFunctions',
          'knockout',
          'commons/3rdparty/log',
+        'dataServices',
          "commons/validation"],
-	function ($, commonFunctions, ko, log, validation) {
+	function ($, commonFunctions, ko, log, dataServices, validation) {
 
-	return function adresModel (data){
+	return function thisAdresModel (data){
 	    thisAdres = this;
 
         thisAdres.verwijderAdres = function(){
-            log.debug("afsjdoijweoijoijfoiwojoawjeojweiajiurhfuhregiuhiugh");
         };
 
-        thisAdres.zetPostcodeOm = function(postcode){
-            log.debug(postcode);
-            if(postcode != null){
-                if(postcode.length == 6){
-                    postcode = postcode.toUpperCase();
-                    postcode = postcode.substring(0, 4) + " " + postcode.substring(4);
+        thisAdres.zetPostcodeOm = function(){
+            log.debug(thisAdres.postcode);
+            if(thisAdres.postcode() != null){
+                if(thisAdres.postcode().length == 6){
+                    thisAdres.postcode(thisAdres.postcode().toUpperCase());
+                    thisAdres.postcode(thisAdres.postcode().substring(0, 4) + " " + thisAdres.postcode().substring(4));
 
-                    return postcode;
+                    return thisAdres.postcode();
                 }
             }
         };
@@ -31,5 +31,21 @@ define(['jquery',
 		thisAdres.plaats = ko.observable(data.plaats);
 
 		thisAdres.zetPostcodeOm();
+
+        thisAdres.opzoekenAdres = function(){
+            log.debug(ko.toJSON(thisAdres));
+            thisAdres.postcode(thisAdres.postcode().toUpperCase().replace(" ", ""));
+
+            dataServices.ophalenAdresOpPostcode(thisAdres.postcode(), thisAdres.huisnummer()).done(function(data){
+                log.debug(JSON.stringify(data));
+				thisAdres.straat(data.straat);
+				thisAdres.plaats(data.plaats);
+				thisAdres.postcode(thisAdres.zetPostcodeOm(thisAdres.postcode()));
+            }).fail(function(data){
+                log.debug(JSON.stringify(data));
+                thisAdres.straat('');
+                thisAdres.plaats('');
+            });
+        };
     };
 });
