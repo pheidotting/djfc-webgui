@@ -22,6 +22,15 @@ define(['jquery',
         _bedrijf.readOnly = ko.observable(false);
         _bedrijf.notReadOnly = ko.observable(true);
 
+		_bedrijf.verwijderAdres = function(adres) {
+			log.debug("Verwijderen adres " + ko.toJSON(adres));
+			_bedrijf.adressenModel.adressen.remove(function (item) {
+			    log.debug(ko.toJSON(item));
+				return item.postcode() == adres.postcode() && item.huisnummer() == adres.huisnummer();
+			});
+			_bedrijf.adressenModel.adressen.valueHasMutated();
+		};
+
 		_bedrijf.id = ko.observable(data.id);
 		_bedrijf.naam = ko.observable(data.naam).extend({required: true});
 		_bedrijf.kvk = ko.observable(data.kvk);
@@ -36,6 +45,18 @@ define(['jquery',
 				var contactpersoon = new Contactpersoon(item);
 				_bedrijf.contactpersonen().push(contactpersoon);
 			});
+		};
+		_bedrijf.voegContactpersoonToe = function(){
+            _bedrijf.contactpersonen().push(new Contactpersoon(''));
+            _bedrijf.contactpersonen.valueHasMutated();
+		};
+		_bedrijf.verwijderContactpersoon = function(contactpersoon) {
+			log.debug("Verwijderen contactpersoon " + ko.toJSON(contactpersoon));
+			_bedrijf.contactpersonen.remove(function (item) {
+			    log.debug(ko.toJSON(item));
+				return item.voornaam() == contactpersoon.voornaam() && item.achternaam() == contactpersoon.achternaam();
+			});
+			_bedrijf.contactpersonen.valueHasMutated();
 		};
 		_bedrijf.soortEntiteit = ko.observable('Bedrijf');
 		_bedrijf.bijlages = ko.observableArray();
@@ -62,6 +83,15 @@ define(['jquery',
 
         _bedrijf.adressen = ko.observableArray();
         _bedrijf.telefoonnummers = ko.observableArray();
+		_bedrijf.verwijderTelefoonNummer = function(telefoon) {
+			log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
+			_bedrijf.telefoonnummersModel.telefoonnummers.remove(function (item) {
+			    log.debug(ko.toJSON(item));
+				return item().telefoonnummer() == telefoon.telefoonnummer() && item().soort() == telefoon.soort();
+			});
+			_bedrijf.telefoonnummersModel.telefoonnummers.valueHasMutated();
+		};
+
 
 		_bedrijf.opslaan = function(bedrijf){
 	    	var result = ko.validation.group(bedrijf, {deep: true});

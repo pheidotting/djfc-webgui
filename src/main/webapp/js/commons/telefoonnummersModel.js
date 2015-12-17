@@ -11,7 +11,6 @@ define(["commons/3rdparty/log",
             _telefoonnummers = this;
 
             _telefoonnummers.telefoonnummers = ko.observableArray();
-//            _telefoonnummers.nieuwAdres = ko.observable();
             _telefoonnummers.bedrijf = ko.observable(bedrijf);
 
             if(data != null){
@@ -20,11 +19,14 @@ define(["commons/3rdparty/log",
                 });
             }
             
-//            _telefoonnummers.verwijderAdres = function(){
-//                log.debug("Adres  verwijderen");
-////                _telefoonnummers.remove(adres);
-//            }
-//
+            _telefoonnummers.verwijderTelefoonNummer = function(telefoon) {
+                log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
+                _telefoonnummers.telefoonnummers.remove(function (item) {
+                    return item().telefoonnummer() == telefoon.telefoonnummer() && item().soort() == telefoon.soort();
+                });
+                _thisRelatie.telefoonnummers.valueHasMutated();
+            };
+
             _telefoonnummers.voegTelefoonNummerToe = function(){
                 log.debug("nieuw Telefoonnummer");
                 _telefoonnummers.telefoonnummers().push(new TelefoonNummer(""));
