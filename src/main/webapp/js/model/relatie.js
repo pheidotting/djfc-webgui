@@ -203,6 +203,9 @@ define(['jquery',
 	    	if(!_thisRelatie.isValid()){
 	    		result.showAllMessages(true);
 	    	}else{
+    			$.each(_thisRelatie.telefoonnummers(), function(i, item){
+    			    item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
+    			});
 				commonFunctions.verbergMeldingen();
 				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaan : ");
 				log.debug(ko.toJSON(_thisRelatie));

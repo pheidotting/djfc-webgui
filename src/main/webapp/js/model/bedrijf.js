@@ -107,6 +107,16 @@ define(['jquery',
                 _bedrijf.adressenModel = null;
                 _bedrijf.telefoonnummersModel = null;
 
+    			$.each(_bedrijf.telefoonnummers, function(i, item){
+    			    item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
+    			});
+
+    			$.each(_bedrijf.contactpersonen(), function(i, contactpersoon){
+                    $.each(contactpersoon.telefoonnummers(), function(i, item){
+                        item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
+                    });
+    			});
+
 				dataServices.opslaanBedrijf(ko.toJSON(bedrijf)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					redirect.redirect('LIJST_BEDRIJVEN');
