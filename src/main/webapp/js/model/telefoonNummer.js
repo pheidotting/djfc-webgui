@@ -20,7 +20,7 @@ define(['jquery',
 
         zetTelefoonnummerOm = function(nummer){
             var tel = nummer.telefoonnummer();
-            if(tel.length == 10){
+            if(tel != undefined && tel.length == 10){
                 if(tel.substring(0, 2) == "06"){
                     //06 nummers
                     tel = tel.substring(0, 2) + " - " + tel.substring(2, 4) + " " + tel.substring(4, 6) + " " + tel.substring(6, 8) + " " + tel.substring(8, 10);
