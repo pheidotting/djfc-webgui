@@ -42,6 +42,11 @@ define(['jquery',
 					redirect.redirect('LIJST_BEDRIJVEN', $('#zoekTerm').val());
 	            }
 			});
+
+			$('#toevoegenNieuwBedrijf').click(function(){
+				functions.verbergMeldingen();
+				redirect.redirect('BEHEREN_BEDRIJF', '0');
+			});
 		});
 	};
 });

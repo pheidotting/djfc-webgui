@@ -18,11 +18,6 @@ define(['jquery',
 				$.blockUI({ message: '<img src="images/ajax-loader.gif">'});
 				redirect.redirect('BEHEREN_BEDRIJF', bedrijf.id);
 			},
-
-			toevoegenNieuweRelatie : function(){
-				functions.verbergMeldingen();
-				redirect.redirect('BEHEREN_BEDRIJF', '0');
-			}
 		});
 
 		return bedrijfLijstModel;
