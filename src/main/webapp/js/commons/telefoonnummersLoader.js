@@ -9,13 +9,9 @@ define(["commons/3rdparty/log"],
 
                 var deferred = $.Deferred();
 
-                if(id != 0){
-                    $('#telefoonnummers').load('templates/commons/telefoonnummers.html', function(response, status, xhr) {
-                        return deferred.resolve();
-                    });
-                } else {
+                $('#telefoonnummers').load('templates/commons/telefoonnummers.html', function(response, status, xhr) {
                     return deferred.resolve();
-                }
+                });
 
                 return deferred.promise();
             };

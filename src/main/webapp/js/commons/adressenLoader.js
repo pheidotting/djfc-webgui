@@ -9,13 +9,9 @@ define(["commons/3rdparty/log"],
 
                 var deferred = $.Deferred();
 
-                if(id != 0){
-                    $('#adressen').load('templates/commons/adressen.html', function(response, status, xhr) {
-                        return deferred.resolve();
-                    });
-                } else {
+                $('#adressen').load('templates/commons/adressen.html', function(response, status, xhr) {
                     return deferred.resolve();
-                }
+                });
 
                 return deferred.promise();
             };
