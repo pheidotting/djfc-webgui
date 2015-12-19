@@ -34,12 +34,13 @@ define([ ],
 
                             {naam: 'VERWIJDER_BIJLAGE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/verwijder'},
                             {naam: 'UPLOAD_BIJLAGE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadBijlage'},
+                            {naam: 'WIJZIG_OMSCHRIJVING_BIJLAGE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/wijzigOmschrijvingBijlage'},
 
                             {naam: 'OPSLAAN_SCHADE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/schade/opslaan'},
                             {naam: 'VERWIJDER_SCHADE',                  url: BASISURL_RELATIEBEHEER + '/medewerker/schade/verwijder'},
                             {naam: 'LEES_SCHADE',                       url: BASISURL_RELATIEBEHEER + '/medewerker/schade/lees'},
                             {naam: 'LIJST_SCHADES',                     url: BASISURL_RELATIEBEHEER + '/medewerker/schade/lijst'},
-                            {naam: 'LIJST_SCHADES_BIJ_BEDRIJF',                     url: BASISURL_RELATIEBEHEER + '/medewerker/schade/lijstBijBedrijf'},
+                            {naam: 'LIJST_SCHADES_BIJ_BEDRIJF',         url: BASISURL_RELATIEBEHEER + '/medewerker/schade/lijstBijBedrijf'},
 
                             {naam: 'LIJST_STATUS_SCHADE',               url: BASISURL_RELATIEBEHEER + '/medewerker/overig/lijstStatusSchade'},
                             {naam: 'OPHALEN_ADRES_OP_POSTCODE',         url: BASISURL_RELATIEBEHEER + '/medewerker/overig/ophalenAdresOpPostcode'},

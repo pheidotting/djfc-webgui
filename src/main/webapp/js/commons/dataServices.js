@@ -111,6 +111,14 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_BIJLAGE'), {"id" : id});
             },
 
+            wijzigOmschrijvingBijlage: function(id, nieuweOmschrijving){
+                var data = {};
+                data.bijlageId = id;
+                data.nieuweOmschrijving = nieuweOmschrijving;
+
+                return this.voerUitPost(navRegister.bepaalUrl('WIJZIG_OMSCHRIJVING_BIJLAGE'), JSON.stringify(data));
+            },
+
             beindigPolis: function(id){
                 return this.voerUitGet(navRegister.bepaalUrl('BEEINDIG_POLIS'), {"id" : id});
             },

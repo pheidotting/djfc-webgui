@@ -1,8 +1,9 @@
 define(['jquery',
          'knockout',
          'commons/3rdparty/log',
-         'commons/commonFunctions'],
-	function ($, ko, log, commonFunctions) {
+         'commons/commonFunctions',
+         'dataServices'],
+	function ($, ko, log, commonFunctions, dataServices) {
 
 	return function bijlageModel (modelData){
 		thisBijlage = this;
@@ -33,12 +34,13 @@ define(['jquery',
 			return ko.utils.unwrapObservable(thisBijlage.soortBijlage) + " (" + ko.utils.unwrapObservable(thisBijlage.parentId) + ")";
 		},this);
 		thisBijlage.stopEditModus = function(bijlage){
-			console.log(ko.toJSON("stopEditModus" + bijlage.id()));
+			console.log(ko.toJSON("stopEditModus " + bijlage.id()));
 			$('#tekst' + bijlage.id()).show();
 			$('#edit' + bijlage.id()).hide();
+			dataServices.wijzigOmschrijvingBijlage(bijlage.id(), bijlage.omschrijvingOfBestandsNaam());
 		};
 		thisBijlage.startEditModus = function(bijlage){
-			console.log(ko.toJSON("startEditModus" + bijlage.id()));
+			console.log(ko.toJSON("startEditModus " + bijlage.id()));
 
 			bijlage.omschrijvingOfBestandsNaamBackup = bijlage.omschrijvingOfBestandsNaam();
 
