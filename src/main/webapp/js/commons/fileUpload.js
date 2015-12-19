@@ -35,6 +35,7 @@ define(["commons/3rdparty/log",
 
                     $('#bijlageFile').val("");
 
+                    $.unblockUI();
                     return deferred.resolve(new Bijlage(bijlageData));
                 });
 
