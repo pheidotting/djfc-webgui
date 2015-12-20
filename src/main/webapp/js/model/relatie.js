@@ -211,14 +211,14 @@ define(['jquery',
 				log.debug(ko.toJSON(_thisRelatie));
 				var foutmelding;
 				dataServices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(response){
-					redirect.redirect('LIJST_RELATIES');
+					redirect.redirect('LIJST_RELATIES', _thisRelatie.achternaam());
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response){
 					commonFunctions.plaatsFoutmelding(data);
 					foutmelding = true;
 				});
 				if(foutmelding == undefined || foutmelding == null){
-					redirect.redirect('LIJST_RELATIES');
+					redirect.redirect('LIJST_RELATIES', _thisRelatie.achternaam());
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}
 	    	}
