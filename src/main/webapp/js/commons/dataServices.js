@@ -1,5 +1,5 @@
 define(["commons/3rdparty/log",
-        "navRegister",],
+        "navRegister"],
     function(log, navRegister) {
 
         return {

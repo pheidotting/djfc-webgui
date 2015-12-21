@@ -71,7 +71,7 @@ define([ ],
 
                             {naam: 'JAARCIJFERS_LIJST',                 url: BASISURL_RELATIEBEHEER + '/medewerker/jaarcijfers/lijst'},
 
-                            {naam: 'RISICOANALYSE_LEES',                url: BASISURL_RELATIEBEHEER + '/medewerker/risicoanalyse/lees'},
+                            {naam: 'RISICOANALYSE_LEES',                url: BASISURL_RELATIEBEHEER + '/medewerker/risicoanalyse/lees'}
                         ];
 
                 var url = '';

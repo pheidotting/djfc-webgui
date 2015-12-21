@@ -2,7 +2,7 @@ define(["commons/3rdparty/log",
         'commons/commonFunctions',
         'model/bijlage',
          'commons/block',
-        'navRegister',],
+        'navRegister'],
     function(log, commonFunctions, Bijlage, block, navRegister) {
 
         return {
