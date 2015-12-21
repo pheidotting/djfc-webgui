@@ -1,9 +1,8 @@
 define(['jquery',
         'knockout',
         'js/model/taak/taken',
-         'knockout',
          'dataServices'],
-    function($, ko, Taken, ko, dataServices) {
+    function($, ko, Taken, dataServices) {
 
 	return function(){
 		$('#content').load('templates/taken/taken.html', function(){

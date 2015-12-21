@@ -11,8 +11,7 @@ define(['jquery',
 		log.debug("Ophalen polissen bij Bedrijf met id " + bedrijfId);
 		block.block();
 
-		dataServices.lijstPolissenBijBedrijf
-		(bedrijfId).done(function(data){
+		dataServices.lijstPolissenBijBedrijf(bedrijfId).done(function(data){
 			log.debug("opgehaald : " + JSON.stringify(data));
 
 			dataServices.lijstVerzekeringsmaatschappijen().done(function(maatschappijen){
