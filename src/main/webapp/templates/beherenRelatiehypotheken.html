@@ -3,7 +3,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4>
-					<a data-toggle="collapse" data-parent="#accordion" data-bind="attr:{href: idDivLink}" name="titelHypotheek">Hypotheekpakket</a>
+					<a data-toggle="collapse" data-parent="#accordion" data-bind="attr:{href: idDivLink}">Hypotheekpakket</a>
 					&nbsp;&nbsp;&nbsp;
 					<table width="800px;">
 						<tbody data-bind="foreach: hypotheken, visible: hypotheken().length > 0">
@@ -20,26 +20,6 @@
 							<td style="border-top:3px solid #000000;" data-bind="text: bedrag(totaalBedrag)"></td>
 						</tr>
 					</table>
-					<!--div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" name="dropdown">
-							Kies een actie <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<span class="glyphicon glyphicon-list-alt" style="cursor:pointer;" data bind="click: plaatsOpmerking"></span>
-								<span style="cursor:pointer;"  d a t a A  b i n d ="click: plaatsOpmerking" name="plaatsOpmerking">Plaats opmerking</span>
-							</li>
-							<li>
-								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;" data-bind="click: bewerkHypotheek"></span>
-								<span style="cursor:pointer;" data-bind="click: bewerkHypotheek" name="bewerkHypotheek">Bewerken</span>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<span class="glyphicon glyphicon-trash" style="cursor:pointer;" data-bind="click: $root.verwijderHypotheek"></span>
-								<span style="cursor:pointer;" data-bind="click: $root.verwijderHypotheek" name="verwijderHypotheek">Verwijderen</span>
-							</li>
-						</ul>
-					</div-->
 				</h4>
 			</div>
 			<div data-bind="attr:{id: idDiv}" class="panel-collapse collapse">
