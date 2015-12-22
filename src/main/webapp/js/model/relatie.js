@@ -206,6 +206,9 @@ define(['jquery',
     			$.each(_thisRelatie.telefoonnummers(), function(i, item){
     			    item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
     			});
+    			$.each(_thisRelatie.rekeningnummers(), function(i, item){
+    			    item.telefoonnummer(item.rekeningnummer().replace(/ /g, ""));
+    			});
 				commonFunctions.verbergMeldingen();
 				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaan : ");
 				log.debug(ko.toJSON(_thisRelatie));

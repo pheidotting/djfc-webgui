@@ -1,6 +1,6 @@
 define(['jquery',
         "knockout"],
-     function($, ko) {
+    function($, ko) {
 
 	return function telefoonnummerModel (data){
 	    thisTel = this;
