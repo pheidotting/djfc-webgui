@@ -40,7 +40,7 @@ define(['jquery',
 				$('#bedrijfBijPolisDiv').hide();
 			}
 
-			if(subId != null && subId != "0"){
+			if(subId != null && subId !== "0"){
 				$('#soortVerzekering').prop('disabled', true);
 				$('#soortVerzekeringAlles').prop('disabled', true);
 				log.debug("Ophalen Polis met id : " + polisId);
