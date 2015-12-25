@@ -65,7 +65,7 @@ define(["commons/3rdparty/log",
 
             opslaanAdresBijRelatie: function(adres){
                 var data = JSON.stringify(adres);
-                LOGGER.debug(data);
+                log.debug(data);
                 return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRES_BIJ_RELATIE'), data);
             },
 
@@ -205,6 +205,10 @@ define(["commons/3rdparty/log",
 
             lijstTaken: function(){
                 return this.voerUitGet(navRegister.bepaalUrl('LIJST_TAKEN'));
+            },
+
+            openTakenBijRelatie: function(relatieId){
+                return this.voerUitGet(navRegister.bepaalUrl('OPEN_TAKEN_BIJ_RELATIE'), {"relatieId" : relatieId});
             },
 
             afhandelenTaak: function(data){

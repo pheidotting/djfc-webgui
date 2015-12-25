@@ -80,5 +80,17 @@ define([ "commons/3rdparty/log",
 		_thisTaak.terug = function(){
 			redirect.redirect('TAKEN');
 		};
+
+        _thisTaak.zetPostcodeOm = function(postcode){
+            if(postcode != null){
+                if(postcode.length == 6){
+                    postcode = postcode.toUpperCase();
+                    postcode = postcode.substring(0, 4) + " " + postcode.substring(4);
+
+                    return postcode;
+                }
+            }
+        };
+
 	};
 });

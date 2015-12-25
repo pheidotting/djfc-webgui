@@ -1,3 +1,17 @@
+<h3>Openstaande Taken bij Relatie</h3>
+<table>
+    <thead>
+        <th>Soort taak</th>
+        <th>Datum creatie</th>
+        <th>Status</th>
+    </thead>
+    <tbody data-bind="foreach: openstaandeTaken, visible: openstaandeTaken().length > 0">
+        <td class="takenKolomEersteKolom"><a data-bind="click: $parent.naarTaak, text: soortTaak" /></td>
+        <td class="takenKolomTweedeKolom"><a data-bind="click: $parent.naarTaak, text: datumTijdCreatie" /></td>
+        <td class="takenKolomDerdeKolom"><a data-bind="click: $parent.naarTaak, text: status" /></td>
+    </tbody>
+</table>
+
 <div class="persoonsgegevens_links">
 	<h3>Persoonsgegevens</h3>
 

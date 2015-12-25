@@ -63,6 +63,7 @@ define([ ],
                             {naam: 'AFHANDELEN_TAAK',                   url: BASISURL_RELATIEBEHEER + '/medewerker/taak/afhandelen'},
                             {naam: 'VRIJGEVEN_TAAK',                    url: BASISURL_RELATIEBEHEER + '/medewerker/taak/vrijgeven'},
                             {naam: 'OPPAKKEN_TAAK',                     url: BASISURL_RELATIEBEHEER + '/medewerker/taak/oppakken'},
+                            {naam: 'OPEN_TAKEN_BIJ_RELATIE',            url: BASISURL_RELATIEBEHEER + '/medewerker/taak/alleOpenTakenVoorRelatie'},
 
                             {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
                             {naam: 'VERWIJDER_OPMERKING',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijder'},

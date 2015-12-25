@@ -4,7 +4,7 @@ define([ "commons/3rdparty/log",
          "knockout",
          'dataServices',
          'redirect'],
-     function(logger, validation, opmaak, ko, dataServices, redirect) {
+	function(logger, validation, opmaak, ko, dataServices, redirect) {
 
 	return function taak(data) {
 		_this = this;

@@ -6,6 +6,7 @@ define(['jquery',
         'model/onderlingeRelatie',
         'model/adres',
         'model/bijlage',
+        'js/model/taak/taak',
         'moment',
         'commons/3rdparty/log',
         'commons/validation',
@@ -14,9 +15,9 @@ define(['jquery',
         'redirect',
         'fileUpload',
         'opmerkingenModel'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, Taak, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
-	return function relatieModel (data){
+	return function relatieModel (data, openstaandeTaken){
 		_thisRelatie = this;
 
 		_thisRelatie.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, data.id);
@@ -44,6 +45,17 @@ define(['jquery',
 		_thisRelatie.tussenvoegsel = ko.observable(data.tussenvoegsel);
 		_thisRelatie.achternaam = ko.observable(data.achternaam).extend({required: true});
 		_thisRelatie.zoekTerm = ko.observable();
+
+		_thisRelatie.openstaandeTaken = ko.observableArray();
+		if(openstaandeTaken != null){
+			$.each(openstaandeTaken, function(i, item) {
+				_thisRelatie.openstaandeTaken().push(new Taak(item));
+			});
+		};
+
+		_thisRelatie.naarTaak = function(taak){
+		    redirect.redirect('TAAK', taak.id());
+		};
 
 		_thisRelatie.adressen = ko.observableArray();
 		if(data.adressen != null){

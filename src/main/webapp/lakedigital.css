@@ -164,3 +164,12 @@ input[type=file] {
     height: 50px;
     font-weight: bold;
 }
+.takenKolomEersteKolom{
+	width: 300px;
+}
+.takenKolomTweedeKolom{
+	width: 150px;
+}
+.takenKolomDerdeKolom{
+	width: 100px;
+}
