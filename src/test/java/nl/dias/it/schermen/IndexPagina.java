@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public abstract class IndexPagina {
+    public static final String URL = "";
+
     @FindBy(id = "alertSucces")
     private WebElement alertSucces;
     @FindBy(id = "alertDanger")

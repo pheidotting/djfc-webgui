@@ -46,8 +46,8 @@ requirejs(['jquery',
            'js/taak/afhandelenTaak',
            'js/dashboard'],
 function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, beherenRelatie, beherenBedrijf, taken, afhandelenTaak, dashboard) {
-//	commonFunctions.haalIngelogdeGebruiker();
-//	window.setInterval(commonFunctions.haalIngelogdeGebruiker, 300000);
+	commonFunctions.haalIngelogdeGebruiker();
+	window.setInterval(commonFunctions.haalIngelogdeGebruiker, 300000);
 
 	$('#uitloggen').click(function() {
 		commonFunctions.uitloggen();

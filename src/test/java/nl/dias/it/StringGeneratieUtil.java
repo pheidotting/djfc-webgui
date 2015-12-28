@@ -101,17 +101,12 @@ public class StringGeneratieUtil {
         }
 
         StringBuffer sb = new StringBuffer();
-        //        while (sb.length() < lengte) {
-        //            sb.append(UUID.randomUUID().toString().replace("-",""));
-        //        }
         char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        //        StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < lengte; i++) {
             char c = chars[random.nextInt(chars.length)];
             sb.append(c);
         }
-        //        String output = sb.toString();
         return sb.toString().substring(0, lengte - 1);
     }
 
