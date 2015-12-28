@@ -5,6 +5,8 @@ import org.joda.time.LocalDateTime;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public abstract class IndexPagina {
     public static final String URL = "";
 
@@ -14,6 +16,9 @@ public abstract class IndexPagina {
     private WebElement alertDanger;
     @FindBy(id = "uitloggen")
     private WebElement uitloggen;
+
+    @FindBy(className = "validationMessage")
+    private List<WebElement> knockoutMelding;
 
     public String leesFoutmelding() {
         LocalDateTime timeOut = new LocalDateTime().plusSeconds(Hulp.zoekTimeOut);
@@ -29,6 +34,10 @@ public abstract class IndexPagina {
             Hulp.wachtFf();
         }
         return alertSucces.getText();
+    }
+
+    public List<WebElement> getKnockoutMelding() {
+        return knockoutMelding;
     }
 
     public void uitloggen() {

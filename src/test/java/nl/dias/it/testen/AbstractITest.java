@@ -2,7 +2,6 @@ package nl.dias.it.testen;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
-import nl.dias.it.schermen.IndexPagina;
 import nl.lakedigital.djfc.gui.IngelogdeGebruiker;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,17 +9,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static nl.dias.it.Hulp.naarAdres;
 
-public abstract class AbstractITest<T extends IndexPagina> {
+public abstract class AbstractITest {
     protected final String BASIS_URL = "http://localhost:7072/dejonge/index.html#";
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(8888);
     protected Gson gson = new Gson();
     protected WebDriver driver;
-    protected T pagina;
-
 
     @Test
     public void standardTest() throws Exception {
@@ -35,16 +31,15 @@ public abstract class AbstractITest<T extends IndexPagina> {
 
         driver = getDriver();
 
-        naarAdres(driver, BASIS_URL + pagina.URL);
-
         voeruitTest();
+
+        driver.quit();
     }
 
     protected abstract void voeruitTest() throws Exception;
 
     protected abstract void doeExpects();
 
-    protected abstract void maakPaginaObject();
 
     protected WebDriver getDriver() {
         //        String phantomJsPath=      "//Users//patrickheidotting//Downloads//phantom//bin/phantomjs";

@@ -14,7 +14,7 @@ import static nl.dias.commons.test.TestCase.Testcase.*;
 import static nl.dias.it.Hulp.*;
 import static org.junit.Assert.*;
 
-public class BeherenBedrijfSchermTest extends AbstractITest<BeherenBedrijf> {
+public class BeherenBedrijfSchermTest extends AbstractITest {
 
     private JsonAdres jsonAdres;
 
@@ -33,12 +33,10 @@ public class BeherenBedrijfSchermTest extends AbstractITest<BeherenBedrijf> {
     }
 
     @Override
-    protected void maakPaginaObject() {
-        pagina = PageFactory.initElements(driver, BeherenBedrijf.class);
-    }
-
-    @Override
     public void voeruitTest() throws Exception {
+        BeherenBedrijf pagina = PageFactory.initElements(driver, BeherenBedrijf.class);
+        naarAdres(driver, BASIS_URL + pagina.URL);
+
         pagina.vulMaximaal();
 
         //DJFC-150
@@ -118,8 +116,6 @@ public class BeherenBedrijfSchermTest extends AbstractITest<BeherenBedrijf> {
         pagina.opslaan();
         assertTrue(driver.getCurrentUrl().endsWith("#lijstBedrijven"));
         assertEquals("De gegevens zijn opgeslagen", pagina.leesmelding());
-
-        driver.quit();
 
         verify(getRequestedFor(urlEqualTo("/dejonge/rest/medewerker/bedrijf/lees")));
         verify(postRequestedFor(urlEqualTo("/dejonge/rest/medewerker/bedrijf/opslaan")));

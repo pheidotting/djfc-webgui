@@ -92,6 +92,10 @@ public class BeherenBedrijf extends IndexPagina {
         vulVeld(cAoVerplichtingen, genereerRandomString(cAoVerplichtingen));
     }
 
+    public void vulNaam() {
+        vulVeld(naam, genereerRandomString(naam));
+    }
+
     public void vulTelefoonnummerMaximaal() {
         vulVeld(laatste(telefoonnummer), genereerTelefoonnummers());
         selecteerUitSelectieBox(laatste(soortTelefoonnummer), "Zakelijk");
