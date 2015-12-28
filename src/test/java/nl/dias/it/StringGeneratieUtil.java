@@ -2,10 +2,11 @@ package nl.dias.it;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Random;
 
 public class StringGeneratieUtil {
     private final List<String> voornamen = new ArrayList<>();
@@ -18,7 +19,7 @@ public class StringGeneratieUtil {
     private final List<String> plaatsnamen = new ArrayList<>();
     private final List<String> bics = new ArrayList<>();
     private final List<String> ibans = new ArrayList<>();
-    private final List<String> telefoonnummers = new ArrayList<>();
+    private static final List<String> telefoonnummers = new ArrayList<>();
 
     public StringGeneratieUtil() {
         voornamen.add("Patrick");
@@ -93,17 +94,33 @@ public class StringGeneratieUtil {
         ibans.add("NL28ANAA0878694455");
     }
 
-    public String genereerRandomString(int lengte) {
-        StringBuffer sb = new StringBuffer();
-        while (sb.length() < lengte) {
-            sb.append(UUID.randomUUID().toString());
+    public static String genereerRandomString(WebElement webElement) {
+        int lengte = 2500;
+        if (webElement.getAttribute("maxlength") != null) {
+            lengte = Integer.valueOf(webElement.getAttribute("maxlength"));
         }
 
+        StringBuffer sb = new StringBuffer();
+        //        while (sb.length() < lengte) {
+        //            sb.append(UUID.randomUUID().toString().replace("-",""));
+        //        }
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        //        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < lengte; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        //        String output = sb.toString();
         return sb.toString().substring(0, lengte - 1);
     }
 
     private String kiesRandom(List<String> lijst) {
         return lijst.get(randomGetal(lijst.size()));
+    }
+
+    private static String kiesRandoms(List<String> lijst) {
+        return lijst.get(randomGetals(lijst.size()));
     }
 
     public String genereerVoornaam() {
@@ -158,8 +175,11 @@ public class StringGeneratieUtil {
         return kiesRandom(bics);
     }
 
-    public String genereerTelefoonnummer() {
-        return kiesRandom(telefoonnummers);
+    public static String genereerTelefoonnummers() {
+        telefoonnummers.add("0612345678");
+        telefoonnummers.add("0609876543");
+
+        return kiesRandoms(telefoonnummers);
     }
 
     public LocalDate genereerDatum() {
@@ -195,6 +215,10 @@ public class StringGeneratieUtil {
     }
 
     public int randomGetal(int max) {
+        return (int) (Math.random() * max);
+    }
+
+    public static int randomGetals(int max) {
         return (int) (Math.random() * max);
     }
 }

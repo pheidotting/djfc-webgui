@@ -25,7 +25,7 @@ define(['jquery',
 			log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
 			_thisContactPersoon.telefoonnummers.remove(function (item) {
 			    log.debug(ko.toJSON(item));
-				return item().telefoonnummer() == telefoon.telefoonnummer() && item().soort() == telefoon.soort();
+				return item.telefoonnummer() == telefoon.telefoonnummer() && item.soort() == telefoon.soort();
 			});
 			_thisContactPersoon.telefoonnummers.valueHasMutated();
 		};

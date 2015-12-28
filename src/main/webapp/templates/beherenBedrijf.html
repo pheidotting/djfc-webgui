@@ -78,12 +78,13 @@
                     <label for="functie">Functie</label>
                     <input class="form-control" type="text" id="functie" name="functie" data-bind="value: functie"/>
                 </div>
-                <span class="glyphicon glyphicon-minus" data-bind="click: $parent.verwijderContactpersoon"></span>
+                <span class="glyphicon glyphicon-minus" id="verwijderContactpersoon"
+                      data-bind="click: $parent.verwijderContactpersoon"></span>
 
                 <div class="form-group">
                     <strong>Telefoongegevens</strong>&nbsp;<span class="glyphicon glyphicon-plus"
                                                                  data-bind="click: voegTelefoonNummerToe"
-                                                                 id="voegTelefoonNummerToe"></span>
+                                                                 id="voegTelefoonNummerToeBijContactpersoon"></span>
                 </div>
                 <div id="telefoonnummersBijContactpersoon"
                      data-bind="foreach: telefoonnummers, visible: telefoonnummers().length > 0">
@@ -111,7 +112,7 @@
                             <textarea id="telefoonomschrijving" data-bind="value: omschrijving" class="form-control"
                                       rows="3"></textarea>
                             </div>
-                            <span class="glyphicon glyphicon-minus"
+                            <span class="glyphicon glyphicon-minus" id="verwijderTelefoonNummer"
                                   data-bind="click: $parent.verwijderTelefoonNummer"></span>
                         </div>
                     </div>
@@ -132,5 +133,5 @@
 <div class="form-group">
 	<label for="opslaanBedrijf">&nbsp;</label>
 	<button id="opslaanBedrijf" class="btn btn-primary" data-bind="click: opslaan">Opslaan</button>
-	<button type="button" class="btn btn-warning" data-bind="click: annuleren">Annuleren</button>
+    <button id="annuleren" type="button" class="btn btn-warning" data-bind="click: annuleren">Annuleren</button>
 </div>
