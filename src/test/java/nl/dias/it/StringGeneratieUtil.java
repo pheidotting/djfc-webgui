@@ -185,11 +185,11 @@ public class StringGeneratieUtil {
         return genereerDatumTijd(null);
     }
 
-    public LocalDate genereerDatum(LocalDate ligtNa) {
-        LocalDate datum = new LocalDate().minusDays(randomGetal(20000));
+    public static LocalDate genereerDatum(LocalDate ligtNa) {
+        LocalDate datum = new LocalDate().minusDays(randomGetals(20000));
         if (ligtNa != null) {
             while (datum.isBefore(ligtNa)) {
-                datum = new LocalDate().minusDays(randomGetal(20000));
+                datum = new LocalDate().minusDays(randomGetals(20000));
             }
         }
         return datum;
