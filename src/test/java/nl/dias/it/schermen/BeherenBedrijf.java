@@ -1,6 +1,8 @@
 package nl.dias.it.schermen;
 
 import nl.lakedigital.djfc.gui.JsonAdres;
+import nl.lakedigital.djfc.gui.JsonBedrijf;
+import nl.lakedigital.djfc.gui.JsonContactPersoon;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -77,6 +79,15 @@ public class BeherenBedrijf extends IndexPagina {
     @FindBy(id = "voegTelefoonNummerToeBijContactpersoon")
     private WebElement voegTelefoonNummerToeBijContactpersoon;
 
+    //Opmerkingen
+    @FindBy(id = "nieuweOpmerking")
+    private WebElement nieuweOpmerking;
+    @FindBy(id = "opslaanOpmerking")
+    private WebElement opslaanOpmerking;
+
+    @FindBy(id = "tekst1")
+    private WebElement tekst1;
+
     @FindBy(id = "opslaanBedrijf")
     private WebElement opslaan;
     @FindBy(id = "annuleren")
@@ -90,6 +101,16 @@ public class BeherenBedrijf extends IndexPagina {
         vulVeld(internetadres, genereerRandomString(internetadres));
         vulVeld(hoedanigheid, genereerRandomString(hoedanigheid));
         vulVeld(cAoVerplichtingen, genereerRandomString(cAoVerplichtingen));
+    }
+
+    public void controleer(JsonBedrijf jsonBedrijf) {
+        assertEquals(jsonBedrijf.getNaam(), getText(naam));
+        assertEquals(jsonBedrijf.getKvk(), getText(kvk));
+        assertEquals(jsonBedrijf.getRechtsvorm(), getText(rechtsvorm));
+        assertEquals(jsonBedrijf.getEmail(), getText(email));
+        assertEquals(jsonBedrijf.getInternetadres(), getText(internetadres));
+        assertEquals(jsonBedrijf.getHoedanigheid(), getText(hoedanigheid));
+        assertEquals(jsonBedrijf.getcAoVerplichtingen(), getText(cAoVerplichtingen));
     }
 
     public void vulNaam() {
@@ -123,6 +144,24 @@ public class BeherenBedrijf extends IndexPagina {
         vulVeld(laatste(functie), genereerRandomString(laatste(functie)));
 
         return laatste(verwijderContactpersoon);
+    }
+
+    public void controleerAdres(JsonAdres jsonAdres) {
+        String postcodeS = jsonAdres.getPostcode().substring(0, 4) + " " + jsonAdres.getPostcode().substring(4, 6);
+
+        assertEquals(postcodeS, getText(laatste(postcode)));
+        assertEquals(jsonAdres.getHuisnummer().toString(), getText(laatste(huisnummer)));
+        assertEquals(jsonAdres.getToevoeging(), getText(laatste(toevoeging)));
+        assertEquals(jsonAdres.getStraat(), getText(laatste(straat)));
+        assertEquals(jsonAdres.getPlaats(), getText(laatste(plaats)));
+    }
+
+    public void controleerContactpersoon(JsonContactPersoon jsonContactPersoon) {
+        assertEquals(jsonContactPersoon.getAchternaam(), getText(laatste(achternaam)));
+        assertEquals(jsonContactPersoon.getTussenvoegsel(), getText(laatste(tussenvoegsel)));
+        assertEquals(jsonContactPersoon.getVoornaam(), getText(laatste(voornaam)));
+        assertEquals(jsonContactPersoon.getEmailadres(), getText(laatste(emailadres)));
+        assertEquals(jsonContactPersoon.getFunctie(), getText(laatste(functie)));
     }
 
     public WebElement voegNieuweTelefoonNummerToe() {
@@ -175,5 +214,20 @@ public class BeherenBedrijf extends IndexPagina {
 
     public void opslaan() {
         klikEnWacht(opslaan);
+    }
+
+    public String opslaanNieuweOpmerking() {
+        String opmerkingTekst = genereerRandomString(nieuweOpmerking);
+
+        vulVeld(nieuweOpmerking, opmerkingTekst);
+        klikEnWacht(opslaanOpmerking);
+
+        wachtFf();
+
+        return opmerkingTekst;
+    }
+
+    public String getTekst1() {
+        return tekst1.getText();
     }
 }

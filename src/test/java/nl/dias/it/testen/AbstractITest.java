@@ -3,6 +3,7 @@ package nl.dias.it.testen;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
 import nl.lakedigital.djfc.gui.IngelogdeGebruiker;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +33,10 @@ public abstract class AbstractITest {
         driver = getDriver();
 
         voeruitTest();
+    }
 
+    @After
+    public void afsluiten() {
         driver.quit();
     }
 

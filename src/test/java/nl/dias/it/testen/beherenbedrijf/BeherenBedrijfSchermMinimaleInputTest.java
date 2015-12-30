@@ -11,7 +11,7 @@ import static nl.dias.it.Hulp.naarAdres;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class BeherenBedrijfSchermTestMinimaleInput extends AbstractITest {
+public class BeherenBedrijfSchermMinimaleInputTest extends AbstractITest {
     @Override
     protected void voeruitTest() throws Exception {
         BeherenBedrijf pagina = PageFactory.initElements(driver, BeherenBedrijf.class);
