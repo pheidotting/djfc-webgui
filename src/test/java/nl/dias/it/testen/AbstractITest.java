@@ -67,4 +67,8 @@ public abstract class AbstractITest {
     protected void expectGet(String url, String response) {
         stubFor(get(urlEqualTo(url)).willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(response)));
     }
+
+    protected void expectOpmerkingOpslaan() {
+        expectPost("/dejonge/rest/medewerker/opmerking/opslaan", "1");
+    }
 }

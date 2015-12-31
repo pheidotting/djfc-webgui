@@ -23,7 +23,7 @@ define(['jquery',
 			datum(commonFunctions.zetDatumOm(datum()));
 		};
 		_polis.berekenProlongatieDatum = function(){
-			if(_polis.ingangsDatum() != null && _polis.ingangsDatum() != ""){
+			if(_polis.ingangsDatum() !== null && _polis.ingangsDatum() !== ""){
 				_polis.prolongatieDatum(moment(_polis.ingangsDatum(), "DD-MM-YYYY").add(1, 'y').format("DD-MM-YYYY"));
 			}
 		};
@@ -36,22 +36,22 @@ define(['jquery',
 		_polis.status = ko.observable(data.status);
 		_polis.polisNummer = ko.observable(data.polisNummer).extend({required: true});
 		_polis.kenmerk = ko.observable(data.kenmerk);
-		if(data.ingangsDatum != undefined){
+		if(data.ingangsDatum !== undefined){
 			_polis.ingangsDatum = ko.observable(moment(data.ingangsDatum).format("DD-MM-YYYY")).extend({required: true});
 		}else{
 			_polis.ingangsDatum = ko.observable().extend({required: true});
 		}
-		if(data.eindDatum != undefined){
+		if(data.eindDatum !== undefined){
 			_polis.eindDatum = ko.observable(moment(data.eindDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.eindDatum = ko.observable();
 		}
-		if(data.wijzigingsDatum != undefined){
+		if(data.wijzigingsDatum !== undefined){
 			_polis.wijzigingsDatum = ko.observable(moment(data.wijzigingsDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.wijzigingsDatum = ko.observable();
 		}
-		if(data.prolongatieDatum != undefined){
+		if(data.prolongatieDatum !== undefined){
 			_polis.prolongatieDatum = ko.observable(moment(data.prolongatieDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.prolongatieDatum = ko.observable();
@@ -74,14 +74,14 @@ define(['jquery',
 		_polis.className = ko.computed(function() {
 			var datum = moment(data.ingangsDatum);
 			var tijd = moment(datum).fromNow();
-			if(tijd.substr(tijd.length - 3) == "ago"){
-			}else{
+			if(tijd.substr(tijd.length - 3) !== "ago"){
+//			}else{
 				return "polisNietActief panel-title";
 			}
 			if(data.eindDatum){
 				datum = moment(data.eindDatum);
 				tijd = moment(datum).fromNow();
-				if(tijd.substr(tijd.length - 3) == "ago"){
+				if(tijd.substr(tijd.length - 3) === "ago"){
 					return "polisBeeindigd panel-title";
 				}else{
 					return "panel-title";
@@ -136,7 +136,7 @@ define(['jquery',
 	    _polis.verwijderBijlage = function(bijlage){
 			commonFunctions.verbergMeldingen();
 			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
-			if (r==true) {
+			if (r === true) {
 				_polis.bijlages.remove(bijlage);
 				dataServices.verwijderBijlage(bijlage.id());
 			}
@@ -147,7 +147,7 @@ define(['jquery',
             commonFunctions.verbergMeldingen();
 			$('uploadprogress').show();
 
-            if(_polis.soort() == ""){
+            if(_polis.soort() === ""){
                 $('#bijlageFile').val("");
                 commonFunctions.plaatsFoutmeldingString("Kies eerst een soort polis");
             } else {
@@ -157,7 +157,7 @@ define(['jquery',
                         _polis.id.valueHasMutated();
 
                         fileUpload.uploaden().done(function(bijlage){
-                            console.log(ko.toJSON(bijlage));
+                            log.debug(ko.toJSON(bijlage));
                             _polis.bijlages().push(bijlage);
                             _polis.bijlages.valueHasMutated();
                             redirect.redirect('BEHEREN_RELATIE', _polis.relatie(), 'polis', _polis.id());
@@ -165,7 +165,7 @@ define(['jquery',
                     });
                 } else {
                     fileUpload.uploaden().done(function(bijlage){
-                        console.log(ko.toJSON(bijlage));
+                        log.debug(ko.toJSON(bijlage));
                         _polis.bijlages().push(bijlage);
                         _polis.bijlages.valueHasMutated();
                     });
@@ -185,7 +185,7 @@ define(['jquery',
 	    		log.debug(ko.toJSON(polis));
 	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					if(polis.relatie() != undefined){
+					if(polis.relatie() !== undefined){
 						redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
 					} else {
 						redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polissen');

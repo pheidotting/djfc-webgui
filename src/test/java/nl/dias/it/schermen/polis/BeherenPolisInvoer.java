@@ -39,6 +39,16 @@ public class BeherenPolisInvoer extends IndexPagina {
     private WebElement betaalfrequentie;
     @FindBy(id = "omschrijvingVerzekering")
     private WebElement omschrijvingVerzekering;
+
+    //Opmerkingen
+    @FindBy(id = "nieuweOpmerking")
+    private WebElement nieuweOpmerking;
+    @FindBy(id = "opslaanOpmerking")
+    private WebElement opslaanOpmerking;
+
+    @FindBy(id = "tekst1")
+    private WebElement tekst1;
+
     @FindBy(id = "opslaanPolis")
     private WebElement opslaanPolis;
 
@@ -60,9 +70,29 @@ public class BeherenPolisInvoer extends IndexPagina {
         vulVeld(omschrijvingVerzekering, genereerRandomString(prolongatiedatumString));
     }
 
+    public void controleerIngangsdatumEnStatus(String ingangsdatum, String status) {
+        assertEquals(ingangsdatum, getText(ingangsDatumString));
+        assertEquals(status, getText(this.status));
+    }
+
     public void opslaan() {
         klikEnWacht(opslaanPolis);
 
         wachtFf();
+    }
+
+    public String opslaanNieuweOpmerking() {
+        String opmerkingTekst = genereerRandomString(nieuweOpmerking);
+
+        vulVeld(nieuweOpmerking, opmerkingTekst);
+        klikEnWacht(opslaanOpmerking);
+
+        wachtFf();
+
+        return opmerkingTekst;
+    }
+
+    public String getTekst1() {
+        return tekst1.getText();
     }
 }

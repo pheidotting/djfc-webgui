@@ -62,6 +62,6 @@ public class BeherenBedrijfSchermBestaandBedrijfTest extends AbstractITest {
         jsonBedrijf.getContactpersonen().add(jsonContactPersoon);
 
         expectGet("/dejonge/rest/medewerker/bedrijf/lees", gson.toJson(jsonBedrijf));
-        expectPost("/dejonge/rest/medewerker/opmerking/opslaan", "1");
+        expectOpmerkingOpslaan();
     }
 }
