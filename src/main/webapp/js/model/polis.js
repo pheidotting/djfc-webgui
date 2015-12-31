@@ -75,7 +75,6 @@ define(['jquery',
 			var datum = moment(data.ingangsDatum);
 			var tijd = moment(datum).fromNow();
 			if(tijd.substr(tijd.length - 3) !== "ago"){
-//			}else{
 				return "polisNietActief panel-title";
 			}
 			if(data.eindDatum){
