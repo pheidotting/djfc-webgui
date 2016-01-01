@@ -100,6 +100,10 @@ public class StringGeneratieUtil {
             lengte = Integer.valueOf(webElement.getAttribute("maxlength"));
         }
 
+        return genereerRandomString(lengte);
+    }
+
+    public static String genereerRandomString(int lengte) {
         StringBuffer sb = new StringBuffer();
         char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         Random random = new Random();
