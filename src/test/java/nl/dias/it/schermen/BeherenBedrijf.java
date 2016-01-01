@@ -1,8 +1,8 @@
 package nl.dias.it.schermen;
 
-import nl.lakedigital.djfc.gui.JsonAdres;
-import nl.lakedigital.djfc.gui.JsonBedrijf;
-import nl.lakedigital.djfc.gui.JsonContactPersoon;
+import nl.lakedigital.djfc.commons.json.JsonAdres;
+import nl.lakedigital.djfc.commons.json.JsonBedrijf;
+import nl.lakedigital.djfc.commons.json.JsonContactPersoon;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 

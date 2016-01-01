@@ -3,9 +3,9 @@ package nl.dias.it.testen.beherenbedrijf;
 import nl.dias.commons.test.TestCase;
 import nl.dias.it.schermen.BeherenBedrijf;
 import nl.dias.it.testen.AbstractITest;
-import nl.lakedigital.djfc.gui.JsonAdres;
-import nl.lakedigital.djfc.gui.JsonBedrijf;
-import nl.lakedigital.djfc.gui.JsonFoutmelding;
+import nl.lakedigital.djfc.commons.json.JsonAdres;
+import nl.lakedigital.djfc.commons.json.JsonBedrijf;
+import nl.lakedigital.djfc.commons.json.JsonFoutmelding;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 

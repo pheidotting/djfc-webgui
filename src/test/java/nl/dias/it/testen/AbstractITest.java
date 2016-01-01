@@ -2,7 +2,7 @@ package nl.dias.it.testen;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
-import nl.lakedigital.djfc.gui.IngelogdeGebruiker;
+import nl.lakedigital.djfc.commons.json.IngelogdeGebruiker;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;

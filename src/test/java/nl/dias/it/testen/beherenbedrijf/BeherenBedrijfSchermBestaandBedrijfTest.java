@@ -2,10 +2,10 @@ package nl.dias.it.testen.beherenbedrijf;
 
 import nl.dias.it.schermen.BeherenBedrijf;
 import nl.dias.it.testen.AbstractITest;
-import nl.lakedigital.djfc.gui.JsonAdres;
-import nl.lakedigital.djfc.gui.JsonBedrijf;
-import nl.lakedigital.djfc.gui.JsonContactPersoon;
-import nl.lakedigital.djfc.gui.JsonTelefoonnummer;
+import nl.lakedigital.djfc.commons.json.JsonAdres;
+import nl.lakedigital.djfc.commons.json.JsonBedrijf;
+import nl.lakedigital.djfc.commons.json.JsonContactPersoon;
+import nl.lakedigital.djfc.commons.json.JsonTelefoonnummer;
 import org.openqa.selenium.support.PageFactory;
 
 import static nl.dias.it.Hulp.naarAdres;

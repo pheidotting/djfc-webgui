@@ -3,7 +3,7 @@ package nl.dias.it.testen.beherenbedrijf.polis;
 import com.beust.jcommander.internal.Lists;
 import nl.dias.it.schermen.polis.LijstPolissen;
 import nl.dias.it.testen.AbstractITest;
-import nl.lakedigital.djfc.gui.JsonPolis;
+import nl.lakedigital.djfc.commons.json.JsonPolis;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
@@ -56,13 +56,30 @@ public class LijstPolissenTonenTest extends AbstractITest {
         jsonPolis2.setBetaalfrequentie("Jaar");
         jsonPolis2.setOmschrijvingVerzekering("Ook een mschrijving");
 
-        polissen = Lists.newArrayList(jsonPolis1, jsonPolis2);
+        JsonPolis jsonPolis3 = new JsonPolis();
+        jsonPolis3.setPolisNummer("ccddeeff");
+        jsonPolis3.setSoort("Verzekering");
+        jsonPolis3.setStatus("Status3");
+        jsonPolis3.setKenmerk("Kenmerk2");
+        jsonPolis3.setId(3L);
+        jsonPolis3.setIdDiv("collapsable2");
+        jsonPolis3.setIngangsDatum("2012-03-02");
+        jsonPolis3.setEindDatum("2013-04-03");
+        jsonPolis3.setWijzigingsDatum("2014-05-04");
+        jsonPolis3.setProlongatieDatum("2015-06-05");
+        jsonPolis3.setPremie("1,01");
+        jsonPolis3.setMaatschappij("maatschappij3");
+        jsonPolis3.setBetaalfrequentie("Jaar");
+        jsonPolis3.setOmschrijvingVerzekering("Ook een mschrijving");
+
+        polissen = Lists.newArrayList(jsonPolis1, jsonPolis2, jsonPolis3);
 
         expectGet("/dejonge/rest/medewerker/polis/lijstBijBedrijf", gson.toJson(polissen));
 
         List<String> maatschappijen = new ArrayList<>();
         maatschappijen.add("maatschappij1");
         maatschappijen.add("maatschappij2");
+        maatschappijen.add("maatschappij3");
 
         expectGet("/dejonge/rest/medewerker/overig/lijstVerzekeringsMaatschappijen", gson.toJson(maatschappijen));
     }

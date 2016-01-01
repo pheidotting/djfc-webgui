@@ -2,7 +2,7 @@ package nl.dias.it.schermen.polis;
 
 import com.google.common.base.Predicate;
 import nl.dias.it.schermen.IndexPagina;
-import nl.lakedigital.djfc.gui.JsonPolis;
+import nl.lakedigital.djfc.commons.json.JsonPolis;
 import org.joda.time.LocalDate;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -54,6 +54,7 @@ public class LijstPolissen extends IndexPagina {
         Map<String, String> bedragen = new HashMap<>();
         bedragen.put("234,0", "€ 234,00");
         bedragen.put("2345,1", "€ 2.345,10");
+        bedragen.put("1,01", "€ 1,01");
 
 
         assertEquals(jsonPoli.size(), titels.size());

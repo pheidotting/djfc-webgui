@@ -3,7 +3,7 @@ package nl.dias.it.testen.beherenbedrijf.polis;
 import nl.dias.it.StringGeneratieUtil;
 import nl.dias.it.schermen.polis.BeherenPolisInvoer;
 import nl.dias.it.testen.AbstractITest;
-import nl.lakedigital.djfc.gui.JsonPolis;
+import nl.lakedigital.djfc.commons.json.JsonPolis;
 import org.joda.time.LocalDate;
 import org.openqa.selenium.support.PageFactory;
 

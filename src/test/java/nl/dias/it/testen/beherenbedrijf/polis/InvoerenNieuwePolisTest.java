@@ -2,7 +2,7 @@ package nl.dias.it.testen.beherenbedrijf.polis;
 
 import nl.dias.it.schermen.polis.BeherenPolisInvoer;
 import nl.dias.it.testen.AbstractITest;
-import nl.lakedigital.djfc.gui.JsonPolis;
+import nl.lakedigital.djfc.commons.json.JsonPolis;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
