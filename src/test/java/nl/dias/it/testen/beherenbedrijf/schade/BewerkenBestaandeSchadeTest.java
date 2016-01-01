@@ -4,6 +4,7 @@ import com.beust.jcommander.internal.Lists;
 import nl.dias.it.schermen.schade.SchadeInvoer;
 import nl.dias.it.testen.AbstractITest;
 import nl.lakedigital.djfc.commons.json.JsonFoutmelding;
+import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.commons.json.JsonPolis;
 import nl.lakedigital.djfc.commons.json.JsonSchade;
 import org.openqa.selenium.support.PageFactory;
@@ -19,16 +20,17 @@ import static org.junit.Assert.assertTrue;
 
 public class BewerkenBestaandeSchadeTest extends AbstractITest {
     private JsonSchade jsonSchade;
+    private String tekstBestaandeOpmerking;
 
     @Override
     protected void voeruitTest() throws Exception {
         SchadeInvoer pagina = PageFactory.initElements(driver, SchadeInvoer.class);
         naarAdres(driver, BASIS_URL + pagina.URL.replace("/0", "/4"));
-
-        //        pagina.vulMaximaal();
+        assertEquals(tekstBestaandeOpmerking, pagina.getTekst2());
 
         String opmerkingTekst = pagina.opslaanNieuweOpmerking();
         assertEquals(opmerkingTekst, pagina.getTekst1());
+        assertEquals(tekstBestaandeOpmerking, pagina.getTekst2());
 
         pagina.opslaan();
         assertEquals("De gegevens zijn opgeslagen", pagina.leesmelding());
@@ -58,6 +60,15 @@ public class BewerkenBestaandeSchadeTest extends AbstractITest {
         jsonSchade.setEigenRisico(String.valueOf(randomGetals(2000)));
         jsonSchade.setOmschrijving(genereerRandomString(2500));
         jsonSchade.setPolis(jsonPolis2.getSoort() + " (" + jsonPolis2.getPolisNummer() + ")");
+
+        JsonOpmerking jsonOpmerking = new JsonOpmerking();
+        jsonOpmerking.setId(2L);
+        jsonOpmerking.setOpmerking(genereerRandomString(3000));
+        jsonOpmerking.setMedewerker("Tony Stark");
+        jsonOpmerking.setMedewerkerId("2");
+        jsonOpmerking.setTijd("01-02-2014 09:23");
+        tekstBestaandeOpmerking = jsonOpmerking.getOpmerking();
+        jsonSchade.getOpmerkingen().add(jsonOpmerking);
 
         expectGet("/dejonge/rest/medewerker/schade/lees", gson.toJson(jsonSchade));
         expectPost("/dejonge/rest/medewerker/schade/opslaan", gson.toJson(new JsonFoutmelding()));

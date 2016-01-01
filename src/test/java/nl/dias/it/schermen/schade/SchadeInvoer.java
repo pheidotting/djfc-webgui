@@ -43,6 +43,8 @@ public class SchadeInvoer extends IndexPagina {
 
     @FindBy(id = "tekst1")
     private WebElement tekst1;
+    @FindBy(id = "tekst2")
+    private WebElement tekst2;
 
     @FindBy(id = "schadeMeldingOpslaan")
     private WebElement schadeMeldingOpslaan;
@@ -87,5 +89,9 @@ public class SchadeInvoer extends IndexPagina {
 
     public String getTekst1() {
         return tekst1.getText();
+    }
+
+    public String getTekst2() {
+        return tekst2.getText();
     }
 }
