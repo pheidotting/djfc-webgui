@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Random;
 
 public class StringGeneratieUtil {
-    private final List<String> voornamen = new ArrayList<>();
-    private final List<String> achternamen = new ArrayList<>();
-    private final List<String> tussenvoegsels = new ArrayList<>();
+    private static final List<String> voornamen = new ArrayList<>();
+    private static final List<String> achternamen = new ArrayList<>();
+    private static final List<String> tussenvoegsels = new ArrayList<>();
     private final List<String> bsns = new ArrayList<String>();
     private final List<String> straatnamen = new ArrayList<>();
     private final List<String> postcodes = new ArrayList<>();
@@ -21,15 +21,13 @@ public class StringGeneratieUtil {
     private final List<String> ibans = new ArrayList<>();
     private static final List<String> telefoonnummers = new ArrayList<>();
 
-    public StringGeneratieUtil() {
+    public static void init() {
         voornamen.add("Patrick");
         voornamen.add("Sabine");
         voornamen.add("Bennie");
         voornamen.add("Bertha");
         voornamen.add("Harry");
         voornamen.add("Ans");
-        voornamen.add("Stephan");
-        voornamen.add("Sanne");
         voornamen.add("Jan");
         voornamen.add("Henk");
         voornamen.add("Geert");
@@ -40,7 +38,6 @@ public class StringGeneratieUtil {
 
         achternamen.add("Heidotting");
         achternamen.add("Lette");
-        achternamen.add("Muller");
         achternamen.add("Jansen");
         achternamen.add("Willemsen");
         achternamen.add("Haverkamp");
@@ -49,7 +46,9 @@ public class StringGeneratieUtil {
         tussenvoegsels.add("");
         tussenvoegsels.add("van der");
         tussenvoegsels.add("de");
+    }
 
+    public StringGeneratieUtil() {
         bsns.add("103127586");
         bsns.add("400544350");
         bsns.add("530033379");
@@ -114,27 +113,30 @@ public class StringGeneratieUtil {
         return sb.toString().substring(0, lengte - 1);
     }
 
-    private String kiesRandom(List<String> lijst) {
-        return lijst.get(randomGetal(lijst.size()));
+    private static String kiesRandom(List<String> lijst) {
+        if (lijst == null || lijst.size() == 0) {
+            init();
+        }
+        return lijst.get(randomGetals(lijst.size()));
     }
 
     private static String kiesRandoms(List<String> lijst) {
         return lijst.get(randomGetals(lijst.size()));
     }
 
-    public String genereerVoornaam() {
+    public static String genereerVoornaam() {
         return kiesRandom(voornamen);
     }
 
-    public String genereerAchternaam() {
+    public static String genereerAchternaam() {
         return kiesRandom(achternamen);
     }
 
-    public String genereerTussenvoegsel() {
+    public static String genereerTussenvoegsel() {
         return kiesRandom(tussenvoegsels);
     }
 
-    public String genereerEmailAdres(String voornaam, String tussenvoegsel, String achternaam) {
+    public static String genereerEmailAdres(String voornaam, String tussenvoegsel, String achternaam) {
         StringBuilder sb = new StringBuilder();
         sb.append(voornaam);
         sb.append("@");

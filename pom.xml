@@ -276,10 +276,10 @@
                 <version>9.1.1.v20140108</version>
                 <configuration>
                     <httpConnector>
-                        <port>7073</port>
+                        <port>7072</port>
                     </httpConnector>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <stopPort>7173</stopPort>
+                    <stopPort>7172</stopPort>
                     <stopKey>STOP</stopKey>
                     <contextPath>/dejonge</contextPath>
                 </configuration>

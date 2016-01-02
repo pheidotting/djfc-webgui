@@ -68,7 +68,8 @@
     </div>
     <div class="form-group">
         <label>&nbsp;</label>
-        <a href="mailto:" data-bind="attr: {href: 'mailto:' + identificatie()}, text: identificatie"></a>
+        <a href="mailto:" data-bind="attr: {href: 'mailto:' + identificatie()}, text: identificatie"
+           id="mailtolink"></a>
     </div>
 </div>
 
@@ -90,7 +91,8 @@
                     <option value="FACTUURADRES">Factuuradres</option>
                 </select>
             </div>
-            &nbsp;<span class="glyphicon glyphicon-minus" data-bind="click: $parent.verwijderAdres"></span>
+            &nbsp;<span class="glyphicon glyphicon-minus" data-bind="click: $parent.verwijderAdres"
+                        id="verwijderAdres"></span>
 
             <div class="form-group">
                 <label for="postcode">Postcode</label>
@@ -135,7 +137,8 @@
                         <label for="bic">Bic</label>
                         <input class="form-control" type="text" id="bic" name="bic" data-bind="value: bic" />
                     </div>
-                    <span class="glyphicon glyphicon-minus" data-bind="click: $parent.verwijderRekening"></span>
+                    <span class="glyphicon glyphicon-minus" data-bind="click: $parent.verwijderRekening"
+                          id="verwijderRekening"></span>
                 </div>
             </div>
         </div>

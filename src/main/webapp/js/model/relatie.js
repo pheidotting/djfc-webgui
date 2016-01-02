@@ -17,8 +17,8 @@ define(['jquery',
         'opmerkingenModel'],
 	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, Taak, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
-	return function relatieModel (data, openstaandeTaken){
-		_thisRelatie = this;
+	return function (data, openstaandeTaken){
+		var _thisRelatie = this;
 
 		_thisRelatie.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, data.id);
         _thisRelatie.readOnly = ko.observable(false);
@@ -159,7 +159,7 @@ define(['jquery',
 		_thisRelatie.verwijderRekening = function(rekening){
 			log.debug("Verwijderen rekening " + ko.toJSON(rekening));
 			_thisRelatie.rekeningnummers.remove(function (item) {
-			    return item().rekeningnummer() == rekening.rekeningnummer() && item().bic() == rekening.bic();
+			    return item.rekeningnummer() == rekening.rekeningnummer() && item.bic() == rekening.bic();
 			});
 			_thisRelatie.rekeningnummers.valueHasMutated();
 		};
@@ -219,7 +219,7 @@ define(['jquery',
     			    item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
     			});
     			$.each(_thisRelatie.rekeningnummers(), function(i, item){
-    			    item.telefoonnummer(item.rekeningnummer().replace(/ /g, ""));
+    			    item.rekeningnummer(item.rekeningnummer().replace(/ /g, ""));
     			});
 				commonFunctions.verbergMeldingen();
 				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaan : ");

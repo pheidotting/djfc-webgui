@@ -20,19 +20,17 @@ define(['jquery',
 
 
         zetRekeningnummerOm = function(nummer){
-            var rek = nummer.rekeningnummer().toUpperCase();
+            if(nummer.rekeningnummer() != undefined){
+                var rek = nummer.rekeningnummer().toUpperCase();
 
-            if(rek != undefined && rek.length == 18){
-                rek = rek.substring(0, 4) + " " +rek.substring(4, 8) + " " +rek.substring(8, 12) + " " +rek.substring(12, 16) + " " +rek.substring(16, 18);
+                if(rek != undefined && rek.length == 18){
+                    rek = rek.substring(0, 4) + " " +rek.substring(4, 8) + " " +rek.substring(8, 12) + " " +rek.substring(12, 16) + " " +rek.substring(16, 18);
+                }
+
+                nummer.rekeningnummer(rek);
             }
-
-            nummer.rekeningnummer(rek);
         };
 
         zetRekeningnummerOm(thisRek);
 	};
 });
-
-//NL40 RABO 0104 4210 96
-//NL40RABO0104421096
-//123456789012345678
