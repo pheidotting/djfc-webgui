@@ -1,9 +1,6 @@
 define(['jquery',
         'model/jaarcijfers',
-         'knockout',
-         'commons/3rdparty/log',
-         'commons/commonFunctions',
-         'dataServices'],
+         'knockout'],
     function ($, JaaCijfers, ko) {
 
 	return function (data) {

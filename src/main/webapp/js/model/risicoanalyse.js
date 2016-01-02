@@ -2,17 +2,12 @@ define(['jquery',
          'knockout',
          'commons/3rdparty/log',
          'commons/commonFunctions',
-         'moment',
          'model/bijlage',
-         "commons/opmaak",
-         'dataServices',
-         'navRegister',
-         'redirect',
          'fileUpload',
          'opmerkingenModel'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+    function ($, ko, log, commonFunctions, Bijlage, fileUpload, opmerkingenModel) {
 
-	return function polisModel (data, readOnly){
+	return function (data){
 		var _risicoAnalyse = this;
 
 		_risicoAnalyse.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, null, null, null, data.id);
@@ -29,13 +24,12 @@ define(['jquery',
             });
         };
 
-
 		_risicoAnalyse.nieuwePolisUpload = function (){
-			log.debug("Nieuwe polis upload");
+			log.debug("Nieuwe file upload");
             commonFunctions.verbergMeldingen();
 			$('uploadprogress').show();
 			fileUpload.uploaden().done(function(bijlage){
-				console.log(ko.toJSON(bijlage));
+				log.debug(ko.toJSON(bijlage));
 				_risicoAnalyse.bijlages().push(bijlage);
 				_risicoAnalyse.bijlages.valueHasMutated();
 			});
