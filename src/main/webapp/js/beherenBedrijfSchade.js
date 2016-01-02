@@ -24,7 +24,7 @@ define(['jquery',
 				$.each(data, function(key, value) {
 				    $('<option>', { value : value }).text(value).appendTo($select);
 				});
-				if(subId != null && subId != "0"){
+				if(subId !== null && subId !== "0"){
 					log.debug("ophalen Schade met id " + subId);
 
 					dataServices.leesSchade(subId).done(function(data) {
@@ -48,24 +48,5 @@ define(['jquery',
 				}
 			});
 		});
-
-//			var soortenSchade = new Bloodhound({
-//				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-//				queryTokenizer: Bloodhound.tokenizers.whitespace,
-//				remote: '../dejonge/rest/medewerker/overig/soortenSchade?query=%QUERY'
-//			});
-//
-//			soortenSchade.initialize();
-//
-//			$('#soortSchade').typeahead({
-//				hint: true,
-//				highlight: true,
-//				minLength: 1
-//			},
-//			{
-//				name: 'states',
-//				displayKey: 'value',
-//				source: soortenSchade.ttAdapter()
-//			});
 	};
 });
