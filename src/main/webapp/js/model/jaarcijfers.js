@@ -12,7 +12,7 @@ define(['jquery',
          'opmerkingenModel'],
 	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
-	return function polisModel (data, readOnly){
+	return function polisModel (data){
 		var _cijfers = this;
 
 		_cijfers.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, null, null, data.id);
@@ -41,7 +41,7 @@ define(['jquery',
             commonFunctions.verbergMeldingen();
 			$('uploadprogress').show();
 			fileUpload.uploaden().done(function(bijlage){
-				console.log(ko.toJSON(bijlage));
+				log.debug(ko.toJSON(bijlage));
 				_cijfers.bijlages().push(bijlage);
 				_cijfers.bijlages.valueHasMutated();
 			});
