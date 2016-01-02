@@ -11,7 +11,7 @@ define(["commons/3rdparty/log",
 
                 var deferred = $.Deferred();
 
-                $('#fileUpload').load('templates/commons/fileUpload.html', function(response, status, xhr) {
+                $('#fileUpload').load('templates/commons/fileUpload.html', function() {
                     return deferred.resolve();
                 });
 

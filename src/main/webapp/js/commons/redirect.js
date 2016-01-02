@@ -23,23 +23,23 @@ define([ "commons/3rdparty/log"],
                     }
                 }
 
-                if(var1 != undefined){
+                if(var1 !== undefined){
                     log.debug(var1);
                     url = url + "/" + var1;
                 }
-                if(var2 != undefined){
+                if(var2 !== undefined){
                     log.debug(var2);
                     url = url + "/" + var2;
                 }
-                if(var3 != undefined){
+                if(var3 !== undefined){
                     log.debug(var3);
                     url = url + "/" + var3;
                 }
-                if(var4 != undefined){
+                if(var4 !== undefined){
                     log.debug(var4);
                     url = url + "/" + var4;
                 }
-                if(var5 != undefined){
+                if(var5 !== undefined){
                     log.debug(var5);
                     url = url + "/" + var5;
                 }

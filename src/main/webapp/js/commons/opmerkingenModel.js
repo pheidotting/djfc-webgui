@@ -7,10 +7,10 @@ define(["commons/3rdparty/log",
         'moment'],
     function(log, commonFunctions, Opmerking, navRegister, ko, dataServices, moment) {
 
-        return function KO(data, schade, hypotheek, polis, relatie, bedrijf, aangifte, jaarcijfers, risicoAnalyse){
+        return function(data, schade, hypotheek, polis, relatie, bedrijf, aangifte, jaarcijfers, risicoAnalyse){
             log.debug(schade + " - " + hypotheek + " - " + polis + " - " + relatie + " - " + bedrijf + " - " + aangifte + " - " + jaarcijfers + " - " + risicoAnalyse);
 
-            _k = this;
+            var _k = this;
 
             _k.opmerkingen = ko.observableArray();
             _k.nieuweOpmerking = ko.observable();
@@ -31,7 +31,7 @@ define(["commons/3rdparty/log",
 
             _k.opmerkingOpslaan = function(opm){
                 log.debug(opm.opmerkingenModel.nieuweOpmerking());
-                if(opm.opmerkingenModel.nieuweOpmerking() != ''){
+                if(opm.opmerkingenModel.nieuweOpmerking() !== ''){
                     dataServices.haalIngelogdeGebruiker().done(function(response){
                         var opmerking = new Opmerking('');
                         opmerking.medewerker(response.gebruikersnaam);
@@ -61,7 +61,7 @@ define(["commons/3rdparty/log",
 
             _k.verwijder = function(opmerking){
                 var r = confirm("Weet je zeker dat je deze opmerking wilt verwijderen?");
-                if (r == true) {
+                if (r === true) {
                     log.debug("verwijder opmerking met id " + opmerking.id());
                     dataServices.verwijderOpmerking(opmerking.id()).done(function(){
                         _k.opmerkingen.remove(opmerking);

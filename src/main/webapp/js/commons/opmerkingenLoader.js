@@ -1,16 +1,16 @@
 define(["commons/3rdparty/log"],
     function(log) {
 
-        return function opmerkingenModel(id, opmerkingen){
-            _thisOpmerkingen = this;
+        return function(id){
+            var _thisOpmerkingen = this;
 
             _thisOpmerkingen.init = function(){
                 log.debug("Instantieren opmerkingen");
 
                 var deferred = $.Deferred();
 
-                if(id != 0){
-                    $('#opmerkingen').load('templates/commons/opmerkingen.html', function(response, status, xhr) {
+                if(id !== 0){
+                    $('#opmerkingen').load('templates/commons/opmerkingen.html', function() {
                         return deferred.resolve();
                     });
                 } else {

@@ -83,7 +83,6 @@ define([ ],
                         break;
                     }
                 }
-//                log.debug(url);
 
                 return url;
 
