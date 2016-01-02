@@ -4,10 +4,10 @@ define(['jquery',
          'commons/3rdparty/log',
          'commons/commonFunctions',
          'dataServices'],
-	function ($, JaaCijfers, ko, log, commonFunctions, dataServices) {
+	function ($, JaaCijfers, ko) {
 
-	return function polissenModel (data) {
-		_thisJaarCijferses = this;
+	return function (data) {
+		var _thisJaarCijferses = this;
 
 		_thisJaarCijferses.cijfers = ko.observableArray();
 		$.each(data, function(i, item){

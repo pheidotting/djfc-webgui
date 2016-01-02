@@ -12,7 +12,7 @@ define(['jquery',
          'opmerkingenModel'],
 	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
-	return function polisModel (data){
+	return function (data){
 		var _cijfers = this;
 
 		_cijfers.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, null, null, data.id);
