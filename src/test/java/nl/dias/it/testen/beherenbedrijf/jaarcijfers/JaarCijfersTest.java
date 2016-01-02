@@ -43,7 +43,7 @@ public class JaarCijfersTest extends AbstractITest {
         jsonOpmerking2 = new JsonOpmerking();
         jsonOpmerking2.setId(2L);
         jsonOpmerking2.setMedewerker("Will Graham");
-        jsonOpmerking2.setTijd("Tijdstip1");
+        jsonOpmerking2.setTijd("Tijdstip2");
         jsonOpmerking2.setOpmerking(genereerRandomString(4000));
 
         jaarCijfers2015.getOpmerkingen().add(jsonOpmerking1);
