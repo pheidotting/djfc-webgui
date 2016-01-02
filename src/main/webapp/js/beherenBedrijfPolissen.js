@@ -18,7 +18,7 @@ define(['jquery',
                 $.each(data, function(key, value) {
                     if(value.maatschappij != null) {
                         $.each(maatschappijen, function(keyM, valueM) {
-                            if(keyM == value.maatschappij){
+                            if(keyM === value.maatschappij){
                                 value.maatschappij = valueM;
                             }
                         });
