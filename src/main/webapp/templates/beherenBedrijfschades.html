@@ -4,7 +4,7 @@
             <div class="panel-heading">
                 <h4>
                     <a data-toggle="collapse" data-parent="#accordion"
-                       data-bind="attr:{href: idDivLink}, text: titel"></a>
+                       data-bind="attr:{href: idDivLink}, text: titel" id="titel"></a>
                     &nbsp;&nbsp;&nbsp;
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
@@ -33,54 +33,56 @@
                 <div class="panel-body">
                     <div data-bind="if: soortSchade">
                         <span class="schadeLabel">Soort schade :</span>
-                        <span data-bind="text: soortSchade" name="soortSchade"></span>
+                        <span data-bind="text: soortSchade" name="soortSchade" id="soortSchade"></span>
                     </div>
-                    <div data-bind="if: schadeNummerTussenPersoon">
+                    <div data-bind="if: schadeNummerMaatschappij">
                         <span class="schadeLabel">Schadenummer Maatschappij :</span>
-                        <span data-bind="text: schadeNummerMaatschappij" name="schadeNummerMaatschappij"></span>
+                        <span data-bind="text: schadeNummerMaatschappij" name="schadeNummerMaatschappij"
+                              id="schadeNummerMaatschappij"></span>
                     </div>
                     <div data-bind="if: schadeNummerTussenPersoon">
                         <span class="schadeLabel">Schadenummer Tussenpersoon :</span>
-                        <span data-bind="text: schadeNummerTussenPersoon" name="schadeNummerTussenPersoon"></span>
+                        <span data-bind="text: schadeNummerTussenPersoon" name="schadeNummerTussenPersoon"
+                              id="schadeNummerTussenPersoon"></span>
                     </div>
                     <div data-bind="if: locatie">
                         <span class="schadeLabel">Locatie :</span>
-                        <span data-bind="text: locatie" name="locatie"></span>
+                        <span data-bind="text: locatie" name="locatie" id="locatie"></span>
                     </div>
                     <div data-bind="if: statusSchade">
                         <span class="schadeLabel">Status schade :</span>
-                        <span data-bind="text: statusSchade" name="statusSchade"></span>
+                        <span data-bind="text: statusSchade" name="statusSchade" id="statusSchade"></span>
                     </div>
-                    <div data-bind="if: datumTijdMelding">
+                    <div data-bind="if: datumTijdSchade">
                         <span class="schadeLabel">Datum/Tijd schade :</span>
-                        <span data-bind="text: datumTijdSchade" name="datumTijdSchade"></span>
+                        <span data-bind="text: datumTijdSchade" name="datumTijdSchade" id="datumTijdSchade"></span>
                     </div>
                     <div data-bind="if: datumTijdMelding">
                         <span class="schadeLabel">Datum/Tijd melding :</span>
-                        <span data-bind="text: datumTijdMelding" name="datumTijdMelding"></span>
+                        <span data-bind="text: datumTijdMelding" name="datumTijdMelding" id="datumTijdMelding"></span>
                     </div>
-                    <div data-bind="if: eigenRisico">
+                    <div data-bind="if: datumAfgehandeld">
                         <span class="schadeLabel">Datum afgehandeld :</span>
-                        <span data-bind="text: datumAfgehandeld" name="datumAfgehandeld"></span>
+                        <span data-bind="text: datumAfgehandeld" name="datumAfgehandeld" id="datumAfgehandeld"></span>
                     </div>
                     <div data-bind="if: eigenRisico">
                         <span class="schadeLabel">Eigen risico :</span>
-                        <span data-bind="text: bedrag(eigenRisico)" name="eigenRisico"></span>
+                        <span data-bind="text: bedrag(eigenRisico)" name="eigenRisico" id="eigenRisico"></span>
                     </div>
                     <div data-bind="if: omschrijving">
                         <span class="schadeLabel">Omschrijving :</span>
-                        <span data-bind="text: omschrijving" name="omschrijving"></span>
+                        <span data-bind="text: omschrijving" name="omschrijving" id="omschrijving"></span>
                     </div>
 
                     <div id="opmerkingenBijSchade" data-bind="foreach: opmerkingen, visible: opmerkingen().length > 0">
                         <div data-bind="if: tijd">
                             <span class="schadeLabel">Opmerking</span>
-                            <span data-bind="text: tijd"></span>
-                            <span data-bind="text: medewerker"></span>
+                            <span id="tijd" data-bind="text: tijd"></span>
+                            <span id="medewerker" data-bind="text: medewerker"></span>
                         </div>
                         <div data-bind="if: opmerking">
                             <span class="schadeLabel">&nbsp;</span>
-                            <span data-bind="text: opmerking" name="opmerking"
+                            <span data-bind="text: opmerking" name="opmerking" id="opmerking"
                                   style="width:900px;display:block;float:left;"></span>
                         </div>
                         <div style="clear:both;"></div>
