@@ -14,6 +14,7 @@ import java.util.Map;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.getFirst;
 import static nl.dias.it.Hulp.klikEnWacht;
+import static nl.dias.it.Hulp.wachtFf;
 import static org.junit.Assert.assertEquals;
 
 public class LijstPolissen extends IndexPagina {
@@ -80,11 +81,7 @@ public class LijstPolissen extends IndexPagina {
             assertEquals(polis.getKenmerk(), kenmerk.get(index).getText());
 
             klikEnWacht(we);
-
-            try {
-                Thread.sleep(5000);
-            } catch (Exception e) {
-            }
+            wachtFf();
 
             assertEquals(polis.getStatus(), statusLijst.get(index).getText());
             assertEquals(polis.getPolisNummer(), polisNummerLijst.get(index).getText());
