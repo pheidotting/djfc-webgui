@@ -1,9 +1,9 @@
 <div id="opmerkingen" data-bind="foreach: opmerkingenModel.opmerkingen">
-    <b>
+    <strong>
         <span data-bind="text: medewerker"/>, <span data-bind="text: tijd"/> <span class="glyphicon glyphicon-remove"
                                                                                    data-bind="click: $parent.opmerkingenModel.verwijder, visible: $parent.notReadOnly"
                                                                                    style="cursor:pointer"></span>
-    </b>
+    </strong>
     <br />
     <div style="white-space: pre-wrap" data-bind="text: opmerking, click: startBewerken, visible: $parent.notReadOnly, attr:{id: 'tekst' + id()}"></div>
     <div style="white-space: pre-wrap" data-bind="text: opmerking, visible: $parent.readOnly, attr:{id: 'tekst' + id()}"></div>
