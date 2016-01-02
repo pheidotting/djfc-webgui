@@ -4,7 +4,7 @@ define(['jquery',
          'commons/3rdparty/log',
          'commons/commonFunctions',
          'dataServices'],
-	function ($, JaaCijfers, ko) {
+    function ($, JaaCijfers, ko) {
 
 	return function (data) {
 		var _thisJaarCijferses = this;
