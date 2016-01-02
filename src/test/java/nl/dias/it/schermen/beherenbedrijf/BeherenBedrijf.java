@@ -1,5 +1,6 @@
-package nl.dias.it.schermen;
+package nl.dias.it.schermen.beherenbedrijf;
 
+import nl.dias.it.schermen.IndexPagina;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.commons.json.JsonBedrijf;
 import nl.lakedigital.djfc.commons.json.JsonContactPersoon;

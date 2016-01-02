@@ -1,7 +1,7 @@
 package nl.dias.it.testen.beherenbedrijf.polis;
 
 import com.beust.jcommander.internal.Lists;
-import nl.dias.it.schermen.polis.LijstPolissen;
+import nl.dias.it.schermen.beherenbedrijf.polis.LijstPolissen;
 import nl.dias.it.testen.AbstractITest;
 import nl.lakedigital.djfc.commons.json.JsonPolis;
 import org.openqa.selenium.support.PageFactory;

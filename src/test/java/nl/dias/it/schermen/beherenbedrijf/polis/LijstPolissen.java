@@ -1,4 +1,4 @@
-package nl.dias.it.schermen.polis;
+package nl.dias.it.schermen.beherenbedrijf.polis;
 
 import com.google.common.base.Predicate;
 import nl.dias.it.schermen.IndexPagina;

@@ -1,4 +1,4 @@
-package nl.dias.it.schermen.polis;
+package nl.dias.it.schermen.beherenbedrijf.polis;
 
 import nl.dias.it.schermen.IndexPagina;
 import org.joda.time.LocalDate;

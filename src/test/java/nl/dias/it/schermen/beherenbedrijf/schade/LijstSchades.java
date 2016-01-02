@@ -1,4 +1,4 @@
-package nl.dias.it.schermen.schade;
+package nl.dias.it.schermen.beherenbedrijf.schade;
 
 import com.google.common.base.Predicate;
 import nl.dias.it.schermen.IndexPagina;

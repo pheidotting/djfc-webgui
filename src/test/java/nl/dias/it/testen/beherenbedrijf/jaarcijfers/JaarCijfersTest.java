@@ -1,6 +1,6 @@
 package nl.dias.it.testen.beherenbedrijf.jaarcijfers;
 
-import nl.dias.it.schermen.jaarcijfers.LijstJaarCijfers;
+import nl.dias.it.schermen.beherenbedrijf.jaarcijfers.LijstJaarCijfers;
 import nl.dias.it.testen.AbstractITest;
 import nl.lakedigital.djfc.commons.json.JsonJaarCijfers;
 import nl.lakedigital.djfc.commons.json.JsonOpmerking;

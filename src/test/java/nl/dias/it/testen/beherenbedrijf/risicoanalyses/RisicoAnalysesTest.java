@@ -1,6 +1,6 @@
 package nl.dias.it.testen.beherenbedrijf.risicoanalyses;
 
-import nl.dias.it.schermen.risicoanalyses.RisicoAnalyses;
+import nl.dias.it.schermen.beherenbedrijf.risicoanalyses.RisicoAnalyses;
 import nl.dias.it.testen.AbstractITest;
 import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.commons.json.JsonRisicoAnalyse;

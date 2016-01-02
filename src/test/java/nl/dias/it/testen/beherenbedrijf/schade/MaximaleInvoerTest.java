@@ -1,7 +1,7 @@
 package nl.dias.it.testen.beherenbedrijf.schade;
 
 import com.beust.jcommander.internal.Lists;
-import nl.dias.it.schermen.schade.SchadeInvoer;
+import nl.dias.it.schermen.beherenbedrijf.schade.SchadeInvoer;
 import nl.dias.it.testen.AbstractITest;
 import nl.lakedigital.djfc.commons.json.JsonFoutmelding;
 import nl.lakedigital.djfc.commons.json.JsonPolis;

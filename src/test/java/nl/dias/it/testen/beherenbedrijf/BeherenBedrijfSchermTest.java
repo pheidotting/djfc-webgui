@@ -1,7 +1,7 @@
 package nl.dias.it.testen.beherenbedrijf;
 
 import nl.dias.commons.test.TestCase;
-import nl.dias.it.schermen.BeherenBedrijf;
+import nl.dias.it.schermen.beherenbedrijf.BeherenBedrijf;
 import nl.dias.it.testen.AbstractITest;
 import nl.lakedigital.djfc.commons.json.JsonAdres;
 import nl.lakedigital.djfc.commons.json.JsonBedrijf;

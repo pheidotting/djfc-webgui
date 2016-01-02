@@ -1,6 +1,6 @@
 package nl.dias.it.testen.beherenbedrijf.schade;
 
-import nl.dias.it.schermen.schade.LijstSchades;
+import nl.dias.it.schermen.beherenbedrijf.schade.LijstSchades;
 import nl.dias.it.testen.AbstractITest;
 import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.commons.json.JsonSchade;

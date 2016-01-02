@@ -1,4 +1,4 @@
-package nl.dias.it.schermen.risicoanalyses;
+package nl.dias.it.schermen.beherenbedrijf.risicoanalyses;
 
 import nl.dias.it.schermen.IndexPagina;
 import nl.lakedigital.djfc.commons.json.JsonRisicoAnalyse;

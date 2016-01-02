@@ -1,4 +1,4 @@
-package nl.dias.it.schermen.schade;
+package nl.dias.it.schermen.beherenbedrijf.schade;
 
 import nl.dias.it.schermen.IndexPagina;
 import org.openqa.selenium.WebElement;
