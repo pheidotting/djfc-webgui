@@ -105,13 +105,13 @@ public class BeherenBedrijf extends IndexPagina {
     }
 
     public void controleer(JsonBedrijf jsonBedrijf) {
-        assertEquals(jsonBedrijf.getNaam(), getText(naam));
-        assertEquals(jsonBedrijf.getKvk(), getText(kvk));
-        assertEquals(jsonBedrijf.getRechtsvorm(), getText(rechtsvorm));
-        assertEquals(jsonBedrijf.getEmail(), getText(email));
-        assertEquals(jsonBedrijf.getInternetadres(), getText(internetadres));
-        assertEquals(jsonBedrijf.getHoedanigheid(), getText(hoedanigheid));
-        assertEquals(jsonBedrijf.getcAoVerplichtingen(), getText(cAoVerplichtingen));
+        controleerVeld(naam, jsonBedrijf.getNaam());
+        controleerVeld(kvk, jsonBedrijf.getKvk());
+        controleerVeld(rechtsvorm, jsonBedrijf.getRechtsvorm());
+        controleerVeld(email, jsonBedrijf.getEmail());
+        controleerVeld(internetadres, jsonBedrijf.getInternetadres());
+        controleerVeld(hoedanigheid, jsonBedrijf.getHoedanigheid());
+        controleerVeld(cAoVerplichtingen, jsonBedrijf.getcAoVerplichtingen());
     }
 
     public void vulNaam() {

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class Hulp {
     private static final int timeout = 1000;
-    public static final int zoekTimeOut = 25;
+    public static final int zoekTimeOut = 5;
 
     private Hulp() {
     }
