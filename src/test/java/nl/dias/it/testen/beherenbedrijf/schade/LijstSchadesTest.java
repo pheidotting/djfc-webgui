@@ -2,6 +2,7 @@ package nl.dias.it.testen.beherenbedrijf.schade;
 
 import nl.dias.it.schermen.schade.LijstSchades;
 import nl.dias.it.testen.AbstractITest;
+import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.commons.json.JsonSchade;
 import org.openqa.selenium.support.PageFactory;
 
@@ -35,6 +36,12 @@ public class LijstSchadesTest extends AbstractITest {
         jsonSchade1.setOmschrijving("omschrijving");
         jsonSchade1.setSchadeNummerTussenPersoon("schadeNummerTussenPersoon");
         jsonSchade1.setStatusSchade("status1");
+
+        JsonOpmerking jsonOpmerking = new JsonOpmerking();
+        jsonOpmerking.setTijd("tijd");
+        jsonOpmerking.setMedewerker("Hannibal Lecter");
+        jsonOpmerking.setOpmerking("opmerking");
+        jsonSchade1.getOpmerkingen().add(jsonOpmerking);
 
         expectGet("/dejonge/rest/medewerker/schade/lijstBijBedrijf", gson.toJson(newArrayList(jsonSchade1)));
 

@@ -2,6 +2,7 @@ package nl.dias.it.schermen.schade;
 
 import com.google.common.base.Predicate;
 import nl.dias.it.schermen.IndexPagina;
+import nl.lakedigital.djfc.commons.json.JsonOpmerking;
 import nl.lakedigital.djfc.commons.json.JsonSchade;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,7 +42,12 @@ public class LijstSchades extends IndexPagina {
     private List<WebElement> eigenRisico;
     @FindBy(id = "omschrijving")
     private List<WebElement> omschrijving;
-
+    @FindBy(id = "tijd")
+    private List<WebElement> tijd;
+    @FindBy(id = "medewerker")
+    private List<WebElement> medewerker;
+    @FindBy(id = "opmerking")
+    private List<WebElement> opmerking;
 
     public void controleer(List<JsonSchade> jsonSchades) {
         assertEquals(jsonSchades.size(), titels.size());
@@ -72,6 +78,11 @@ public class LijstSchades extends IndexPagina {
             assertEquals(jsonSchade.getDatumAfgehandeld(), datumAfgehandeld.get(index).getText());
             assertEquals("€ " + jsonSchade.getEigenRisico(), eigenRisico.get(index).getText());
             assertEquals(jsonSchade.getOmschrijving(), omschrijving.get(index).getText());
+            for (JsonOpmerking jsonOpmerking : jsonSchade.getOpmerkingen()) {
+                assertEquals(jsonOpmerking.getTijd(), tijd.get(0).getText());
+                assertEquals(jsonOpmerking.getMedewerker(), medewerker.get(0).getText());
+                assertEquals(jsonOpmerking.getOpmerking(), opmerking.get(0).getText());
+            }
 
             klikEnWacht(we);
         }
