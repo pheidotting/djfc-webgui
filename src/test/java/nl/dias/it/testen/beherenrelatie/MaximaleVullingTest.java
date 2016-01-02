@@ -40,14 +40,6 @@ public class MaximaleVullingTest extends AbstractITest {
         pagina.opslaan();
 
         wachtFf();
-        wachtFf();
-        wachtFf();
-        wachtFf();
-        wachtFf();
-        wachtFf();
-        wachtFf();
-        wachtFf();
-        wachtFf();
 
         assertTrue(driver.getCurrentUrl().endsWith("lijstRelaties/" + achternaam));
     }
