@@ -29,12 +29,10 @@ define(['jquery',
 		};
 		_thisRelatie.zetPostcodeOm = function(){
 			var postcode = _thisRelatie.postcode();
-			if(postcode != null){
-				if(postcode.length == 6){
-					postcode = postcode.toUpperCase();
-					postcode = postcode.substring(0, 4) + " " + postcode.substring(4);
-					_thisRelatie.postcode(postcode);
-				}
+			if(postcode !== null && postcode.length === 6){
+                postcode = postcode.toUpperCase();
+                postcode = postcode.substring(0, 4) + " " + postcode.substring(4);
+                _thisRelatie.postcode(postcode);
 			}
 		};
 		_thisRelatie.identificatie = ko.observable(data.identificatie).extend({email: true});
@@ -62,19 +60,19 @@ define(['jquery',
 			$.each(data.adressen, function(i, item) {
 				_thisRelatie.adressen().push(new Adres(item));
 			});
-		}
+		};
 
 		_thisRelatie.voegAdresToe = function(){
 			log.debug("nieuwe Adres");
 			_thisRelatie.adressen().push(new Adres(""));
 			_thisRelatie.adressen.valueHasMutated();
-		}
+		};
 
 		_thisRelatie.verwijderAdres = function(adres){
 			log.debug(ko.toJSON(adres));
 			_thisRelatie.adressen.remove(adres);
 			_thisRelatie.adressen.valueHasMutated();
-		}
+		};
 
 		_thisRelatie.bsn = ko.observable(data.bsn);
 		_thisRelatie.zakelijkeKlant = ko.observable(data.zakelijkeKlant);
@@ -100,11 +98,11 @@ define(['jquery',
 		_thisRelatie.voegRelatieToe = function(){
     		_thisRelatie.lijst.removeAll();
 			$("#onderlingeRelatieDialog").dialog();
-		}
+		};
 
 		_thisRelatie.opslaanOnderlingeRelatie = function(ol) {
             $('#foutmeldingGeenSoortRelatie').hide();
-		    if($('#soortRelatie').val() == ""){
+		    if($('#soortRelatie').val() === ""){
 		        $('#foutmeldingGeenSoortRelatie').show();
 		    } else {
 	    		$("#onderlingeRelatieDialog").dialog("close");
@@ -117,7 +115,7 @@ define(['jquery',
 
 				_thisRelatie.onderlingeRelaties().push(onderlingeRelatie);
 				_thisRelatie.onderlingeRelaties.valueHasMutated();
-		    }
+		    };
 		};
 
 		_thisRelatie.lijst = ko.observableArray();
@@ -126,7 +124,7 @@ define(['jquery',
     		_thisRelatie.lijst.removeAll();
             dataServices.lijstRelaties(_thisRelatie.zoekTerm(), _thisRelatie.id()).done(function(data) {
                 log.debug("opgehaald " + JSON.stringify(data));
-                if(data != undefined){
+                if(data !== undefined){
                     $.each(data.jsonRelaties, function(i, item) {
                         log.debug(JSON.stringify(item));
                         var a = item;
@@ -135,11 +133,11 @@ define(['jquery',
                     _thisRelatie.lijst.valueHasMutated();
                 }
             });
-		}
+		};
 
 		_thisRelatie.geboorteDatum = ko.observable(data.geboorteDatumOpgemaakt).extend({validation: {
 	        validator: function (val) {
-	        	if(val != undefined){
+	        	if(val !== undefined){
 	        		return validation.valideerDatum(val);
 	        	}else{
 	        		return true;
@@ -159,7 +157,7 @@ define(['jquery',
 		_thisRelatie.verwijderRekening = function(rekening){
 			log.debug("Verwijderen rekening " + ko.toJSON(rekening));
 			_thisRelatie.rekeningnummers.remove(function (item) {
-			    return item.rekeningnummer() == rekening.rekeningnummer() && item.bic() == rekening.bic();
+			    return item.rekeningnummer() === rekening.rekeningnummer() && item.bic() === rekening.bic();
 			});
 			_thisRelatie.rekeningnummers.valueHasMutated();
 		};
@@ -172,7 +170,7 @@ define(['jquery',
 		_thisRelatie.verwijderTelefoonNummer = function(telefoon) {
 			log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
 			_thisRelatie.telefoonnummers.remove(function (item) {
-                return item().telefoonnummer() == telefoon.telefoonnummer() && item().soort() == telefoon.soort();
+                return item().telefoonnummer() === telefoon.telefoonnummer() && item().soort() === telefoon.soort();
             });
 			_thisRelatie.telefoonnummers.valueHasMutated();
 		};
@@ -195,7 +193,7 @@ define(['jquery',
                     _thisRelatie.id.valueHasMutated();
 
 					fileUpload.uploaden().done(function(bijlage){
-						console.log(ko.toJSON(bijlage));
+						log.debug(ko.toJSON(bijlage));
 						_thisRelatie.bijlages().push(bijlage);
 						_thisRelatie.bijlages.valueHasMutated();
 						redirect.redirect('BEHEREN_RELATIE', _thisRelatie.id());
@@ -203,7 +201,7 @@ define(['jquery',
 	    		});
             } else {
 				fileUpload.uploaden().done(function(bijlage){
-					console.log(ko.toJSON(bijlage));
+					log.debug(ko.toJSON(bijlage));
 					_thisRelatie.bijlages().push(bijlage);
 					_thisRelatie.bijlages.valueHasMutated();
 				});
@@ -225,14 +223,14 @@ define(['jquery',
 				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaan : ");
 				log.debug(ko.toJSON(_thisRelatie));
 				var foutmelding;
-				dataServices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(response){
+				dataServices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(){
 					redirect.redirect('LIJST_RELATIES', _thisRelatie.achternaam());
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response){
-					commonFunctions.plaatsFoutmelding(data);
+					commonFunctions.plaatsFoutmelding(response);
 					foutmelding = true;
 				});
-				if(foutmelding == undefined || foutmelding == null){
+				if(foutmelding === undefined || foutmelding === null){
 					redirect.redirect('LIJST_RELATIES', _thisRelatie.achternaam());
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}
@@ -244,12 +242,12 @@ define(['jquery',
 
 			dataServices.verwijderRelatie(ko.utils.unwrapObservable(relatie.id));
 			redirect.redirect('LIJST_RELATIES');
-		},
+		};
 
 		_thisRelatie.naarDetailScherm = function(relatie){
 			commonFunctions.verbergMeldingen();
 			redirect.redirect('BEHEREN_RELATIE', ko.utils.unwrapObservable(relatie.id));
-		}
+		};
 
         _thisRelatie.opzoekenAdres = function(adres){
             log.debug(ko.toJSON(adres));
@@ -269,6 +267,6 @@ define(['jquery',
 
         _thisRelatie.annuleren = function(){
             redirect.redirect('LIJST_RELATIES');
-        }
+        };
     };
 });
