@@ -12,8 +12,8 @@ define(['jquery',
     function($, beherenBedrijf, beherenBedrijfJaarCijfers, beherenBedrijfRisicoAnalyse, beherenBedrijfPolissen, beherenBedrijfPolis, beherenBedrijfSchades, beherenBedrijfSchade, log, commonFunctions, redirect) {
 
 	return function(bedrijfId, actie, subId){
-		$('#content').load('templates/beherenBedrijfTemplate.html', function(response, status, xhr) {
-			if(bedrijfId == undefined || bedrijfId == null || bedrijfId == 0){
+		$('#content').load('templates/beherenBedrijfTemplate.html', function(response, status) {
+			if(bedrijfId === undefined || bedrijfId === null || bedrijfId === 0){
 				$('#bedrijven').hide();
 				$('#bedrijf').hide();
 				$('#polissen').hide();
@@ -24,48 +24,48 @@ define(['jquery',
 				$('#hypotheek').hide();
 				$('#bijlages').hide();
 			}
-			if (status == "success") {
+			if (status === "success") {
 				//Op basis van actie de actieve tab bepalen
 				var pagina = "";
-				if(actie != undefined && actie != null){
+				if(actie !== undefined && actie !== null){
 					pagina = actie;
 				}
-				if(actie == undefined || actie == null) {
+				if(actie === undefined || actie === null) {
 				    actie = "";
                 }
 
 				//Uitzondering
-				if(pagina == 'polisInzien') {
+				if(pagina === 'polisInzien') {
 					pagina= "polis";
 				}
 
 				//Onderliggende pagina aanroepen
 				$('#details').load("templates/beherenBedrijf" + pagina + ".html", function(){
-					if(actie == ""){
+					if(actie === ""){
 						new beherenBedrijf(bedrijfId);
-					}else if(actie == "jaarcijfers"){
+					}else if(actie === "jaarcijfers"){
 						new beherenBedrijfJaarCijfers(bedrijfId);
-					}else if(actie == "risicoanalyses"){
+					}else if(actie === "risicoanalyses"){
 					    new beherenBedrijfRisicoAnalyse(bedrijfId);
-					}else if(actie == "polissen"){
+					}else if(actie === "polissen"){
 					    new beherenBedrijfPolissen(bedrijfId);
-					}else if(actie == "polis"){
+					}else if(actie === "polis"){
 					    new beherenBedrijfPolis(subId, bedrijfId);
-					}else if(actie == "schades"){
+					}else if(actie === "schades"){
 					    new beherenBedrijfSchades(bedrijfId);
-					}else if(actie == "schade"){
+					}else if(actie === "schade"){
 					    new beherenBedrijfSchade(subId, bedrijfId);
 					}
-					_bedrijfId = bedrijfId;
-					_subId = subId;
+					var _bedrijfId = bedrijfId;
+					var _subId = subId;
 
 				});
 
-				if(actie == ""){
+				if(actie === ""){
 					actie = "beherenBedrijf";
 				}
 				$("#" + actie).addClass("navdivactive");
-				if(actie == "beherenBedrijf"){
+				if(actie === "beherenBedrijf"){
 					actie = "";
 				}
 
