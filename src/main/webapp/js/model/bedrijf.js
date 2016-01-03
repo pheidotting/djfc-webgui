@@ -12,8 +12,8 @@ define(['jquery',
          'telefoonnummersModel'],
 	function ($, ko, log, commonFunctions, Bijlage, Contactpersoon, dataServices, redirect, fileUpload, opmerkingenModel, adressenModel, telefoonnummersModel) {
 
-	return function bedrijfModel (data){
-		_bedrijf = this;
+	return function(data){
+		var _bedrijf = this;
 
 		_bedrijf.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, data.id, null);
 		_bedrijf.adressenModel = new adressenModel(data.adressen, data.id);
@@ -26,7 +26,7 @@ define(['jquery',
 			log.debug("Verwijderen adres " + ko.toJSON(adres));
 			_bedrijf.adressenModel.adressen.remove(function (item) {
 			    log.debug(ko.toJSON(item));
-				return item.postcode() == adres.postcode() && item.huisnummer() == adres.huisnummer();
+				return item.postcode() === adres.postcode() && item.huisnummer() === adres.huisnummer();
 			});
 			_bedrijf.adressenModel.adressen.valueHasMutated();
 		};
@@ -54,7 +54,7 @@ define(['jquery',
 			log.debug("Verwijderen contactpersoon " + ko.toJSON(contactpersoon));
 			_bedrijf.contactpersonen.remove(function (item) {
 			    log.debug(ko.toJSON(item));
-				return item.voornaam() == contactpersoon.voornaam() && item.achternaam() == contactpersoon.achternaam();
+				return item.voornaam() === contactpersoon.voornaam() && item.achternaam() === contactpersoon.achternaam();
 			});
 			_bedrijf.contactpersonen.valueHasMutated();
 		};
@@ -87,7 +87,7 @@ define(['jquery',
 			log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
 			_bedrijf.telefoonnummersModel.telefoonnummers.remove(function (item) {
 			    log.debug(ko.toJSON(item));
-				return item.telefoonnummer() == telefoon.telefoonnummer() && item.soort() == telefoon.soort();
+				return item.telefoonnummer() === telefoon.telefoonnummer() && item.soort() === telefoon.soort();
 			});
 			_bedrijf.telefoonnummersModel.telefoonnummers.valueHasMutated();
 		};
@@ -146,7 +146,7 @@ define(['jquery',
 					_bedrijf.id.valueHasMutated();
 
 					fileUpload.uploaden().done(function(bijlage){
-						console.log(ko.toJSON(bijlage));
+						log.debug(ko.toJSON(bijlage));
 						_bedrijf.bijlages().push(bijlage);
 						_bedrijf.bijlages.valueHasMutated();
 						redirect.redirect('BEHEREN_RELATIE', _polis.relatie(), 'polis', _polis.id());
@@ -154,7 +154,7 @@ define(['jquery',
 				});
 			} else {
 				fileUpload.uploaden().done(function(bijlage){
-					console.log(ko.toJSON(bijlage));
+					log.debug(ko.toJSON(bijlage));
 					_bedrijf.bijlages().push(bijlage);
 					_bedrijf.bijlages.valueHasMutated();
 				});

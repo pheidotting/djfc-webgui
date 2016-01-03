@@ -2,25 +2,22 @@ define(['jquery',
         'commons/commonFunctions',
          'knockout',
          'commons/3rdparty/log',
-        'dataServices',
-         "commons/validation"],
-	function ($, commonFunctions, ko, log, dataServices, validation) {
+        'dataServices'],
+	function ($, commonFunctions, ko, log, dataServices) {
 
-	return function thisAdresModel (data){
-	    thisAdres = this;
+	return function(data){
+	    var thisAdres = this;
 
         thisAdres.verwijderAdres = function(){
         };
 
         thisAdres.zetPostcodeOm = function(){
             log.debug(thisAdres.postcode);
-            if(thisAdres.postcode() != null){
-                if(thisAdres.postcode().length == 6){
-                    thisAdres.postcode(thisAdres.postcode().toUpperCase());
-                    thisAdres.postcode(thisAdres.postcode().substring(0, 4) + " " + thisAdres.postcode().substring(4));
+            if(thisAdres.postcode() != null && thisAdres.postcode().length === 6){
+                thisAdres.postcode(thisAdres.postcode().toUpperCase());
+                thisAdres.postcode(thisAdres.postcode().substring(0, 4) + " " + thisAdres.postcode().substring(4));
 
-                    return thisAdres.postcode();
-                }
+                return thisAdres.postcode();
             }
         };
 		thisAdres.straat = ko.observable(data.straat);
