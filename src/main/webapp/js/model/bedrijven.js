@@ -5,8 +5,8 @@ define(['jquery',
          'commons/commonFunctions'],
 	function ($, Bedrijf, ko, log, commonFunctions) {
 
-	return function bedrijvenModel (data){
-		_thisBedrijven = this;
+	return function(data){
+		var _thisBedrijven = this;
 
 		_thisBedrijven.bedrijven = ko.observableArray();
 		$.each(data, function(i, item) {
@@ -18,7 +18,7 @@ define(['jquery',
 			log.debug("Verwijderen Bedrijf met id " + bedrijf.id());
 			commonFunctions.verbergMeldingen();
 			var r=confirm("Weet je zeker dat je dit bedrijf wilt verwijderen?");
-			if (r==true) {
+			if (r === true) {
 				_thisBedrijven.bedrijven.remove(bedrijf);
 				$.get( "../dejonge/rest/medewerker/bedrijf/verwijder", {"id" : bedrijf.id()}, function() {});
 			}
