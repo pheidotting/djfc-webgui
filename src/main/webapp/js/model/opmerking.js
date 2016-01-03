@@ -6,8 +6,8 @@ define(['jquery',
          'dataServices'],
 	function ($, ko, log, commonFunctions, redirect, dataServices) {
 
-	return function opmerkingModel (data){
-		_this = this;
+	return function(data){
+		var _this = this;
 
 		_this.id = ko.observable(data.id);
         _this.bovenLiggendId = ko.observable();
