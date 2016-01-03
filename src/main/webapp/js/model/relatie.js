@@ -170,7 +170,7 @@ define(['jquery',
 		_thisRelatie.verwijderTelefoonNummer = function(telefoon) {
 			log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
 			_thisRelatie.telefoonnummers.remove(function (item) {
-                return item().telefoonnummer() === telefoon.telefoonnummer() && item().soort() === telefoon.soort();
+                return item.telefoonnummer() === telefoon.telefoonnummer() && item.soort() === telefoon.soort();
             });
 			_thisRelatie.telefoonnummers.valueHasMutated();
 		};

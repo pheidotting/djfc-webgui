@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import static nl.dias.it.Hulp.naarAdres;
 import static nl.dias.it.Hulp.wachtFf;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class MaximaleVullingTest extends AbstractITest {
@@ -21,7 +22,6 @@ public class MaximaleVullingTest extends AbstractITest {
     protected void voeruitTest() throws Exception {
         BeherenRelatie pagina = PageFactory.initElements(driver, BeherenRelatie.class);
         naarAdres(driver, BASIS_URL + pagina.URL);
-
 
         String achternaam = pagina.vulMaximaal();
 
@@ -36,6 +36,18 @@ public class MaximaleVullingTest extends AbstractITest {
         int indexRekening2 = pagina.voegRekeningToe();
         pagina.vulRekening(indexRekening2, "NL06 RABO 0987 6543 21", "NL06RABO0987654321");
         pagina.verwijderRekening(indexRekening2, 2, 1);
+
+        int indexTelefoon1 = pagina.voegTelefoonnummerToe();
+        pagina.vulTelefoonnummer(indexTelefoon1, "0612345678", "06 - 12 34 56 78");
+        int indexTelefoon2 = pagina.voegTelefoonnummerToe();
+        pagina.vulTelefoonnummer(indexTelefoon2, "0591345678", "0591 - 34 56 78");
+        int indexTelefoon3 = pagina.voegTelefoonnummerToe();
+        pagina.vulTelefoonnummer(indexTelefoon3, "0538765432", "053 - 876 54 32");
+        pagina.verwijderTelefoonnummer(indexTelefoon2, 3, 2);
+
+        //opmerking opslaan
+        String opmerkingTekst = pagina.opslaanNieuweOpmerking();
+        assertEquals(opmerkingTekst, pagina.getTekst1());
 
         pagina.opslaan();
 
@@ -58,5 +70,6 @@ public class MaximaleVullingTest extends AbstractITest {
         jsonAdres.setToevoeging("toevoeging");
 
         expectGet("/dejonge/rest/medewerker/overig/ophalenAdresOpPostcode", gson.toJson(jsonAdres));
+        expectOpmerkingOpslaan();
     }
 }

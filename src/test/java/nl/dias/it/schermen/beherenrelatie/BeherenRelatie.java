@@ -75,6 +75,27 @@ public class BeherenRelatie extends IndexPagina {
     @FindBy(id = "bic")
     private List<WebElement> bic;
 
+    //Telefoonnummers
+    @FindBy(id = "voegTelefoonNummerToe")
+    private WebElement voegTelefoonNummerToe;
+    @FindBy(id = "verwijderTelefoonNummer")
+    private List<WebElement> verwijderTelefoonNummer;
+    @FindBy(id = "telnummer")
+    private List<WebElement> telefoonnummer;
+    @FindBy(id = "soorttelnummer")
+    private List<WebElement> soorttelnummer;
+    @FindBy(id = "telefoonomschrijving")
+    private List<WebElement> telefoonomschrijving;
+
+    //Opmerkingen
+    @FindBy(id = "nieuweOpmerking")
+    private WebElement nieuweOpmerking;
+    @FindBy(id = "opslaanOpmerking")
+    private WebElement opslaanOpmerking;
+
+    @FindBy(id = "tekst1")
+    private WebElement tekst1;
+
     @FindBy(id = "opslaanRelatie")
     private WebElement opslaanRelatie;
 
@@ -124,6 +145,26 @@ public class BeherenRelatie extends IndexPagina {
         assertEquals(aantalNa, rekeningnummernummer.size());
     }
 
+    public int voegTelefoonnummerToe() {
+        klikEnWacht(voegTelefoonNummerToe);
+        wachtFf();
+        return telefoonnummer.size() - 1;
+    }
+
+    public void vulTelefoonnummer(int index, String nummerKort, String nummerLang) {
+        vulVeld(telefoonnummer.get(index), nummerKort);
+        controleerVeld(telefoonnummer.get(index), nummerLang);
+        selecteerUitSelectieBox(soorttelnummer.get(index), "VAST");
+        vulVeld(telefoonomschrijving.get(index), genereerRandomString(telefoonomschrijving.get(index)));
+    }
+
+    public void verwijderTelefoonnummer(int index, int aantalVoor, int aantalNa) {
+        assertEquals(aantalVoor, telefoonnummer.size());
+        klikEnWacht(verwijderTelefoonNummer.get(index));
+        wachtFf();
+        assertEquals(aantalNa, telefoonnummer.size());
+    }
+
     public String vulMinimaal() {
         vulVeld(voornaam, genereerRandomString(voornaam));
         String achternaam = genereerRandomString(this.achternaam);
@@ -153,6 +194,21 @@ public class BeherenRelatie extends IndexPagina {
 
 
         return vulMinimaal();
+    }
+
+    public String opslaanNieuweOpmerking() {
+        String opmerkingTekst = genereerRandomString(nieuweOpmerking);
+
+        vulVeld(nieuweOpmerking, opmerkingTekst);
+        klikEnWacht(opslaanOpmerking);
+
+        wachtFf();
+
+        return opmerkingTekst;
+    }
+
+    public String getTekst1() {
+        return tekst1.getText();
     }
 
     public void opslaan() {
