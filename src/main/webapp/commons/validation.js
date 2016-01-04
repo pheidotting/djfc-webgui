@@ -4,10 +4,10 @@ define(['commons/3rdparty/log',
 
 	return {
         valideerDatum: function(datum) {
-        	if(datum == undefined || datum == null || datum == ''){
+        	if(datum === undefined || datum === null || datum === ''){
         		return true;
         	}
-        	return datum == moment(datum, "DD-MM-YYYY").format("DD-MM-YYYY");
+        	return datum === moment(datum, "DD-MM-YYYY").format("DD-MM-YYYY");
         },
 
 		isDatumVoorAndereDatum: function(datumVoor, datumNa) {
