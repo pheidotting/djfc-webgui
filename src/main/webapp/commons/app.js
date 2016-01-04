@@ -77,7 +77,7 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 	});
 
 	app.route('GET', '#lijstRelaties/:zoekTerm', function() {
-		zoekTerm = this.params['zoekTerm'];
+		var zoekTerm = this.params['zoekTerm'];
 		new lijstRelaties(zoekTerm);
 	});
 
