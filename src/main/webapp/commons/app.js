@@ -9,7 +9,7 @@ requirejs.config({
     	model: '../js/model',
     	knockout: '../commons/3rdparty/knockout',
         knockoutValidation: '../commons/3rdparty/knockoutValidation/knockout.validation',
-        'blockUI': 'http://malsup.github.com/jquery.blockUI',
+        blockUI: 'http://malsup.github.com/jquery.blockUI',
         jqueryUI: '../commons/3rdparty/jquery-ui-1.10.3',
         dataServices: '../js/commons/dataServices',
         navRegister: '../js/commons/navRegister',
@@ -55,86 +55,86 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 
 	var app = new Sammy('body');
 
-	app.route('GET', '#taken', function(context) {
+	app.route('GET', '#taken', function() {
 		new taken();
 	});
 	
-	app.route('GET', '#dashboard', function(context) {
+	app.route('GET', '#dashboard', function() {
 		new dashboard();
 	});
 	
-	app.route('GET', '#taak/:id', function(context) {
+	app.route('GET', '#taak/:id', function() {
 		id = this.params['id'];
 		new afhandelenTaak(id);
 	});
 
-	app.route('GET', '#inloggen', function(context) {
+	app.route('GET', '#inloggen', function() {
 		new inloggen();
 	});
 
-	app.route('GET', '#lijstRelaties', function(context) {
+	app.route('GET', '#lijstRelaties', function() {
 		new lijstRelaties();
 	});
 
-	app.route('GET', '#lijstRelaties/:zoekTerm', function(context) {
+	app.route('GET', '#lijstRelaties/:zoekTerm', function() {
 		zoekTerm = this.params['zoekTerm'];
 		new lijstRelaties(zoekTerm);
 	});
 
-	app.route('GET', '#lijstBedrijven', function(context) {
+	app.route('GET', '#lijstBedrijven', function() {
 		new lijstBedrijven();
 	});
 
-	app.route('GET', '#lijstBedrijven/:zoekTerm', function(context) {
+	app.route('GET', '#lijstBedrijven/:zoekTerm', function() {
 		zoekTerm = this.params['zoekTerm'];
 		new lijstBedrijven(zoekTerm);
 	});
 
-	app.route('GET', '#beherenBedrijf/:id/:actie/:subId', function(context) {
+	app.route('GET', '#beherenBedrijf/:id/:actie/:subId', function() {
 		id = this.params['id'];
 		actie = this.params['actie'];
 		subId = this.params['subId'];
 		new beherenBedrijf(id, actie, subId);
 	});
 
-	app.route('GET', '#beherenBedrijf/:id/:actie', function(context) {
+	app.route('GET', '#beherenBedrijf/:id/:actie', function() {
 		id = this.params['id'];
 		actie = this.params['actie'];
 		new beherenBedrijf(id, actie);
 	});
 
-	app.route('GET', '#beherenBedrijf/:id', function(context) {
+	app.route('GET', '#beherenBedrijf/:id', function() {
 		id = this.params['id'];
 		new beherenBedrijf(id);
 	});
 
-	app.route('GET', '#beherenBedrijf', function(context) {
+	app.route('GET', '#beherenBedrijf', function() {
 		new beherenBedrijf(null);
 	});
 
-	app.route('GET', '#beherenRelatie/:id/:actie/:subId', function(context) {
+	app.route('GET', '#beherenRelatie/:id/:actie/:subId', function() {
 		id = this.params['id'];
 		actie = this.params['actie'];
 		subId = this.params['subId'];
 		new beherenRelatie(id, actie, subId);
 	});
 
-	app.route('GET', '#beherenRelatie/:id/:actie', function(context) {
+	app.route('GET', '#beherenRelatie/:id/:actie', function() {
 		id = this.params['id'];
 		actie = this.params['actie'];
 		new beherenRelatie(id, actie);
 	});
 
-	app.route('GET', '#beherenRelatie/:id', function(context) {
+	app.route('GET', '#beherenRelatie/:id', function() {
 		id = this.params['id'];
 		new beherenRelatie(id);
 	});
 
-	app.route('GET', '#beherenRelatie', function(context) {
+	app.route('GET', '#beherenRelatie', function() {
 		new beherenRelatie(null);
 	});
 
-	app.route('GET', '', function(context) {
+	app.route('GET', '', function() {
 		new lijstRelaties();
 	});
 
