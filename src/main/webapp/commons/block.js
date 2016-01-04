@@ -1,6 +1,5 @@
-define(['jquery',
-        'blockUI'],
-    function($, blockUI) {
+define(['jquery'],
+    function($) {
 
 	return {
 		block: function() {
