@@ -2,7 +2,7 @@ requirejs.config({
     paths: {
         commons: '../commons',
         jquery: '../commons/3rdparty/jquery-1.9.1',
-    	sammy: '../commons/3rdparty/sammy-0.7.6',
+        sammy: '../commons/3rdparty/sammy-0.7.6',
     	moment: '../commons/3rdparty/moment',
     	js: '../js',
     	pages: '../pages',
@@ -58,11 +58,11 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 	app.route('GET', '#taken', function() {
 		new taken();
 	});
-	
+
 	app.route('GET', '#dashboard', function() {
 		new dashboard();
 	});
-	
+
 	app.route('GET', '#taak/:id', function() {
 		var id = this.params['id'];
 		new afhandelenTaak(id);
