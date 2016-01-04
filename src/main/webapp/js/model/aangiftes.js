@@ -3,7 +3,7 @@ define(['jquery',
          'knockout',
          'commons/3rdparty/log',
          'commons/commonFunctions'],
-	function ($, Aangifte, ko, log, commonFunctions) {
+    function ($, Aangifte, ko, log, commonFunctions) {
 
 	return function aangifteModel (data){
 		_thisAangiftes = this;

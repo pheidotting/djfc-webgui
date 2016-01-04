@@ -7,7 +7,7 @@ define(['jquery',
         'opmerkingenLoader'],
     function($, ko, Bedrijf, block, log, dataServices, opmerkingenLoader) {
 
-	return function(bedrijfId, relatieId) {
+    return function(bedrijfId, relatieId) {
 		block.block();
 		log.debug("Ophalen Bedrijf met id : " + bedrijfId);
 

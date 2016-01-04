@@ -16,7 +16,7 @@ define(["commons/3rdparty/log",
                     _telefoonnummers.telefoonnummers().push(new TelefoonNummer(item));
                 });
             }
-            
+
             _telefoonnummers.verwijderTelefoonNummer = function(telefoon) {
                 log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
                 _telefoonnummers.telefoonnummers.remove(function (item) {
@@ -31,5 +31,5 @@ define(["commons/3rdparty/log",
                 _telefoonnummers.telefoonnummers.valueHasMutated();
             }
         }
-    }
+    };
 );

@@ -1,7 +1,7 @@
 define(['jquery'],
     function($) {
 
-	return {
+    return {
 		block: function() {
 			$(document).ajaxStop($.unblockUI);
 			$.blockUI({ message: '<img src="images/ajax-loader.gif">'});

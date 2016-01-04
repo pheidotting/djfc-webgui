@@ -5,9 +5,9 @@ define(['jquery',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'dataServices'],
-     function($, ko, Schades, block, log, commonFunctions, dataServices) {
+    function($, ko, Schades, block, log, commonFunctions, dataServices) {
 
-	return function(relatieId) {
+    return function(relatieId) {
 		log.debug("Ophalen schades bij Relatie met id " + relatieId);
 		block.block();
 

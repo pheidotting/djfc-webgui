@@ -9,7 +9,7 @@ define(['jquery',
         'opmerkingenLoader'],
     function($, ko, risicoanalyse, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
-	return function(bedrijfsId) {
+    return function(bedrijfsId) {
 		block.block();
 		log.debug("Ophalen RisicoAnalyse");
 

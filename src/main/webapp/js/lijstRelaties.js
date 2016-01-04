@@ -5,11 +5,11 @@ define(['jquery',
         'commons/commonFunctions',
         'commons/block',
         'commons/3rdparty/log',
-		'dataServices',
+        'dataServices',
 		'redirect'],
-	function($, ko, LijstRelaties, Relatie, functions, block, log, dataServices, redirect) {
+    function($, ko, LijstRelaties, Relatie, functions, block, log, dataServices, redirect) {
 
-	return function(zoekTerm){
+    return function(zoekTerm){
 		var lijst = new LijstRelaties();
 
 		$('#content').load('templates/lijstRelaties.html', function(response, status, xhr) {
@@ -32,7 +32,7 @@ define(['jquery',
 				});
 			}
 		
-			$('#zoeken').click(function(){
+            $('#zoeken').click(function(){
 				redirect.redirect('LIJST_RELATIES', $('#zoekTerm').val());
 			});
 

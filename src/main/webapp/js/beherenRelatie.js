@@ -16,7 +16,7 @@ define(['jquery',
         'redirect'],
     function($, beherenRelatie, beherenRelatieBedrijven, beherenRelatieBedrijf, beherenRelatiePolissen, beherenRelatiePolis, beherenRelatieSchades, beherenRelatieSchade, beherenRelatieHypotheken, beherenRelatieHypotheek, beherenRelatieBijlages, beherenRelatieAangifte, beherenRelatieAangiftes, log, commonFunctions, redirect) {
 
-	return function(relatieId, actie, subId){
+    return function(relatieId, actie, subId){
 		$('#content').load('templates/beherenRelatieTemplate.html', function(response, status, xhr) {
 			if(relatieId == undefined || relatieId == null || relatieId == 0){
 				$('#bedrijven').hide();

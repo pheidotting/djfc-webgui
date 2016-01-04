@@ -57,7 +57,7 @@ define(["commons/3rdparty/log",
                         });
                     });
                 }
-            }
+            };
 
             _k.verwijder = function(opmerking){
                 var r = confirm("Weet je zeker dat je deze opmerking wilt verwijderen?");
@@ -71,5 +71,5 @@ define(["commons/3rdparty/log",
             };
 
         }
-    }
+    };
 );

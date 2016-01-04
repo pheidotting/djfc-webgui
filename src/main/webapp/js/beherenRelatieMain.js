@@ -10,7 +10,7 @@ define(['jquery',
         'opmerkingenLoader'],
     function($, ko, Relatie, block, log, commonFunctions, jqueryUI, dataServices, fileUpload, opmerkingenLoader) {
 
-	return function(relatieId) {
+    return function(relatieId) {
 		block.block();
 		log.debug("ophalen Relatie met id " + relatieId);
 

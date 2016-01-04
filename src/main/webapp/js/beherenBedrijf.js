@@ -11,7 +11,7 @@ define(['jquery',
         'redirect'],
     function($, beherenBedrijf, beherenBedrijfJaarCijfers, beherenBedrijfRisicoAnalyse, beherenBedrijfPolissen, beherenBedrijfPolis, beherenBedrijfSchades, beherenBedrijfSchade, log, commonFunctions, redirect) {
 
-	return function(bedrijfId, actie, subId){
+    return function(bedrijfId, actie, subId){
 		$('#content').load('templates/beherenBedrijfTemplate.html', function(response, status) {
 			if(bedrijfId === undefined || bedrijfId === null || bedrijfId === 0){
 				$('#bedrijven').hide();

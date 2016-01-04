@@ -48,5 +48,5 @@ define([ "commons/3rdparty/log"],
                 document.location.hash = url;
             }
         }
-    }
+    };
 );

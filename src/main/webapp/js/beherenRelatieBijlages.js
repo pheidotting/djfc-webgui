@@ -4,9 +4,9 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions'],
-     function($, ko, Bijlages, block, log, commonFunctions) {
+    function($, ko, Bijlages, block, log, commonFunctions) {
 
-	return function(relatieId) {
+    return function(relatieId) {
 		log.debug("Ophalen bijlages bij Relatie met id " + relatieId);
 		block.block();
 		$.ajax({

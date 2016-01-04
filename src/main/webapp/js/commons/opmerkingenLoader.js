@@ -19,9 +19,6 @@ define(["commons/3rdparty/log"],
 
                 return deferred.promise();
             };
-
-            _thisOpmerkingen.opslaan = function(){
-            }
         }
-    }
+    };
 );

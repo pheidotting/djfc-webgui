@@ -7,7 +7,7 @@ define(['jquery',
         'dataServices'],
     function($, ko, Aangifte, Aangiftes, block, log, dataServices) {
 
-	return function(relatieId) {
+    return function(relatieId) {
 		block.block();
 		log.debug("Ophalen openstaande aangiftes voor Relatie met id : " + relatieId);
 

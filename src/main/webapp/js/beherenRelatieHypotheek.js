@@ -5,9 +5,9 @@ define(['jquery',
          'dataServices',
         'fileUpload',
         'opmerkingenLoader'],
-	function($, ko, logger, hypotheek, dataServices, fileUpload, opmerkingenLoader){
+    function($, ko, logger, hypotheek, dataServices, fileUpload, opmerkingenLoader){
 
-	return function(polisId, relatieId) {
+    return function(polisId, relatieId) {
 		logger.debug("aanmaken nieuw hypotheek model");
 
 		dataServices.lijstSoortenHypotheek().done(function(data){

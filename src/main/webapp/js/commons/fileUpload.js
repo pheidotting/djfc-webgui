@@ -19,7 +19,7 @@ define(["commons/3rdparty/log",
             },
 
             uploaden: function(){
-    			block.block();
+    		    block.block();
 
                 var deferred = $.Deferred();
 
@@ -42,5 +42,5 @@ define(["commons/3rdparty/log",
                 return deferred.promise();
             }
         }
-    }
+    };
 );

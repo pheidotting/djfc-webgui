@@ -7,9 +7,9 @@ define(['jquery',
         'dataServices',
         'fileUpload',
         'opmerkingenLoader'],
-     function($, ko, Polis, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
+    function($, ko, Polis, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
-	return function(polisId, relatieId, readOnly) {
+    return function(polisId, relatieId, readOnly) {
 		block.block();
 		log.debug("Ophalen lijst met verzekeringsmaatschappijen");
 

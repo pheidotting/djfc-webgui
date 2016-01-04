@@ -3,9 +3,9 @@ define(['jquery',
         'commons/3rdparty/log',
         'js/model/hypothekenEnPakketten',
         'dataServices'],
-	function($, ko, log, hypothekenEnPakketten, dataServices){
+    function($, ko, log, hypothekenEnPakketten, dataServices){
 
-	return function(relatieId) {
+    return function(relatieId) {
 		log.debug("inlezen hypotheken");
 		dataServices.lijstHypotheken(relatieId).done(function(hypotheken) {
 			dataServices.lijstHypotheekPakketten(relatieId).done(function(pakketten) {

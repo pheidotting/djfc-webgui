@@ -1,5 +1,5 @@
 define([],
-	function() {
+    function() {
 
 	return {
 		maakBedragOp: function(bedrag) {

@@ -5,9 +5,9 @@ define(['jquery',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'dataServices'],
-     function($, ko, Polissen, block, log, commonFunctions, dataServices) {
+    function($, ko, Polissen, block, log, commonFunctions, dataServices) {
 
-	return function(bedrijfId) {
+    return function(bedrijfId) {
 		log.debug("Ophalen polissen bij Bedrijf met id " + bedrijfId);
 		block.block();
 

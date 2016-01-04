@@ -32,7 +32,7 @@ define(["commons/3rdparty/log",
 
             haalIngelogdeGebruiker: function(){
                 return this.voerUitGet(navRegister.bepaalUrl('INGELOGDE_GEBRUIKER'));
-	        },
+            },
 
             uitloggen: function(){
                 return this.voerUitGet(navRegister.bepaalUrl('UITLOGGEN'));
@@ -243,5 +243,5 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('RISICOANALYSE_LEES'), {'bedrijfsId' : bedrijfsId});
             }
         }
-    }
+    };
 );

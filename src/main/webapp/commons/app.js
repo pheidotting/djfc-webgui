@@ -3,7 +3,7 @@ requirejs.config({
         commons: '../commons',
         jquery: '../commons/3rdparty/jquery-1.9.1',
         sammy: '../commons/3rdparty/sammy-0.7.6',
-    	moment: '../commons/3rdparty/moment',
+        moment: '../commons/3rdparty/moment',
     	js: '../js',
     	pages: '../pages',
     	model: '../js/model',

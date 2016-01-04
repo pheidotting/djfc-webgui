@@ -5,11 +5,11 @@ define(['jquery',
         'commons/commonFunctions',
         'commons/block',
         'commons/3rdparty/log',
-		'dataServices',
+        'dataServices',
 		'redirect'],
-	function($, ko, LijstBedrijven, Bedrijf, functions, block, log, dataServices, redirect) {
+    function($, ko, LijstBedrijven, Bedrijf, functions, block, log, dataServices, redirect) {
 
-	return function(zoekTerm){
+    return function(zoekTerm){
 		var lijst = new LijstBedrijven();
 
 		$('#content').load('templates/lijstBedrijven.html', function(response, status, xhr) {
@@ -31,7 +31,7 @@ define(['jquery',
 						$.unblockUI();
 					}
 				});
-			}
+            }
 		
 			$('#zoeken').click(function(){
 				redirect.redirect('LIJST_BEDRIJVEN', $('#zoekTerm').val());

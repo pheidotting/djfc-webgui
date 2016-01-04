@@ -9,7 +9,7 @@ define(['jquery',
         'opmerkingenLoader'],
     function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
-	return function(polisId, relatieId) {
+    return function(polisId, relatieId) {
 		block.block();
 		dataServices.lijstPolissen(relatieId).done(function(data) {
 			var $select = $('#polisVoorSchademelding');

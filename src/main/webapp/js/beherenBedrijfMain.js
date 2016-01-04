@@ -12,7 +12,7 @@ define(['jquery',
         'telefoonnummersLoader'],
     function($, ko, Bedrijf, block, log, commonFunctions, jqueryUI, dataServices, fileUpload, opmerkingenLoader, adressenLoader, telefoonnummersLoader) {
 
-	return function(bedrijfId) {
+    return function(bedrijfId) {
 		block.block();
 		log.debug("ophalen Relatie met id " + bedrijfId);
 

@@ -1,8 +1,8 @@
 define(['commons/3rdparty/log',
         'moment'],
-     function(log, moment) {
+    function(log, moment) {
 
-	return {
+    return {
         valideerDatum: function(datum) {
         	if(datum === undefined || datum === null || datum === ''){
         		return true;
