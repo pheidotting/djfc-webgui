@@ -56,86 +56,86 @@ function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, 
 	var app = new Sammy('body');
 
 	app.route('GET', '#taken', function() {
-		var a = new taken();
+		new taken();
 	});
 	
 	app.route('GET', '#dashboard', function() {
-		var a = new dashboard();
+		new dashboard();
 	});
 	
 	app.route('GET', '#taak/:id', function() {
 		var id = this.params['id'];
-		var a = new afhandelenTaak(id);
+		new afhandelenTaak(id);
 	});
 
 	app.route('GET', '#inloggen', function() {
-		var a = new inloggen();
+		new inloggen();
 	});
 
 	app.route('GET', '#lijstRelaties', function() {
-		var a = new lijstRelaties();
+		new lijstRelaties();
 	});
 
 	app.route('GET', '#lijstRelaties/:zoekTerm', function() {
 		zoekTerm = this.params['zoekTerm'];
-		var a = new lijstRelaties(zoekTerm);
+		new lijstRelaties(zoekTerm);
 	});
 
 	app.route('GET', '#lijstBedrijven', function() {
-		var a = new lijstBedrijven();
+		new lijstBedrijven();
 	});
 
 	app.route('GET', '#lijstBedrijven/:zoekTerm', function() {
 		var zoekTerm = this.params['zoekTerm'];
-		var a = new lijstBedrijven(zoekTerm);
+		new lijstBedrijven(zoekTerm);
 	});
 
 	app.route('GET', '#beherenBedrijf/:id/:actie/:subId', function() {
 		var id = this.params['id'];
 		var actie = this.params['actie'];
 		var subId = this.params['subId'];
-		var a = new beherenBedrijf(id, actie, subId);
+		new beherenBedrijf(id, actie, subId);
 	});
 
 	app.route('GET', '#beherenBedrijf/:id/:actie', function() {
 		var id = this.params['id'];
 		var actie = this.params['actie'];
-		var a = new beherenBedrijf(id, actie);
+		new beherenBedrijf(id, actie);
 	});
 
 	app.route('GET', '#beherenBedrijf/:id', function() {
 		var id = this.params['id'];
-		var a = new beherenBedrijf(id);
+		new beherenBedrijf(id);
 	});
 
 	app.route('GET', '#beherenBedrijf', function() {
-		var a = new beherenBedrijf(null);
+		new beherenBedrijf(null);
 	});
 
 	app.route('GET', '#beherenRelatie/:id/:actie/:subId', function() {
 		var id = this.params['id'];
 		var actie = this.params['actie'];
 		var subId = this.params['subId'];
-		var a = new beherenRelatie(id, actie, subId);
+		new beherenRelatie(id, actie, subId);
 	});
 
 	app.route('GET', '#beherenRelatie/:id/:actie', function() {
 		var id = this.params['id'];
 		var actie = this.params['actie'];
-		var a = new beherenRelatie(id, actie);
+		new beherenRelatie(id, actie);
 	});
 
 	app.route('GET', '#beherenRelatie/:id', function() {
 		var id = this.params['id'];
-		var a = new beherenRelatie(id);
+		new beherenRelatie(id);
 	});
 
 	app.route('GET', '#beherenRelatie', function() {
-		var a = new beherenRelatie(null);
+		new beherenRelatie(null);
 	});
 
 	app.route('GET', '', function() {
-		var a = new lijstRelaties();
+		new lijstRelaties();
 	});
 
 	app.raise_errors = true;
