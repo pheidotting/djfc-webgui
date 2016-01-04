@@ -6,7 +6,7 @@ define([ "commons/3rdparty/log",
 	return {
 		zetDatumOm: function(datumZonderStreepjes){
 			var datumMetStreepjes = datumZonderStreepjes;
-			if(datumZonderStreepjes != undefined && datumZonderStreepjes.length == 8 && this.isNumeric(datumZonderStreepjes)){
+			if(datumZonderStreepjes !== undefined && datumZonderStreepjes.length === 8 && this.isNumeric(datumZonderStreepjes)){
 				datumMetStreepjes = datumZonderStreepjes.substring(0, 2) + "-" + datumZonderStreepjes.substring(2, 4) + "-" + datumZonderStreepjes.substring(4, 8);
 			}
 			
@@ -15,7 +15,7 @@ define([ "commons/3rdparty/log",
 
 		zetDatumTijdOm: function(datumZonderStreepjes){
 			var datumMetStreepjes = datumZonderStreepjes;
-			if(datumZonderStreepjes != undefined && datumZonderStreepjes.length == 12 && this.isNumeric(datumZonderStreepjes)){
+			if(datumZonderStreepjes !== undefined && datumZonderStreepjes.length === 12 && this.isNumeric(datumZonderStreepjes)){
 				datumMetStreepjes = datumZonderStreepjes.substring(0, 2) + "-" + datumZonderStreepjes.substring(2, 4) + "-" + datumZonderStreepjes.substring(4, 8) + " " + datumZonderStreepjes.substring(8, 10) + ":" + datumZonderStreepjes.substring(10, 12);
 			}
 			
@@ -53,7 +53,7 @@ define([ "commons/3rdparty/log",
 		},
 
  		verbergMeldingen: function(){
-			if(refreshIntervalId != undefined || refreshIntervalId != 0){
+			if(refreshIntervalId !== undefined || refreshIntervalId !== 0){
                 clearInterval(this.refreshIntervalId);
                 $('#alertSucces').hide();
                 $('#alertDanger').hide();
