@@ -135,7 +135,9 @@ public class BeherenRelatie extends IndexPagina {
     public void vulRekening(int index, String rekeningLang, String rekeningKort) {
         vulVeld(rekeningnummernummer.get(index), rekeningKort);
         controleerVeld(rekeningnummernummer.get(index), rekeningLang);
-        vulVeld(bic.get(index), genereerRandomString(bic.get(index)));
+        String bicWaarde = genereerRandomString(bic.get(index));
+        vulVeld(bic.get(index), bicWaarde);
+        assertEquals(bicWaarde.toUpperCase(), getText(bic.get(index)));
     }
 
     public void verwijderRekening(int index, int aantalVoor, int aantalNa) {
