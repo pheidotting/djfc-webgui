@@ -96,10 +96,10 @@ define([ "commons/3rdparty/log",
 			$.ajax({
 				url: url,
 				type: 'POST',
-				xhr: function() {  // Custom XMLHttpRequest
+				xhr: function() {
 					var myXhr = $.ajaxSettings.xhr();
-					if(myXhr.upload){ // Check if upload property exists
-						myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+					if(myXhr.upload){
+						myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
 					}
 					return myXhr;
 				},
