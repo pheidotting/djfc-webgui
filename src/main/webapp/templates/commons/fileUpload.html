@@ -7,6 +7,7 @@
                 <th>Bijlage</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
+                <th>&nbsp;</th>
             </tr>
             <tbody data-bind="foreach: bijlages">
             <tr>
@@ -20,6 +21,7 @@
                         <button data-bind="click: stopEditModusAnnuleren">Annuleren</button>
                     </div>
                 </td>
+                <td data-bind="text: datumUpload"></td>
                 <td><a data-bind="attr:{href: url}, title: omschrijvingOfBestandsNaam"
                        target="_blank">Download</a></td>
                 <td data-bind="click: $parent.verwijderBijlage, visible: $parent.notReadOnly" style="cursor:pointer;">Verwijderen</td>
