@@ -71,5 +71,5 @@ define(["commons/3rdparty/log",
             };
 
         }
-    };
+    }
 );

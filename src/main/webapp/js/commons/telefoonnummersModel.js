@@ -31,5 +31,5 @@ define(["commons/3rdparty/log",
                 _telefoonnummers.telefoonnummers.valueHasMutated();
             }
         }
-    };
+    }
 );

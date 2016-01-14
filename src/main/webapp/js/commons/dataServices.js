@@ -243,5 +243,5 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('RISICOANALYSE_LEES'), {'bedrijfsId' : bedrijfsId});
             }
         }
-    };
+    }
 );
