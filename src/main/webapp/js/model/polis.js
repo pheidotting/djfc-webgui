@@ -23,7 +23,7 @@ define(['jquery',
 			datum(commonFunctions.zetDatumOm(datum()));
 		};
 		_polis.berekenProlongatieDatum = function(){
-			if(_polis.ingangsDatum() !== null && _polis.ingangsDatum() !== ""){
+			if(_polis.ingangsDatum() !== null && _polis.ingangsDatum() !== undefined && _polis.ingangsDatum() !== ""){
 				_polis.prolongatieDatum(moment(_polis.ingangsDatum(), "DD-MM-YYYY").add(1, 'y').format("DD-MM-YYYY"));
 			}
 		};
@@ -36,22 +36,22 @@ define(['jquery',
 		_polis.status = ko.observable(data.status);
 		_polis.polisNummer = ko.observable(data.polisNummer).extend({required: true});
 		_polis.kenmerk = ko.observable(data.kenmerk);
-		if(data.ingangsDatum !== undefined){
+		if(data.ingangsDatum !== undefined && data.ingangsDatum !== null){
 			_polis.ingangsDatum = ko.observable(moment(data.ingangsDatum).format("DD-MM-YYYY")).extend({required: true});
 		}else{
 			_polis.ingangsDatum = ko.observable().extend({required: true});
 		}
-		if(data.eindDatum !== undefined){
+		if(data.eindDatum !== undefined && data.eindDatum !== null){
 			_polis.eindDatum = ko.observable(moment(data.eindDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.eindDatum = ko.observable();
 		}
-		if(data.wijzigingsDatum !== undefined){
+		if(data.wijzigingsDatum !== undefined && data.wijzigingsDatum !== null){
 			_polis.wijzigingsDatum = ko.observable(moment(data.wijzigingsDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.wijzigingsDatum = ko.observable();
 		}
-		if(data.prolongatieDatum !== undefined){
+		if(data.prolongatieDatum !== undefined && data.prolongatieDatum !== null){
 			_polis.prolongatieDatum = ko.observable(moment(data.prolongatieDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.prolongatieDatum = ko.observable();
@@ -184,7 +184,7 @@ define(['jquery',
 	    		log.debug(ko.toJSON(polis));
 	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					if(polis.relatie() !== undefined){
+					if(polis.relatie() !== undefined && polis.relatie() !== null){
 						redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
 					} else {
 						redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polissen');
