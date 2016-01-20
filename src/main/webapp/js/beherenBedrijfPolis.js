@@ -26,7 +26,7 @@ define(['jquery',
 			    $('<option>', { value : value }).text(value).appendTo($select);
 			});
 
-			if(subId != null && subId !== "0"){
+			if(bedrijfsId != null && bedrijfsId !== "0"){
 				$('#soortVerzekering').prop('disabled', true);
 				$('#soortVerzekeringAlles').prop('disabled', true);
 				log.debug("Ophalen Polis met id : " + polisId);
