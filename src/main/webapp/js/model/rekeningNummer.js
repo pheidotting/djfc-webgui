@@ -10,7 +10,9 @@ define(['jquery',
         thisRek.bic = ko.observable(data.bic)
 
         thisRek.startBewerken = function(nummer) {
-            nummer.rekeningnummer(nummer.rekeningnummer().replace(/ /g, ""));
+            if(nummer != undefined && nummer.rekeningnummer() != undefined) {
+                nummer.rekeningnummer(nummer.rekeningnummer().replace(/ /g, ""));
+            }
         };
 
         thisRek.stopBewerken = function(nummer) {

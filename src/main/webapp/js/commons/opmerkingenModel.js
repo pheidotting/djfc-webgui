@@ -31,7 +31,7 @@ define(["commons/3rdparty/log",
 
             _k.opmerkingOpslaan = function(opm){
                 log.debug(opm.opmerkingenModel.nieuweOpmerking());
-                if(opm.opmerkingenModel.nieuweOpmerking() !== ''){
+                if(opm.opmerkingenModel.nieuweOpmerking() !== undefined && opm.opmerkingenModel.nieuweOpmerking().trim() !== ''){
                     dataServices.haalIngelogdeGebruiker().done(function(response){
                         var opmerking = new Opmerking('');
                         opmerking.medewerker(response.gebruikersnaam);
