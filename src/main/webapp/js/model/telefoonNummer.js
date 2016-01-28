@@ -13,7 +13,9 @@ define(['jquery',
         thisTel.omschrijving = ko.observable(data.omschrijving);
 
         thisTel.startBewerken = function(nummer){
-            nummer.telefoonnummer(nummer.telefoonnummer().replace(/ /g, "").replace("-", ""));
+            if(nummer.telefoonnummer()){
+                nummer.telefoonnummer(nummer.telefoonnummer().replace(/ /g, "").replace("-", ""));
+            }
         };
 
         thisTel.stopBewerken = function(nummer){

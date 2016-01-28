@@ -28,6 +28,7 @@ define(['jquery',
 
 						log.debug("Relaties opgehaald, applyBindings");
 						ko.applyBindings(lijst);
+                        $.unblockUI();
 					}
 				});
 			}
