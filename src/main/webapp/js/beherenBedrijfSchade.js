@@ -9,7 +9,7 @@ define(['jquery',
         'opmerkingenLoader'],
     function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
 
-    return function(polisId, bedrijfId) {
+    return function(schadeId, bedrijfId) {
 		block.block();
 		dataServices.lijstPolissenBijBedrijf(bedrijfId).done(function(data) {
 			var $select = $('#polisVoorSchademelding');
@@ -24,28 +24,36 @@ define(['jquery',
 				$.each(data, function(key, value) {
 				    $('<option>', { value : value }).text(value).appendTo($select);
 				});
-				if(subId !== null && subId !== "0"){
-					log.debug("ophalen Schade met id " + subId);
+				if(schadeId !== null && schadeId !== "0"){
+					log.debug("ophalen Schade met id " + schadeId);
 
-					dataServices.leesSchade(subId).done(function(data) {
-						log.debug("applybindings met " + JSON.stringify(data));
-						var schade = new Schade(data);
-                        fileUpload.init().done(function(){
-							new opmerkingenLoader(bedrijfId).init().done(function(){
-	                            ko.applyBindings(schade);
-							});
+					dataServices.leesSchade(schadeId).done(function(data) {
+                        dataServices.lijstBijlages('SCHADE', schadeId).done(function(bijlages){
+                            data.bijlages = bijlages;
+                            dataServices.lijstOpmerkingen('SCHADE', schadeId).done(function(opmerkingen){
+                                data.opmerkingen = opmerkingen;
+                                log.debug("applybindings met " + JSON.stringify(data));
+                                var schade = new Schade(data);
+                                fileUpload.init().done(function(){
+                                    new opmerkingenLoader(bedrijfId).init().done(function(){
+                                        ko.applyBindings(schade);
+                            			$.unblockUI();
+                                    });
+                                });
+                            });
                         });
-				    });
-				}else{
-					log.debug("applybindings met een nieuw Schade object");
-					var schade = new Schade('');
-					schade.bedrijf(bedrijfId);
-                    fileUpload.init().done(function(){
-						new opmerkingenLoader(bedrijfId).init().done(function(){
-	    					ko.applyBindings(schade);
-						});
                     });
-				}
+                }else{
+                    log.debug("applybindings met een nieuw Schade object");
+                    var schade = new Schade('');
+                    schade.bedrijf(bedrijfId);
+                    fileUpload.init().done(function(){
+                        new opmerkingenLoader(bedrijfId).init().done(function(){
+                            ko.applyBindings(schade);
+                            $.unblockUI();
+                        });
+                    });
+                }
 			});
 		});
 	};

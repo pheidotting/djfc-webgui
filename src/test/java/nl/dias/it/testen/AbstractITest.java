@@ -46,12 +46,12 @@ public abstract class AbstractITest {
 
 
     protected WebDriver getDriver() {
-        //        String phantomJsPath=      "//Users//patrickheidotting//Downloads//phantom//bin/phantomjs";
         WebDriver driver = new FirefoxDriver();
-        //        DesiredCapabilities caps = new DesiredCapabilities();
-        //        caps.setJavascriptEnabled(true);
-        //        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, phantomJsPath);
-        //        WebDriver driver=new PhantomJSDriver(caps);
+        //        String phantomJsPath=      "//Users//patrickheidotting//Downloads//phantom//bin/phantomjs";
+        //                DesiredCapabilities caps = new DesiredCapabilities();
+        //                caps.setJavascriptEnabled(true);
+        //                caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, phantomJsPath);
+        //                WebDriver driver=new PhantomJSDriver(caps);
 
         return driver;
     }

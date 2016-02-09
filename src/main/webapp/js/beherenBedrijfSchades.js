@@ -16,6 +16,7 @@ define(['jquery',
             ko.validation.registerExtenders();
 
             ko.applyBindings(new Schades(data, bedrijfId));
+			$.unblockUI();
 		}).fail(function(data){
             commonFunctions.nietMeerIngelogd(data);
 		});

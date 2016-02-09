@@ -111,6 +111,10 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_BIJLAGE'), {"id" : id});
             },
 
+//            lijstBijlages: function(soortentiteit, parentid){
+//                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BIJLAGES'), {"soortentiteit" : soortentiteit, "parentid" : parentid});
+//            },
+
             wijzigOmschrijvingBijlage: function(id, nieuweOmschrijving){
                 var data = {};
                 data.bijlageId = id;
@@ -140,7 +144,7 @@ define(["commons/3rdparty/log",
             },
 
             lijstStatusSchade: function(){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_STATUS_SCHADE'), {"id" : id});
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_STATUS_SCHADE'), null);
             },
 
             leesSchade: function(id){
@@ -229,6 +233,14 @@ define(["commons/3rdparty/log",
 
             verwijderOpmerking: function(id){
                 return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_OPMERKING'), {"id" : id});
+            },
+
+            lijstOpmerkingen: function(soortentiteit, parentid){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_OPMERKINGEN'), {"soortentiteit" : soortentiteit, "parentid" : parentid});
+            },
+
+            lijstBijlages: function(soortentiteit, parentid){
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BIJLAGES'), {"soortentiteit" : soortentiteit, "parentid" : parentid});
             },
 
             ophalenAdresOpPostcode: function(postcode, huisnummer){

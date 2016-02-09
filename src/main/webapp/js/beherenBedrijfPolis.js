@@ -32,15 +32,21 @@ define(['jquery',
 				log.debug("Ophalen Polis met id : " + polisId);
 
 				dataServices.leesPolis(polisId).done(function(data){
-					log.debug(JSON.stringify(data));
-					var polis = new Polis(data, readOnly);
-					polis.bedrijfsId(bedrijfsId);
-					fileUpload.init().done(function(){
-						new opmerkingenLoader(bedrijfsId).init().done(function(){
-							ko.applyBindings(polis);
-        			        $.unblockUI();
-						});
-					});
+                    dataServices.lijstBijlages('POLIS', polisId).done(function(bijlages){
+                        data.bijlages = bijlages;
+                        dataServices.lijstOpmerkingen('POLIS', polisId).done(function(opmerkingen){
+                            data.opmerkingen = opmerkingen;
+                            log.debug(JSON.stringify(data));
+                            var polis = new Polis(data, readOnly);
+                            polis.bedrijfsId(bedrijfsId);
+                            fileUpload.init().done(function(){
+                                new opmerkingenLoader(bedrijfsId).init().done(function(){
+                                    ko.applyBindings(polis);
+                                    $.unblockUI();
+                                });
+                            });
+                        });
+                    });
 			    });
 			}else{
 				var polis = new Polis('', readOnly);

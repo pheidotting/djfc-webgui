@@ -49,8 +49,10 @@ define(['jquery',
 					    new beherenBedrijfRisicoAnalyse(bedrijfId);
 					}else if(actie === "polissen"){
 					    new beherenBedrijfPolissen(bedrijfId);
-					}else if(actie === "polis"){
-					    new beherenBedrijfPolis(subId, bedrijfId);
+					}else if(actie == "polis"){
+						new beherenBedrijfPolis(subId, bedrijfId, false);
+					}else if(actie == "polisInzien"){
+						new beherenBedrijfPolis(subId, bedrijfId, true);
 					}else if(actie === "schades"){
 					    new beherenBedrijfSchades(bedrijfId);
 					}else if(actie === "schade"){

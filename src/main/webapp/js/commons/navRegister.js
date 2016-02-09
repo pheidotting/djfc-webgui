@@ -35,6 +35,7 @@ define([ ],
                             {naam: 'VERWIJDER_BIJLAGE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/verwijder'},
                             {naam: 'UPLOAD_BIJLAGE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadBijlage'},
                             {naam: 'WIJZIG_OMSCHRIJVING_BIJLAGE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/wijzigOmschrijvingBijlage'},
+                            {naam: 'LIJST_BIJLAGES',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/lijstBijlages'},
 
                             {naam: 'OPSLAAN_SCHADE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/schade/opslaan'},
                             {naam: 'VERWIJDER_SCHADE',                  url: BASISURL_RELATIEBEHEER + '/medewerker/schade/verwijder'},
@@ -67,6 +68,7 @@ define([ ],
 
                             {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
                             {naam: 'VERWIJDER_OPMERKING',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijder'},
+                            {naam: 'LIJST_OPMERKINGEN',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/lijstOpmerkingen'},
 
                             {naam: 'LOG4JAVASCRIPT',                    url: BASISURL_RELATIEBEHEER + '/authorisatie/log4j/log4javascript'},
 

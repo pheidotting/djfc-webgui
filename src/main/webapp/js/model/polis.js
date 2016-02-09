@@ -184,7 +184,7 @@ define(['jquery',
 	    		log.debug(ko.toJSON(polis));
 	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					if(polis.relatie() !== undefined && polis.relatie() !== null){
+					if(polis.relatie() !== undefined && polis.relatie() !== null && polis.relatie() !== '0'){
 						redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
 					} else {
 						redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polissen');
