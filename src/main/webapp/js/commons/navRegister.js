@@ -17,6 +17,14 @@ define([ ],
                             {naam: 'KOPPELEN_ONDERLINGE_RELATIE',       url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/koppelenOnderlingeRelatie'},
                             {naam: 'OPSLAAN_ADRES_BIJ_RELATIE',         url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanAdresBijRelatie'},
 
+                            {naam: 'LIJST_ADRESSEN',                    url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alles'},
+
+                            {naam: 'LIJST_TELEFOONNUMMERS',             url: BASISURL_RELATIEBEHEER + '/medewerker/telefoonnummer/alles'},
+
+                            {naam: 'LIJST_REKENINGNUMMERS',             url: BASISURL_RELATIEBEHEER + '/medewerker/rekeningnummer/alles'},
+
+                            {naam: 'LIJST_CONTACTPERSONEN',             url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/alleContactPersonen'},
+
                             {naam: 'LIJST_BEDRIJVEN_BIJ_RELATIE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bedrijf/lijst'},
                             {naam: 'OPSLAAN_BEDRIJF',                   url: BASISURL_RELATIEBEHEER + '/medewerker/bedrijf/opslaan'},
                             {naam: 'LEES_BEDRIJF',                      url: BASISURL_RELATIEBEHEER + '/medewerker/bedrijf/lees'},

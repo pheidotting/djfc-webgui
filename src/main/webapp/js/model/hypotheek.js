@@ -22,12 +22,16 @@ define(['jquery',
 		_hypotheek.soortenHypotheek = ko.observableArray();
 
 		_hypotheek.soorten = function(){
+            var deferred = $.Deferred();
+
 			dataServices.lijstSoortenHypotheek().done(function (data) {
 				$.each(data, function(i, item) {
 					_hypotheek.soortenHypotheek.push(new SoortHypotheek(item));
 				});
-				return data;
+                return deferred.resolve(data);
 			});
+
+            return deferred.promise();
 		};
 		_hypotheek.soorten();
 
@@ -118,15 +122,24 @@ define(['jquery',
 			}
 		}, this);
 		_hypotheek.hypotheekVormOpgemaakt = ko.computed(function() {
-			var hypVorm;
+//		    if(_hypotheek.soortenHypotheek().length === 0) {
+//                _hypotheek.soorten().done(bijwerken);
+//		    } else {
+//		        bijwerken();
+//		    }
 
-			$.each(_hypotheek.soortenHypotheek(), function(i, soort){
-				if(data.hypotheekVorm == soort.id()){
-					hypVorm = soort.omschrijving();
-				}
-			});
+            _hypotheek.soortenHypotheek([]);
+            _hypotheek.soorten().done(function(){
+                var hypVorm;
 
-			return hypVorm;
+                $.each(_hypotheek.soortenHypotheek(), function(i, soort){
+                    if(data.hypotheekVorm == soort.id()){
+                        hypVorm = soort.omschrijving();
+                    }
+                });
+
+                return hypVorm;
+            });
 		}, this);
 		_hypotheek.titel = ko.computed(function() {
 			var hypVorm;
@@ -169,6 +182,8 @@ define(['jquery',
 	    		result.showAllMessages(true);
 	    	}else{
 	    		log.debug("Versturen : " + ko.toJSON(hypotheek));
+
+                _hypotheek.soortenHypotheek([]);
 
 	    		dataServices.opslaanHypotheek(ko.toJSON(hypotheek)).done(function(data){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");

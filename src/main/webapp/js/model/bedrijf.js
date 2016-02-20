@@ -104,6 +104,9 @@ define(['jquery',
                 _bedrijf.bijlages = null;
                 _bedrijf.adressen = _bedrijf.adressenModel.adressen();
                 _bedrijf.telefoonnummers = _bedrijf.telefoonnummersModel.telefoonnummers();
+                $.each(_bedrijf.telefoonnummers, function(index, telefoonnummer){
+                    telefoonnummer.bedrijf(_bedrijf.id);
+                });
                 _bedrijf.adressenModel = null;
                 _bedrijf.telefoonnummersModel = null;
 

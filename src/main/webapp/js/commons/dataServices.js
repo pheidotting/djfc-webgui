@@ -43,7 +43,21 @@ define(["commons/3rdparty/log",
             },
 
             leesRelatie: function(id){
-                return this.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id});
+                var deferred = $.Deferred();
+                var _this = this;
+
+                this.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id}).done(function(data){
+                    _this.lijstBijlages('RELATIE', id).done(function(bijlages){
+                        data.bijlages = bijlages;
+                        _this.lijstOpmerkingen('RELATIE', id).done(function(opmerkingen){
+                            data.opmerkingen = opmerkingen;
+
+                            return deferred.resolve(data);
+                        });
+                    });
+                });
+
+                return deferred.promise();
             },
 
             opslaanRelatie: function(data){
@@ -80,7 +94,66 @@ define(["commons/3rdparty/log",
             },
 
             leesBedrijf: function(id){
-                return this.voerUitGet(navRegister.bepaalUrl('LEES_BEDRIJF'), {"id" : id});
+                var deferred = $.Deferred();
+                var _this = this;
+                var bedrijf;
+                var aantalOphalen = 5;
+
+                this.voerUitGet(navRegister.bepaalUrl('LEES_BEDRIJF'), {id : id}).done(function(data){
+                    bedrijf = data;
+                    //ophalen bijlages
+                    _this.lijstBijlages('BEDRIJF', id).done(function(bijlages){
+                        bedrijf.bijlages = bijlages;
+                        if(--aantalOphalen === 0) {
+                            teruggeven();
+                        }
+                    });
+
+                    //ophalen opmerkingen
+                    _this.lijstOpmerkingen('BEDRIJF', id).done(function(opmerkingen){
+                        bedrijf.opmerkingen = opmerkingen;
+                        if(--aantalOphalen === 0) {
+                            teruggeven();
+                        }
+                    });
+
+                    //ophalen adresssen
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'BEDRIJF', "parentid" : id}).done(function(adressen){
+                        bedrijf.adressen = adressen;
+                        if(--aantalOphalen === 0) {
+                            teruggeven();
+                        }
+                    });
+
+                    //ophalen telefoonnummers
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS'), {"soortentiteit" : 'BEDRIJF', "parentid" : id}).done(function(telefoonnummers){
+                        bedrijf.telefoonnummers = telefoonnummers;
+                        if(--aantalOphalen === 0) {
+                            teruggeven();
+                        }
+                    });
+
+                    //ophalen contactpersonen
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_CONTACTPERSONEN'), {"bedrijfsId" : id}).done(function(contactpersonen){
+                        aantalOphalen = aantalOphalen + contactpersonen.length - 1;
+                        bedrijf.contactpersonen = [];
+                        $.each(contactpersonen, function(index, contactpersoon){
+                            _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS'), {"soortentiteit" : 'CONTACTPERSOON', "parentid" : contactpersoon.id}).done(function(telefoonnummers){
+                                contactpersoon.telefoonnummers = telefoonnummers;
+                                bedrijf.contactpersonen.push(contactpersoon);
+                                if(--aantalOphalen === 0) {
+                                    teruggeven();
+                                }
+                            });
+                        });
+                    });
+                });
+
+                function teruggeven(){
+                    return deferred.resolve(bedrijf);
+                }
+
+                return deferred.promise();
             },
 
             lijstVerzekeringsmaatschappijen: function(){
@@ -96,7 +169,21 @@ define(["commons/3rdparty/log",
             },
 
             leesPolis: function(polisId){
-                return this.voerUitGet(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId});
+                var deferred = $.Deferred();
+                var _this = this;
+
+                this.voerUitGet(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId}).done(function(data){
+                    _this.lijstBijlages('POLIS', polisId).done(function(bijlages){
+                        data.bijlages = bijlages;
+                        _this.lijstOpmerkingen('POLIS', polisId).done(function(opmerkingen){
+                            data.opmerkingen = opmerkingen;
+
+                            return deferred.resolve(data);
+                        });
+                    });
+                });
+
+                return deferred.promise();
             },
 
             lijstPolissen: function(relatieId){
@@ -248,7 +335,34 @@ define(["commons/3rdparty/log",
             },
 
             ophalenJaarCijfers: function(bedrijfsId){
-                return this.voerUitGet(navRegister.bepaalUrl('JAARCIJFERS_LIJST'), {'bedrijfsId' : bedrijfsId});
+                var deferred = $.Deferred();
+                var _this = this;
+                var aantalOphalen = 1;
+                var jaarCijfersData = [];
+
+                this.voerUitGet(navRegister.bepaalUrl('JAARCIJFERS_LIJST'), {'bedrijfsId' : bedrijfsId}).done(function(data){
+                    aantalOphalen = aantalOphalen + data.length - 1;
+
+                    $.each(data, function(index, jaarCijfers){
+                        _this.lijstBijlages('JAARCIJFERS', jaarCijfers.id).done(function(bijlages){
+                            jaarCijfers.bijlages = bijlages;
+                            _this.lijstOpmerkingen('JAARCIJFERS', jaarCijfers.id).done(function(opmerkingen){
+                                jaarCijfers.opmerkingen = opmerkingen;
+                                jaarCijfersData.push(jaarCijfers);
+
+                                if(--aantalOphalen === 0) {
+                                    teruggeven();
+                                }
+                            });
+                        });
+                    });
+                });
+
+                function teruggeven(){
+                    return deferred.resolve(jaarCijfersData);
+                }
+
+                return deferred.promise();
             },
 
             ophalenRisicoAnalyse: function(bedrijfsId){

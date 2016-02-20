@@ -3,7 +3,7 @@ define([],
 
 	return {
 		maakBedragOp: function(bedrag) {
-			if(bedrag !== undefined){
+			if(bedrag !== undefined && bedrag !== null){
 				var opgemaaktBedrag = bedrag.replace(".", ",");
 				var delen = opgemaaktBedrag.split(",");
 

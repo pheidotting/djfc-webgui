@@ -7,7 +7,7 @@ define(['jquery',
         'opmerkingenLoader'],
     function($, ko, logger, hypotheek, dataServices, fileUpload, opmerkingenLoader){
 
-    return function(polisId, relatieId) {
+    return function(hypotheekId, relatieId) {
 		logger.debug("aanmaken nieuw hypotheek model");
 
 		dataServices.lijstSoortenHypotheek().done(function(data){
@@ -22,14 +22,14 @@ define(['jquery',
 					$('<option>', { value : '' }).text('Kies evt. een hypotheek om mee te koppelen...').appendTo($select);
 					$.each(data, function(key, value) {
 						var h = new hypotheek(value);
-						if(h.id() != subId){
+						if(h.id() != hypotheekId){
 							$('<option>', { value : value.id }).text(h.titel()).appendTo($select);
 						}
 					});
 				}else{
 					$('#gekoppeldeHypotheekGroep').hide();
 				}
-				dataServices.leesHypotheek(subId).done(function(data) {
+				dataServices.leesHypotheek(hypotheekId).done(function(data) {
 					logger.debug("Gegevens opgehaald voor hypotheek, applyBindings");
 					logger.debug(data);
                     fileUpload.init().done(function(){

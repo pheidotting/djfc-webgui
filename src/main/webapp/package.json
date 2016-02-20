@@ -1,0 +1,22 @@
+{
+  "name": "projectx-gui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "2.2.0",
+    "jquery-ui": "1.10.5",
+    "requirejs": "2.1.21",
+    "sammy": "0.7.6",
+    "moment": "2.11.1",
+    "knockout": "3.4.0",
+    "knockout.validation": "2.0.3",
+    "bootstrap": "3.3.6",
+    "underscore": "1.8.3"
+  }
+}

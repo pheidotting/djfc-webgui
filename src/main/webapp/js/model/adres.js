@@ -20,12 +20,14 @@ define(['jquery',
                 return thisAdres.postcode();
             }
         };
+        thisAdres.id = ko.observable(data.id);
 		thisAdres.straat = ko.observable(data.straat);
 		thisAdres.huisnummer = ko.observable(data.huisnummer).extend({ number: true});
 		thisAdres.toevoeging = ko.observable(data.toevoeging);
 		thisAdres.postcode = ko.observable(data.postcode);
         thisAdres.soortAdres = ko.observable(data.soortAdres);
 		thisAdres.plaats = ko.observable(data.plaats);
+		thisAdres.bedrijf = ko.observable(data.bedrijf);
 
 		thisAdres.zetPostcodeOm();
 

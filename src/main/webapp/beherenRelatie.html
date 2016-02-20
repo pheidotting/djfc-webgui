@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Relatiegegevens</title>
+    <!-- JQuery -->
+    <link rel="stylesheet" href="node_modules/jquery-ui/themes/ui-lightness/jquery-ui-theme.css"/>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/jquery-ui/jquery-ui.js"></script>
+
+    <!-- Require JS -->
+    <script src="commons/3rdparty/require.js" data-main="commons/app.js" type="text/javascript"></script>
+
+    <!-- Twitter Bootstrap -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Eigen CSS -->
+    <link rel="stylesheet" href="lakedigital.css">
+
+    <script>
+		var refreshIntervalId = 0;
+
+    </script>
+</head>
+<body id="body">
+<img id="homeKnop" src="images/home.png" alt="Naar de lijst met Relaties"
+     style="cursor:pointer; display:none;float:left;" onclick="document.location.hash='#dashboard'"/>
+<div id="ingelogdeGebruiker"></div>
+<div class="uitloggen" id="uitloggen">Uitloggen</div>
+<div id="menu"></div>
+<div class="alert alert-success" style="display:none;" id="alertSucces"></div>
+<div class="alert alert-danger" style="display:none;" id="alertDanger"></div>
+<div id="content">Relatiegegevens</div>
+
+<script>
+
+
+</script>
+</body>
+</html>

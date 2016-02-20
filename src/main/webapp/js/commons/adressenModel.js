@@ -20,7 +20,11 @@ define(["commons/3rdparty/log",
 
             _adressen.voegAdresToe = function(){
                 log.debug("nieuwe Adres");
-                _adressen.adressen().push(new Adres(""));
+
+                var nieuwAdres = new Adres("");
+                nieuwAdres.bedrijf(bedrijf);
+
+                _adressen.adressen().push(nieuwAdres);
                 _adressen.adressen.valueHasMutated();
             };
         }

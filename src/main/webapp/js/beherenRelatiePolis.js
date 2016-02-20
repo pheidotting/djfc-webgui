@@ -35,10 +35,10 @@ define(['jquery',
             log.debug("Ophalen Polis met id : " + polisId);
 
             dataServices.leesPolis(polisId).done(function(data){
-                dataServices.lijstBijlages('POLIS', polisId).done(function(bijlages){
-                    data.bijlages = bijlages;
-                    dataServices.lijstOpmerkingen('POLIS', polisId).done(function(opmerkingen){
-                        data.opmerkingen = opmerkingen;
+//                dataServices.lijstBijlages('POLIS', polisId).done(function(bijlages){
+//                    data.bijlages = bijlages;
+//                    dataServices.lijstOpmerkingen('POLIS', polisId).done(function(opmerkingen){
+//                        data.opmerkingen = opmerkingen;
                         log.debug(JSON.stringify(data));
                         var polis = new Polis(data, readOnly);
                         polis.relatie(relatieId);
@@ -46,8 +46,8 @@ define(['jquery',
                             new opmerkingenLoader(relatieId).init().done(function(){
                                 ko.applyBindings(polis);
                                 $.unblockUI();
-                            });
-                        });
+//                            });
+//                        });
                     });
                 });
             });

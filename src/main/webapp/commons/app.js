@@ -1,7 +1,7 @@
 requirejs.config({
     paths: {
         commons: '../commons',
-        jquery: '../commons/3rdparty/jquery-1.9.1',
+        jquery: '../node_modules/jquery/dist/jquery.min',
         sammy: '../commons/3rdparty/sammy-0.7.6',
         moment: '../commons/3rdparty/moment',
     	js: '../js',
@@ -32,7 +32,7 @@ requirejs.config({
             noGlobal: true
         }
     }
-    });
+});
 
 requirejs(['jquery',
            'sammy',
@@ -45,7 +45,7 @@ requirejs(['jquery',
            'js/taak/taken',
            'js/taak/afhandelenTaak',
            'js/dashboard'],
-function   ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, beherenRelatie, beherenBedrijf, taken, afhandelenTaak, dashboard) {
+function ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, beherenRelatie, beherenBedrijf, taken, afhandelenTaak, dashboard) {
 	commonFunctions.haalIngelogdeGebruiker();
 	window.setInterval(commonFunctions.haalIngelogdeGebruiker, 300000);
 

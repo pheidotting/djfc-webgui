@@ -7,9 +7,12 @@ define(['jquery',
 
     return function(relatieId) {
 		log.debug("inlezen hypotheken");
+
 		dataServices.lijstHypotheken(relatieId).done(function(hypotheken) {
 			dataServices.lijstHypotheekPakketten(relatieId).done(function(pakketten) {
 				log.debug("opgehaald");
+				log.debug(JSON.stringify(hypotheken));
+				log.debug(JSON.stringify(pakketten));
 
 				var h = new hypothekenEnPakketten(pakketten, hypotheken);
 

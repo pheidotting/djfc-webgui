@@ -2,8 +2,6 @@ package nl.dias.it.testen.beherenbedrijf;
 
 import nl.dias.it.schermen.beherenbedrijf.BeherenBedrijf;
 import nl.dias.it.testen.AbstractITest;
-import nl.lakedigital.djfc.commons.json.JsonBedrijf;
-import nl.lakedigital.djfc.commons.json.JsonFoutmelding;
 import org.openqa.selenium.support.PageFactory;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -33,8 +31,7 @@ public class BeherenBedrijfSchermMinimaleInputTest extends AbstractITest {
 
     @Override
     protected void doeExpects() {
-        expectGet("/dejonge/rest/medewerker/bedrijf/lees", gson.toJson(new JsonBedrijf()));
-        expectPost("/dejonge/rest/medewerker/bedrijf/opslaan", gson.toJson(new JsonFoutmelding()));
+        new nl.dias.it.wiremockmapping.BeherenBedrijf(wireMockRule);
     }
 
 }
