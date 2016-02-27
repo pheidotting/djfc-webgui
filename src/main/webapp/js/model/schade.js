@@ -175,6 +175,15 @@ define(['jquery',
 	    	}
 		};
 
+	    self.verwijderBijlage = function(bijlage){
+			commonFunctions.verbergMeldingen();
+			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
+			if (r === true) {
+				self.bijlages.remove(bijlage);
+				dataServices.verwijderBijlage(bijlage.id());
+			}
+		};
+
 	    self.bewerkSchade = function(schade){
 			redirect.redirect('BEHEREN_RELATIE', schade.relatie(), 'schade', schade.id());
 	    };

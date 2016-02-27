@@ -4,8 +4,9 @@ define(['jquery',
          'commons/commonFunctions',
          'model/bijlage',
          'fileUpload',
-         'opmerkingenModel'],
-    function ($, ko, log, commonFunctions, Bijlage, fileUpload, opmerkingenModel) {
+         'opmerkingenModel',
+         'dataServices'],
+    function ($, ko, log, commonFunctions, Bijlage, fileUpload, opmerkingenModel, dataServices) {
 
 	return function (data){
 		var _risicoAnalyse = this;
@@ -34,5 +35,15 @@ define(['jquery',
 				_risicoAnalyse.bijlages.valueHasMutated();
 			});
 		};
+
+        _risicoAnalyse.verwijderBijlage = function(bijlage){
+            commonFunctions.verbergMeldingen();
+            var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
+            if (r === true) {
+                _risicoAnalyse.bijlages.remove(bijlage);
+                dataServices.verwijderBijlage(bijlage.id());
+            }
+        };
+
     };
 });

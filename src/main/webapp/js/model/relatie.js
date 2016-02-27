@@ -237,6 +237,15 @@ define(['jquery',
 	    	}
 		};
 
+	    _thisRelatie.verwijderBijlage = function(bijlage){
+			commonFunctions.verbergMeldingen();
+			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
+			if (r === true) {
+				_thisRelatie.bijlages.remove(bijlage);
+				dataServices.verwijderBijlage(bijlage.id());
+			}
+		};
+
 		_thisRelatie.verwijderenRelatie = function(relatie){
 			log.debug("verwijderen Relatie met id " + relatie.id());
 

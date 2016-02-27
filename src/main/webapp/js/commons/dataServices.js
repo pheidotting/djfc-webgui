@@ -255,7 +255,21 @@ define(["commons/3rdparty/log",
             },
 
             leesHypotheek: function(id){
-                return this.voerUitGet(navRegister.bepaalUrl('LEES_HYPOTHEEK'), {id : id});
+                var deferred = $.Deferred();
+                var _this = this;
+
+                this.voerUitGet(navRegister.bepaalUrl('LEES_HYPOTHEEK'), {"id" : id}).done(function(data){
+                    _this.lijstBijlages('HYPOTHEEK', id).done(function(bijlages){
+                        data.bijlages = bijlages;
+                        _this.lijstOpmerkingen('HYPOTHEEK', id).done(function(opmerkingen){
+                            data.opmerkingen = opmerkingen;
+
+                            return deferred.resolve(data);
+                        });
+                    });
+                });
+
+                return deferred.promise();
             },
 
             lijstHypotheken: function(relatieId){
@@ -366,7 +380,21 @@ define(["commons/3rdparty/log",
             },
 
             ophalenRisicoAnalyse: function(bedrijfsId){
-                return this.voerUitGet(navRegister.bepaalUrl('RISICOANALYSE_LEES'), {'bedrijfsId' : bedrijfsId});
+                var deferred = $.Deferred();
+                var _this = this;
+
+                this.voerUitGet(navRegister.bepaalUrl('RISICOANALYSE_LEES'), {"bedrijfsId" : bedrijfsId}).done(function(data){
+                    _this.lijstBijlages('RISICOANALYSE', bedrijfsId).done(function(bijlages){
+                        data.bijlages = bijlages;
+                        _this.lijstOpmerkingen('RISICOANALYSE', bedrijfsId).done(function(opmerkingen){
+                            data.opmerkingen = opmerkingen;
+
+                            return deferred.resolve(data);
+                        });
+                    });
+                });
+
+                return deferred.promise();
             }
         }
     }

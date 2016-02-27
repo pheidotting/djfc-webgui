@@ -242,6 +242,15 @@ define(['jquery',
 			redirect.redirect('BEHEREN_RELATIE', _hypotheek.relatie(), 'hypotheken');
 		}
 
+	    _hypotheek.verwijderBijlage = function(bijlage){
+			commonFunctions.verbergMeldingen();
+			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
+			if (r === true) {
+				_hypotheek.bijlages.remove(bijlage);
+				dataServices.verwijderBijlage(bijlage.id());
+			}
+		};
+
 	};
 
 	function SoortHypotheek(data){

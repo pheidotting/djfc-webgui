@@ -15,13 +15,38 @@ define(["commons/3rdparty/log",
             _k.opmerkingen = ko.observableArray();
             _k.nieuweOpmerking = ko.observable();
             _k.schade = ko.observable(schade);
-            _k.hypotheek = ko.observable(hypotheek);
-            _k.polis = ko.observable(polis);
-            _k.relatie = ko.observable(relatie);
-            _k.bedrijf = ko.observable(bedrijf);
-            _k.aangifte = ko.observable(aangifte);
-            _k.jaarcijfers = ko.observable(jaarcijfers);
-            _k.risicoAnalyse = ko.observable(risicoAnalyse);
+            if(schade) {
+                _k.soort = ko.observable('SCHADE');
+                _k.entiteitId = ko.observable(schade);
+            }
+            if(hypotheek) {
+                _k.soort = ko.observable('HYPOTHEEK');
+                _k.entiteitId = ko.observable(hypotheek);
+            }
+            if(polis) {
+                _k.soort = ko.observable('POLIS');
+                _k.entiteitId = ko.observable(polis);
+            }
+            if(relatie) {
+                _k.soort = ko.observable('RELATIE');
+                _k.entiteitId = ko.observable(relatie);
+            }
+            if(bedrijf) {
+                _k.soort = ko.observable('BEDRIJF');
+                _k.entiteitId = ko.observable(bedrijf);
+            }
+            if(aangifte) {
+                _k.soort = ko.observable('AANGIFTE');
+                _k.entiteitId = ko.observable(aangifte);
+            }
+            if(jaarcijfers) {
+                _k.soort = ko.observable('JAARCIJFERS');
+                _k.entiteitId = ko.observable(jaarcijfers);
+            }
+            if(risicoAnalyse) {
+                _k.soort = ko.observable('RISICOANALYSE');
+                _k.entiteitId = ko.observable(risicoAnalyse);
+            }
 
             if(data != null){
                 $.each(data, function(i, item) {
@@ -39,14 +64,8 @@ define(["commons/3rdparty/log",
                         opmerking.tijd(new moment().format("DD-MM-YYYY HH:mm"));
                         opmerking.opmerking(opm.opmerkingenModel.nieuweOpmerking());
 
-                        opmerking.schade(opm.opmerkingenModel.schade());
-                        opmerking.hypotheek(opm.opmerkingenModel.hypotheek());
-                        opmerking.polis(opm.opmerkingenModel.polis());
-                        opmerking.relatie(opm.opmerkingenModel.relatie());
-                        opmerking.bedrijf(opm.opmerkingenModel.bedrijf());
-                        opmerking.aangifte(opm.opmerkingenModel.aangifte());
-                        opmerking.jaarcijfers(opm.opmerkingenModel.jaarcijfers);
-                        opmerking.risicoAnalyse(opm.opmerkingenModel.risicoAnalyse);
+                        opmerking.soort(opm.opmerkingenModel.soort());
+                        opmerking.entiteitId(opm.opmerkingenModel.entiteitId());
 
                         log.debug(ko.toJSON(opmerking));
                         dataServices.opslaanOpmerking(ko.toJSON(opmerking)).done(function(id){
