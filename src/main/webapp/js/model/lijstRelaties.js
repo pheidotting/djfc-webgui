@@ -16,7 +16,7 @@ define(['jquery',
 				functions.verbergMeldingen();
 				$(document).ajaxStop($.unblockUI);
 				$.blockUI({ message: '<img src="images/ajax-loader.gif">'});
-				redirect.redirect('BEHEREN_RELATIE', relatie.id);
+				redirect.redirect('BEHEREN_RELATIE', relatie.id());
 			},
 
 			toevoegenNieuweRelatie : function(){

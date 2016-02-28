@@ -27,7 +27,8 @@ define(['jquery',
 		thisAdres.postcode = ko.observable(data.postcode);
         thisAdres.soortAdres = ko.observable(data.soortAdres);
 		thisAdres.plaats = ko.observable(data.plaats);
-		thisAdres.bedrijf = ko.observable(data.bedrijf);
+		thisAdres.soortEntiteit = ko.observable(data.soortEntiteit);
+		thisAdres.entiteitId = ko.observable(data.entiteitId);
 
 		thisAdres.zetPostcodeOm();
 

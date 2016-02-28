@@ -18,6 +18,7 @@ define([ ],
                             {naam: 'OPSLAAN_ADRES_BIJ_RELATIE',         url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanAdresBijRelatie'},
 
                             {naam: 'LIJST_ADRESSEN',                    url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alles'},
+                            {naam: 'OPSLAAN_ADRESSEN',                  url: BASISURL_RELATIEBEHEER + '/medewerker/adres/opslaan'},
 
                             {naam: 'LIJST_TELEFOONNUMMERS',             url: BASISURL_RELATIEBEHEER + '/medewerker/telefoonnummer/alles'},
 

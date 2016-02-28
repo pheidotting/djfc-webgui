@@ -1,6 +1,7 @@
 define(["commons/3rdparty/log",
-        "navRegister"],
-    function(log, navRegister) {
+        "navRegister",
+        'knockout'],
+    function(log, navRegister, ko) {
 
         return {
             voerUitGet: function(url, data){
@@ -39,7 +40,20 @@ define(["commons/3rdparty/log",
             },
 
             lijstRelaties: function(zoekTerm, weglaten){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm, "weglaten" : weglaten});
+                var deferred = $.Deferred();
+                var _this = this;
+
+                this.voerUitGet(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm, "weglaten" : weglaten}).done(function(data){
+                    $.each(data.jsonRelaties, function(i, item) {
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'RELATIE', "parentid" : item.id}).done(function(adressen){
+                            item.adressen = adressen;
+
+                            return deferred.resolve(data);
+                        });
+                    });
+                });
+
+                return deferred.promise();
             },
 
             leesRelatie: function(id){
@@ -51,8 +65,11 @@ define(["commons/3rdparty/log",
                         data.bijlages = bijlages;
                         _this.lijstOpmerkingen('RELATIE', id).done(function(opmerkingen){
                             data.opmerkingen = opmerkingen;
+                            _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'RELATIE', "parentid" : id}).done(function(adressen){
+                                data.adressen = adressen;
 
-                            return deferred.resolve(data);
+                                return deferred.resolve(data);
+                            });
                         });
                     });
                 });
@@ -61,7 +78,12 @@ define(["commons/3rdparty/log",
             },
 
             opslaanRelatie: function(data){
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_RELATIE'), data);
+                this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(data.adressen()));
+                data.adressen = undefined;
+                data.opmerkingen = undefined;
+                data.bijlages = undefined;
+                data.opmerkingenModel = undefined;
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_RELATIE'), ko.toJSON(data));
             },
 
             verwijderRelatie: function(id){

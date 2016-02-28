@@ -22,7 +22,7 @@ define(['jquery',
 					log.debug("opgehaald " + JSON.stringify(data));
 					if(data != undefined){
 						$.each(data.jsonRelaties, function(i, item) {
-							var a = item;
+							var a = new Relatie(item);
 							lijst().lijst().push(a);
 						});
 
