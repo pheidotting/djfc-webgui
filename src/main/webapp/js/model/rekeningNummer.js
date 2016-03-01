@@ -8,6 +8,8 @@ define(['jquery',
 	    thisRek.id = ko.observable(data.id);
         thisRek.rekeningnummer = ko.observable(data.rekeningnummer),
         thisRek.bic = ko.observable(data.bic)
+		thisRek.soortEntiteit = ko.observable(data.soortEntiteit);
+		thisRek.entiteitId = ko.observable(data.entiteitId);
 
         thisRek.startBewerken = function(nummer) {
             if(nummer != undefined && nummer.rekeningnummer() != undefined) {

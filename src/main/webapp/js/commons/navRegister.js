@@ -19,10 +19,15 @@ define([ ],
 
                             {naam: 'LIJST_ADRESSEN',                    url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alles'},
                             {naam: 'OPSLAAN_ADRESSEN',                  url: BASISURL_RELATIEBEHEER + '/medewerker/adres/opslaan'},
+                            {naam: 'VERWIJDER_ADRESSEN',                url: BASISURL_RELATIEBEHEER + '/medewerker/adres/verwijderen'},
 
                             {naam: 'LIJST_TELEFOONNUMMERS',             url: BASISURL_RELATIEBEHEER + '/medewerker/telefoonnummer/alles'},
+                            {naam: 'OPSLAAN_TELEFOONNUMMERS',           url: BASISURL_RELATIEBEHEER + '/medewerker/telefoonnummer/opslaan'},
+                            {naam: 'VERWIJDER_TELEFOONNUMMERS',         url: BASISURL_RELATIEBEHEER + '/medewerker/telefoonnummer/verwijderen'},
 
                             {naam: 'LIJST_REKENINGNUMMERS',             url: BASISURL_RELATIEBEHEER + '/medewerker/rekeningnummer/alles'},
+                            {naam: 'OPSLAAN_REKENINGNUMMERS',           url: BASISURL_RELATIEBEHEER + '/medewerker/rekeningnummer/opslaan'},
+                            {naam: 'VERWIJDER_REKENINGNUMMERS',         url: BASISURL_RELATIEBEHEER + '/medewerker/rekeningnummer/verwijderen'},
 
                             {naam: 'LIJST_CONTACTPERSONEN',             url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/alleContactPersonen'},
 

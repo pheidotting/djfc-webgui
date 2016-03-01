@@ -63,8 +63,11 @@ define(['jquery',
 		};
 
 		_thisRelatie.adresOpgemaakt = ko.computed(function() {
+		    log.debug('adresOpgemaakt');
+
 		    var adres = null;
 		    $.each(_thisRelatie.adressen(), function(index, item){
+		        log.debug(item);
 		        if(item.soortAdres() === 'WOONADRES') {
 		            adres = item;
 		        }
@@ -230,17 +233,19 @@ define(['jquery',
 	    	}else{
     			$.each(_thisRelatie.telefoonnummers(), function(i, item){
     			    item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
+    			    item.soortEntiteit('RELATIE');
+    			    item.entiteitId(_thisRelatie.id());
     			});
     			$.each(_thisRelatie.rekeningnummers(), function(i, item){
     			    item.rekeningnummer(item.rekeningnummer().replace(/ /g, ""));
+    			    item.soortEntiteit('RELATIE');
+    			    item.entiteitId(_thisRelatie.id());
     			});
     			$.each(_thisRelatie.adressen(), function(i, item){
     			    item.soortEntiteit('RELATIE');
     			    item.entiteitId(_thisRelatie.id());
     			});
 				commonFunctions.verbergMeldingen();
-				log.debug("Versturen naar ../dejonge/rest/medewerker/gebruiker/opslaan : ");
-				log.debug(ko.toJSON(_thisRelatie));
 				var foutmelding;
 				dataServices.opslaanRelatie(_thisRelatie).done(function(){
 					redirect.redirect('LIJST_RELATIES', _thisRelatie.achternaam());

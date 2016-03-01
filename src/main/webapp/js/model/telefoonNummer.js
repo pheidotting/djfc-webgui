@@ -11,7 +11,8 @@ define(['jquery',
         thisTel.telefoonnummer = ko.observable(data.telefoonnummer);
         thisTel.soort = ko.observable(data.soort);
         thisTel.omschrijving = ko.observable(data.omschrijving);
-        thisTel.bedrijf = ko.observable(data.bedrijf);
+		thisTel.soortEntiteit = ko.observable(data.soortEntiteit);
+		thisTel.entiteitId = ko.observable(data.entiteitId);
 
         thisTel.startBewerken = function(nummer){
             if(nummer.telefoonnummer()){

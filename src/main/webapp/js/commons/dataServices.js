@@ -5,7 +5,13 @@ define(["commons/3rdparty/log",
 
         return {
             voerUitGet: function(url, data){
-                return $.get(url, data);
+                var deferred = $.Deferred();
+
+                $.get(url, data).done(function(response) {
+                    return deferred.resolve(response);
+                });
+
+                return deferred.promise();
             },
 
             voerUitPost: function(url, data){
@@ -42,16 +48,25 @@ define(["commons/3rdparty/log",
             lijstRelaties: function(zoekTerm, weglaten){
                 var deferred = $.Deferred();
                 var _this = this;
+                var aantal = 0;
+                var dataRelaties;
 
                 this.voerUitGet(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm, "weglaten" : weglaten}).done(function(data){
+                    aantal = data.jsonRelaties.length;
+                    dataRelaties = data;
                     $.each(data.jsonRelaties, function(i, item) {
                         _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'RELATIE', "parentid" : item.id}).done(function(adressen){
                             item.adressen = adressen;
-
-                            return deferred.resolve(data);
+                            teruggeven(--aantal);
                         });
                     });
                 });
+
+                function teruggeven(aantalOphalen){
+                    if(aantalOphalen === 0) {
+                        return deferred.resolve(dataRelaties);
+                    }
+                }
 
                 return deferred.promise();
             },
@@ -67,8 +82,14 @@ define(["commons/3rdparty/log",
                             data.opmerkingen = opmerkingen;
                             _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'RELATIE', "parentid" : id}).done(function(adressen){
                                 data.adressen = adressen;
+                                _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS'), {"soortentiteit" : 'RELATIE', "parentid" : id}).done(function(telefoonnummers){
+                                    data.telefoonnummers = telefoonnummers;
+                                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_REKENINGNUMMERS'), {"soortentiteit" : 'RELATIE', "parentid" : id}).done(function(rekeningnummers){
+                                        data.rekeningnummers = rekeningnummers;
 
-                                return deferred.resolve(data);
+                                        return deferred.resolve(data);
+                                    });
+                                });
                             });
                         });
                     });
@@ -78,12 +99,32 @@ define(["commons/3rdparty/log",
             },
 
             opslaanRelatie: function(data){
-                this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(data.adressen()));
+                if(data.adressen().length > 0) {
+                    this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(data.adressen()));
+                } else {
+                    this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/RELATIE/' + data.id());
+                }
+                if(data.telefoonnummers().length > 0) {
+                    this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(data.telefoonnummers()));
+                } else {
+                    this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/RELATIE/' + data.id());
+                }
+                if(data.rekeningnummers().length > 0) {
+                    this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_REKENINGNUMMERS'), ko.toJSON(data.rekeningnummers()));
+                } else {
+                    this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_REKENINGNUMMERS') + '/RELATIE/' + data.id());
+                }
                 data.adressen = undefined;
+                data.telefoonnummers = undefined;
+                data.rekeningnummers = undefined;
                 data.opmerkingen = undefined;
                 data.bijlages = undefined;
                 data.opmerkingenModel = undefined;
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_RELATIE'), ko.toJSON(data));
+                data.adresOpgemaakt = undefined;
+                var url = navRegister.bepaalUrl('OPSLAAN_RELATIE');
+				log.debug("Versturen naar " + url + " : ");
+				log.debug(ko.toJSON(data));
+                return this.voerUitPost(url, ko.toJSON(data));
             },
 
             verwijderRelatie: function(id){
