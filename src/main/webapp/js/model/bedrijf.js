@@ -104,23 +104,33 @@ define(['jquery',
                 _bedrijf.bijlages = null;
                 _bedrijf.adressen = _bedrijf.adressenModel.adressen();
                 _bedrijf.telefoonnummers = _bedrijf.telefoonnummersModel.telefoonnummers();
-                $.each(_bedrijf.telefoonnummers, function(index, telefoonnummer){
-                    telefoonnummer.bedrijf(_bedrijf.id);
-                });
-                _bedrijf.adressenModel = null;
-                _bedrijf.telefoonnummersModel = null;
 
     			$.each(_bedrijf.telefoonnummers, function(i, item){
     			    item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
+    			    item.soortEntiteit('BEDRIJF');
+    			    item.entiteitId(_bedrijf.id());
+    			});
+    			$.each(_bedrijf.adressen, function(i, item){
+    			    item.soortEntiteit('BEDRIJF');
+    			    item.entiteitId(_bedrijf.id());
     			});
 
+                _bedrijf.adressenModel = undefined;
+                _bedrijf.telefoonnummersModel = undefined;
+                _bedrijf.opmerkingen = undefined;
+                _bedrijf.bijlages = undefined;
+                _bedrijf.opmerkingenModel = undefined;
+
     			$.each(_bedrijf.contactpersonen(), function(i, contactpersoon){
+    			    contactpersoon.bedrijf(_bedrijf.id());
                     $.each(contactpersoon.telefoonnummers(), function(i, item){
                         item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
+                        item.soortEntiteit('CONTACTPERSOON');
+                        item.entiteitId(contactpersoon.id());
                     });
     			});
 
-				dataServices.opslaanBedrijf(ko.toJSON(bedrijf)).done(function(){
+				dataServices.opslaanBedrijf(bedrijf).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					redirect.redirect('LIJST_BEDRIJVEN');
 				}).fail(function(data){

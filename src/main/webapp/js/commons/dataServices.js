@@ -151,9 +151,51 @@ define(["commons/3rdparty/log",
             },
 
             opslaanBedrijf: function(data){
-                log.debug(JSON.stringify(data));
+                log.debug(ko.toJSON(data));
+                var deferred = $.Deferred();
+                var _this = this;
 
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_BEDRIJF'), data);
+                _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_BEDRIJF'), ko.toJSON(data)).done(function(responseBedrijf){
+                    var result = responseBedrijf.entity;
+                    if(data.adressen.length > 0) {
+                        $.each(data.adressen, function(i, adres){
+                            adres.entiteitId(result);
+                        });
+                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(data.adressen));
+                    } else {
+                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/BEDRIJF/' + result);
+                    }
+                    if(data.telefoonnummers.length > 0) {
+                        $.each(data.telefoonnummers, function(i, telefoonnummer){
+                            telefoonnummer.entiteitId(result);
+                        });
+                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(data.telefoonnummers));
+                    } else {
+                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/BEDRIJF/' + result);
+                    }
+
+                    if(data.contactpersonen().length > 0) {
+                        $.each(data.contactpersonen(), function(i, contactpersoon){
+                            contactpersoon.bedrijf(result);
+                            _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_CONTACTPERSOON'), ko.toJSON(contactpersoon)).done(function(cpId){
+                                if(data.telefoonnummers.length > 0) {
+                                    $.each(contactpersoon.telefoonnummers(), function(i, item){
+                                        item.entiteitId(cpId);
+                                        item.soortEntiteit('CONTACTPERSOON');
+                                    });
+                                    _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(contactpersoon.telefoonnummers()));
+                                } else {
+                                    _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/BEDRIJF/' + result);
+                                }
+                            });
+                        });
+                    } else {
+                    }
+
+                    return deferred.resolve(result);
+                });
+
+                return deferred.promise();
             },
 
             leesBedrijf: function(id){

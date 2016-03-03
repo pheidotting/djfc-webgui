@@ -22,7 +22,8 @@ define(["commons/3rdparty/log",
                 log.debug("nieuwe Adres");
 
                 var nieuwAdres = new Adres("");
-                nieuwAdres.bedrijf(bedrijf);
+                nieuwAdres.soortEntiteit('BEDRIJF')
+                nieuwAdres.entiteitId(bedrijf);
 
                 _adressen.adressen().push(nieuwAdres);
                 _adressen.adressen.valueHasMutated();
