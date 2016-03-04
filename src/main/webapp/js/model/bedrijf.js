@@ -2,6 +2,7 @@ define(['jquery',
          'knockout',
          'commons/3rdparty/log',
          'commons/commonFunctions',
+         'model/adres',
          'model/bijlage',
          'model/contactpersoon',
 		 'dataServices',
@@ -10,7 +11,7 @@ define(['jquery',
          'opmerkingenModel',
          'adressenModel',
          'telefoonnummersModel'],
-	function ($, ko, log, commonFunctions, Bijlage, Contactpersoon, dataServices, redirect, fileUpload, opmerkingenModel, adressenModel, telefoonnummersModel) {
+	function ($, ko, log, commonFunctions, Adres, Bijlage, Contactpersoon, dataServices, redirect, fileUpload, opmerkingenModel, adressenModel, telefoonnummersModel) {
 
 	return function(data){
 		var _bedrijf = this;
@@ -82,6 +83,11 @@ define(['jquery',
 	    };
 
         _bedrijf.adressen = ko.observableArray();
+		if(data.adressen != null){
+			$.each(data.adressen, function(i, item) {
+				_bedrijf.adressen().push(new Adres(item));
+			});
+		};
         _bedrijf.telefoonnummers = ko.observableArray();
 		_bedrijf.verwijderTelefoonNummer = function(telefoon) {
 			log.debug("Verwijderen telefoon " + ko.toJSON(telefoon));
@@ -147,6 +153,22 @@ define(['jquery',
 				dataServices.verwijderBijlage(bijlage.id());
 			}
 		};
+
+		_bedrijf.adresOpgemaakt = ko.computed(function() {
+		    log.debug('adresOpgemaakt');
+
+		    var adres = null;
+		    $.each(_bedrijf.adressen(), function(index, item){
+		        log.debug(item);
+                adres = item;
+		    });
+
+		    if(adres !== null) {
+		        return adres.straat() + ' ' + adres.huisnummer() + ', ' + adres.plaats();
+		    } else {
+		        return '';
+		    }
+		});
 
 		_bedrijf.nieuwePolisUpload = function (){
 			log.debug("Nieuwe polis upload");

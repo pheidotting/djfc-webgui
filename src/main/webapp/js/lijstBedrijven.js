@@ -22,7 +22,7 @@ define(['jquery',
 					log.debug("opgehaald " + JSON.stringify(data));
 					if(data != undefined){
 						$.each(data, function(i, item) {
-							var a = item;
+							var a = new Bedrijf(item);
 							lijst().lijst().push(a);
 						});
 

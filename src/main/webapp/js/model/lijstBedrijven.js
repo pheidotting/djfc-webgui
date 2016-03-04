@@ -16,7 +16,7 @@ define(['jquery',
 				functions.verbergMeldingen();
 				$(document).ajaxStop($.unblockUI);
 				$.blockUI({ message: '<img src="images/ajax-loader.gif">'});
-				redirect.redirect('BEHEREN_BEDRIJF', bedrijf.id);
+				redirect.redirect('BEHEREN_BEDRIJF', bedrijf.id());
 			}
 		});
 

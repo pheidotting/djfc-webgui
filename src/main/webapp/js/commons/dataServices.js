@@ -99,21 +99,16 @@ define(["commons/3rdparty/log",
             },
 
             opslaanRelatie: function(data){
-                if(data.adressen().length > 0) {
-                    this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(data.adressen()));
-                } else {
-                    this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/RELATIE/' + data.id());
-                }
-                if(data.telefoonnummers().length > 0) {
-                    this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(data.telefoonnummers()));
-                } else {
-                    this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/RELATIE/' + data.id());
-                }
-                if(data.rekeningnummers().length > 0) {
-                    this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_REKENINGNUMMERS'), ko.toJSON(data.rekeningnummers()));
-                } else {
-                    this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_REKENINGNUMMERS') + '/RELATIE/' + data.id());
-                }
+                var deferred = $.Deferred();
+                var _this = this;
+                var url = navRegister.bepaalUrl('OPSLAAN_RELATIE');
+				log.debug("Versturen naar " + url + " : ");
+				log.debug(ko.toJSON(data));
+
+				var adressen = data.adressen();
+				var telefoonnummers = data.telefoonnummers();
+				var rekeningnummers = data.rekeningnummers();
+
                 data.adressen = undefined;
                 data.telefoonnummers = undefined;
                 data.rekeningnummers = undefined;
@@ -121,10 +116,39 @@ define(["commons/3rdparty/log",
                 data.bijlages = undefined;
                 data.opmerkingenModel = undefined;
                 data.adresOpgemaakt = undefined;
-                var url = navRegister.bepaalUrl('OPSLAAN_RELATIE');
-				log.debug("Versturen naar " + url + " : ");
-				log.debug(ko.toJSON(data));
-                return this.voerUitPost(url, ko.toJSON(data));
+
+                this.voerUitPost(url, ko.toJSON(data)).done(function(response){
+                    var id = response.entity.foutmelding;
+
+                    if(adressen.length > 0) {
+                        $.each(adressen, function(i, adres){
+                            adres.entiteitId(id);
+                        });
+                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(adressen));
+                    } else {
+                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/RELATIE/' + id);
+                    }
+                    if(telefoonnummers.length > 0) {
+                        $.each(telefoonnummers, function(i, telefoonnummer){
+                            telefoonnummer.entiteitId(id);
+                        });
+                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(telefoonnummers));
+                    } else {
+                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/RELATIE/' + id);
+                    }
+                    if(rekeningnummers.length > 0) {
+                        $.each(rekeningnummers, function(i, rekeningnummer){
+                            rekeningnummer.entiteitId(idAuthA);
+                        });
+                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_REKENINGNUMMERS'), ko.toJSON(rekeningnummers));
+                    } else {
+                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_REKENINGNUMMERS') + '/RELATIE/' + id);
+                    }
+
+                    return deferred.resolve(id);
+                });
+
+                return deferred.promise();
             },
 
             verwijderRelatie: function(id){
@@ -147,7 +171,29 @@ define(["commons/3rdparty/log",
             },
 
             lijstBedrijven: function(zoekTerm){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BEDRIJVEN_BIJ_RELATIE'), {zoekTerm : zoekTerm});
+                var deferred = $.Deferred();
+                var _this = this;
+                var aantal = 0;
+                var dataRelaties;
+
+                this.voerUitGet(navRegister.bepaalUrl('LIJST_BEDRIJVEN_BIJ_RELATIE'), {zoekTerm : zoekTerm}).done(function(data){
+                    aantal = data.length;
+                    dataBedrijven = data;
+                    $.each(data, function(i, item) {
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'BEDRIJF', "parentid" : item.id}).done(function(adressen){
+                            item.adressen = adressen;
+                            teruggeven(--aantal);
+                        });
+                    });
+                });
+
+                function teruggeven(aantalOphalen){
+                    if(aantalOphalen === 0) {
+                        return deferred.resolve(dataBedrijven);
+                    }
+                }
+
+                return deferred.promise();
             },
 
             opslaanBedrijf: function(data){
