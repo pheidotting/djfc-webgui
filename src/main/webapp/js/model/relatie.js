@@ -153,7 +153,7 @@ define(['jquery',
             });
 		};
 
-		_thisRelatie.geboorteDatum = ko.observable(data.geboorteDatumOpgemaakt).extend({validation: {
+		_thisRelatie.geboorteDatum = ko.observable(data.geboorteDatum).extend({validation: {
 	        validator: function (val) {
 	        	if(val !== undefined){
 	        		return validation.valideerDatum(val);
@@ -163,7 +163,7 @@ define(['jquery',
 	        },
 	        message: 'Juiste invoerformaat is : dd-mm-eejj'
 	    }});
-		_thisRelatie.overlijdensdatum = ko.observable(data.overlijdensdatumOpgemaakt);
+		_thisRelatie.overlijdensdatum = ko.observable(data.overlijdensdatum);
 		_thisRelatie.geslacht = ko.observable(data.geslacht);
 		_thisRelatie.burgerlijkeStaat = ko.observable(data.burgerlijkeStaat);
 

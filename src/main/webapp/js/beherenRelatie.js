@@ -11,10 +11,12 @@ define(['jquery',
         'js/beherenRelatieBijlages',
         'js/beherenRelatieAangifte',
         'js/beherenRelatieAangiftes',
+        'js/beherenRelatieCommunicaties',
+        'js/beherenRelatieCommunicatie',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'redirect'],
-    function($, beherenRelatie, beherenRelatieBedrijven, beherenRelatieBedrijf, beherenRelatiePolissen, beherenRelatiePolis, beherenRelatieSchades, beherenRelatieSchade, beherenRelatieHypotheken, beherenRelatieHypotheek, beherenRelatieBijlages, beherenRelatieAangifte, beherenRelatieAangiftes, log, commonFunctions, redirect) {
+    function($, beherenRelatie, beherenRelatieBedrijven, beherenRelatieBedrijf, beherenRelatiePolissen, beherenRelatiePolis, beherenRelatieSchades, beherenRelatieSchade, beherenRelatieHypotheken, beherenRelatieHypotheek, beherenRelatieBijlages, beherenRelatieAangifte, beherenRelatieAangiftes, beherenRelatieCommunicaties, beherenRelatieCommunicatie, log, commonFunctions, redirect) {
 
     return function(relatieId, actie, subId){
 		$('#content').load('templates/beherenRelatieTemplate.html', function(response, status, xhr) {
@@ -72,6 +74,10 @@ define(['jquery',
 						new beherenRelatieAangifte(relatieId);
 					}else if(actie == "aangiftes"){
 						new beherenRelatieAangiftes(relatieId);
+					}else if(actie == "communicaties"){
+						new beherenRelatieCommunicaties(relatieId);
+					}else if(actie == "communicatie"){
+						new beherenRelatieCommunicatie(subId, relatieId);
 					}
 					_relatieId = relatieId;
 					_subId = subId;
@@ -138,6 +144,14 @@ define(['jquery',
 				$("#aangifte").click(function(){
 					commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'aangifte', '0');
+				});
+				$("#beherenRelatieCommunicaties").click(function(){
+					commonFunctions.verbergMeldingen();
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'communicaties');
+				});
+				$("#beherenRelatieCommunicatie").click(function(){
+					commonFunctions.verbergMeldingen();
+			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'communicatie', '0');
 				});
 			}
 		});

@@ -64,11 +64,14 @@ define(["commons/3rdparty/log",
                         opmerking.tijd(new moment().format("DD-MM-YYYY HH:mm"));
                         opmerking.opmerking(opm.opmerkingenModel.nieuweOpmerking());
 
-                        opmerking.soort(opm.opmerkingenModel.soort());
+                        opmerking.soortEntiteit(opm.opmerkingenModel.soort());
                         opmerking.entiteitId(opm.opmerkingenModel.entiteitId());
 
-                        log.debug(ko.toJSON(opmerking));
-                        dataServices.opslaanOpmerking(ko.toJSON(opmerking)).done(function(id){
+                        var opmerkingen = [];
+                        opmerkingen.push(opmerking)
+
+                        log.debug(ko.toJSON(opmerkingen));
+                        dataServices.opslaanOpmerking(ko.toJSON(opmerkingen)).done(function(id){
                             opmerking.id(id);
                             opm.opmerkingenModel.opmerkingen().push(opmerking);
                             opm.opmerkingenModel.opmerkingen.valueHasMutated();

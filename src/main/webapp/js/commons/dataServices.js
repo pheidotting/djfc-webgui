@@ -14,7 +14,7 @@ define(["commons/3rdparty/log",
                 return deferred.promise();
             },
 
-            voerUitPost: function(url, data){
+            voerUitPost: function(url, data, trackAndTraceId){
                 var deferred = $.Deferred();
 
                 $.ajax({
@@ -22,6 +22,7 @@ define(["commons/3rdparty/log",
                     url: url,
                     contentType: "application/json",
                     data: data,
+                    beforeSend: function(xhr){xhr.setRequestHeader('trackAndTraceId', trackAndTraceId);},
                     success: function (response) {
                         return deferred.resolve(response);
                     },
@@ -46,6 +47,7 @@ define(["commons/3rdparty/log",
             },
 
             lijstRelaties: function(zoekTerm, weglaten){
+                log.debug('ophalen lijst relaties');
                 var deferred = $.Deferred();
                 var _this = this;
                 var aantal = 0;
@@ -55,7 +57,7 @@ define(["commons/3rdparty/log",
                     aantal = data.jsonRelaties.length;
                     dataRelaties = data;
                     $.each(data.jsonRelaties, function(i, item) {
-                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'RELATIE', "parentid" : item.id}).done(function(adressen){
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/RELATIE/' + item.id).done(function(adressen){
                             item.adressen = adressen;
                             teruggeven(--aantal);
                         });
@@ -75,24 +77,21 @@ define(["commons/3rdparty/log",
                 var deferred = $.Deferred();
                 var _this = this;
 
-                this.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id}).done(function(data){
-                    _this.lijstBijlages('RELATIE', id).done(function(bijlages){
-                        data.bijlages = bijlages;
-                        _this.lijstOpmerkingen('RELATIE', id).done(function(opmerkingen){
-                            data.opmerkingen = opmerkingen;
-                            _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'RELATIE', "parentid" : id}).done(function(adressen){
-                                data.adressen = adressen;
-                                _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS'), {"soortentiteit" : 'RELATIE', "parentid" : id}).done(function(telefoonnummers){
-                                    data.telefoonnummers = telefoonnummers;
-                                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_REKENINGNUMMERS'), {"soortentiteit" : 'RELATIE', "parentid" : id}).done(function(rekeningnummers){
-                                        data.rekeningnummers = rekeningnummers;
+                $.when(this.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id}),
+                        _this.lijstBijlages('RELATIE', id),
+                        _this.lijstOpmerkingen('RELATIE', id),
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/RELATIE/' + id),
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/RELATIE/' + id),
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_REKENINGNUMMERS') + '/RELATIE/' + id)
+                        ).then(function(relatie, bijlages, opmerkingen, adressen, telefoonnummers, rekeningnummers ) {
 
-                                        return deferred.resolve(data);
-                                    });
-                                });
-                            });
-                        });
-                    });
+                            relatie.bijlages = bijlages;
+                            relatie.opmerkingen = opmerkingen;
+                            relatie.adressen = adressen;
+                            relatie.telefoonnummers = telefoonnummers;
+                            relatie.rekeningnummers = rekeningnummers;
+
+                            return deferred.resolve(relatie);
                 });
 
                 return deferred.promise();
@@ -117,35 +116,50 @@ define(["commons/3rdparty/log",
                 data.opmerkingenModel = undefined;
                 data.adresOpgemaakt = undefined;
 
-                this.voerUitPost(url, ko.toJSON(data)).done(function(response){
-                    var id = response.entity.foutmelding;
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(url, ko.toJSON(data), trackAndTraceId).done(function(response){
+                        var id = response.entity.foutmelding;
+                        var aantalRequests = 3;
 
-                    if(adressen.length > 0) {
-                        $.each(adressen, function(i, adres){
-                            adres.entiteitId(id);
-                        });
-                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(adressen));
-                    } else {
-                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/RELATIE/' + id);
-                    }
-                    if(telefoonnummers.length > 0) {
-                        $.each(telefoonnummers, function(i, telefoonnummer){
-                            telefoonnummer.entiteitId(id);
-                        });
-                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(telefoonnummers));
-                    } else {
-                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/RELATIE/' + id);
-                    }
-                    if(rekeningnummers.length > 0) {
-                        $.each(rekeningnummers, function(i, rekeningnummer){
-                            rekeningnummer.entiteitId(idAuthA);
-                        });
-                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_REKENINGNUMMERS'), ko.toJSON(rekeningnummers));
-                    } else {
-                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_REKENINGNUMMERS') + '/RELATIE/' + id);
-                    }
+                        if(adressen.length > 0) {
+                            $.each(adressen, function(i, adres){
+                                adres.entiteitId(id);
+                            });
+                            _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(adressen), trackAndTraceId).done(function(){
+                                retuggevenRelatie();
+                            });
+                        } else {
+                            _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/RELATIE/' + id,null, trackAndTraceId);
+                        }
+                        if(telefoonnummers.length > 0) {
+                            $.each(telefoonnummers, function(i, telefoonnummer){
+                                telefoonnummer.entiteitId(id);
+                            });
+                            _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(telefoonnummers), trackAndTraceId).done(function(){
+                               retuggevenRelatie();
+                           });
+                        } else {
+                            _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/RELATIE/' + id,null, trackAndTraceId);
+                        }
+                        if(rekeningnummers.length > 0) {
+                            $.each(rekeningnummers, function(i, rekeningnummer){
+                                rekeningnummer.entiteitId(id);
+                            });
+                            _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_REKENINGNUMMERS'), ko.toJSON(rekeningnummers), trackAndTraceId).done(function(){
+                               retuggevenRelatie();
+                           });
+                        } else {
+                            _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_REKENINGNUMMERS') + '/RELATIE/' + id,null, trackAndTraceId);
+                        }
 
-                    return deferred.resolve(id);
+                        function retuggevenRelatie(){
+                            log.debug('Request nog te gaan ' + --aantalRequests);
+                            if (aantalRequests === 0) {
+                            log.debug("return");
+                                return deferred.resolve(id);
+                            }
+                        }
+                    });
                 });
 
                 return deferred.promise();
@@ -180,7 +194,7 @@ define(["commons/3rdparty/log",
                     aantal = data.length;
                     dataBedrijven = data;
                     $.each(data, function(i, item) {
-                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'BEDRIJF', "parentid" : item.id}).done(function(adressen){
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/RELATIE/' + item.id).done(function(adressen){
                             item.adressen = adressen;
                             teruggeven(--aantal);
                         });
@@ -269,7 +283,7 @@ define(["commons/3rdparty/log",
                     });
 
                     //ophalen adresssen
-                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN'), {"soortentiteit" : 'BEDRIJF', "parentid" : id}).done(function(adressen){
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/RELATIE/' + id).done(function(adressen){
                         bedrijf.adressen = adressen;
                         if(--aantalOphalen === 0) {
                             teruggeven();
@@ -277,7 +291,7 @@ define(["commons/3rdparty/log",
                     });
 
                     //ophalen telefoonnummers
-                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS'), {"soortentiteit" : 'BEDRIJF', "parentid" : id}).done(function(telefoonnummers){
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/RELATIE/' + id).done(function(telefoonnummers){
                         bedrijf.telefoonnummers = telefoonnummers;
                         if(--aantalOphalen === 0) {
                             teruggeven();
@@ -289,7 +303,7 @@ define(["commons/3rdparty/log",
                         aantalOphalen = aantalOphalen + contactpersonen.length - 1;
                         bedrijf.contactpersonen = [];
                         $.each(contactpersonen, function(index, contactpersoon){
-                            _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS'), {"soortentiteit" : 'CONTACTPERSOON', "parentid" : contactpersoon.id}).done(function(telefoonnummers){
+                            _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/CONTACTPERSOON/' + contactpersoon.id).done(function(telefoonnummers){
                                 contactpersoon.telefoonnummers = telefoonnummers;
                                 bedrijf.contactpersonen.push(contactpersoon);
                                 if(--aantalOphalen === 0) {
@@ -488,11 +502,11 @@ define(["commons/3rdparty/log",
             },
 
             lijstOpmerkingen: function(soortentiteit, parentid){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_OPMERKINGEN'), {"soortentiteit" : soortentiteit, "parentid" : parentid});
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_OPMERKINGEN') + '/' + soortentiteit + '/' + parentid);
             },
 
             lijstBijlages: function(soortentiteit, parentid){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BIJLAGES'), {"soortentiteit" : soortentiteit, "parentid" : parentid});
+                return this.voerUitGet(navRegister.bepaalUrl('LIJST_BIJLAGES') + '/' + soortentiteit + '/' + parentid);
             },
 
             ophalenAdresOpPostcode: function(postcode, huisnummer){
@@ -542,6 +556,83 @@ define(["commons/3rdparty/log",
 
                             return deferred.resolve(data);
                         });
+                    });
+                });
+
+                return deferred.promise();
+            },
+
+            lijstCommunicatieProducten: function(entiteitId, soortEntiteit){
+                var deferred = $.Deferred();
+                var _this = this;
+
+                this.voerUitGet(navRegister.bepaalUrl('LIJST_COMMUNICATIEPRODUCTEN') + '/' + soortEntiteit + '/' + entiteitId).done(function(data){
+                    //ophalen bijlages
+                    var togo = data.length;
+                    var nr = 1;
+                    var result = [];
+            		$.each(data, function(i, item) {
+                        _this.lijstBijlages('COMMUNICATIEPRODUCT', item.id).done(function(bijlages){
+                            item.bijlages = bijlages;
+
+                            result.push(item);
+
+                            if(nr++ === togo) {
+                               return deferred.resolve(result);
+                            }
+                        });
+                    });
+                });
+
+                return deferred.promise();
+            },
+
+            markeerAlsGelezen: function(id) {
+                this.voerUitPost(navRegister.bepaalUrl('MARKEER_ALS_GELEZEN') + '/' + id);
+            },
+
+            opslaanCommunciatieProduct: function(communicatieproduct) {
+                var deferred = $.Deferred();
+
+                var cm = {};
+                cm.id = communicatieproduct.id();
+                cm.soortCommunicatieProduct = communicatieproduct.type();
+                cm.soortentiteit = communicatieproduct.soortEntiteit();
+                cm.parentid = communicatieproduct.entiteitId();
+                cm.onderwerp = communicatieproduct.onderwerp();
+                cm.tekst = communicatieproduct.tekst();
+
+                if (cm.soortCommunicatieProduct === '') {
+                    cm.soortCommunicatieProduct = undefined;
+                }
+
+                log.debug(JSON.stringify(cm));
+
+                this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_COMMUNICATIEPRODUCT'), JSON.stringify(cm)).done(function(data){
+                   return deferred.resolve(data);
+                });
+
+                return deferred.promise();
+            },
+
+            verzendenCommunciatieProduct: function(id) {
+                var deferred = $.Deferred();
+
+                this.voerUitPost(navRegister.bepaalUrl('VERSTUREN_COMMUNICATIEPRODUCT') + '/' + id).done(function(){
+                   return deferred.resolve();
+                });
+
+                return deferred.promise();
+            },
+
+            leesCommunicatieProduct: function(id) {
+                var deferred = $.Deferred();
+                var _this = this;
+
+                _this.voerUitGet(navRegister.bepaalUrl('LEES_COMMUNICATIEPRODUCT') + '/' + id).done(function(data){
+                    _this.lijstBijlages('COMMUNICATIEPRODUCT', data.id).done(function(bijlages){
+                        data.bijlages = bijlages;
+                       return deferred.resolve(data);
                     });
                 });
 

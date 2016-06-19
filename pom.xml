@@ -304,7 +304,68 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-distribution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly/sample.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <finalName>gui</finalName>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.7</version>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>/Users/patrickheidotting/Documents/DEV/Java/jetty/comm/webapps
+                                    </outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${basedir}/target</directory>
+                                            <includes>
+                                                <include>gui.war</include>
+                                                <include>gui-gui.zip</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

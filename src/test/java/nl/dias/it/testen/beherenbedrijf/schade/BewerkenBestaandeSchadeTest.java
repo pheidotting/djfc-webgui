@@ -65,7 +65,7 @@ public class BewerkenBestaandeSchadeTest extends AbstractITest {
         jsonOpmerking.setId(2L);
         jsonOpmerking.setOpmerking(genereerRandomString(3000));
         jsonOpmerking.setMedewerker("Tony Stark");
-        jsonOpmerking.setMedewerkerId("2");
+        jsonOpmerking.setMedewerkerId(2L);
         jsonOpmerking.setTijd("01-02-2014 09:23");
         tekstBestaandeOpmerking = jsonOpmerking.getOpmerking();
         jsonSchade.getOpmerkingen().add(jsonOpmerking);

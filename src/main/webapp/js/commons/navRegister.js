@@ -50,7 +50,7 @@ define([ ],
                             {naam: 'VERWIJDER_BIJLAGE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/verwijder'},
                             {naam: 'UPLOAD_BIJLAGE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadBijlage'},
                             {naam: 'WIJZIG_OMSCHRIJVING_BIJLAGE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/wijzigOmschrijvingBijlage'},
-                            {naam: 'LIJST_BIJLAGES',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/lijstBijlages'},
+                            {naam: 'LIJST_BIJLAGES',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/alles'},
 
                             {naam: 'OPSLAAN_SCHADE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/schade/opslaan'},
                             {naam: 'VERWIJDER_SCHADE',                  url: BASISURL_RELATIEBEHEER + '/medewerker/schade/verwijder'},
@@ -83,13 +83,21 @@ define([ ],
 
                             {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
                             {naam: 'VERWIJDER_OPMERKING',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijder'},
-                            {naam: 'LIJST_OPMERKINGEN',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/lijstOpmerkingen'},
+                            {naam: 'LIJST_OPMERKINGEN',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/alles'},
 
                             {naam: 'LOG4JAVASCRIPT',                    url: BASISURL_RELATIEBEHEER + '/authorisatie/log4j/log4javascript'},
 
                             {naam: 'JAARCIJFERS_LIJST',                 url: BASISURL_RELATIEBEHEER + '/medewerker/jaarcijfers/lijst'},
 
-                            {naam: 'RISICOANALYSE_LEES',                url: BASISURL_RELATIEBEHEER + '/medewerker/risicoanalyse/lees'}
+                            {naam: 'RISICOANALYSE_LEES',                url: BASISURL_RELATIEBEHEER + '/medewerker/risicoanalyse/lees'},
+
+                            {naam: 'LIJST_COMMUNICATIEPRODUCTEN',       url: BASISURL_RELATIEBEHEER + '/medewerker/communicatieproduct/alles'},
+                            {naam: 'MARKEER_ALS_GELEZEN',               url: BASISURL_RELATIEBEHEER + '/medewerker/communicatieproduct/markeerAlsGelezen'},
+                            {naam: 'LEES_COMMUNICATIEPRODUCT',          url: BASISURL_RELATIEBEHEER + '/medewerker/communicatieproduct/lees'},
+                            {naam: 'VERSTUREN_COMMUNICATIEPRODUCT',     url: BASISURL_RELATIEBEHEER + '/medewerker/communicatieproduct/versturen'},
+                            {naam: 'OPSLAAN_COMMUNICATIEPRODUCT',       url: BASISURL_RELATIEBEHEER + '/medewerker/communicatieproduct/nieuw'},
+
+                            {naam: 'TRACKANDTRACEID',                   url: BASISURL_RELATIEBEHEER + '/medewerker/overig/getTrackAndTraceId'}
                         ];
 
                 var url = '';

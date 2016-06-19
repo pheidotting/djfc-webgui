@@ -15,7 +15,7 @@ define(['jquery',
 		_this.tijd = ko.observable(data.tijd);
 		_this.medewerker = ko.observable(data.medewerker);
 		_this.medewerkerId = ko.observable(data.medewerkerId);
-		_this.soort = ko.observable(data.soort);
+		_this.soortEntiteit = ko.observable(data.soort);
 		_this.entiteitId = ko.observable(data.entiteitId);
 
         _this.tekstBackup = ko.observable();

@@ -1,0 +1,428 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>De Jonge</title>
+    <!-- JQuery -->
+    <link rel="stylesheet" href="jquery/css/ui-lightness/jquery-ui-1.10.3.custom.css">
+    <script type="text/javascript" src="jquery/js/jquery-1.9.1.js"></script>
+
+    <!-- Require JS -->
+
+    <!-- Twitter Bootstrap -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+    <!-- Eigen CSS -->
+    <link rel="stylesheet" href="lakedigital.css">
+
+    <script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="commons/../commons/3rdparty/jquery-1.9.1.js">
+    </script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="sammy"
+            src="commons/../commons/3rdparty/sammy-0.7.6.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="commons/commonFunctions" src="commons/../commons/commonFunctions.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/inloggen"
+            src="commons/../js/inloggen.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/lijstRelaties" src="commons/../js/lijstRelaties.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/lijstBedrijven" src="commons/../js/lijstBedrijven.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatie" src="commons/../js/beherenRelatie.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijf" src="commons/../js/beherenBedrijf.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/taak/taken"
+            src="commons/../js/taak/taken.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/taak/afhandelenTaak" src="commons/../js/taak/afhandelenTaak.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="js/dashboard"
+            src="commons/../js/dashboard.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="commons/3rdparty/log" src="commons/../commons/3rdparty/log.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="dataServices"
+            src="commons/../js/commons/dataServices.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="redirect"
+            src="commons/../js/commons/redirect.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="knockout"
+            src="commons/../commons/3rdparty/knockout.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/inlog"
+            src="commons/../js/model/inlog.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/lijstRelaties" src="commons/../js/model/lijstRelaties.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/relatie"
+            src="commons/../js/model/relatie.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="commons/block"
+            src="commons/../commons/block.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/lijstBedrijven" src="commons/../js/model/lijstBedrijven.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/bedrijf"
+            src="commons/../js/model/bedrijf.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieMain" src="commons/../js/beherenRelatieMain.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieBedrijven" src="commons/../js/beherenRelatieBedrijven.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieBedrijf" src="commons/../js/beherenRelatieBedrijf.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatiePolissen" src="commons/../js/beherenRelatiePolissen.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatiePolis" src="commons/../js/beherenRelatiePolis.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieSchades" src="commons/../js/beherenRelatieSchades.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieSchade" src="commons/../js/beherenRelatieSchade.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieHypotheken" src="commons/../js/beherenRelatieHypotheken.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieHypotheek" src="commons/../js/beherenRelatieHypotheek.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieBijlages" src="commons/../js/beherenRelatieBijlages.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieAangifte" src="commons/../js/beherenRelatieAangifte.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenRelatieAangiftes" src="commons/../js/beherenRelatieAangiftes.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijfMain" src="commons/../js/beherenBedrijfMain.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijfJaarCijfers" src="commons/../js/beherenBedrijfJaarCijfers.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijfRisicoAnalyse"
+            src="commons/../js/beherenBedrijfRisicoAnalyse.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijfPolissen" src="commons/../js/beherenBedrijfPolissen.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijfPolis" src="commons/../js/beherenBedrijfPolis.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijfSchades" src="commons/../js/beherenBedrijfSchades.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/beherenBedrijfSchade" src="commons/../js/beherenBedrijfSchade.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/taak/taken" src="commons/../js/model/taak/taken.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/taak/taakAanvullenAdresAfhandelen"
+            src="commons/../js/model/taak/taakAanvullenAdresAfhandelen.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/taak/taakAanvullenBsnAfhandelen"
+            src="commons/../js/model/taak/taakAanvullenBsnAfhandelen.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/taak/taakAanvullenEmailadresAfhandelen"
+            src="commons/../js/model/taak/taakAanvullenEmailadresAfhandelen.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="commons/3rdparty/log4javascript"
+            src="commons/../commons/3rdparty/log4javascript.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="navRegister"
+            src="commons/../js/commons/navRegister.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/rekeningNummer" src="commons/../js/model/rekeningNummer.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/telefoonNummer" src="commons/../js/model/telefoonNummer.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/onderlingeRelatie" src="commons/../js/model/onderlingeRelatie.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/adres"
+            src="commons/../js/model/adres.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/bijlage"
+            src="commons/../js/model/bijlage.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/taak/taak" src="commons/../js/model/taak/taak.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="moment"
+            src="commons/../commons/3rdparty/moment.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="commons/validation" src="commons/../commons/validation.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="fileUpload"
+            src="commons/../js/commons/fileUpload.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="opmerkingenModel" src="commons/../js/commons/opmerkingenModel.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/contactpersoon" src="commons/../js/model/contactpersoon.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="adressenModel"
+            src="commons/../js/commons/adressenModel.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="telefoonnummersModel" src="commons/../js/commons/telefoonnummersModel.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="opmerkingenLoader" src="commons/../js/commons/opmerkingenLoader.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/bedrijven"
+            src="commons/../js/model/bedrijven.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/polissen"
+            src="commons/../js/model/polissen.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/polis"
+            src="commons/../js/model/polis.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/schades"
+            src="commons/../js/model/schades.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/schade"
+            src="commons/../js/model/schade.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/hypothekenEnPakketten"
+            src="commons/../js/model/hypothekenEnPakketten.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/hypotheek" src="commons/../js/model/hypotheek.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/bijlages"
+            src="commons/../js/model/bijlages.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/aangifte"
+            src="commons/../js/model/aangifte.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/aangiftes"
+            src="commons/../js/model/aangiftes.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="adressenLoader"
+            src="commons/../js/commons/adressenLoader.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="telefoonnummersLoader" src="commons/../js/commons/telefoonnummersLoader.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/jaarcijferses" src="commons/../js/model/jaarcijferses.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/risicoanalyse" src="commons/../js/model/risicoanalyse.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="commons/opmaak"
+            src="commons/../commons/opmaak.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/taak/afhandelenTaak" src="commons/../js/model/taak/afhandelenTaak.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="model/opmerking"
+            src="commons/../js/model/opmerking.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="knockoutValidation"
+            src="commons/../commons/3rdparty/knockoutValidation/knockout.validation.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="blockUI"
+            src="http://malsup.github.com/jquery.blockUI.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jqueryUI"
+            src="commons/../commons/3rdparty/jquery-ui-1.10.3.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="js/model/hypotheekPakket" src="commons/../js/model/hypotheekPakket.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_"
+            data-requiremodule="model/jaarcijfers" src="commons/../js/model/jaarcijfers.js"></script>
+</head>
+<body id="body">
+<img id="homeKnop" src="images/home.png" alt="Naar de lijst met Relaties"
+     style="cursor: pointer; float: left; display: block;" onclick="document.location.hash='#dashboard'">
+<div id="ingelogdeGebruiker">Ingelogd als : Karin Vooys, (De Jonge Financieel Consult)</div>
+<div class="uitloggen" id="uitloggen" style="display: block;">Uitloggen</div>
+<div id="menu"></div>
+<div class="alert alert-success" style="display:none;" id="alertSucces"></div>
+<div class="alert alert-danger" style="display:none;" id="alertDanger"></div>
+<div id="content">
+    <ul class="nav nav-tabs" role="tablist">
+        <li>
+            <div class="navdiv" id="beherenRelatie">Relatie Gegevens</div>
+        </li>
+
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false">Polissen<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <div class="navdiv navdivactive" id="polissen">Overzicht</div>
+                </li>
+                <li>
+                    <div class="navdiv" id="polis">Toevoegen</div>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false">Schades<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <div class="navdiv" id="schades">Overzicht</div>
+                </li>
+                <li>
+                    <div class="navdiv" id="schade">Toevoegen</div>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false">Hypotheken<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <div class="navdiv" id="hypotheken">Overzicht</div>
+                </li>
+                <li>
+                    <div class="navdiv" id="hypotheek">Toevoegen</div>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false">Algemeen belastingzaken<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <div class="navdiv" id="aangiftes">Overzicht</div>
+                </li>
+                <li>
+                    <div class="navdiv" id="aangifte">Toevoegen</div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <input type="hidden" id="id" name="id" data-bind="value: id" value="[object HTMLInputElement]">
+
+    <div id="details">
+        <div id="polissenHerhaal" data-bind="foreach: polissen, visible: polissen().length > 0">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 data-bind="attr:{class: className}">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               data-bind="attr:{href: idDivLink}, text: titel" href="#collapsable496">Pakket
+                                (500-20174662)</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        name="dropdown">
+                                    Kies een actie <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <span class="glyphicon glyphicon-eye-open" style="cursor:pointer;"
+                                              data-bind="click: polisInzien"></span>
+                                        <span style="cursor:pointer;" data-bind="click: polisInzien" name="polisInzien">Inzien</span>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-pencil" style="cursor:pointer;"
+                                              data-bind="click: bewerkPolis"></span>
+                                        <span style="cursor:pointer;" data-bind="click: bewerkPolis" name="bewerkPolis">Bewerken</span>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-pencil" style="cursor:pointer;"
+                                              data-bind="click: beeindigPolis"></span>
+                                        <span style="cursor:pointer;" data-bind="click: beeindigPolis"
+                                              name="beeindigPolis">Beeindigen</span>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-trash" style="cursor:pointer;"
+                                              data-bind="click: $root.verwijderPolis"></span>
+                                        <span style="cursor:pointer;" data-bind="click: $root.verwijderPolis"
+                                              name="verwijderPolis">Verwijderen</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </h4>
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th style="width:250px;" colspan="2">Polisnummer</th>
+                            <th style="width:250px;">Status</th>
+                            <th style="width:250px;">Kenmerk</th>
+                            <th style="width:250px;">Maatschappij</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td id="polisNummer" colspan="2" data-bind="text: polisNummer">500-20174662</td>
+                            <td id="status" data-bind="text: status">Actief</td>
+                            <td id="kenmerk" data-bind="text: kenmerk"></td>
+                            <td id="maatschappij" data-bind="text: maatschappij">Delta Lloyd</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"> &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>001</td>
+                            <td id="status" data-bind="text: status"></td>
+                            <td id="kenmerk" data-bind="text: kenmerk"> opst.</td>
+                            <td id="maatschappij" data-bind="text: maatschappij"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>002</td>
+                            <td id="status" data-bind="text: status"></td>
+                            <td id="kenmerk" data-bind="text: kenmerk"> inb</td>
+                            <td id="maatschappij" data-bind="text: maatschappij"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>003</td>
+                            <td id="status" data-bind="text: status"></td>
+                            <td id="kenmerk" data-bind="text: kenmerk"> avp</td>
+                            <td id="maatschappij" data-bind="text: maatschappij"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>004</td>
+                            <td id="status" data-bind="text: status"></td>
+                            <td id="kenmerk" data-bind="text: kenmerk"> auto</td>
+                            <td id="maatschappij" data-bind="text: maatschappij"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>005</td>
+                            <td id="status" data-bind="text: status"></td>
+                            <td id="kenmerk" data-bind="text: kenmerk"> dlp</td>
+                            <td id="maatschappij" data-bind="text: maatschappij"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>006</td>
+                            <td id="status" data-bind="text: status"></td>
+                            <td id="kenmerk" data-bind="text: kenmerk"> reis</td>
+                            <td id="maatschappij" data-bind="text: maatschappij"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>007</td>
+                            <td id="status" data-bind="text: status"></td>
+                            <td id="kenmerk" data-bind="text: kenmerk"> rb</td>
+                            <td id="maatschappij" data-bind="text: maatschappij"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div data-bind="attr:{id: idDiv}" class="panel-collapse collapse" id="collapsable496">
+                        <div class="panel-body">
+                            <div data-bind="if: status">
+                                <span class="polisLabel">Status :</span>
+                                <span name="status" data-bind="text: status">Actief</span>
+                            </div>
+                            <div data-bind="if: polisNummer">
+                                <span class="polisLabel">Polisnummer :</span>
+                                <span name="polisNummer" data-bind="text: polisNummer">500-20174662</span>
+                            </div>
+                            <div data-bind="if: kenmerk">
+                                <span class="polisLabel">Kenmerk :</span>
+                                <span name="kenmerk" data-bind="text: kenmerk">Verzekeringspakket opst.,inb.,avp.,auto, dlp. reis en rb</span>
+                            </div>
+                            <div data-bind="if: ingangsDatum">
+                                <div data-bind="if: ingangsDatum">
+                                    <span class="polisLabel">Ingangsdatum :</span>
+                                    <span name="ingangsDatum" data-bind="text: ingangsDatum">08-05-2016</span>
+                                </div>
+                                <div data-bind="if: eindDatum"></div>
+                                <div data-bind="if: wijzigingsDatum"></div>
+                                <div data-bind="if: prolongatieDatum">
+                                    <span class="polisLabel">Prolongatie :</span>
+                                    <span name="prolongatieDatum" data-bind="text: prolongatieDatum">08-05-2017</span>
+                                </div>
+                                <div data-bind="if: maatschappij">
+                                    <span class="polisLabel">Maatschappij :</span>
+                                    <span name="maatschappij" data-bind="text: maatschappij">Delta Lloyd</span>
+                                </div>
+                                <div data-bind="if: premie">
+                                    <span class="polisLabel">Premie :</span>
+                                    <span name="premie" data-bind="text: bedrag(premie)">€ 97,16</span>
+                                </div>
+                                <div data-bind="if: betaalfrequentie">
+                                    <span class="polisLabel">Betaalfrequentie :</span>
+                                    <span name="betaalfrequentie" data-bind="text: betaalfrequentie">Maand</span>
+                                </div>
+                                <div data-bind="if: bedrijf"></div>
+                                <div data-bind="if: omschrijvingVerzekering">
+                                    <span class="polisLabel">Omschrijving Verzekering :</span>
+							<span name="bedrijf" data-bind="text: omschrijvingVerzekering">- 32: woonhuis compleet met glas € 293.727,50 (e.r. storm € 300,-) € 17,35
+- 33: inboedel compleet € 48.192 (e.r. storm € 300,-) € 5,41
+- 31: AVP gezin € 2.500.000,- € 4,50
+- 34: Skoda Fabia 82-NLK-4 mc 1049: WA voll.casco € 17.609,- SVI
+         - per 08-05-2016 6 schadevrije jaren: premie € 39,48
+-35: Dlp reis gezin: basis, geneesk.kst ongevallen en annulering (e.r.
+      € 70,bagage) € 11.78
+36: Rechtsbijstand consument, wonen, inkomen en verkeer € 19,13
+
+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
