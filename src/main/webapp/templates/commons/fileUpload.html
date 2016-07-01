@@ -1,6 +1,41 @@
 <form enctype="multipart/form-data" id="fileUploadForm">
     <input type="hidden" id="id" name="id" data-bind="value: id" />
     <input type="hidden" id="soortEntiteit" name="soortEntiteit" data-bind="value: soortEntiteit" />
+
+    <!-- ko if: typeof groepBijlages != 'undefined' -->
+    <div class="form-group" data-bind="iforeach: groepBijlages">
+        <div data-bind="text: naam"/>
+        <table class="table">
+            <tr>
+                <th>Bijlage</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tbody data-bind="foreach: bijlages">
+            <tr>
+                <td>
+                    <span data-bind="text: omschrijvingOfBestandsNaam, attr:{id: 'tekst' + id()}, click: startEditModus, visible: $parent.notReadOnly"></span>
+                    <span data-bind="text: omschrijvingOfBestandsNaam, attr:{id: 'tekst' + id()}, visible: $parent.readOnly"></span>
+
+                    <div data-bind="attr:{id: 'edit' + id()}" style="display: none;">
+                        <input type="text" data-bind="value: omschrijvingOfBestandsNaam"/>
+                        <button data-bind="click: stopEditModus">Opslaan</button>
+                        <button data-bind="click: stopEditModusAnnuleren">Annuleren</button>
+                    </div>
+                </td>
+                <td data-bind="text: datumUpload"></td>
+                <td><a data-bind="attr:{href: url}, title: omschrijvingOfBestandsNaam"
+                       target="_blank">Download</a></td>
+                <td data-bind="click: $parent.verwijderBijlage, visible: $parent.notReadOnly" style="cursor:pointer;">
+                    Verwijderen
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /ko -->​
+
     <div class="form-group">
         <table class="table">
             <tr>

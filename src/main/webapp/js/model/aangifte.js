@@ -15,6 +15,8 @@ define(['jquery',
 
 		_aangifte.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, null, null, data.id);
 
+        _aangifte.readOnly = ko.observable(false);
+        _aangifte.notReadOnly = ko.observable(true);
 		_aangifte.id = ko.observable(data.id);
 		_aangifte.soortEntiteit = ko.observable('Aangifte');
 		_aangifte.jaar = ko.observable(data.jaar);

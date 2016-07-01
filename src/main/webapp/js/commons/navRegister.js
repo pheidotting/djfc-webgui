@@ -51,6 +51,7 @@ define([ ],
                             {naam: 'UPLOAD_BIJLAGE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadBijlage'},
                             {naam: 'WIJZIG_OMSCHRIJVING_BIJLAGE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/wijzigOmschrijvingBijlage'},
                             {naam: 'LIJST_BIJLAGES',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/alles'},
+                            {naam: 'LIJST_GROEP_BIJLAGES',              url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/alleGroepen'},
 
                             {naam: 'OPSLAAN_SCHADE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/schade/opslaan'},
                             {naam: 'VERWIJDER_SCHADE',                  url: BASISURL_RELATIEBEHEER + '/medewerker/schade/verwijder'},

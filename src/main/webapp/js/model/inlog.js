@@ -25,6 +25,7 @@ define(['jquery',
 				}
 			}
 		});
+
 		return inlogModel;
     };
 });

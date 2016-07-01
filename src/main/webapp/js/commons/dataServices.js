@@ -1,7 +1,8 @@
 define(["commons/3rdparty/log",
         "navRegister",
-        'knockout'],
-    function(log, navRegister, ko) {
+        'knockout',
+        'redirect'],
+    function(log, navRegister, ko, redirect) {
 
         return {
             voerUitGet: function(url, data){
@@ -9,6 +10,9 @@ define(["commons/3rdparty/log",
 
                 $.get(url, data).done(function(response) {
                     return deferred.resolve(response);
+                }).fail(function(response){
+                    redirect.redirect('INLOGGEN');
+                    return deferred.reject();
                 });
 
                 return deferred.promise();
@@ -35,7 +39,14 @@ define(["commons/3rdparty/log",
             },
 
             inloggen: function(data){
-                return this.voerUitPost(navRegister.bepaalUrl('INLOGGEN'), data);
+                var deferred = $.Deferred();
+                var _this = this;
+
+                _this.voerUitPost(navRegister.bepaalUrl('INLOGGEN'), data, '').done(function(result){
+                    return deferred.resolve(result);
+                });
+
+                return deferred.promise();
             },
 
             haalIngelogdeGebruiker: function(){
@@ -194,7 +205,7 @@ define(["commons/3rdparty/log",
                     aantal = data.length;
                     dataBedrijven = data;
                     $.each(data, function(i, item) {
-                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/RELATIE/' + item.id).done(function(adressen){
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/BEDRIJF/' + item.id).done(function(adressen){
                             item.adressen = adressen;
                             teruggeven(--aantal);
                         });
@@ -215,44 +226,48 @@ define(["commons/3rdparty/log",
                 var deferred = $.Deferred();
                 var _this = this;
 
-                _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_BEDRIJF'), ko.toJSON(data)).done(function(responseBedrijf){
-                    var result = responseBedrijf.entity;
-                    if(data.adressen.length > 0) {
-                        $.each(data.adressen, function(i, adres){
-                            adres.entiteitId(result);
-                        });
-                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(data.adressen));
-                    } else {
-                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/BEDRIJF/' + result);
-                    }
-                    if(data.telefoonnummers.length > 0) {
-                        $.each(data.telefoonnummers, function(i, telefoonnummer){
-                            telefoonnummer.entiteitId(result);
-                        });
-                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(data.telefoonnummers));
-                    } else {
-                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/BEDRIJF/' + result);
-                    }
-
-                    if(data.contactpersonen().length > 0) {
-                        $.each(data.contactpersonen(), function(i, contactpersoon){
-                            contactpersoon.bedrijf(result);
-                            _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_CONTACTPERSOON'), ko.toJSON(contactpersoon)).done(function(cpId){
-                                if(data.telefoonnummers.length > 0) {
-                                    $.each(contactpersoon.telefoonnummers(), function(i, item){
-                                        item.entiteitId(cpId);
-                                        item.soortEntiteit('CONTACTPERSOON');
-                                    });
-                                    _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(contactpersoon.telefoonnummers()));
-                                } else {
-                                    _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/BEDRIJF/' + result);
-                                }
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_BEDRIJF'), ko.toJSON(data), trackAndTraceId).done(function(responseBedrijf){
+                        var result = responseBedrijf.entity;
+                        if(data.adressen.length > 0) {
+                            $.each(data.adressen, function(i, adres){
+                                adres.entiteitId(result);
                             });
-                        });
-                    } else {
-                    }
+                            _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_ADRESSEN'), ko.toJSON(data.adressen), trackAndTraceId);
+                        } else {
+                            _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_ADRESSEN') + '/BEDRIJF/' + result,null, trackAndTraceId);
+                        }
+                        if(data.telefoonnummers.length > 0) {
+                            $.each(data.telefoonnummers, function(i, telefoonnummer){
+                                telefoonnummer.entiteitId(result);
+                            });
+                            _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(data.telefoonnummers), trackAndTraceId);
+                        } else {
+                            _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/BEDRIJF/' + result, null, trackAndTraceId);
+                        }
 
-                    return deferred.resolve(result);
+                        if(data.contactpersonen().length > 0) {
+                            $.each(data.contactpersonen(), function(i, contactpersoon){
+                                contactpersoon.bedrijf(result);
+                                var telefoonnummers = contactpersoon.telefoonnummers;
+                                contactpersoon.telefoonnummers = null;
+                                _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_CONTACTPERSOON'), ko.toJSON(contactpersoon), trackAndTraceId).done(function(cpId){
+                                    if(telefoonnummers().length > 0) {
+                                        $.each(telefoonnummers(), function(i, item){
+                                            item.entiteitId(cpId);
+                                            item.soortEntiteit('CONTACTPERSOON');
+                                        });
+                                        _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_TELEFOONNUMMERS'), ko.toJSON(telefoonnummers()), trackAndTraceId);
+                                    } else {
+                                        _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_TELEFOONNUMMERS') + '/CONTACTPERSOON/' + result, null, trackAndTraceId);
+                                    }
+                                });
+                            });
+                        } else {
+                        }
+
+                        return deferred.resolve(result);
+                    });
                 });
 
                 return deferred.promise();
@@ -283,7 +298,7 @@ define(["commons/3rdparty/log",
                     });
 
                     //ophalen adresssen
-                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/RELATIE/' + id).done(function(adressen){
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/BEDRIJF/' + id).done(function(adressen){
                         bedrijf.adressen = adressen;
                         if(--aantalOphalen === 0) {
                             teruggeven();
@@ -291,7 +306,7 @@ define(["commons/3rdparty/log",
                     });
 
                     //ophalen telefoonnummers
-                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/RELATIE/' + id).done(function(telefoonnummers){
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/BEDRIJF/' + id).done(function(telefoonnummers){
                         bedrijf.telefoonnummers = telefoonnummers;
                         if(--aantalOphalen === 0) {
                             teruggeven();
@@ -337,15 +352,15 @@ define(["commons/3rdparty/log",
                 var deferred = $.Deferred();
                 var _this = this;
 
-                this.voerUitGet(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId}).done(function(data){
-                    _this.lijstBijlages('POLIS', polisId).done(function(bijlages){
+                $.when(_this.voerUitGet(navRegister.bepaalUrl('LEES_POLIS'), {"id" : polisId}),
+                    _this.lijstBijlages('POLIS', polisId),
+                    _this.lijstOpmerkingen('POLIS', polisId),
+                    _this.voerUitGet(navRegister.bepaalUrl('LIJST_GROEP_BIJLAGES') + '/POLIS/' + polisId)).then(function(data, bijlages, opmerkingen, groepenBijlages) {
                         data.bijlages = bijlages;
-                        _this.lijstOpmerkingen('POLIS', polisId).done(function(opmerkingen){
-                            data.opmerkingen = opmerkingen;
+                        data.opmerkingen = opmerkingen;
+                        data.groepenBijlages = groepenBijlages;
 
-                            return deferred.resolve(data);
-                        });
-                    });
+                        return deferred.resolve(data);
                 });
 
                 return deferred.promise();
@@ -380,19 +395,55 @@ define(["commons/3rdparty/log",
             },
 
             opslaanPolis: function(data){
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_POLIS'), data);
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_POLIS'), data, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             verwijderPolis: function(id){
-                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_POLIS'), {"id" : id});
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_POLIS') + '/' + id, null, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             opslaanSchade: function(data){
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_SCHADE'), data);
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_SCHADE'), data, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             verwijderSchade: function(id){
-                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_SCHADE'), {"id" : id});
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_SCHADE') + '/' + id, null, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             lijstStatusSchade: function(){
@@ -446,11 +497,29 @@ define(["commons/3rdparty/log",
             },
 
             opslaanHypotheek: function(data){
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_HYPOTHEEK'), data);
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_HYPOTHEEK'), data, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             verwijderHypotheek: function(id){
-                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_HYPOTHEEK'), {"id" : id});
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_HYPOTHEEK') + '/' + id, null, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             lijstOpenAangiftes: function(relatie){
@@ -461,12 +530,30 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('LIJST_GESLOTEN_AANGIFTES'), {relatie : relatie});
             },
 
-            afrondenAangifte: function(data){
-                return this.voerUitPost(navRegister.bepaalUrl('AFRONDEN_AANGIFTE'), data);
+            afrondenAangifte: function(id){
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('AFRONDEN_AANGIFTE') + '/' + id, null, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             opslaanAangifte: function(data){
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_AANGIFTE'), data);
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_AANGIFTE'), data, trackAndTraceId).done(function(response){
+                        return deferred.resolve(response);
+                    });
+                });
+
+                return deferred.promise();
             },
 
             leesTaak: function(id){
@@ -493,8 +580,8 @@ define(["commons/3rdparty/log",
                 return this.voerUitGet(navRegister.bepaalUrl('VRIJGEVEN_TAAK'), {"id" : id});
             },
 
-            opslaanOpmerking: function(opmerking){
-                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_OPMERKING'), opmerking);
+            opslaanOpmerking: function(opmerking, trackAndTraceId){
+                return this.voerUitPost(navRegister.bepaalUrl('OPSLAAN_OPMERKING'), opmerking, trackAndTraceId);
             },
 
             verwijderOpmerking: function(id){

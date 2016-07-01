@@ -4,30 +4,31 @@ define(['jquery',
          'commons/commonFunctions',
          'moment',
          'model/bijlage',
+         'model/groepbijlages',
          "commons/opmaak",
          'dataServices',
          'navRegister',
          'redirect',
          'fileUpload',
          'opmerkingenModel'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+	function ($, ko, log, commonFunctions, moment, Bijlage, Groepbijlages, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
-	return function polisModel (data, readOnly){
+	return function polisModel (data, readOnly) {
 		var _polis = this;
 
 		_polis.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, data.id, null);
 
         _polis.readOnly = ko.observable(readOnly);
         _polis.notReadOnly = ko.observable(!readOnly);
-		_polis.veranderDatum = function(datum){
+		_polis.veranderDatum = function(datum) {
 			datum(commonFunctions.zetDatumOm(datum()));
 		};
-		_polis.berekenProlongatieDatum = function(){
-			if(_polis.ingangsDatum() !== null && _polis.ingangsDatum() !== undefined && _polis.ingangsDatum() !== ""){
+		_polis.berekenProlongatieDatum = function() {
+			if(_polis.ingangsDatum() !== null && _polis.ingangsDatum() !== undefined && _polis.ingangsDatum() !== "") {
 				_polis.prolongatieDatum(moment(_polis.ingangsDatum(), "DD-MM-YYYY").add(1, 'y').format("DD-MM-YYYY"));
 			}
 		};
-		_polis.bedrag = function(bedrag){
+		_polis.bedrag = function(bedrag) {
 			return opmaak.maakBedragOp(ko.utils.unwrapObservable(bedrag));
 		};
 		_polis.relatie = ko.observable(data.relatie);
@@ -36,22 +37,22 @@ define(['jquery',
 		_polis.status = ko.observable(data.status);
 		_polis.polisNummer = ko.observable(data.polisNummer).extend({required: true});
 		_polis.kenmerk = ko.observable(data.kenmerk);
-		if(data.ingangsDatum !== undefined && data.ingangsDatum !== null){
+		if(data.ingangsDatum !== undefined && data.ingangsDatum !== null) {
 			_polis.ingangsDatum = ko.observable(moment(data.ingangsDatum).format("DD-MM-YYYY")).extend({required: true});
 		}else{
 			_polis.ingangsDatum = ko.observable().extend({required: true});
 		}
-		if(data.eindDatum !== undefined && data.eindDatum !== null){
+		if(data.eindDatum !== undefined && data.eindDatum !== null) {
 			_polis.eindDatum = ko.observable(moment(data.eindDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.eindDatum = ko.observable();
 		}
-		if(data.wijzigingsDatum !== undefined && data.wijzigingsDatum !== null){
+		if(data.wijzigingsDatum !== undefined && data.wijzigingsDatum !== null) {
 			_polis.wijzigingsDatum = ko.observable(moment(data.wijzigingsDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.wijzigingsDatum = ko.observable();
 		}
-		if(data.prolongatieDatum !== undefined && data.prolongatieDatum !== null){
+		if(data.prolongatieDatum !== undefined && data.prolongatieDatum !== null) {
 			_polis.prolongatieDatum = ko.observable(moment(data.prolongatieDatum).format("DD-MM-YYYY"));
 		}else{
 			_polis.prolongatieDatum = ko.observable();
@@ -74,13 +75,13 @@ define(['jquery',
 		_polis.className = ko.computed(function() {
 			var datum = moment(data.ingangsDatum);
 			var tijd = moment(datum).fromNow();
-			if(tijd.substr(tijd.length - 3) !== "ago"){
+			if(tijd.substr(tijd.length - 3) !== "ago") {
 				return "polisNietActief panel-title";
 			}
-			if(data.eindDatum){
+			if(data.eindDatum) {
 				datum = moment(data.eindDatum);
 				tijd = moment(datum).fromNow();
-				if(tijd.substr(tijd.length - 3) === "ago"){
+				if(tijd.substr(tijd.length - 3) === "ago") {
 					return "polisBeeindigd panel-title";
 				}else{
 					return "panel-title";
@@ -91,48 +92,55 @@ define(['jquery',
 			return data.soort + " (" + data.polisNummer + ")";
 		}, this);
 		_polis.bijlages = ko.observableArray();
-		if(data.bijlages != null){
-			$.each(data.bijlages, function(i, item){
+		if(data.bijlages != null) {
+			$.each(data.bijlages, function(i, item) {
 				var bijlage = new Bijlage(item);
 				_polis.bijlages().push(bijlage);
 			});
 		};
+		_polis.groepBijlages = ko.observableArray();
+		if(data.groepenBijlages != null) {
+			$.each(data.groepenBijlages, function(i, item) {
+				var groepenBijlages = new Groepbijlages(item);
+				_polis.groepBijlages().push(groepenBijlages);
+			});
+		}
 
-	    _polis.schadeMeldenBijPolis = function(polis){
+	    _polis.schadeMeldenBijPolis = function(polis) {
 			log.debug(ko.utils.unwrapObservable(polis.id));
 			log.debug($('#polisVoorSchademelding').val());
 	    };
 
-	    _polis.bewerkPolis = function(polis){
+	    _polis.bewerkPolis = function(polis) {
 			commonFunctions.verbergMeldingen();
 			log.debug("Polis bewerken met id " + polis.id() + " en Relatie id : " + polis.relatie());
 			redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polis', polis.id());
 	    };
 
-	    _polis.polisInzien = function(polis){
+	    _polis.polisInzien = function(polis) {
 			commonFunctions.verbergMeldingen();
 			log.debug("Polis inzien met id " + polis.id() + " en Relatie id : " + polis.relatie());
 			redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polisInzien', polis.id());
 	    };
 
-	    _polis.beeindigPolis = function(polis){
+	    _polis.beeindigPolis = function(polis) {
 	    	dataServices.beindigPolis(polis.id());
 			_polis.eindDatum(moment().format("DD-MM-YYYY"));
 	    };
 
-	    _polis.bewerkPolisBedrijf = function(polis){
+	    _polis.bewerkPolisBedrijf = function(polis) {
 			commonFunctions.verbergMeldingen();
 			log.debug("Polis bewerken met id " + polis.id() + " en Bedrijf id : " + polis.bedrijf());
 			redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polis', polis.id());
 	    };
 
-	    _polis.polisInzienBedrijf = function(polis){
+	    _polis.polisInzienBedrijf = function(polis) {
 			commonFunctions.verbergMeldingen();
 			log.debug("Polis inzien met id " + polis.id() + " en Bedrijf id : " + polis.bedrijf());
 			redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polisInzien', polis.id());
 	    };
 
-	    _polis.verwijderBijlage = function(bijlage){
+	    _polis.verwijderBijlage = function(bijlage) {
 			commonFunctions.verbergMeldingen();
 			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
 			if (r === true) {
@@ -141,21 +149,21 @@ define(['jquery',
 			}
 		};
 
-		_polis.nieuwePolisUpload = function (){
+		_polis.nieuwePolisUpload = function () {
 			log.debug("Nieuwe polis upload");
             commonFunctions.verbergMeldingen();
 			$('uploadprogress').show();
 
-            if(_polis.soort() === ""){
+            if(_polis.soort() === "") {
                 $('#bijlageFile').val("");
                 commonFunctions.plaatsFoutmeldingString("Kies eerst een soort polis");
             } else {
-                if(_polis.id() == null){
-                    dataServices.opslaanPolis(ko.toJSON(_polis)).done(function(data){
+                if(_polis.id() == null) {
+                    dataServices.opslaanPolis(ko.toJSON(_polis)).done(function(data) {
                         _polis.id(data.foutmelding);
                         _polis.id.valueHasMutated();
 
-                        fileUpload.uploaden().done(function(bijlage){
+                        fileUpload.uploaden().done(function(bijlage) {
                             log.debug(ko.toJSON(bijlage));
                             _polis.bijlages().push(bijlage);
                             _polis.bijlages.valueHasMutated();
@@ -163,7 +171,7 @@ define(['jquery',
                         });
                     });
                 } else {
-                    fileUpload.uploaden().done(function(bijlage){
+                    fileUpload.uploaden().done(function(bijlage) {
                         log.debug(ko.toJSON(bijlage));
                         _polis.bijlages().push(bijlage);
                         _polis.bijlages.valueHasMutated();
@@ -172,9 +180,9 @@ define(['jquery',
             }
 		};
 
-	    _polis.opslaan = function(polis){
+	    _polis.opslaan = function(polis) {
 	    	var result = ko.validation.group(polis, {deep: true});
-	    	if(!polis.isValid()){
+	    	if(!polis.isValid()) {
 	    		result.showAllMessages(true);
 	    	}else{
 	    		commonFunctions.verbergMeldingen();
@@ -182,20 +190,20 @@ define(['jquery',
 				_polis.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, data.id, null);
 				_polis.bijlages = ko.observableArray();
 	    		log.debug(ko.toJSON(polis));
-	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function(){
+	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function() {
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-					if(polis.relatie() !== undefined && polis.relatie() !== null && polis.relatie() !== '0'){
+					if(polis.relatie() !== undefined && polis.relatie() !== null && polis.relatie() !== '0') {
 						redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');
 					} else {
 						redirect.redirect('BEHEREN_BEDRIJF', polis.bedrijfsId(), 'polissen');
 					}
-	    		}).fail(function(data){
+	    		}).fail(function(data) {
 					commonFunctions.plaatsFoutmelding(data);
 	    		});
 	    	}
 		};
 
-		_polis.annuleren = function(){
+		_polis.annuleren = function() {
 			redirect.redirect('BEHEREN_RELATIE', _polis.relatie(), 'polissen');
 		};
     };

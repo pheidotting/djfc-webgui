@@ -57,7 +57,7 @@ define(["commons/3rdparty/log",
             _k.opmerkingOpslaan = function(opm){
                 log.debug(opm.opmerkingenModel.nieuweOpmerking());
                 if(opm.opmerkingenModel.nieuweOpmerking() !== undefined && opm.opmerkingenModel.nieuweOpmerking().trim() !== ''){
-                    dataServices.haalIngelogdeGebruiker().done(function(response){
+                    $.when(dataServices.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID')), dataServices.haalIngelogdeGebruiker()).then(function(trackAndTraceId, response){
                         var opmerking = new Opmerking('');
                         opmerking.medewerker(response.gebruikersnaam);
                         opmerking.medewerkerId(response.id);
@@ -71,7 +71,7 @@ define(["commons/3rdparty/log",
                         opmerkingen.push(opmerking)
 
                         log.debug(ko.toJSON(opmerkingen));
-                        dataServices.opslaanOpmerking(ko.toJSON(opmerkingen)).done(function(id){
+                        dataServices.opslaanOpmerking(ko.toJSON(opmerkingen), trackAndTraceId).done(function(id){
                             opmerking.id(id);
                             opm.opmerkingenModel.opmerkingen().push(opmerking);
                             opm.opmerkingenModel.opmerkingen.valueHasMutated();
