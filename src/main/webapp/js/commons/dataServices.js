@@ -11,7 +11,9 @@ define(["commons/3rdparty/log",
                 $.get(url, data).done(function(response) {
                     return deferred.resolve(response);
                 }).fail(function(response){
-                    redirect.redirect('INLOGGEN');
+                    if (response.status === 401) {
+                        redirect.redirect('INLOGGEN');
+                    }
                     return deferred.reject();
                 });
 
