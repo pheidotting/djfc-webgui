@@ -587,7 +587,15 @@ define(["commons/3rdparty/log",
             },
 
             verwijderOpmerking: function(id){
-                return this.voerUitGet(navRegister.bepaalUrl('VERWIJDER_OPMERKING'), {"id" : id});
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(_this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId){
+                    _this.voerUitPost(navRegister.bepaalUrl('VERWIJDER_OPMERKING') + '/' + id, null, trackAndTraceId);
+                    return deferred.resolve();
+                });
+
+                return deferred.promise();
             },
 
             lijstOpmerkingen: function(soortentiteit, parentid){
