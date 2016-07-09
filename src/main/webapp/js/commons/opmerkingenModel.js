@@ -47,6 +47,12 @@ define(["commons/3rdparty/log",
                 _k.soort = ko.observable('RISICOANALYSE');
                 _k.entiteitId = ko.observable(risicoAnalyse);
             }
+            _k.schermTonen = ko.computed(function(){
+                if(_k.entiteitId == null || _k.entiteitId() === 0) {
+                    return false;
+                }
+                return true;
+            });
 
             if(data != null){
                 $.each(data, function(i, item) {

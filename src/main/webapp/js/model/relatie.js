@@ -20,6 +20,12 @@ define(['jquery',
 	return function (data, openstaandeTaken){
 		var _thisRelatie = this;
 
+        _thisRelatie.schermTonen = ko.computed(function(){
+            if(data.id == null || data.id === 0) {
+                return false;
+            }
+            return true;
+        });
 		_thisRelatie.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, null, data.id);
         _thisRelatie.readOnly = ko.observable(false);
         _thisRelatie.notReadOnly = ko.observable(true);
