@@ -39,6 +39,7 @@ define(['jquery',
                             log.debug(JSON.stringify(data));
                             var polis = new Polis(data, readOnly);
                             polis.bedrijfsId(bedrijfsId);
+                            polis.bedrijf(bedrijfsId);
                             fileUpload.init().done(function(){
                                 new opmerkingenLoader(bedrijfsId).init().done(function(){
                                     ko.applyBindings(polis);
