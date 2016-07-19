@@ -6,6 +6,7 @@ define(['jquery',
         'model/onderlingeRelatie',
         'model/adres',
         'model/bijlage',
+        'model/groepbijlages',
         'js/model/taak/taak',
         'moment',
         'commons/3rdparty/log',
@@ -15,7 +16,7 @@ define(['jquery',
         'redirect',
         'fileUpload',
         'opmerkingenModel'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, Taak, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, GroepBijlages, Taak, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
 	return function (data, openstaandeTaken){
 		var _thisRelatie = this;
@@ -207,29 +208,29 @@ define(['jquery',
 			});
 		};
 
+		_thisRelatie.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				_thisRelatie.groepBijlages().push(groepBijlages);
+			});
+		};
+
 		_thisRelatie.nieuwePolisUpload = function (){
 			log.debug("Nieuwe bijlage upload");
 			$('uploadprogress').show();
 
-            if(_thisRelatie.id() == null){
-        		dataServices.opslaanRelatie(ko.toJSON(_thisRelatie)).done(function(data){
-	    			_thisRelatie.id(data.foutmelding);
-                    _thisRelatie.id.valueHasMutated();
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
 
-					fileUpload.uploaden().done(function(bijlage){
-						log.debug(ko.toJSON(bijlage));
-						_thisRelatie.bijlages().push(bijlage);
-						_thisRelatie.bijlages.valueHasMutated();
-						redirect.redirect('BEHEREN_RELATIE', _thisRelatie.id());
-					});
-	    		});
-            } else {
-				fileUpload.uploaden().done(function(bijlage){
-					log.debug(ko.toJSON(bijlage));
-					_thisRelatie.bijlages().push(bijlage);
-					_thisRelatie.bijlages.valueHasMutated();
-				});
-			}
+                if(uploadResultaat.bestandsNaam == null) {
+                    _thisRelatie.groepBijlages().push(uploadResultaat);
+                    _thisRelatie.groepBijlages.valueHasMutated();
+                } else {
+                    _thisRelatie.bijlages().push(uploadResultaat);
+                    _thisRelatie.bijlages.valueHasMutated();
+                }
+            });
 		};
 
 		_thisRelatie.opslaan = function(){

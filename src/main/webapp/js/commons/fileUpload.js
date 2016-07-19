@@ -1,21 +1,24 @@
-define(["commons/3rdparty/log",
+define(['commons/3rdparty/log',
         'commons/commonFunctions',
+        'model/groepbijlages',
         'model/bijlage',
-         'commons/block',
+        'commons/block',
         'navRegister'],
-    function(log, commonFunctions, Bijlage, block, navRegister) {
+    function(log, commonFunctions, Groepbijlages, Bijlage, block, navRegister) {
 
         return {
-            init: function(){
+            init: function(id){
                 log.debug("Instantieren file upload");
 
-                var deferred = $.Deferred();
+                if(id != null && id !== 0) {
+                    var deferred = $.Deferred();
 
-                $('#fileUpload').load('templates/commons/fileUpload.html', function() {
-                    return deferred.resolve();
-                });
+                    $('#fileUpload').load('templates/commons/fileUpload.html', function() {
+                        return deferred.resolve();
+                    });
 
-                return deferred.promise();
+                    return deferred.promise();
+                }
             },
 
             uploaden: function(){
@@ -27,16 +30,17 @@ define(["commons/3rdparty/log",
                 commonFunctions.uploadBestand(formData, navRegister.bepaalUrl('UPLOAD_BIJLAGE')).done(function(response) {
                     log.debug(JSON.stringify(response));
 
-                    var bijlageData = {};
-                    bijlageData.id = response.id;
-                    bijlageData.soortBijlage = response.soortBijlage;
-                    bijlageData.bestandsNaam = response.bestandsNaam;
-                    bijlageData.datumUpload = response.datumUpload;
-
                     $('#bijlageFile').val("");
 
                     $.unblockUI();
-                    return deferred.resolve(new Bijlage(bijlageData));
+                    var ret = null;
+                    if(response.bijlage != null) {
+                        ret = new Bijlage(response.bijlage);
+                    } else {
+                        ret = new Groepbijlages(response.groepBijlages);
+                    }
+
+                    return deferred.resolve(ret);
                 });
 
                 return deferred.promise();

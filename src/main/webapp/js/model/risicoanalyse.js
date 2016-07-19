@@ -3,10 +3,11 @@ define(['jquery',
          'commons/3rdparty/log',
          'commons/commonFunctions',
          'model/bijlage',
+         'model/groepbijlages',
          'fileUpload',
          'opmerkingenModel',
          'dataServices'],
-    function ($, ko, log, commonFunctions, Bijlage, fileUpload, opmerkingenModel, dataServices) {
+    function ($, ko, log, commonFunctions, Bijlage, GroepBijlages, fileUpload, opmerkingenModel, dataServices) {
 
 	return function (data){
 		var _risicoAnalyse = this;
@@ -25,17 +26,30 @@ define(['jquery',
             });
         };
 
-		_risicoAnalyse.nieuwePolisUpload = function (){
-			log.debug("Nieuwe file upload");
-            commonFunctions.verbergMeldingen();
-			$('uploadprogress').show();
-			fileUpload.uploaden().done(function(bijlage){
-				log.debug(ko.toJSON(bijlage));
-				_risicoAnalyse.bijlages().push(bijlage);
-				_risicoAnalyse.bijlages.valueHasMutated();
+		_risicoAnalyse.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				_risicoAnalyse.groepBijlages().push(groepBijlages);
 			});
 		};
 
+		_risicoAnalyse.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
+			$('uploadprogress').show();
+
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
+
+                if(uploadResultaat.bestandsNaam == null) {
+                    _risicoAnalyse.groepBijlages().push(uploadResultaat);
+                    _risicoAnalyse.groepBijlages.valueHasMutated();
+                } else {
+                    _risicoAnalyse.bijlages().push(uploadResultaat);
+                    _risicoAnalyse.bijlages.valueHasMutated();
+                }
+            });
+		};
         _risicoAnalyse.verwijderBijlage = function(bijlage){
             commonFunctions.verbergMeldingen();
             var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");

@@ -4,6 +4,7 @@ define(['jquery',
          'commons/commonFunctions',
          'model/adres',
          'model/bijlage',
+         'model/groepbijlages',
          'model/contactpersoon',
 		 'dataServices',
 		 'redirect',
@@ -11,7 +12,7 @@ define(['jquery',
          'opmerkingenModel',
          'adressenModel',
          'telefoonnummersModel'],
-	function ($, ko, log, commonFunctions, Adres, Bijlage, Contactpersoon, dataServices, redirect, fileUpload, opmerkingenModel, adressenModel, telefoonnummersModel) {
+	function ($, ko, log, commonFunctions, Adres, Bijlage, GroepBijlages, Contactpersoon, dataServices, redirect, fileUpload, opmerkingenModel, adressenModel, telefoonnummersModel) {
 
 	return function(data){
 		var _bedrijf = this;
@@ -170,30 +171,30 @@ define(['jquery',
 		    }
 		});
 
+
+		_bedrijf.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				_bedrijf.groepBijlages().push(groepBijlages);
+			});
+		};
+
 		_bedrijf.nieuwePolisUpload = function (){
-			log.debug("Nieuwe polis upload");
-            commonFunctions.verbergMeldingen();
+			log.debug("Nieuwe bijlage upload");
 			$('uploadprogress').show();
 
-			if(_bedrijf.id() == null){
-				dataServices.opslaanPolis(ko.toJSON(_polis)).done(function(data){
-					_bedrijf.id(data.foutmelding);
-					_bedrijf.id.valueHasMutated();
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
 
-					fileUpload.uploaden().done(function(bijlage){
-						log.debug(ko.toJSON(bijlage));
-						_bedrijf.bijlages().push(bijlage);
-						_bedrijf.bijlages.valueHasMutated();
-						redirect.redirect('BEHEREN_RELATIE', _polis.relatie(), 'polis', _polis.id());
-					});
-				});
-			} else {
-				fileUpload.uploaden().done(function(bijlage){
-					log.debug(ko.toJSON(bijlage));
-					_bedrijf.bijlages().push(bijlage);
-					_bedrijf.bijlages.valueHasMutated();
-				});
-			}
+                if(uploadResultaat.bestandsNaam == null) {
+                    _bedrijf.groepBijlages().push(uploadResultaat);
+                    _bedrijf.groepBijlages.valueHasMutated();
+                } else {
+                    _bedrijf.bijlages().push(uploadResultaat);
+                    _bedrijf.bijlages.valueHasMutated();
+                }
+            });
 		};
 
 		_bedrijf.annuleren = function(){

@@ -21,7 +21,7 @@ define(['jquery',
 			dataServices.openTakenBijRelatie(relatieId).done(function(openTaken) {
                 var relatie = new Relatie(data, openTaken);
 
-                new fileUpload.init().done(function(){
+                new fileUpload.init(relatieId).done(function(){
                     new opmerkingenLoader(relatieId).init().done(function() {
                         ko.applyBindings(relatie);
                         $.unblockUI();

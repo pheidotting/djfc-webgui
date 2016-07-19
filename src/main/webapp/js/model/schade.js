@@ -4,13 +4,14 @@ define(['jquery',
          'commons/commonFunctions',
          'moment',
          'model/bijlage',
+         'model/groepbijlages',
          'model/opmerking',
          "commons/opmaak",
          'dataServices',
          'redirect',
          'fileUpload',
          'opmerkingenModel'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, Opmerking, opmaak, dataServices, redirect, fileUpload, opmerkingenModel) {
+	function ($, ko, log, commonFunctions, moment, Bijlage, GroepBijlages, Opmerking, opmaak, dataServices, redirect, fileUpload, opmerkingenModel) {
 
 	return function schadeModel (data, relatieId){
 		self = this;
@@ -127,31 +128,30 @@ define(['jquery',
 			});
 		}
 
-        self.nieuwePolisUpload = function (){
-            log.debug("Nieuwe bijlage upload");
-            $('uploadprogress').show();
+		self.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				self.groepBijlages().push(groepBijlages);
+			});
+		};
 
-            if(self.id() == null){
-        		dataServices.opslaanSchade(ko.toJSON(self)).done(function(data){
-	    			self.id(data.foutmelding);
-                    self.id.valueHasMutated();
+		self.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
+			$('uploadprogress').show();
 
-                    fileUpload.uploaden().done(function(bijlage){
-                        console.log(ko.toJSON(bijlage));
-                        self.bijlages().push(bijlage);
-                        self.bijlages.valueHasMutated();
-                        redirect.redirect('BEHEREN_RELATIE', self.relatie(), 'schade', self.id());
-                    });
-	    		});
-            } else {
-                fileUpload.uploaden().done(function(bijlage){
-                    console.log(ko.toJSON(bijlage));
-                    self.bijlages().push(bijlage);
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
+
+                if(uploadResultaat.bestandsNaam == null) {
+                    self.groepBijlages().push(uploadResultaat);
+                    self.groepBijlages.valueHasMutated();
+                } else {
+                    self.bijlages().push(uploadResultaat);
                     self.bijlages.valueHasMutated();
-                });
-            }
-			$.unblockUI();
-        };
+                }
+            });
+		};
 
 		self.opslaan = function(schade){
 	    	var result = ko.validation.group(schade, {deep: true});

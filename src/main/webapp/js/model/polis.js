@@ -149,35 +149,21 @@ define(['jquery',
 			}
 		};
 
-		_polis.nieuwePolisUpload = function () {
-			log.debug("Nieuwe polis upload");
-            commonFunctions.verbergMeldingen();
+		_polis.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
 			$('uploadprogress').show();
 
-            if(_polis.soort() === "") {
-                $('#bijlageFile').val("");
-                commonFunctions.plaatsFoutmeldingString("Kies eerst een soort polis");
-            } else {
-                if(_polis.id() == null) {
-                    dataServices.opslaanPolis(ko.toJSON(_polis)).done(function(data) {
-                        _polis.id(data.foutmelding);
-                        _polis.id.valueHasMutated();
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
 
-                        fileUpload.uploaden().done(function(bijlage) {
-                            log.debug(ko.toJSON(bijlage));
-                            _polis.bijlages().push(bijlage);
-                            _polis.bijlages.valueHasMutated();
-                            redirect.redirect('BEHEREN_RELATIE', _polis.relatie(), 'polis', _polis.id());
-                        });
-                    });
+                if(uploadResultaat.bestandsNaam == null) {
+                    _polis.groepBijlages().push(uploadResultaat);
+                    _polis.groepBijlages.valueHasMutated();
                 } else {
-                    fileUpload.uploaden().done(function(bijlage) {
-                        log.debug(ko.toJSON(bijlage));
-                        _polis.bijlages().push(bijlage);
-                        _polis.bijlages.valueHasMutated();
-                    });
+                    _polis.bijlages().push(uploadResultaat);
+                    _polis.bijlages.valueHasMutated();
                 }
-            }
+            });
 		};
 
 	    _polis.opslaan = function(polis) {

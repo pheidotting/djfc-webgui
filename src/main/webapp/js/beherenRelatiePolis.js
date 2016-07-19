@@ -42,7 +42,7 @@ define(['jquery',
                         log.debug(JSON.stringify(data));
                         var polis = new Polis(data, readOnly);
                         polis.relatie(relatieId);
-                        fileUpload.init().done(function(){
+                        fileUpload.init(relatieId).done(function(){
                             new opmerkingenLoader(relatieId).init().done(function(){
                                 ko.applyBindings(polis);
                                 $.unblockUI();

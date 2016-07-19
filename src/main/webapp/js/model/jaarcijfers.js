@@ -4,13 +4,14 @@ define(['jquery',
          'commons/commonFunctions',
          'moment',
          'model/bijlage',
+         'model/groepbijlages',
          "commons/opmaak",
          'dataServices',
          'navRegister',
          'redirect',
          'fileUpload',
          'opmerkingenModel'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+	function ($, ko, log, commonFunctions, moment, Bijlage, GroepBijlages, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
 	return function (data){
 		var _cijfers = this;
@@ -36,15 +37,29 @@ define(['jquery',
 			});
 		};
 
-		_cijfers.nieuwePolisUpload = function (){
-			log.debug("Nieuwe polis upload");
-            commonFunctions.verbergMeldingen();
-			$('uploadprogress').show();
-			fileUpload.uploaden().done(function(bijlage){
-				log.debug(ko.toJSON(bijlage));
-				_cijfers.bijlages().push(bijlage);
-				_cijfers.bijlages.valueHasMutated();
+		_cijfers.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				_cijfers.groepBijlages().push(groepBijlages);
 			});
+		};
+
+		_cijfers.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
+			$('uploadprogress').show();
+
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
+
+                if(uploadResultaat.bestandsNaam == null) {
+                    _cijfers.groepBijlages().push(uploadResultaat);
+                    _cijfers.groepBijlages.valueHasMutated();
+                } else {
+                    _cijfers.bijlages().push(uploadResultaat);
+                    _cijfers.bijlages.valueHasMutated();
+                }
+            });
 		};
     };
 });

@@ -39,7 +39,7 @@ define(['jquery',
             dataServices.ophalenAdresOpPostcode(thisAdres.postcode(), thisAdres.huisnummer()).done(function(data){
                 log.debug(JSON.stringify(data));
 				thisAdres.straat(data.straat);
-				thisAdres.plaats(data.plaats);
+				thisAdres.plaats(data.plaats.toUpperCase());
 				thisAdres.postcode(thisAdres.zetPostcodeOm(thisAdres.postcode()));
             }).fail(function(data){
                 log.debug(JSON.stringify(data));

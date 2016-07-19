@@ -34,7 +34,7 @@ define(['jquery',
                                 data.opmerkingen = opmerkingen;
                                 log.debug("applybindings met " + JSON.stringify(data));
                                 var schade = new Schade(data);
-                                fileUpload.init().done(function(){
+                                fileUpload.init(bedrijfId).done(function(){
                                     new opmerkingenLoader(bedrijfId).init().done(function(){
                                         ko.applyBindings(schade);
                             			$.unblockUI();

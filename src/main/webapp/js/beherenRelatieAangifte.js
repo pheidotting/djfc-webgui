@@ -14,7 +14,7 @@ define(['jquery',
 		log.debug("Ophalen openstaande aangiftes voor Relatie met id : " + relatieId);
 
 		dataServices.lijstOpenAangiftes(relatieId).done(function(data) {
-            fileUpload.init().done(function(){
+            fileUpload.init(relatieId).done(function(){
                 new opmerkingenLoader(relatieId).init().done(function(){
                         ko.applyBindings(new Aangiftes(data));
                 });

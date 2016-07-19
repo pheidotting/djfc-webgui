@@ -1,6 +1,7 @@
 define(['jquery',
          'knockout',
          'model/bijlage',
+         'model/groepbijlages',
          'commons/3rdparty/log',
          'commons/commonFunctions',
          'dataServices',
@@ -8,7 +9,7 @@ define(['jquery',
          'redirect',
          'fileUpload',
          'moment'],
-	function ($, ko, Bijlage, log, commonFunctions, dataServices, navRegister, redirect, fileUpload, moment) {
+	function ($, ko, Bijlage, GroepBijlages, log, commonFunctions, dataServices, navRegister, redirect, fileUpload, moment) {
 
 	return function communicatieproductModel (data, relatieId){
 		_cm = this;
@@ -107,29 +108,31 @@ define(['jquery',
             return deferred.promise();
 		};
 
-        _cm.nieuwePolisUpload = function (){
-            log.debug("Nieuwe bijlage upload");
-            $('uploadprogress').show();
 
-            if(_cm.id() == null){
-        		dataServices.opslaanAangifte(ko.toJSON(_cm)).done(function(data){
-	    			_cm.id(data);
-                    _cm.id.valueHasMutated();
+		_cm.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				_cm.groepBijlages().push(groepBijlages);
+			});
+		};
 
-                    fileUpload.uploaden().done(function(bijlage){
-                        console.log(ko.toJSON(bijlage));
-                        _cm.bijlages().push(bijlage);
-                        _cm.bijlages.valueHasMutated();
-                    });
-	    		});
-            } else {
-                fileUpload.uploaden().done(function(bijlage){
-                    console.log(ko.toJSON(bijlage));
-                    _cm.bijlages().push(bijlage);
+		_cm.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
+			$('uploadprogress').show();
+
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
+
+                if(uploadResultaat.bestandsNaam == null) {
+                    _cm.groepBijlages().push(uploadResultaat);
+                    _cm.groepBijlages.valueHasMutated();
+                } else {
+                    _cm.bijlages().push(uploadResultaat);
                     _cm.bijlages.valueHasMutated();
-                });
-            }
-        };
+                }
+            });
+		};
 
         _cm.beantwoordenKnopTonen = ko.observable();
         _cm.bewerkenKnopTonen = ko.observable();

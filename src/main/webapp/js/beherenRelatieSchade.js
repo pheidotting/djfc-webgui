@@ -35,7 +35,7 @@ define(['jquery',
                                 log.debug("applybindings met " + JSON.stringify(data));
                                 var schade = new Schade(data);
                                 schade.relatie(relatieId);
-                                fileUpload.init().done(function(){
+                                fileUpload.init(relatieId).done(function(){
                                     new opmerkingenLoader(relatieId).init().done(function(){
                                         ko.applyBindings(schade);
                                     });

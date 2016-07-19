@@ -40,7 +40,7 @@ define(['jquery',
                             var polis = new Polis(data, readOnly);
                             polis.bedrijfsId(bedrijfsId);
                             polis.bedrijf(bedrijfsId);
-                            fileUpload.init().done(function(){
+                            fileUpload.init(bedrijfsId).done(function(){
                                 new opmerkingenLoader(bedrijfsId).init().done(function(){
                                     ko.applyBindings(polis);
                                     $.unblockUI();

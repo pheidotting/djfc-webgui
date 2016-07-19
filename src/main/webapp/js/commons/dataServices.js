@@ -525,7 +525,35 @@ define(["commons/3rdparty/log",
             },
 
             lijstOpenAangiftes: function(relatie){
-                return this.voerUitGet(navRegister.bepaalUrl('LIJST_OPEN_AANGIFTES'), {relatie : relatie});
+                var _this = this;
+                var deferred = $.Deferred();
+
+                var aantalOphalen = 1;
+                var aangifteData = [];
+
+                this.voerUitGet(navRegister.bepaalUrl('LIJST_OPEN_AANGIFTES'), {relatie : relatie}).done(function(data){
+                    aantalOphalen = aantalOphalen + data.length - 1;
+
+                    $.each(data, function(index, aangifte){
+                        _this.lijstBijlages('AANGIFTES', jaarCijfers.id).done(function(bijlages){
+                            aangifte.bijlages = bijlages;
+                            _this.lijstOpmerkingen('AANGIFTES', jaarCijfers.id).done(function(opmerkingen){
+                                aangifte.opmerkingen = opmerkingen;
+                                aangifteData.push(aangifte);
+
+                                if(--aantalOphalen === 0) {
+                                    teruggeven();
+                                }
+                            });
+                        });
+                    });
+                });
+
+                function teruggeven(){
+                    return deferred.resolve(aangifteData);
+                }
+
+                return deferred.promise();
             },
 
             lijstGeslotenAangiftes: function(relatie){

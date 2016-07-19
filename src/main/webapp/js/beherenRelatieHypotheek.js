@@ -32,7 +32,7 @@ define(['jquery',
 				dataServices.leesHypotheek(hypotheekId).done(function(data) {
 					logger.debug("Gegevens opgehaald voor hypotheek, applyBindings");
 					logger.debug(data);
-                    fileUpload.init().done(function(){
+                    fileUpload.init(relatieId).done(function(){
 						new opmerkingenLoader(relatieId).init().done(function(){
 	    					ko.applyBindings(new hypotheek(data));
 						});

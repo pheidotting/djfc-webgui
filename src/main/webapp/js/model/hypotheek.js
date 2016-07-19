@@ -5,12 +5,13 @@ define(['jquery',
          "commons/opmaak",
          'moment',
          'model/bijlage',
+         'model/groepbijlages',
          'commons/commonFunctions',
          'dataServices',
          'redirect',
          'fileUpload',
          'opmerkingenModel'],
-	function($, ko, log, validation, opmaak, moment, Bijlage, commonFunctions, dataServices, redirect, fileUpload, opmerkingenModel) {
+	function($, ko, log, validation, opmaak, moment, Bijlage, GroepBijlages, commonFunctions, dataServices, redirect, fileUpload, opmerkingenModel) {
 
 	return function hypotheek(data) {
 		_hypotheek = this;
@@ -194,30 +195,30 @@ define(['jquery',
 	    	}
 		};
 
-        _hypotheek.nieuwePolisUpload = function (){
-            log.debug("Nieuwe bijlage upload");
-            $('uploadprogress').show();
+		_hypotheek.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				_hypotheek.groepBijlages().push(groepBijlages);
+			});
+		};
 
-            if(_hypotheek.id() == null){
-        		dataServices.opslaanHypotheek(ko.toJSON(_hypotheek)).done(function(data){
-	    			_hypotheek.id(data.foutmelding);
-                    _hypotheek.id.valueHasMutated();
+		_hypotheek.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
+			$('uploadprogress').show();
 
-                    fileUpload.uploaden().done(function(bijlage){
-                        console.log(ko.toJSON(bijlage));
-                        _hypotheek.bijlages().push(bijlage);
-                        _hypotheek.bijlages.valueHasMutated();
-                        redirect.redirect('BEHEREN_RELATIE', self.relatie(), 'hypotheek', _hypotheek.id());
-                    });
-	    		});
-            } else {
-                fileUpload.uploaden().done(function(bijlage){
-                    console.log(ko.toJSON(bijlage));
-                    _hypotheek.bijlages().push(bijlage);
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
+
+                if(uploadResultaat.bestandsNaam == null) {
+                    _hypotheek.groepBijlages().push(uploadResultaat);
+                    _hypotheek.groepBijlages.valueHasMutated();
+                } else {
+                    _hypotheek.bijlages().push(uploadResultaat);
                     _hypotheek.bijlages.valueHasMutated();
-                });
-            }
-        };
+                }
+            });
+		};
 
 	    self.bewerkHypotheek = function(hypotheek){
 	    	commonFunctions.verbergMeldingen();

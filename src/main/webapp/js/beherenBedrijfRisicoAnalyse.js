@@ -16,7 +16,7 @@ define(['jquery',
 		dataServices.ophalenRisicoAnalyse(bedrijfsId).done(function(data){
 			log.debug("Opgehaald " + JSON.stringify(data));
 
-            fileUpload.init().done(function(){
+            fileUpload.init(bedrijfsId).done(function(){
                 new opmerkingenLoader(bedrijfsId).init().done(function(){
                     ko.applyBindings(new risicoanalyse(data));
                     $.unblockUI();

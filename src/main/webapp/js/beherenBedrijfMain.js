@@ -22,7 +22,7 @@ define(['jquery',
 
 			var bedrijfKO = new Bedrijf(data);
 
-            new fileUpload.init().done(function(){
+            new fileUpload.init(bedrijfId).done(function(){
                 new opmerkingenLoader(bedrijfId).init().done(function(){
                     new adressenLoader(bedrijfId).init().done(function(){
                         new telefoonnummersLoader(bedrijfId).init().done(function(){

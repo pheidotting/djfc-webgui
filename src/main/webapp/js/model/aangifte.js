@@ -1,6 +1,7 @@
 define(['jquery',
          'knockout',
          'model/bijlage',
+         'model/groepbijlages',
          'commons/3rdparty/log',
          'commons/commonFunctions',
          'dataServices',
@@ -8,7 +9,7 @@ define(['jquery',
          'redirect',
          'fileUpload',
          'opmerkingenModel'],
-	function ($, ko, Bijlage, log, commonFunctions, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+	function ($, ko, Bijlage, GroepBijlages, log, commonFunctions, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
 
 	return function aangifteModel (data){
 		_aangifte = this;
@@ -53,29 +54,31 @@ define(['jquery',
 			});
 	    };
 
-        _aangifte.nieuwePolisUpload = function (){
-            log.debug("Nieuwe bijlage upload");
-            $('uploadprogress').show();
+		
+		_aangifte.groepBijlages = ko.observableArray();
+		if(data.groepBijlages != null){
+			$.each(data.groepBijlages, function(i, item){
+				var groepBijlages = new GroepBijlages(item);
+				_aangifte.groepBijlages().push(groepBijlages);
+			});
+		};
 
-            if(_aangifte.id() == null){
-        		dataServices.opslaanAangifte(ko.toJSON(_aangifte)).done(function(data){
-	    			_aangifte.id(data);
-                    _aangifte.id.valueHasMutated();
+		_aangifte.nieuwePolisUpload = function (){
+			log.debug("Nieuwe bijlage upload");
+			$('uploadprogress').show();
 
-                    fileUpload.uploaden().done(function(bijlage){
-                        console.log(ko.toJSON(bijlage));
-                        _aangifte.bijlages().push(bijlage);
-                        _aangifte.bijlages.valueHasMutated();
-                    });
-	    		});
-            } else {
-                fileUpload.uploaden().done(function(bijlage){
-                    console.log(ko.toJSON(bijlage));
-                    _aangifte.bijlages().push(bijlage);
+            fileUpload.uploaden().done(function(uploadResultaat){
+                log.debug(ko.toJSON(uploadResultaat));
+
+                if(uploadResultaat.bestandsNaam == null) {
+                    _aangifte.groepBijlages().push(uploadResultaat);
+                    _aangifte.groepBijlages.valueHasMutated();
+                } else {
+                    _aangifte.bijlages().push(uploadResultaat);
                     _aangifte.bijlages.valueHasMutated();
-                });
-            }
-        };
+                }
+            });
+		};
 
 	    _aangifte.opslaan = function(aangifte){
 			aangifte.bijlages([]);
