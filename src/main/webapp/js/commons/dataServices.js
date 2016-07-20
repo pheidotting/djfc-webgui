@@ -92,13 +92,15 @@ define(["commons/3rdparty/log",
 
                 $.when(this.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id}),
                         _this.lijstBijlages('RELATIE', id),
+                        _this.voerUitGet(navRegister.bepaalUrl('LIJST_GROEP_BIJLAGES') + '/RELATIE/' + id),
                         _this.lijstOpmerkingen('RELATIE', id),
                         _this.voerUitGet(navRegister.bepaalUrl('LIJST_ADRESSEN') + '/RELATIE/' + id),
                         _this.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/RELATIE/' + id),
                         _this.voerUitGet(navRegister.bepaalUrl('LIJST_REKENINGNUMMERS') + '/RELATIE/' + id)
-                        ).then(function(relatie, bijlages, opmerkingen, adressen, telefoonnummers, rekeningnummers ) {
+                        ).then(function(relatie, bijlages, groepBijlages, opmerkingen, adressen, telefoonnummers, rekeningnummers ) {
 
                             relatie.bijlages = bijlages;
+                            relatie.groepBijlages = groepBijlages;
                             relatie.opmerkingen = opmerkingen;
                             relatie.adressen = adressen;
                             relatie.telefoonnummers = telefoonnummers;
