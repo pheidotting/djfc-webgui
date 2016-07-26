@@ -42,7 +42,7 @@ define(['jquery',
                         log.debug(JSON.stringify(data));
                         var polis = new Polis(data, readOnly);
                         polis.relatie(relatieId);
-                        fileUpload.init(relatieId).done(function(){
+                        fileUpload.init(polisId).done(function(){
                             new opmerkingenLoader(relatieId).init().done(function(){
                                 ko.applyBindings(polis);
                                 $.unblockUI();
@@ -51,15 +51,15 @@ define(['jquery',
                     });
                 });
             });
-        }else{
-            var polis = new Polis('', readOnly);
-            polis.relatie(relatieId);
-            fileUpload.init().done(function(){
-                new opmerkingenLoader(relatieId).init().done(function(){
-                    ko.applyBindings(polis);
-                    $.unblockUI();
-                });
-            });
+//        }else{
+//            var polis = new Polis('', readOnly);
+//            polis.relatie(relatieId);
+//            fileUpload.init(0).done(function(){
+//                new opmerkingenLoader(relatieId).init().done(function(){
+//                    ko.applyBindings(polis);
+//                    $.unblockUI();
+//                });
+//            });
         }
 	};
 });
