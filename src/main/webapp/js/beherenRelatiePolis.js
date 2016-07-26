@@ -35,31 +35,21 @@ define(['jquery',
             log.debug("Ophalen Polis met id : " + polisId);
 
             dataServices.leesPolis(polisId).done(function(data){
-//                dataServices.lijstBijlages('POLIS', polisId).done(function(bijlages){
-//                    data.bijlages = bijlages;
-//                    dataServices.lijstOpmerkingen('POLIS', polisId).done(function(opmerkingen){
-//                        data.opmerkingen = opmerkingen;
-                        log.debug(JSON.stringify(data));
-                        var polis = new Polis(data, readOnly);
-                        polis.relatie(relatieId);
-                        fileUpload.init(polisId).done(function(){
-                            new opmerkingenLoader(relatieId).init().done(function(){
-                                ko.applyBindings(polis);
-                                $.unblockUI();
-//                            });
-//                        });
+                log.debug(JSON.stringify(data));
+                var polis = new Polis(data, readOnly);
+                polis.relatie(relatieId);
+                fileUpload.init(polisId).done(function(){
+                    new opmerkingenLoader(relatieId).init().done(function(){
+                        ko.applyBindings(polis);
+                        $.unblockUI();
                     });
                 });
             });
-//        }else{
-//            var polis = new Polis('', readOnly);
-//            polis.relatie(relatieId);
-//            fileUpload.init(0).done(function(){
-//                new opmerkingenLoader(relatieId).init().done(function(){
-//                    ko.applyBindings(polis);
-//                    $.unblockUI();
-//                });
-//            });
+        }else{
+            var polis = new Polis('', readOnly);
+            polis.relatie(relatieId);
+            ko.applyBindings(polis);
+            $.unblockUI();
         }
 	};
 });
