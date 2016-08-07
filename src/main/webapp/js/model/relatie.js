@@ -78,6 +78,11 @@ define(['jquery',
 		        if(item.soortAdres() === 'WOONADRES') {
 		            adres = item;
 		        }
+		        if(adres == null) {
+                    if(item.soortAdres() === 'POSTADRES') {
+                        adres = item;
+                    }
+}
 		    });
 
 		    if(adres !== null) {
