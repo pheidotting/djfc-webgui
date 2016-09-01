@@ -7,6 +7,7 @@ define(['jquery',
 			if (status == "success") {
 				$.get( "../dejonge/rest/medewerker/taak/aantalOpenTaken", function(data) {
 					$('#aantalOpenstaandeTaken').html(data);
+                    $.unblockUI();
 				});
 			}
 
