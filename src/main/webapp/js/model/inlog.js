@@ -19,8 +19,10 @@ define(['jquery',
 					dataServices.inloggen(ko.toJSON(this)).done(function(){
 						commonFunctions.haalIngelogdeGebruiker();
 						redirect.redirect('DASHBOARD');
+                        $.unblockUI();
 					}).fail(function(result){
 						commonFunctions.plaatsFoutmelding(result);
+                        $.unblockUI();
 					});
 				}
 			}
