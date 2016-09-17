@@ -47,7 +47,7 @@ define(['jquery',
                     log.debug("applybindings met een nieuw Schade object");
                     var schade = new Schade('');
                     schade.bedrijf(bedrijfId);
-                    fileUpload.init().done(function(){
+                    fileUpload.init(bedrijfId).done(function(){
                         new opmerkingenLoader(bedrijfId).init().done(function(){
                             ko.applyBindings(schade);
                             $.unblockUI();
