@@ -15,7 +15,7 @@ define([ "commons/3rdparty/log",
 
 		zetDatumTijdOm: function(datumZonderStreepjes){
 		    if(datumZonderStreepjes !== undefined && datumZonderStreepjes !== null) {
-		        datumZonderStreepjes = datumZonderStreepjes.replace(' ', '');
+		        datumZonderStreepjes = datumZonderStreepjes.replace(' ', '').replace(':', '').replace('-', '').replace('-', '');
     			var datumMetStreepjes = datumZonderStreepjes;
 
                 if(datumZonderStreepjes.length === 12 && this.isNumeric(datumZonderStreepjes)){
