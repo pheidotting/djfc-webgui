@@ -6,8 +6,9 @@ define(['jquery',
         'commons/commonFunctions',
          'dataServices',
         'fileUpload',
-        'opmerkingenLoader'],
-    function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
+        'opmerkingenLoader',
+        'navRegister'],
+    function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader, navRegister) {
 
     return function(schadeId, relatieId) {
 		block.block();
@@ -32,13 +33,16 @@ define(['jquery',
                             data.bijlages = bijlages;
                             dataServices.lijstOpmerkingen('SCHADE', schadeId).done(function(opmerkingen){
                                 data.opmerkingen = opmerkingen;
-                                log.debug("applybindings met " + JSON.stringify(data));
-                                var schade = new Schade(data);
-                                schade.relatie(relatieId);
-                                fileUpload.init(relatieId).done(function(){
-                                    new opmerkingenLoader(relatieId).init().done(function(){
-                                        ko.applyBindings(schade);
-                    			        $.unblockUI();
+                                dataServices.voerUitGet(navRegister.bepaalUrl('LIJST_GROEP_BIJLAGES') + '/SCHADE/' + schadeId).done(function(groepBijlages){
+                                    data.groepBijlages = groepBijlages;
+                                    log.debug("applybindings met " + JSON.stringify(data));
+                                    var schade = new Schade(data);
+                                    schade.relatie(relatieId);
+                                    fileUpload.init(relatieId).done(function(){
+                                        new opmerkingenLoader(relatieId).init().done(function(){
+                                            ko.applyBindings(schade);
+                                            $.unblockUI();
+                                        });
                                     });
                                 });
                             });
