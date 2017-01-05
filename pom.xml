@@ -329,35 +329,35 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.samaxes.maven</groupId>
-                <artifactId>minify-maven-plugin</artifactId>
-                <version>1.7.5</version>
-                <executions>
-                    <execution>
-                        <id>min-js</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>minify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <charset>UTF-8</charset>
-                    <skipMerge>true</skipMerge>
-                    <jsSourceDir>js</jsSourceDir>
-                    <jsEngine>CLOSURE</jsEngine>
-                    <closureAngularPass>true</closureAngularPass>
-                    <nosuffix>true</nosuffix>
-                    <webappTargetDir>${project.build.directory}/minify</webappTargetDir>
-                    <jsSourceIncludes>
-                        <jsSourceInclude>**/*.js</jsSourceInclude>
-                    </jsSourceIncludes>
-                    <jsSourceExcludes>
-                        <jsSourceExclude>**/*.min.js</jsSourceExclude>
-                    </jsSourceExcludes>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+            <!--<groupId>com.samaxes.maven</groupId>-->
+            <!--<artifactId>minify-maven-plugin</artifactId>-->
+            <!--<version>1.7.5</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>min-js</id>-->
+            <!--<phase>prepare-package</phase>-->
+            <!--<goals>-->
+            <!--<goal>minify</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--<configuration>-->
+            <!--<charset>UTF-8</charset>-->
+            <!--<skipMerge>true</skipMerge>-->
+            <!--<jsSourceDir>js</jsSourceDir>-->
+            <!--<jsEngine>CLOSURE</jsEngine>-->
+            <!--<closureAngularPass>true</closureAngularPass>-->
+            <!--<nosuffix>true</nosuffix>-->
+            <!--<webappTargetDir>${project.build.directory}/minify</webappTargetDir>-->
+            <!--<jsSourceIncludes>-->
+            <!--<jsSourceInclude>**/*.js</jsSourceInclude>-->
+            <!--</jsSourceIncludes>-->
+            <!--<jsSourceExcludes>-->
+            <!--<jsSourceExclude>**/*.min.js</jsSourceExclude>-->
+            <!--</jsSourceExcludes>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
         <finalName>gui</finalName>
     </build>
