@@ -1,16 +1,19 @@
 <br />
 <br />
-<div style="cursor:pointer;" onclick="document.location.hash='#taken'">Taken (<span id="aantalOpenstaandeTaken"></span> openstaand)</div><br />
+<div data-bind="visible: aantalOpenstaandeTakenTonen">
+    <a style="cursor:pointer;" href="https://todoist.com/app?lang=nl&v=847#agenda%2Foverdue%2C%20today">Taken (<span
+            data-bind="text: aantalOpenstaandeTaken"></span> openstaand)</a><br/>
+</div>
 <br />
 <br />
 <br />
 <br />
 <br />
 <div class="dashboardKnoppen">
-    <button id="naarParticulier">Particulier</button>
+    <button id="naarParticulier" data-bind="click: naarParticulier">Particulier</button>
     &nbsp;
     &nbsp;
     &nbsp;
     &nbsp;
-    <button id="naarZakelijk">Zakelijk</button>
+    <button id="naarZakelijk" data-bind="click: naarZakelijk">Zakelijk</button>
 </div>

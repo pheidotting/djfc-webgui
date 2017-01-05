@@ -10,6 +10,7 @@ define(['jquery',
     function($, ko, LijstBedrijven, Bedrijf, functions, block, log, dataServices, redirect) {
 
     return function(zoekTerm){
+        var _this = this;
 		var lijst = new LijstBedrijven();
 
 		$('#content').load('templates/lijstBedrijven.html', function(response, status, xhr) {
@@ -30,7 +31,15 @@ define(['jquery',
 						ko.applyBindings(lijst);
 						$.unblockUI();
 					}
-				});
+    			});
+                if(zoekTerm != null && zoekTerm != '') {
+                    lijst().gezochtMetTonen(true);
+                    lijst().gezochtMet(zoekTerm);
+                } else {
+                   lijst().gezochtMetTonen(false);
+                }
+                lijst().gezochtMetTonen.valueHasMutated();
+                lijst().gezochtMet.valueHasMutated();
             }
 		
 			$('#zoeken').click(function(){

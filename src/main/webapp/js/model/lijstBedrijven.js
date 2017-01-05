@@ -17,7 +17,11 @@ define(['jquery',
 				$(document).ajaxStop($.unblockUI);
 				$.blockUI({ message: '<img src="images/ajax-loader.gif">'});
 				redirect.redirect('BEHEREN_BEDRIJF', bedrijf.id());
-			}
+			},
+
+            gezochtMetTonen : ko.observable('abc'),
+            gezochtMet : ko.observable(false)
+
 		});
 
 		return bedrijfLijstModel;

@@ -4,23 +4,23 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions',
-        'dataServices',
         'fileUpload',
-        'opmerkingenLoader'],
-    function($, ko, Polis, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader) {
+        'opmerkingenLoader',
+        'service/polis-service'],
+    function($, ko, Polis, block, log, commonFunctions, fileUpload, opmerkingenLoader, polisService) {
 
     return function(polisId, relatieId, readOnly) {
 		block.block();
 		log.debug("Ophalen lijst met verzekeringsmaatschappijen");
 
-		dataServices.lijstVerzekeringsmaatschappijen().done(function(data){
+		polisService.lijstVerzekeringsmaatschappijen().done(function(data){
 			var $select = $('#verzekeringsMaatschappijen');
 			$.each(data, function(key, value) {
 			    $('<option>', { value : key }).text(value).appendTo($select);
 			});
 		});
 
-		dataServices.lijstParticulierePolissen().done(function(data){
+		polisService.lijstParticulierePolissen().done(function(data){
 			var $select = $('#soortVerzekering');
 			$.each(data, function(key, value) {
 			    $('<option>', { value : value }).text(value).appendTo($select);
@@ -34,7 +34,7 @@ define(['jquery',
             $('#soortVerzekeringAlles').prop('disabled', true);
             log.debug("Ophalen Polis met id : " + polisId);
 
-            dataServices.leesPolis(polisId).done(function(data){
+            polisService.lees(polisId).done(function(data){
                 log.debug(JSON.stringify(data));
                 var polis = new Polis(data, readOnly);
                 polis.relatie(relatieId);
@@ -48,8 +48,10 @@ define(['jquery',
         }else{
             var polis = new Polis('', readOnly);
             polis.relatie(relatieId);
-            ko.applyBindings(polis);
-            $.unblockUI();
+            new opmerkingenLoader(relatieId).init().done(function(){
+                ko.applyBindings(polis);
+                $.unblockUI();
+            });
         }
 	};
 });

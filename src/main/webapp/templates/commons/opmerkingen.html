@@ -1,31 +1,33 @@
-<div data-bind="visible: opmerkingenModel.schermTonen">
-    <div id="opmerkingen" data-bind="foreach: opmerkingenModel.opmerkingen">
+<h3>Opmerkingen</h3>
+<span class="glyphicon glyphicon-plus" data-bind="click: opmerkingenModel.voegOpmerkingToe" id="voegOpmerkingToe"
+      style="cursor:pointer"></span>
+<div id="opmerkingen" data-bind="foreach: opmerkingenModel.opmerkingen">
+    <div data-bind="if: idIsNietNull">
         <strong>
-            <span data-bind="text: medewerker"/>, <span data-bind="text: tijd"/> <span
-                class="glyphicon glyphicon-remove"
-                data-bind="click: $parent.opmerkingenModel.verwijder, visible: $parent.notReadOnly"
-                style="cursor:pointer"></span>
+            <span data-bind="text: medewerker"/>, <span data-bind="text: tijd"/>
         </strong>
+        &nbsp;<span class="glyphicon glyphicon-minus" data-bind="click: $parent.opmerkingenModel.verwijder"
+                    id="verwijder" style="cursor:pointer"></span>
         <br/>
         <div style="white-space: pre-wrap"
-             data-bind="text: opmerking, click: startBewerken, visible: $parent.notReadOnly, attr:{id: 'tekst' + id()}"></div>
+             data-bind="text: opmerking, click: $parent.opmerkingenModel.startBewerken, visible: $parent.opmerkingenModel.notReadOnly, attr:{id: 'tekst' + id()}"
+             name="wateenrareidisdit"></div>
         <div style="white-space: pre-wrap"
-             data-bind="text: opmerking, visible: $parent.readOnly, attr:{id: 'tekst' + id()}"></div>
+             data-bind="text: opmerking, visible: $parent.opmerkingenModel.readOnly, attr:{id: 'tekst' + id()}"></div>
         <div data-bind="attr:{id: 'edit' + id()}" style="display: none;">
             <textarea data-bind="value: opmerking" rows="5"></textarea><br/>
-            <button data-bind="click: opslaan">Opslaan</button>
-            <button data-bind="click: annuleren">Annuleren</button>
+            <button data-bind="click: $parent.opmerkingenModel.opslaan">Opslaan</button>
+            <button data-bind="click: $parent.opmerkingenModel.annuleren">Annuleren</button>
         </div>
         <br/>
     </div>
-    <div data-bind="visible: notReadOnly">
+
+    <div data-bind="if: idIsNull">
         <label>
             Nieuwe opmerking:
         </label>
-        <textarea id="nieuweOpmerking" data-bind="value: opmerkingenModel.nieuweOpmerking" rows="5"></textarea><br/>
-        <button id="opslaanOpmerking" class="btn btn-primary" data-bind="click: opmerkingenModel.opmerkingOpslaan">
-            Opmerking
-            opslaan
-        </button>
+        &nbsp;<span class="glyphicon glyphicon-minus" data-bind="click: $parent.opmerkingenModel.verwijder"
+                    id="verwijderNieuweOpmerking" style="cursor:pointer"></span>
+        <textarea name="nieuweOpmerking" data-bind="value: opmerking" rows="5"></textarea><br/>
     </div>
 </div>

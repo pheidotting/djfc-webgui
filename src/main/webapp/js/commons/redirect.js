@@ -1,7 +1,9 @@
-define([ "commons/3rdparty/log"],
+define([ "commons/3rdparty/log2"],
     function(log) {
+        var logger = log.getLogger('redirect');
 
         return {
+
             redirect: function(waarnaartoe, var1, var2, var3, var4, var5) {
                 var vars = [{naam: 'LIJST_RELATIES',    url: '#lijstRelaties'},
                             {naam: 'LIJST_BEDRIJVEN',   url: '#lijstBedrijven'},
@@ -24,27 +26,27 @@ define([ "commons/3rdparty/log"],
                 }
 
                 if(var1 !== undefined){
-                    log.debug(var1);
+                    logger.debug(var1);
                     url = url + "/" + var1;
                 }
                 if(var2 !== undefined){
-                    log.debug(var2);
+                    logger.debug(var2);
                     url = url + "/" + var2;
                 }
                 if(var3 !== undefined){
-                    log.debug(var3);
+                    logger.debug(var3);
                     url = url + "/" + var3;
                 }
                 if(var4 !== undefined){
-                    log.debug(var4);
+                    logger.debug(var4);
                     url = url + "/" + var4;
                 }
                 if(var5 !== undefined){
-                    log.debug(var5);
+                    logger.debug(var5);
                     url = url + "/" + var5;
                 }
 
-                log.debug(url);
+                logger.debug(url);
                 document.location.hash = url;
             }
         }

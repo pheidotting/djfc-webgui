@@ -7,11 +7,11 @@ define(['jquery',
          'model/bijlage',
          'model/groepbijlages',
          'commons/commonFunctions',
-         'dataServices',
+         'service/hypotheek-service',
          'redirect',
          'fileUpload',
          'opmerkingenModel'],
-	function($, ko, log, validation, opmaak, moment, Bijlage, GroepBijlages, commonFunctions, dataServices, redirect, fileUpload, opmerkingenModel) {
+	function($, ko, log, validation, opmaak, moment, Bijlage, GroepBijlages, commonFunctions, hypotheekService, redirect, fileUpload, opmerkingenModel) {
 
 	return function hypotheek(data) {
 		_hypotheek = this;
@@ -25,7 +25,7 @@ define(['jquery',
 		_hypotheek.soorten = function(){
             var deferred = $.Deferred();
 
-			dataServices.lijstSoortenHypotheek().done(function (data) {
+			hypotheekService.lijstSoortenHypotheek().done(function (data) {
 				$.each(data, function(i, item) {
 					_hypotheek.soortenHypotheek.push(new SoortHypotheek(item));
 				});
@@ -186,7 +186,7 @@ define(['jquery',
 
                 _hypotheek.soortenHypotheek([]);
 
-	    		dataServices.opslaanHypotheek(ko.toJSON(hypotheek)).done(function(data){
+	    		hypotheekService.opslaanHypotheek(hypotheek).done(function(data){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					redirect.redirect('BEHEREN_RELATIE', hypotheek.relatie(), 'hypotheken');
 	    		}).fail(function(data){
@@ -248,7 +248,7 @@ define(['jquery',
 			var r=confirm("Weet je zeker dat je deze bijlage wilt verwijderen?");
 			if (r === true) {
 				_hypotheek.bijlages.remove(bijlage);
-				dataServices.verwijderBijlage(bijlage.id());
+				hypotheekService.verwijderBijlage(bijlage.id());
 			}
 		};
 

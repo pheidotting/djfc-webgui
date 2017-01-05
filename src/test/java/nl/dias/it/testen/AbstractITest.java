@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -46,12 +46,15 @@ public abstract class AbstractITest {
 
 
     protected WebDriver getDriver() {
-        WebDriver driver = new FirefoxDriver();
-        //        String phantomJsPath=      "//Users//patrickheidotting//Downloads//phantom//bin/phantomjs";
-        //                DesiredCapabilities caps = new DesiredCapabilities();
-        //                caps.setJavascriptEnabled(true);
-        //                caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, phantomJsPath);
-        //                WebDriver driver=new PhantomJSDriver(caps);
+        System.setProperty("webdriver.gecko.driver", "/Users/patrickheidotting/Downloads/geckodriver");
+        System.setProperty("webdriver.chrome.driver", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
+        //        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
+        //                String phantomJsPath=      "//Users//patrickheidotting//Downloads//phantom//bin/phantomjs";
+        //                        DesiredCapabilities caps = new DesiredCapabilities();
+        //                        caps.setJavascriptEnabled(true);
+        //                        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, phantomJsPath);
+        //                        WebDriver driver=new PhantomJSDriver(caps);
 
         return driver;
     }

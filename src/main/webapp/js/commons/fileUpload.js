@@ -1,14 +1,15 @@
-define(['commons/3rdparty/log',
+define(['commons/3rdparty/log2',
         'commons/commonFunctions',
         'model/groepbijlages',
         'model/bijlage',
         'commons/block',
         'navRegister'],
     function(log, commonFunctions, Groepbijlages, Bijlage, block, navRegister) {
+        var logger = log.getLogger('fileUpload');
 
         return {
             init: function(id){
-                log.debug("Instantieren file upload");
+                logger.debug("Instantieren file upload");
 
                 if(id != null && id !== 0) {
                     var deferred = $.Deferred();
@@ -28,7 +29,7 @@ define(['commons/3rdparty/log',
 
                 var formData = new FormData($('#fileUploadForm')[0]);
                 commonFunctions.uploadBestand(formData, navRegister.bepaalUrl('UPLOAD_BIJLAGE')).done(function(response) {
-                    log.debug(JSON.stringify(response));
+                    logger.debug(JSON.stringify(response));
 
                     $('#bijlageFile').val("");
 

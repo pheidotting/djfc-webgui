@@ -3,35 +3,37 @@
 
     <div class="form-group">
         <label for="naam">Naam</label>
-        <input class="form-control" type="text" id="naam" placeholder="Naam..." data-bind="value: naam"/>
+        <input class="form-control" type="text" id="naam" placeholder="Naam..." data-bind="value: bedrijf.naam"/>
     </div>
     <div class="form-group">
         <label for="kvk">Kvk</label>
-        <input class="form-control" type="text" id="kvk" placeholder="Kvk..." data-bind="value: kvk" maxlength="8"/>
+        <input class="form-control" type="text" id="kvk" placeholder="Kvk..." data-bind="value: bedrijf.kvk"
+               maxlength="8"/>
     </div>
     <div class="form-group">
         <label for="rechtsvorm">Rechtsvorm</label>
         <input class="form-control" type="text" id="rechtsvorm" placeholder="Rechtsvorm..."
-               data-bind="value: rechtsvorm"/>
+               data-bind="value: bedrijf.rechtsvorm"/>
     </div>
     <div class="form-group">
         <label for="email">E-mailadres</label>
-        <input class="form-control" type="text" id="email" placeholder="E-mailadres..." data-bind="value: email"/>
+        <input class="form-control" type="text" id="email" placeholder="E-mailadres..."
+               data-bind="value: bedrijf.email"/>
     </div>
     <div class="form-group">
         <label for="internetadres">Internetadres</label>
         <input class="form-control" type="text" id="internetadres" placeholder="Internetadres..."
-               data-bind="value: internetadres"/>
+               data-bind="value: bedrijf.internetadres"/>
     </div>
     <div class="form-group">
         <label for="hoedanigheid">Hoedanigheid</label>
         <input class="form-control" type="text" id="hoedanigheid" placeholder="Hoedanigheid..."
-               data-bind="value: hoedanigheid"/>
+               data-bind="value: bedrijf.hoedanigheid"/>
     </div>
     <div class="form-group">
         <label for="cAoVerplichtingen">CAO Verplichtingen</label>
         <input class="form-control" type="text" id="cAoVerplichtingen" placeholder="CAO Verplichtingen..."
-               data-bind="value: cAoVerplichtingen"/>
+               data-bind="value: bedrijf.cAoVerplichtingen"/>
     </div>
 </div>
 
@@ -94,22 +96,25 @@
                                    data-bind="value: id"/>
 
                             <div class="form-group">
-                                <label for="telnummer">Telefoonnummer</label>
-                                <input class="form-control" type="text" id="telnummer" name="telnummer"
-                                       data-bind="value: telefoonnummer, event: {click: startBewerken, blur: stopBewerken}"
+                                <label for="telnummerBijContactpersoon">Telefoonnummer</label>
+                                <input class="form-control" type="text" id="telnummerBijContactpersoon"
+                                       name="telnummerBijContactpersoon"
+                                       data-bind="value: telefoonnummer, event: {click: $parent.telefoonnummersModel.startBewerken, blur: $parent.telefoonnummersModel.stopBewerken}"
                                        maxlength="10"/>
                             </div>
                             <div class="form-group">
-                                <label for="soorttelnummer">Soort</label>
-                                <select id="soorttelnummer" name="soorttelnummer" data-bind="value: soort">
+                                <label for="soorttelnummerBijContactpersoon">Soort</label>
+                                <select id="soorttelnummerBijContactpersoon" name="soorttelnummerBijContactpersoon"
+                                        data-bind="value: soort">
                                     <option value="MOBIEL">Mobiel</option>
                                     <option value="VAST">Prive</option>
                                     <option value="WERK">Zakelijk</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="telefoonomschrijving">Omschrijving</label>
-                            <textarea id="telefoonomschrijving" data-bind="value: omschrijving" class="form-control"
+                                <label for="telefoonomschrijvingBijContactpersoon">Omschrijving</label>
+                            <textarea id="telefoonomschrijvingBijContactpersoon" data-bind="value: omschrijving"
+                                      class="form-control"
                                       rows="3"></textarea>
                             </div>
                             <span class="glyphicon glyphicon-minus" id="verwijderTelefoonNummer"

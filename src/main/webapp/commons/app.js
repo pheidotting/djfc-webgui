@@ -9,7 +9,7 @@ requirejs.config({
     	model: '../js/model',
     	knockout: '../commons/3rdparty/knockout',
         knockoutValidation: '../commons/3rdparty/knockoutValidation/knockout.validation',
-        blockUI: 'http://malsup.github.com/jquery.blockUI',
+        blockUI: '../commons/3rdparty/blockui',
         jqueryUI: '../commons/3rdparty/jquery-ui-1.10.3',
         dataServices: '../js/commons/dataServices',
         navRegister: '../js/commons/navRegister',
@@ -20,7 +20,14 @@ requirejs.config({
         adressenModel: '../js/commons/adressenModel',
         telefoonnummersLoader: '../js/commons/telefoonnummersLoader',
         telefoonnummersModel: '../js/commons/telefoonnummersModel',
-        redirect: '../js/commons/redirect'
+        redirect: '../js/commons/redirect',
+        service: '../js/service',
+        repository: '../js/repository',
+        view: '../js/view',
+        viewmodel: '../js/viewmodel',
+        mapper: '../js/mapper',
+        util: '../js/util',
+        underscore: '../js/commons/thirdparty/underscore'
     },
 	shim: {
         "knockoutValidation": ["knockout"],
@@ -38,14 +45,15 @@ requirejs(['jquery',
            'sammy',
            'commons/commonFunctions',
            'js/inloggen',
-           'js/lijstRelaties',
-           'js/lijstBedrijven',
+           'js/view/lijst-bedrijven-view',
            'js/beherenRelatie',
            'js/beherenBedrijf',
            'js/taak/taken',
            'js/taak/afhandelenTaak',
-           'js/dashboard'],
-function ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, beherenRelatie, beherenBedrijf, taken, afhandelenTaak, dashboard) {
+           'js/view/dashboard-view',
+           'js/view/lijst-relaties-view',
+           'js/lijstBedrijven'],
+function ($, Sammy, commonFunctions, inloggen, lijstBedrijven, beherenRelatie, beherenBedrijf, taken, afhandelenTaak, dashboard, lijstRelatiesView) {
 	commonFunctions.haalIngelogdeGebruiker();
 	window.setInterval(commonFunctions.haalIngelogdeGebruiker, 300000);
 
@@ -60,7 +68,7 @@ function ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, be
 	});
 
 	app.route('GET', '#dashboard', function() {
-		new dashboard();
+		dashboard.init();
 	});
 
 	app.route('GET', '#taak/:id', function() {
@@ -73,21 +81,21 @@ function ($, Sammy, commonFunctions, inloggen, lijstRelaties, lijstBedrijven, be
 	});
 
 	app.route('GET', '#lijstRelaties', function() {
-		new lijstRelaties();
+	    lijstRelatiesView.init();
 	});
 
 	app.route('GET', '#lijstRelaties/:zoekTerm', function() {
 		var zoekTerm = this.params['zoekTerm'];
-		new lijstRelaties(zoekTerm);
+	    lijstRelatiesView.init(zoekTerm);
 	});
 
 	app.route('GET', '#lijstBedrijven', function() {
-		new lijstBedrijven();
+		lijstBedrijven.init();
 	});
 
 	app.route('GET', '#lijstBedrijven/:zoekTerm', function() {
 		var zoekTerm = this.params['zoekTerm'];
-		new lijstBedrijven(zoekTerm);
+		lijstBedrijven.init(zoekTerm);
 	});
 
 	app.route('GET', '#beherenBedrijf/:id/:actie/:subId', function() {

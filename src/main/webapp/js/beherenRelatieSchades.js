@@ -4,14 +4,14 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions',
-        'dataServices'],
-    function($, ko, Schades, block, log, commonFunctions, dataServices) {
+        'service/schade-service'],
+    function($, ko, Schades, block, log, commonFunctions, schadeService) {
 
     return function(relatieId) {
 		log.debug("Ophalen schades bij Relatie met id " + relatieId);
 		block.block();
 
-		dataServices.lijstSchades(relatieId).done(function(data){
+		schadeService.lijstSchades(relatieId).done(function(data){
             log.debug("opgehaald : " + JSON.stringify(data));
             ko.validation.registerExtenders();
 

@@ -4,15 +4,17 @@ define(['jquery',
         'commons/block',
         'commons/3rdparty/log',
         'commons/commonFunctions',
-         'dataServices',
         'fileUpload',
         'opmerkingenLoader',
-        'navRegister'],
-    function($, ko, Schade, block, log, commonFunctions, dataServices, fileUpload, opmerkingenLoader, navRegister) {
+        'navRegister',
+        'service/schade-service',
+        'service/polis-service'],
+    function($, ko, Schade, block, log, commonFunctions, fileUpload, opmerkingenLoader, navRegister, schadeService, polisService) {
 
     return function(schadeId, relatieId) {
 		block.block();
-		dataServices.lijstPolissen(relatieId).done(function(data) {
+
+		polisService.lijstPolissen(relatieId).done(function(data) {
 			var $select = $('#polisVoorSchademelding');
 			$.each(data, function(key, value) {
 				var polisTitel = value.soort + " (" + value.polisNummer + ")";
@@ -20,7 +22,7 @@ define(['jquery',
 			    $('<option>', { value : value.id }).text(polisTitel).appendTo($select);
 			});
 
-            dataServices.lijstStatusSchade().done(function(data) {
+            schadeService.lijstStatusSchade().done(function(data) {
 				var $select = $('#statusSchade');
 				$.each(data, function(key, value) {
 				    $('<option>', { value : value }).text(value).appendTo($select);
@@ -28,32 +30,21 @@ define(['jquery',
 				if(schadeId != null && schadeId != "0"){
 					log.debug("ophalen Schade met id " + schadeId);
 
-					dataServices.leesSchade(schadeId).done(function(data) {
-                        dataServices.lijstBijlages('SCHADE', schadeId).done(function(bijlages){
-                            data.bijlages = bijlages;
-                            dataServices.lijstOpmerkingen('SCHADE', schadeId).done(function(opmerkingen){
-                                data.opmerkingen = opmerkingen;
-                                dataServices.voerUitGet(navRegister.bepaalUrl('LIJST_GROEP_BIJLAGES') + '/SCHADE/' + schadeId).done(function(groepBijlages){
-                                    data.groepBijlages = groepBijlages;
-                                    log.debug("applybindings met " + JSON.stringify(data));
-                                    var schade = new Schade(data);
-                                    schade.relatie(relatieId);
-                                    fileUpload.init(relatieId).done(function(){
-                                        new opmerkingenLoader(relatieId).init().done(function(){
-                                            ko.applyBindings(schade);
-                                            $.unblockUI();
-                                        });
-                                    });
-                                });
-                            });
-                        });
-				    });
+					$.when(schadeService.lees(schadeId), fileUpload.init(relatieId), new opmerkingenLoader(relatieId).init()).then(function(data){
+                        var schade = new Schade(data);
+                        schade.relatie(relatieId);
+                        ko.applyBindings(schade);
+                        $.unblockUI();
+					});
 				}else{
 					log.debug("applybindings met een nieuw Schade object");
 					var schade = new Schade('');
 					schade.relatie(relatieId);
-                    ko.applyBindings(schade);
-                    $.unblockUI();
+                    new opmerkingenLoader(relatieId).init().done(function(){
+                        log.debug('uhgyggygyg');
+                        ko.applyBindings(schade);
+                        $.unblockUI();
+                    });
 				}
 			});
 		});

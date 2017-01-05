@@ -17,6 +17,8 @@ define([ ],
                             {naam: 'VERWIJDER_RELATIE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/verwijderen'},
                             {naam: 'KOPPELEN_ONDERLINGE_RELATIE',       url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/koppelenOnderlingeRelatie'},
                             {naam: 'OPSLAAN_ADRES_BIJ_RELATIE',         url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanAdresBijRelatie'},
+                            {naam: 'OPSLAAN_OAUTH_CODE',                url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanoauthcode'},
+                            {naam: 'LEES_OAUTH_CODE',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/leesoauthcode'},
 
                             {naam: 'LIJST_ADRESSEN',                    url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alles'},
                             {naam: 'OPSLAAN_ADRESSEN',                  url: BASISURL_RELATIEBEHEER + '/medewerker/adres/opslaan'},
@@ -48,6 +50,7 @@ define([ ],
                             {naam: 'VERWIJDER_POLIS',                   url: BASISURL_RELATIEBEHEER + '/medewerker/polis/verwijder'},
 
                             {naam: 'VERWIJDER_BIJLAGE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/verwijder'},
+                            {naam: 'VERWIJDER_BIJLAGES',                url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/verwijderen'},
                             {naam: 'UPLOAD_BIJLAGE',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/uploadBijlage'},
                             {naam: 'WIJZIG_OMSCHRIJVING_BIJLAGE',       url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/wijzigOmschrijvingBijlage'},
                             {naam: 'LIJST_BIJLAGES',                    url: BASISURL_RELATIEBEHEER + '/medewerker/bijlage/alles'},
@@ -60,7 +63,7 @@ define([ ],
                             {naam: 'LIJST_SCHADES_BIJ_BEDRIJF',         url: BASISURL_RELATIEBEHEER + '/medewerker/schade/lijstBijBedrijf'},
 
                             {naam: 'LIJST_STATUS_SCHADE',               url: BASISURL_RELATIEBEHEER + '/medewerker/overig/lijstStatusSchade'},
-                            {naam: 'OPHALEN_ADRES_OP_POSTCODE',         url: BASISURL_RELATIEBEHEER + '/medewerker/overig/ophalenAdresOpPostcode'},
+                            {naam: 'OPHALEN_ADRES_OP_POSTCODE',         url: BASISURL_RELATIEBEHEER + '/medewerker/adres/ophalenAdresOpPostcode'},
 
                             {naam: 'LIJST_SOORTEN_HYPOTHEEK',           url: BASISURL_RELATIEBEHEER + '/medewerker/hypotheek/alleSoortenHypotheek'},
                             {naam: 'LIJST_HYPOTHEKEN_INCL_PAKKETTEN',   url: BASISURL_RELATIEBEHEER + '/medewerker/hypotheek/lijstHypothekenInclDePakketten'},
@@ -81,10 +84,13 @@ define([ ],
                             {naam: 'VRIJGEVEN_TAAK',                    url: BASISURL_RELATIEBEHEER + '/medewerker/taak/vrijgeven'},
                             {naam: 'OPPAKKEN_TAAK',                     url: BASISURL_RELATIEBEHEER + '/medewerker/taak/oppakken'},
                             {naam: 'OPEN_TAKEN_BIJ_RELATIE',            url: BASISURL_RELATIEBEHEER + '/medewerker/taak/alleOpenTakenVoorRelatie'},
+                            {naam: 'AANTAL_OPEN_TAKEN',                 url: BASISURL_RELATIEBEHEER + '/medewerker/taak/aantalOpenTaken'},
 
                             {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
                             {naam: 'VERWIJDER_OPMERKING',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijder'},
                             {naam: 'LIJST_OPMERKINGEN',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/alles'},
+                            {naam: 'OPSLAAN_OPMERKINGEN',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
+                            {naam: 'VERWIJDER_OPMERKINGEN',             url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijderen'},
 
                             {naam: 'LOG4JAVASCRIPT',                    url: BASISURL_RELATIEBEHEER + '/authorisatie/log4j/log4javascript'},
 
@@ -98,7 +104,15 @@ define([ ],
                             {naam: 'VERSTUREN_COMMUNICATIEPRODUCT',     url: BASISURL_RELATIEBEHEER + '/medewerker/communicatieproduct/versturen'},
                             {naam: 'OPSLAAN_COMMUNICATIEPRODUCT',       url: BASISURL_RELATIEBEHEER + '/medewerker/communicatieproduct/nieuw'},
 
-                            {naam: 'TRACKANDTRACEID',                   url: BASISURL_RELATIEBEHEER + '/medewerker/overig/getTrackAndTraceId'}
+                            {naam: 'TRACKANDTRACEID',                   url: BASISURL_RELATIEBEHEER + '/medewerker/overig/getTrackAndTraceId'},
+                            {naam: 'TOGGLZ',                            url: BASISURL_RELATIEBEHEER + '/authorisatie/togglz/toggles'},
+
+                            {naam: 'TODOIST_OAUTHTOKEN',                url: BASISURL_RELATIEBEHEER + '/medewerker/todoist/oauthToken'},
+                            {naam: 'TODOIST_PREFIX',                    url: BASISURL_RELATIEBEHEER + '/medewerker/todoist/getPrefix'},
+                            {naam: 'TODOIST_CLIENT_ID_EN_SECRET',       url: BASISURL_RELATIEBEHEER + '/medewerker/todoist/getClientIdEnClientSecret'},
+
+                            {naam: 'TELEFONIE_RECORDINGS',              url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/recordings'},
+                            {naam: 'TELEFONIE_DOWNLOAD',                url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/download'}
                         ];
 
                 var url = '';

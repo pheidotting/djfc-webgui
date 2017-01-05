@@ -1,24 +1,26 @@
-define(['jquery',
-        'js/beherenRelatieMain',
+    define(['jquery',
+        'view/beheren-relatie-view',
         'js/beherenRelatieBedrijven',
         'js/beherenRelatieBedrijf',
-        'js/beherenRelatiePolissen',
-        'js/beherenRelatiePolis',
-        'js/beherenRelatieSchades',
-        'js/beherenRelatieSchade',
-        'js/beherenRelatieHypotheken',
-        'js/beherenRelatieHypotheek',
+        'view/lijst-polissen-view',
+        'view/beheren-polis-view',
+        'view/lijst-schades-view',
+        'view/beheren-schade-view',
+        'view/lijst-hypotheken-view',
+        'view/beheren-hypotheek-view',
         'js/beherenRelatieBijlages',
         'js/beherenRelatieAangifte',
         'js/beherenRelatieAangiftes',
         'js/beherenRelatieCommunicaties',
         'js/beherenRelatieCommunicatie',
-        'commons/3rdparty/log',
+        'commons/3rdparty/log2',
         'commons/commonFunctions',
         'redirect'],
     function($, beherenRelatie, beherenRelatieBedrijven, beherenRelatieBedrijf, beherenRelatiePolissen, beherenRelatiePolis, beherenRelatieSchades, beherenRelatieSchade, beherenRelatieHypotheken, beherenRelatieHypotheek, beherenRelatieBijlages, beherenRelatieAangifte, beherenRelatieAangiftes, beherenRelatieCommunicaties, beherenRelatieCommunicatie, log, commonFunctions, redirect) {
 
     return function(relatieId, actie, subId){
+        var logger = log.getLogger('beherenRelatie');
+
 		$('#content').load('templates/beherenRelatieTemplate.html', function(response, status, xhr) {
 			if(relatieId == undefined || relatieId == null || relatieId == 0){
 				$('#bedrijven').hide();
@@ -49,25 +51,26 @@ define(['jquery',
 				//Onderliggende pagina aanroepen
 				$('#details').load("templates/beherenRelatie" + pagina + ".html", function(){
 					if(actie == ""){
-						new beherenRelatie(relatieId);
+                		beherenRelatie.init(relatieId);
+//						new beherenRelatie(relatieId);
 					}else if(actie == "bedrijven"){
 						new beherenRelatieBedrijven(relatieId);
 					}else if(actie == "bedrijf"){
 						new beherenRelatieBedrijf(subId, relatieId);
 					}else if(actie == "polissen"){
-						new beherenRelatiePolissen(relatieId);
+						beherenRelatiePolissen.init(relatieId, 'RELATIE');
 					}else if(actie == "polis"){
-						new beherenRelatiePolis(subId, relatieId, false);
+						beherenRelatiePolis.init(subId, relatieId, false, 'RELATIE');
 					}else if(actie == "polisInzien"){
-						new beherenRelatiePolis(subId, relatieId, true);
+						beherenRelatiePolis.init(subId, relatieId, true, 'RELATIE');
 					}else if(actie == "schades"){
-						new beherenRelatieSchades(relatieId);
+						beherenRelatieSchades.init(relatieId, 'RELATIE');
 					}else if(actie == "schade"){
-						new beherenRelatieSchade(subId, relatieId);
+						beherenRelatieSchade.init(subId, relatieId, false, 'RELATIE');
 					}else if(actie == "hypotheken"){
-						new beherenRelatieHypotheken(relatieId);
+						beherenRelatieHypotheken.init(relatieId, 'RELATIE');
 					}else if(actie == "hypotheek"){
-						new beherenRelatieHypotheek(subId, relatieId);
+						beherenRelatieHypotheek.init(subId, relatieId, false, 'RELATIE');
 					}else if(actie == "bijlages"){
 						new beherenRelatieBijlages(relatieId);
 					}else if(actie == "aangifte"){
@@ -105,11 +108,11 @@ define(['jquery',
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'bedrijf', '0');
 				});
-				$("#polissen").click(function(){
+				$("#menuPolissen").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'polissen');
 				});
-				$("#polis").click(function(){
+				$("#menuPolis").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'polis', '0');
 				});
@@ -117,19 +120,19 @@ define(['jquery',
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'polisInzien', '0');
 				});
-				$("#schades").click(function(){
+				$("#menuSchades").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'schades');
 				});
-				$("#schade").click(function(){
+				$("#menuSchade").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'schade', '0');
 				});
-				$("#hypotheken").click(function(){
+				$("#menuHypotheken").click(function(){
 					commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'hypotheken');
 				});
-				$("#hypotheek").click(function(){
+				$("#menuHypotheek").click(function(){
 					commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_RELATIE', relatieId, 'hypotheek', '0');
 				});

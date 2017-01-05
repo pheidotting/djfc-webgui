@@ -1,99 +1,117 @@
 <h2>Hypotheek toevoegen</h2>
-<input type="hidden" id="id" name="id" data-bind="value: id" />
+<input type="hidden" id="id" name="id" data-bind="value: hypotheek.id"/>
 <div class="form-group">
 	<label for="bank">Bank</label>
-	<input class="form-control" type="text" id="bank" name="bank" data-bind="value: bank" />
+	<input class="form-control" type="text" id="bank" name="bank" data-bind="value: hypotheek.bank"/>
 </div>
 <div class="form-group">
 	<label for="hypotheekVorm">Hypotheekvorm</label>
-	<select id="hypotheekVorm" name="hypotheekVorm" data-bind="value: hypotheekVorm"></select>
+	<select id="hypotheekVorm" name="hypotheekVorm" data-bind="value: hypotheek.hypotheekVorm.id"></select>
 </div>
 <div class="form-group" id="gekoppeldeHypotheekGroep">
 	<label for="koppelHypotheek">Gekoppelde hypotheek</label>
-	<select id="koppelHypotheek" name="koppelHypotheek" data-bind="value: gekoppeldeHypotheek"></select>
+	<select id="koppelHypotheek" name="koppelHypotheek" data-bind="value: hypotheek.gekoppeldeHypotheek"></select>
 </div>
 <div class="form-group">
 	<label for="leningNummer">Leningnummer</label>
-	<input class="form-control" type="text" id=leningNummer placeholder="Leningnummer..." data-bind="value: leningNummer" />
+	<input class="form-control" type="text" id=leningNummer placeholder="Leningnummer..."
+		   data-bind="value: hypotheek.leningNummer"/>
 </div>
 <div class="form-group">
 	<label for="hypotheekBedrag">Hypotheek bedrag</label>
-	<input class="form-control" type="text" id=hypotheekBedrag placeholder="Hypotheek bedrag..." data-bind="value: hypotheekBedrag" />
+	<input class="form-control" type="text" id=hypotheekBedrag placeholder="Hypotheek bedrag..."
+		   data-bind="value: hypotheek.hypotheekBedrag"/>
 </div>
 <div class="form-group">
 	<label for="boxI">Box I</label>
-	<input class="form-control" id="boxI" name="boxI" data-bind="value: boxI" placeholder="BOX I" />
+	<input class="form-control" id="boxI" name="boxI" data-bind="value: hypotheek.boxI" placeholder="BOX I"/>
 </div>
 <div class="form-group">
 	<label for="boxIII">Box III</label>
-	<input class="form-control" id="boxIII" name="boxIII" data-bind="value: boxIII" placeholder="BOX III" />
+	<input class="form-control" id="boxIII" name="boxIII" data-bind="value: hypotheek.boxIII" placeholder="BOX III"/>
 </div>
 <div class="form-group">
 	<label for="rente">Rente</label>
-	<input class="form-control" type="text" id="rente" placeholder="Rente..." data-bind="value: rente" />
+	<input class="form-control" type="text" id="rente" placeholder="Rente..." data-bind="value: hypotheek.rente"/>
 </div>
 <div class="form-group">
 	<label for="marktWaarde">Marktwaarde</label>
-	<input class="form-control" type="text" id="marktWaarde" placeholder="Marktwaarde..." data-bind="value: marktWaarde" />
+	<input class="form-control" type="text" id="marktWaarde" placeholder="Marktwaarde..."
+		   data-bind="value: hypotheek.marktWaarde"/>
 </div>
 <div class="form-group">
 	<label for="onderpand">Onderpand</label>
-	<input class="form-control" type="text" id="onderpand" placeholder="Onderpand..." data-bind="value: onderpand" />
+	<input class="form-control" type="text" id="onderpand" placeholder="Onderpand..."
+		   data-bind="value: hypotheek.onderpand"/>
 </div>
 <div class="form-group">
 	<label for="koopsom">Koopsom</label>
-	<input class="form-control" type="text" id="koopsom" placeholder="Koopsom..." data-bind="value: koopsom" />
+	<input class="form-control" type="text" id="koopsom" placeholder="Koopsom..." data-bind="value: hypotheek.koopsom"/>
 </div>
 <div class="form-group">
 	<label for="vrijeVerkoopWaarde">Vrije verkoop waarde</label>
-	<input class="form-control" type="text" id="vrijeVerkoopWaarde" placeholder="Vrije verkoop waarde..." data-bind="value: vrijeVerkoopWaarde" />
+	<input class="form-control" type="text" id="vrijeVerkoopWaarde" placeholder="Vrije verkoop waarde..."
+		   data-bind="value: hypotheek.vrijeVerkoopWaarde"/>
 </div>
 <div class="form-group">
 	<label for="taxatieDatum">Taxatie datum</label>
-	<input class="form-control" type="text" id="taxatieDatum" placeholder="Taxatie datum..." data-bind="value: taxatieDatum, event: {blur: veranderDatum(taxatieDatum)}" />
+	<input class="form-control" type="text" id="taxatieDatum" placeholder="Taxatie datum..."
+		   data-bind="value: hypotheek.taxatieDatum, event: {blur: exitTaxatieDatum}"/>
 </div>
 <div class="form-group">
 	<label for="wozWaarde">WOZ Waarde</label>
-	<input class="form-control" type="text" id="wozWaarde" placeholder="WOZ Waarde..." data-bind="value: wozWaarde" />
+	<input class="form-control" type="text" id="wozWaarde" placeholder="WOZ Waarde..."
+		   data-bind="value: hypotheek.wozWaarde"/>
 </div>
 <div class="form-group">
 	<label for="waardeVoorVerbouwing">Waarde voor verbouwing</label>
-	<input class="form-control" type="text" id="waardeVoorVerbouwing" placeholder="Waarde voor verbouwing..." data-bind="value: waardeVoorVerbouwing" />
+	<input class="form-control" type="text" id="waardeVoorVerbouwing" placeholder="Waarde voor verbouwing..."
+		   data-bind="value: hypotheek.waardeVoorVerbouwing"/>
 </div>
 <div class="form-group">
 	<label for="waardeNaVerbouwing">Waarde na verbouwing</label>
-	<input class="form-control" type="text" id="waardeNaVerbouwing" placeholder="Waarde na verbouwing..." data-bind="value: waardeNaVerbouwing" />
+	<input class="form-control" type="text" id="waardeNaVerbouwing" placeholder="Waarde na verbouwing..."
+		   data-bind="value: hypotheek.waardeNaVerbouwing"/>
 </div>
 <div class="form-group">
 	<label for="ingangsDatum">Ingangs datum</label>
-	<input class="form-control" type="text" id="ingangsDatum" placeholder="Ingangs datum..." data-bind="value: ingangsDatum, event: { blur: berekenEinddatumLening, blur: veranderDatum(ingangsDatum) }" />
+	<input class="form-control" type="text" id="ingangsDatum" placeholder="Ingangs datum..."
+		   data-bind="value: hypotheek.ingangsDatum, event: { blur: berekenEinddatumLening, blur: exitIngangsDatum }"/>
 </div>
 <div class="form-group">
 	<label for="duur">Duur</label>
-	<input class="form-control" type="text" id="duur" placeholder="Duur..." data-bind="value: duur, event: { change: berekenEinddatumLening}" />
+	<input class="form-control" type="text" id="duur" placeholder="Duur..."
+		   data-bind="value: hypotheek.duur, event: { change: berekenEinddatumLening}"/>
 </div>
 <div class="form-group">
 	<label for="eindDatum">Eind datum</label>
-	<input class="form-control" type="text" id="eindDatum" placeholder="Eind datum..." data-bind="value: eindDatum, event: {blur: veranderDatum(eindDatum)}" />
+	<input class="form-control" type="text" id="eindDatum" placeholder="Eind datum..."
+		   data-bind="value: hypotheek.eindDatum, event: {blur: exitEindDatum}"/>
 </div>
 <div class="form-group">
 	<label for="ingangsDatumRenteVastePeriode">Ingangsdatum Rentevaste Periode</label>
-	<input class="form-control" type="text" id="ingangsDatumRenteVastePeriode" placeholder="Ingangsdatum Rentevaste Periode..." data-bind="value: ingangsDatumRenteVastePeriode, event: { change: berekenEinddatumRenteVastePeriode, blur: veranderDatum(ingangsDatumRenteVastePeriode)}" />
+	<input class="form-control" type="text" id="ingangsDatumRenteVastePeriode"
+		   placeholder="Ingangsdatum Rentevaste Periode..."
+		   data-bind="value: hypotheek.ingangsDatumRenteVastePeriode, event: { change: berekenEinddatumRenteVastePeriode, blur: exitIngangsDatumRenteVastePeriode}"/>
 </div>
 <div class="form-group">
 	<label for="duurRenteVastePeriode">Duur Rentevaste Periode</label>
-	<input class="form-control" type="text" id="duurRenteVastePeriode" placeholder="Duur Rentevaste Periode..." data-bind="value: duurRenteVastePeriode, event: { change: berekenEinddatumRenteVastePeriode }" />
+	<input class="form-control" type="text" id="duurRenteVastePeriode" placeholder="Duur Rentevaste Periode..."
+		   data-bind="value: hypotheek.duurRenteVastePeriode, event: { change: berekenEinddatumRenteVastePeriode }"/>
 </div>
 <div class="form-group">
 	<label for="eindDatumRenteVastePeriode">Einddatum Rentevaste Periode</label>
-	<input class="form-control" type="text" id="eindDatumRenteVastePeriode" placeholder="Einddatum Rentevaste Periode..." data-bind="value: eindDatumRenteVastePeriode, event: {blur: veranderDatum(eindDatumRenteVastePeriode)}" />
+	<input class="form-control" type="text" id="eindDatumRenteVastePeriode"
+		   placeholder="Einddatum Rentevaste Periode..."
+		   data-bind="value: hypotheek.eindDatumRenteVastePeriode, event: {blur: exitEindDatumRenteVastePeriode}"/>
 </div>
 <div class="form-group">
 	<label for="omschrijving">Omschrijving</label>
-	<textarea class="form-control" id="omschrijving" placeholder="Omschrijving..." data-bind="value: omschrijving"></textarea>
+	<textarea class="form-control" id="omschrijving" placeholder="Omschrijving..."
+			  data-bind="value: hypotheek.omschrijving"></textarea>
 </div>
 
-<div id="fileUpload"></div>
+<div id="bijlages"></div>
 
 <hr />
 

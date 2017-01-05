@@ -1,7 +1,9 @@
-define([ "commons/3rdparty/log",
-         'dataServices',
-         'redirect'],
+define(['commons/3rdparty/log2',
+        'dataServices',
+        'redirect'],
     function(log, dataServices, redirect) {
+
+    var logger = log.getLogger('commonFunctions');
 
 	return {
 		zetDatumOm: function(datumZonderStreepjes){
@@ -9,7 +11,7 @@ define([ "commons/3rdparty/log",
 			if(datumZonderStreepjes !== undefined && datumZonderStreepjes !== null && datumZonderStreepjes.length === 8 && this.isNumeric(datumZonderStreepjes)){
 				datumMetStreepjes = datumZonderStreepjes.substring(0, 2) + "-" + datumZonderStreepjes.substring(2, 4) + "-" + datumZonderStreepjes.substring(4, 8);
             }
-			
+
 			return datumMetStreepjes;
 		},
 
@@ -38,8 +40,8 @@ define([ "commons/3rdparty/log",
  		},
 
  		plaatsFoutmeldingString: function(melding){
-			$('#alertDanger').show();
 			$('#alertDanger').html("Er is een fout opgetreden : " + melding);
+			$('#alertDanger').show();
  		},
 
  		plaatsMelding: function(melding){
@@ -50,8 +52,8 @@ define([ "commons/3rdparty/log",
 		},
 
 		nietMeerIngelogd: function(data){
-        	log.error("FOUT opgehaald : " + JSON.stringify(data));
-        	log.error("naar inlogscherm");
+        	logger.error("FOUT opgehaald : " + JSON.stringify(data));
+        	logger.error("naar inlogscherm");
 			redirect.redirect('INLOGGEN');
 			this.plaatsFoutmelding("Sessie verlopen, graag opnieuw inloggen");
 		},
@@ -73,24 +75,28 @@ define([ "commons/3rdparty/log",
 		},
 
 		haalIngelogdeGebruiker: function(){
-			log.debug("Haal ingelogde gebruiker");
+			logger.debug("Haal ingelogde gebruiker");
 
 			dataServices.haalIngelogdeGebruiker().done(function(response){
 				if(response.kantoor != null){
-					log.debug("Ingelogde gebruiker : " + response.gebruikersnaam + ", (" + response.kantoor + ")");
+					logger.debug("Ingelogde gebruiker : " + response.gebruikersnaam + ", (" + response.kantoor + ")");
 					$('#ingelogdeGebruiker').html("Ingelogd als : " + response.gebruikersnaam + ", (" + response.kantoor + ")");
 				}else{
-					log.debug("Ingelogde gebruiker : " + response.gebruikersnaam);
+					logger.debug("Ingelogde gebruiker : " + response.gebruikersnaam);
 					$('#ingelogdeGebruiker').html("Ingelogd als : " + response.gebruikersnaam);
 				}
 				$('#uitloggen').show();
 				$('#homeKnop').show();
+
+				return true;
 			}).fail(function(){
-				log.debug("Niet ingelogd, naar de inlogpagina");
+				logger.debug("Niet ingelogd, naar de inlogpagina");
 				$('#ingelogdeGebruiker').html("");
 				$('#uitloggen').hide();
 				$('#homeKnop').hide();
-				redirect.redirect('INLOGGEN');
+//				redirect.redirect('INLOGGEN');
+
+				return false;
 			});
 		},
 

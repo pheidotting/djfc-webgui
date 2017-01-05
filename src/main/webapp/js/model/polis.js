@@ -10,8 +10,9 @@ define(['jquery',
          'navRegister',
          'redirect',
          'fileUpload',
-         'opmerkingenModel'],
-	function ($, ko, log, commonFunctions, moment, Bijlage, Groepbijlages, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+         'opmerkingenModel',
+        'service/polis-service'],
+	function ($, ko, log, commonFunctions, moment, Bijlage, Groepbijlages, opmaak, dataServices, navRegister, redirect, fileUpload, opmerkingenModel, polisService) {
 
 	return function polisModel (data, readOnly) {
 		var _polis = this;
@@ -172,11 +173,7 @@ define(['jquery',
 	    		result.showAllMessages(true);
 	    	}else{
 	    		commonFunctions.verbergMeldingen();
-	    		log.debug("versturen naar " + navRegister.bepaalUrl('OPSLAAN_POLIS'));
-				_polis.opmerkingenModel = new opmerkingenModel(data.opmerkingen, null, null, data.id, null);
-				_polis.bijlages = ko.observableArray();
-	    		log.debug(ko.toJSON(polis));
-	    		dataServices.opslaanPolis(ko.toJSON(polis)).done(function() {
+	    		polisService.opslaan(polis).done(function() {
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 					if(polis.relatie() !== undefined && polis.relatie() !== null && polis.relatie() !== '0') {
 						redirect.redirect('BEHEREN_RELATIE', polis.relatie(), 'polissen');

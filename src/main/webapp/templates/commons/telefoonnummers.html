@@ -1,6 +1,6 @@
 <div class="form-group">
-    <strong>Telefoongegevens</strong>&nbsp;<span class="glyphicon glyphicon-plus"
-                                                 data-bind="click: telefoonnummersModel.voegTelefoonNummerToe"
+    <strong>Telefoongegevens</strong>
+    &nbsp;<span class="glyphicon glyphicon-plus" data-bind="click: telefoonnummersModel.voegTelefoonNummerToe"
                                                  id="voegTelefoonNummerToe"></span>
 </div>
 <div id="telefoonnummers"
@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="telnummer">Telefoonnummer</label>
                 <input class="form-control" type="text" id="telnummer" name="telnummer"
-                       data-bind="value: telefoonnummer, event: {click: startBewerken, blur: stopBewerken}"
+                       data-bind="value: telefoonnummer, event: {click: $parent.telefoonnummersModel.startBewerken, blur: $parent.telefoonnummersModel.stopBewerken}"
                        maxlength="10"/>
             </div>
             <div class="form-group">
@@ -29,7 +29,7 @@
                               rows="3"></textarea>
             </div>
             <span class="glyphicon glyphicon-minus" id="verwijderTelefoonNummer"
-                  data-bind="click: $parent.verwijderTelefoonNummer"></span>
+                  data-bind="click: $parent.telefoonnummersModel.verwijderTelefoonNummer"></span>
         </div>
     </div>
 </div>

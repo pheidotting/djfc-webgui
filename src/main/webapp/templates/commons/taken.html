@@ -1,0 +1,14 @@
+<h3>Taken</h3>
+<span class="glyphicon glyphicon-question-sign" data-bind="click: taakModel.hideOrDisplay"></span>
+<div id="zelfToevoegen" style="display:none">Een bestaande taak toevoegen? Voeg dan 1 label toe met <span
+        data-bind="text: taakModel.soortEntiteit"></span> en 1 label met <span data-bind="text: taakModel.id"></span>
+</div>
+
+<textarea id="nieuweTaakTextarea" data-bind="value: taakModel.nieuweTaakTekst"></textarea><br/>
+<input type="text" id="nieuweTaakReminder"
+       data-bind="value: taakModel.nieuweTaakReminder, event: {blur: exitNieuweTaakReminder}"/><br/>
+<button id="voegTaakToe" class="btn btn-primary" data-bind="click: taakModel.voegTaakToe">Opslaan</button>
+
+<div id="takenForEach" data-bind="foreach: taakModel.taken, visible: taakModel.taken().length > 0">
+    <a data-bind="text: titel, attr:{href: link}" target="_blank"></a><br/>
+</div>

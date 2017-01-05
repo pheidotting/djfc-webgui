@@ -3,7 +3,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 data-bind="attr:{class: className}">
-					<a data-toggle="collapse" data-parent="#accordion"
+					<a data-toggle="collapse" data-parent="#accordion" name="polis-titel"
 					   data-bind="attr:{href: idDivLink}, text: titel"></a>
 					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
@@ -12,23 +12,29 @@
 						</button>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<span class="glyphicon glyphicon-eye-open" style="cursor:pointer;" data-bind="click: polisInzien"></span>
-								<span style="cursor:pointer;" data-bind="click: polisInzien" name="polisInzien">Inzien</span>
+								<span class="glyphicon glyphicon-eye-open" style="cursor:pointer;"
+									  data-bind="click: $parent.polisInzien"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.polisInzien" name="polisInzien">Inzien</span>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;" data-bind="click: bewerkPolis"></span>
-								<span style="cursor:pointer;" data-bind="click: bewerkPolis" name="bewerkPolis">Bewerken</span>
+								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;"
+									  data-bind="click: $parent.bewerkPolis"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.bewerkPolis" name="bewerkPolis">Bewerken</span>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;" data-bind="click: beeindigPolis"></span>
-								<span style="cursor:pointer;" data-bind="click: beeindigPolis" name="beeindigPolis">Beeindigen</span>
+								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;"
+									  data-bind="click: $parent.beeindigPolis"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.beeindigPolis"
+									  name="beeindigPolis">Beeindigen</span>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<span class="glyphicon glyphicon-trash" style="cursor:pointer;" data-bind="click: $root.verwijderPolis"></span>
-								<span style="cursor:pointer;" data-bind="click: $root.verwijderPolis" name="verwijderPolis">Verwijderen</span>
+								<span class="glyphicon glyphicon-trash" style="cursor:pointer;"
+									  data-bind="click: $parent.verwijderPolis"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.verwijderPolis"
+									  name="verwijderPolis">Verwijderen</span>
 							</li>
 						</ul>
 					</div>
@@ -45,10 +51,10 @@
 				</thead>
 				<tbody>
 				<tr>
-					<td id="polisNummer" data-bind="text: polisNummer"></td>
-					<td id="status" data-bind="text: status"></td>
-					<td id="verzekerdeZaak" data-bind="text: verzekerdeZaak"></td>
-					<td id="maatschappij" data-bind="text: maatschappij"></td>
+					<td name="tableRowPolisNummer" data-bind="text: polisNummer"></td>
+					<td name="tableRowStatus" data-bind="text: status"></td>
+					<td name="tableRowVerzekerdeZaak" data-bind="text: verzekerdeZaak"></td>
+					<td name="tableRowMaatschappij" data-bind="text: maatschappij.omschrijving"></td>
 				</tr>
 				</tbody>
 			</table>
@@ -85,11 +91,11 @@
 						</div>
 						<div data-bind="if: maatschappij">
 							<span class="polisLabel">Maatschappij :</span>
-							<span name="maatschappij" data-bind="text: maatschappij"></span>
+							<span name="maatschappij" data-bind="text: maatschappij.omschrijving"></span>
 						</div>
 						<div data-bind="if: premie">
 							<span class="polisLabel">Premie :</span>
-							<span name="premie" data-bind="text: bedrag(premie)"></span>
+							<span name="premie" data-bind="text: $parent.formatBedrag(premie)"></span>
 						</div>
 						<div data-bind="if: betaalfrequentie">
 							<span class="polisLabel">Betaalfrequentie :</span>
@@ -101,10 +107,11 @@
 						</div>
 						<div data-bind="if: omschrijvingVerzekering">
 							<span class="polisLabel">Omschrijving Verzekering :</span>
-							<span name="bedrijf" data-bind="text: omschrijvingVerzekering"></span>
+							<span name="omschrijvingVerzekering" data-bind="text: omschrijvingVerzekering"></span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>

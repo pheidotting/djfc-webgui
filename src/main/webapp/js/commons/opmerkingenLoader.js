@@ -9,13 +9,10 @@ define(["commons/3rdparty/log"],
 
                 var deferred = $.Deferred();
 
-                if(id !== 0){
-                    $('#opmerkingen').load('templates/commons/opmerkingen.html', function() {
-                        return deferred.resolve();
-                    });
-                } else {
+                $('#opmerkingen').load('templates/commons/opmerkingen.html', function() {
+                    log.debug('opmerkingen geladen');
                     return deferred.resolve();
-                }
+                });
 
                 return deferred.promise();
             };

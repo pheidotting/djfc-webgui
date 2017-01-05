@@ -9,15 +9,16 @@
 						<tbody data-bind="foreach: hypotheken, visible: hypotheken().length > 0">
 							<tr>
 								<td width="150px;" data-bind="text: leningNummer"></td>
-								<td width="150px;" data-bind="text: hypotheekVormOpgemaakt"></td>
+								<td width="150px;" data-bind="text: hypotheekVorm.hypotheekVorm"></td>
 								<td width="150px;" data-bind="text: bank"></td>
-								<td width="50px;" data-bind="text: maakRenteOp(rente)"></td>
-								<td width="120px;" data-bind="text: bedrag(hypotheekBedrag)"></td>
+								<td width="50px;" data-bind="text: rente">&#37;</td>
+								<td width="120px;" data-bind="text: $root.formatBedrag(hypotheekBedrag)"></td>
 							</tr>
 						</tbody>
 						<tr>
 							<td colspan="4">Totaalbedrag : </td>
-							<td style="border-top:3px solid #000000;" data-bind="text: bedrag(totaalBedrag)"></td>
+							<td style="border-top:3px solid #000000;"
+								data-bind="text: $parent.formatBedrag(totaalBedrag)"></td>
 						</tr>
 					</table>
 				</h4>
@@ -31,7 +32,7 @@
 						</div>
 						<div data-bind="if: hypotheekBedrag">
 							<span class="polisLabel">Hypotheek bedrag :</span>
-							<span name="hypotheekBedrag" data-bind="text: bedrag(hypotheekBedrag)"></span>
+							<span name="hypotheekBedrag" data-bind="text: $root.formatBedrag(hypotheekBedrag)"></span>
 						</div>
 						<div data-bind="if: rente">
 							<span class="polisLabel">Rente :</span>
@@ -43,15 +44,15 @@
 						</div>
 						<div data-bind="if: boxI">
 							<span class="polisLabel">BOX I :</span>
-							<span name="boxI" data-bind="text: bedrag(boxI)"></span>
+							<span name="boxI" data-bind="text: $root.formatBedrag(boxI)"></span>
 						</div>
 						<div data-bind="if: boxIII">
 							<span class="polisLabel">BOX III :</span>
-							<span name="boxIII" data-bind="text: bedrag(boxIII)"></span>
+							<span name="boxIII" data-bind="text: $root.formatBedrag(boxIII)"></span>
 						</div>
 						<div data-bind="if: marktWaarde">
 							<span class="polisLabel">Marktwaarde :</span>
-							<span name="marktWaarde" data-bind="text: bedrag(marktWaarde)"></span>
+							<span name="marktWaarde" data-bind="text: $root.formatBedrag(marktWaarde)"></span>
 						</div>
 						<div data-bind="if: onderpand">
 							<span class="polisLabel">Onderpand :</span>
@@ -59,11 +60,12 @@
 						</div>
 						<div data-bind="if: koopsom">
 							<span class="polisLabel">Koopsom :</span>
-							<span name="koopsom" data-bind="text: bedrag(koopsom)"></span>
+							<span name="koopsom" data-bind="text: $root.formatBedrag(koopsom)"></span>
 						</div>
 						<div data-bind="if: vrijeVerkoopWaarde">
 							<span class="polisLabel">Vrije verkoop waarde :</span>
-							<span name="vrijeVerkoopWaarde" data-bind="text: bedrag(vrijeVerkoopWaarde)"></span>
+							<span name="vrijeVerkoopWaarde"
+								  data-bind="text: $root.formatBedrag(vrijeVerkoopWaarde)"></span>
 						</div>
 						<div data-bind="if: taxatieDatum">
 							<span class="polisLabel">Taxatie datum :</span>
@@ -71,15 +73,17 @@
 						</div>
 						<div data-bind="if: wozWaarde">
 							<span class="polisLabel">WOZ Waarde :</span>
-							<span name="wozWaarde" data-bind="text: bedrag(wozWaarde)"></span>
+							<span name="wozWaarde" data-bind="text: $root.formatBedrag(wozWaarde)"></span>
 						</div>
 						<div data-bind="if: waardeVoorVerbouwing">
 							<span class="polisLabel">Waarde voor verbouwing :</span>
-							<span name="waardeVoorVerbouwing" data-bind="text: bedrag(waardeVoorVerbouwing)"></span>
+							<span name="waardeVoorVerbouwing"
+								  data-bind="text: $root.formatBedrag(waardeVoorVerbouwing)"></span>
 						</div>
 						<div data-bind="if: waardeNaVerbouwing">
 							<span class="polisLabel">Waarde na verbouwing :</span>
-							<span name="waardeNaVerbouwing" data-bind="text: bedrag(waardeNaVerbouwing)"></span>
+							<span name="waardeNaVerbouwing"
+								  data-bind="text: $root.formatBedrag(waardeNaVerbouwing)"></span>
 						</div>
 						<div data-bind="if: ingangsDatum">
 							<span class="polisLabel">Ingangs datum :</span>
@@ -109,25 +113,25 @@
 							<span class="polisLabel">Omschrijving :</span>
 							<span name="omschrijving" data-bind="text: omschrijving"></span>
 						</div>
-	
-						<div id="opmerkingenBijHypotheek" data-bind="foreach: opmerkingen, visible: opmerkingen().length > 0">
-							<div data-bind="if: tijd">
-								<span class="polisLabel">Opmerking</span>
-								<span data-bind="text: tijd"></span>
-								<span data-bind="text: medewerker"></span>
-							</div>
-							<div data-bind="if: opmerking">
-								<span class="polisLabel">&nbsp;</span>
-								<span data-bind="text: opmerking" name="opmerking" style="width:900px;display:block;float:left;"></span>
-							</div>
-							<div style="clear:both;"></div>
-						</div>
-							
-						<div id="bijlages2" class="bijlages" data-bind="foreach: bijlages, visible: bijlages().length > 0">
-							<div>
-								<span class="polisLabel">Bijlage :</span>
-								<a data-bind="attr:{href: url}, title: bestandsNaam, text: bestandsNaam" target="_blank"></a>
-							</div>
+
+						<!--<div id="opmerkingenBijHypotheek" data-bind="foreach: opmerkingen, visible: opmerkingen().length > 0">-->
+						<!--<div data-bind="if: tijd">-->
+						<!--<span class="polisLabel">Opmerking</span>-->
+						<!--<span data-bind="text: tijd"></span>-->
+						<!--<span data-bind="text: medewerker"></span>-->
+						<!--</div>-->
+						<!--<div data-bind="if: opmerking">-->
+						<!--<span class="polisLabel">&nbsp;</span>-->
+						<!--<span data-bind="text: opmerking" name="opmerking" style="width:900px;display:block;float:left;"></span>-->
+						<!--</div>-->
+						<!--<div style="clear:both;"></div>-->
+						<!--</div>-->
+						<!---->
+						<!--<div id="bijlages2" class="bijlages" data-bind="foreach: bijlages, visible: bijlages().length > 0">-->
+						<!--<div>-->
+						<!--<span class="polisLabel">Bijlage :</span>-->
+						<!--<a data-bind="attr:{href: url}, title: bestandsNaam, text: bestandsNaam" target="_blank"></a>-->
+						<!--</div>-->
 						</div>
 					</div>
 				</div>
@@ -149,17 +153,17 @@
 						</button>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<span class="glyphicon glyphicon-list-alt" style="cursor:pointer;" data bind="click: plaatsOpmerking"></span>
-								<span style="cursor:pointer;" d a t a A  b i n d="click: plaatsOpmerking" name="plaatsOpmerking">Plaats opmerking</span>
-							</li>
-							<li>
-								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;" data-bind="click: bewerkHypotheek"></span>
-								<span style="cursor:pointer;" data-bind="click: bewerkHypotheek" name="bewerkHypotheek">Bewerken</span>
+								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;"
+									  data-bind="click: $parent.bewerkHypotheek"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.bewerkHypotheek"
+									  name="bewerkHypotheek">Bewerken</span>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<span class="glyphicon glyphicon-trash" style="cursor:pointer;" data-bind="click: $root.verwijderHypotheek"></span>
-								<span style="cursor:pointer;" data-bind="click: $root.verwijderHypotheek" name="verwijderHypotheek">Verwijderen</span>
+								<span class="glyphicon glyphicon-trash" style="cursor:pointer;"
+									  data-bind="click: $parent.verwijderHypotheek"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.verwijderHypotheek"
+									  name="verwijderHypotheek">Verwijderen</span>
 							</li>
 						</ul>
 					</div>
@@ -169,7 +173,7 @@
 				<div class="panel-body">
 					<div data-bind="if: hypotheekBedrag">
 						<span class="polisLabel">Hypotheek bedrag :</span>
-						<span name="hypotheekBedrag" data-bind="text: bedrag(hypotheekBedrag)"></span>
+						<span name="hypotheekBedrag" data-bind="text: $parent.formatBedrag(hypotheekBedrag)"></span>
 					</div>
 					<div data-bind="if: rente">
 						<span class="polisLabel">Rente :</span>
@@ -181,15 +185,15 @@
 					</div>
 					<div data-bind="if: boxI">
 						<span class="polisLabel">BOX I :</span>
-						<span name="boxI" data-bind="text: bedrag(boxI)"></span>
+						<span name="boxI" data-bind="text: $parent.formatBedrag(boxI)"></span>
 					</div>
 					<div data-bind="if: boxIII">
 						<span class="polisLabel">BOX III :</span>
-						<span name="boxIII" data-bind="text: bedrag(boxIII)"></span>
+						<span name="boxIII" data-bind="text: $parent.formatBedrag(boxIII)"></span>
 					</div>
 					<div data-bind="if: marktWaarde">
 						<span class="polisLabel">Marktwaarde :</span>
-						<span name="marktWaarde" data-bind="text: bedrag(marktWaarde)"></span>
+						<span name="marktWaarde" data-bind="text: $parent.formatBedrag(marktWaarde)"></span>
 					</div>
 					<div data-bind="if: onderpand">
 						<span class="polisLabel">Onderpand :</span>
@@ -197,11 +201,12 @@
 					</div>
 					<div data-bind="if: koopsom">
 						<span class="polisLabel">Koopsom :</span>
-						<span name="koopsom" data-bind="text: bedrag(koopsom)"></span>
+						<span name="koopsom" data-bind="text: $parent.formatBedrag(koopsom)"></span>
 					</div>
 					<div data-bind="if: vrijeVerkoopWaarde">
 						<span class="polisLabel">Vrije verkoop waarde :</span>
-						<span name="vrijeVerkoopWaarde" data-bind="text: bedrag(vrijeVerkoopWaarde)"></span>
+						<span name="vrijeVerkoopWaarde"
+							  data-bind="text: $parent.formatBedrag(vrijeVerkoopWaarde)"></span>
 					</div>
 					<div data-bind="if: taxatieDatum">
 						<span class="polisLabel">Taxatie datum :</span>
@@ -209,15 +214,17 @@
 					</div>
 					<div data-bind="if: wozWaarde">
 						<span class="polisLabel">WOZ Waarde :</span>
-						<span name="wozWaarde" data-bind="text: bedrag(wozWaarde)"></span>
+						<span name="wozWaarde" data-bind="text: $parent.formatBedrag(wozWaarde)"></span>
 					</div>
 					<div data-bind="if: waardeVoorVerbouwing">
 						<span class="polisLabel">Waarde voor verbouwing :</span>
-						<span name="waardeVoorVerbouwing" data-bind="text: bedrag(waardeVoorVerbouwing)"></span>
+						<span name="waardeVoorVerbouwing"
+							  data-bind="text: $parent.formatBedrag(waardeVoorVerbouwing)"></span>
 					</div>
 					<div data-bind="if: waardeNaVerbouwing">
 						<span class="polisLabel">Waarde na verbouwing :</span>
-						<span name="waardeNaVerbouwing" data-bind="text: bedrag(waardeNaVerbouwing)"></span>
+						<span name="waardeNaVerbouwing"
+							  data-bind="text: $parent.formatBedrag(waardeNaVerbouwing)"></span>
 					</div>
 					<div data-bind="if: ingangsDatum">
 						<span class="polisLabel">Ingangs datum :</span>
@@ -246,27 +253,6 @@
 					<div data-bind="if: omschrijving">
 						<span class="polisLabel">Omschrijving :</span>
 						<span name="omschrijving" data-bind="text: omschrijving"></span>
-					</div>
-
-					<div id="opmerkingenBijHypotheek" data-bind="foreach: opmerkingen, visible: opmerkingen().length > 0">
-						<div data-bind="if: tijd">
-							<span class="polisLabel">Opmerking</span>
-							<span data-bind="text: tijd"></span>
-							<span data-bind="text: medewerker"></span>
-						</div>
-						<div data-bind="if: opmerking">
-							<span class="polisLabel">&nbsp;</span>
-							<span data-bind="text: opmerking" name="opmerking" style="width:900px;display:block;float:left;"></span>
-						</div>
-						<div style="clear:both;"></div>
-					</div>
-						
-					<div id="bijlages2" class="bijlages" data-bind="foreach: bijlages, visible: bijlages().length > 0">
-						<div>
-							<span class="polisLabel">Bijlage :</span>
-							<a data-bind="attr:{href: url}, title: omschrijvingOfBestandsNaam, text: omschrijvingOfBestandsNaam"
-							   target="_blank"></a>
-						</div>
 					</div>
 				</div>
 			</div>

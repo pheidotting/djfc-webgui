@@ -12,13 +12,17 @@
 						</button>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;" data-bind="click: bewerkSchade"></span>
-								<span style="cursor:pointer;" data-bind="click: bewerkSchade" name="bewerkSchade">Bewerken</span>
+								<span class="glyphicon glyphicon-pencil" style="cursor:pointer;"
+									  data-bind="click: $parent.bewerkSchade"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.bewerkSchade"
+									  name="bewerkSchade">Bewerken</span>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<span class="glyphicon glyphicon-trash" style="cursor:pointer;" data-bind="click: $root.verwijderPolis"></span>
-								<span style="cursor:pointer;" data-bind="click: $root.verwijderPolis" name="verwijderPolis">Verwijderen</span>
+								<span class="glyphicon glyphicon-trash" style="cursor:pointer;"
+									  data-bind="click: $parent.verwijderSchade"></span>
+								<span style="cursor:pointer;" data-bind="click: $parent.verwijderSchade"
+									  name="verwijderPolis">Verwijderen</span>
 							</li>
 						</ul>
 					</div>
@@ -60,34 +64,34 @@
 					</div>
 					<div data-bind="if: eigenRisico">
 						<span class="schadeLabel">Eigen risico :</span>
-						<span data-bind="text: bedrag(eigenRisico)" name="eigenRisico"></span>
+						<span data-bind="text: $parent.formatBedrag(eigenRisico)" name="eigenRisico"></span>
 					</div>
 					<div data-bind="if: omschrijving">
 						<span class="schadeLabel">Omschrijving :</span>
 						<span data-bind="text: omschrijving" name="omschrijving"></span>
 					</div>
 
-					<div id="opmerkingenBijSchade" data-bind="foreach: opmerkingen, visible: opmerkingen().length > 0">
-						<div data-bind="if: tijd">
-							<span class="schadeLabel">Opmerking</span>
-							<span data-bind="text: tijd"></span>
-							<span data-bind="text: medewerker"></span>
-						</div>
-						<div data-bind="if: opmerking">
-							<span class="schadeLabel">&nbsp;</span>
-							<span data-bind="text: opmerking" name="opmerking" style="width:900px;display:block;float:left;"></span>
-						</div>
-						<div style="clear:both;"></div>
-					</div>
+					<!--<div id="opmerkingenBijSchade" data-bind="foreach: opmerkingen, visible: opmerkingen().length > 0">-->
+					<!--<div data-bind="if: tijd">-->
+					<!--<span class="schadeLabel">Opmerking</span>-->
+					<!--<span data-bind="text: tijd"></span>-->
+					<!--<span data-bind="text: medewerker"></span>-->
+					<!--</div>-->
+					<!--<div data-bind="if: opmerking">-->
+					<!--<span class="schadeLabel">&nbsp;</span>-->
+					<!--<span data-bind="text: opmerking" name="opmerking" style="width:900px;display:block;float:left;"></span>-->
+					<!--</div>-->
+					<!--<div style="clear:both;"></div>-->
+					<!--</div>-->
 
-					<div id="bijlages2" class="bijlages" data-bind="foreach: bijlages, visible: bijlages().length > 0">
-						<div>
-							<span class="schadeLabel">Bijlage :</span>
-							<a data-bind="attr:{href: url}, title: omschrijvingOfBestandsNaam, text: omschrijvingOfBestandsNaam"
-							   target="_blank"></a>
-						</div>
-					</div>
-				</div>
+					<!--<div id="bijlages2" class="bijlages" data-bind="foreach: bijlages, visible: bijlages().length > 0">-->
+					<!--<div>-->
+					<!--<span class="schadeLabel">Bijlage :</span>-->
+					<!--<a data-bind="attr:{href: url}, title: omschrijvingOfBestandsNaam, text: omschrijvingOfBestandsNaam"-->
+					<!--target="_blank"></a>-->
+					<!--</div>-->
+					<!--</div>-->
+					<!--</div>-->
 			</div>
     	</div>
     </div>

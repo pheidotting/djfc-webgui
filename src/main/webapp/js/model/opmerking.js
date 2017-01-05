@@ -29,9 +29,6 @@ define(['jquery',
 		    opmerking.tekstBackup('');
 		    $('#edit' + opmerking.id()).hide();
 		    $('#tekst' + opmerking.id()).show();
-
-		    log.debug("Opslaan : " + ko.toJSON(opmerking));
-            dataServices.opslaanOpmerking(ko.toJSON(opmerking));
 		};
 
 		_this.annuleren = function(opmerking){
@@ -39,5 +36,12 @@ define(['jquery',
 		    $('#edit' + opmerking.id()).hide();
 		    $('#tekst' + opmerking.id()).show();
 		};
+
+		_this.idIsNull = ko.computed(function(){
+		    return _this.id() == null;
+		})
+		_this.idIsNietNull = ko.computed(function(){
+		    return _this.id() != null;
+		})
     };
 });

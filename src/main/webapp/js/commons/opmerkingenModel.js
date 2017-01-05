@@ -47,12 +47,6 @@ define(["commons/3rdparty/log",
                 _k.soort = ko.observable('RISICOANALYSE');
                 _k.entiteitId = ko.observable(risicoAnalyse);
             }
-            _k.schermTonen = ko.computed(function(){
-                if(_k.entiteitId == null || _k.entiteitId() === 0) {
-                    return false;
-                }
-                return true;
-            });
 
             if(data != null){
                 $.each(data, function(i, item) {
@@ -63,7 +57,7 @@ define(["commons/3rdparty/log",
             _k.opmerkingOpslaan = function(opm){
                 log.debug(opm.opmerkingenModel.nieuweOpmerking());
                 if(opm.opmerkingenModel.nieuweOpmerking() !== undefined && opm.opmerkingenModel.nieuweOpmerking().trim() !== ''){
-                    $.when(dataServices.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID')), dataServices.haalIngelogdeGebruiker()).then(function(trackAndTraceId, response){
+                    $.when(dataServices.haalIngelogdeGebruiker()).then(function(response){
                         var opmerking = new Opmerking('');
                         opmerking.medewerker(response.gebruikersnaam);
                         opmerking.medewerkerId(response.id);
@@ -77,12 +71,11 @@ define(["commons/3rdparty/log",
                         opmerkingen.push(opmerking)
 
                         log.debug(ko.toJSON(opmerkingen));
-                        dataServices.opslaanOpmerking(ko.toJSON(opmerkingen), trackAndTraceId).done(function(id){
-                            opmerking.id(id);
-                            opm.opmerkingenModel.opmerkingen().push(opmerking);
-                            opm.opmerkingenModel.opmerkingen.valueHasMutated();
-                            opm.opmerkingenModel.nieuweOpmerking('');
-                        });
+
+                        opmerking.id(id);
+                        opm.opmerkingenModel.opmerkingen().push(opmerking);
+                        opm.opmerkingenModel.opmerkingen.valueHasMutated();
+                        opm.opmerkingenModel.nieuweOpmerking('');
                     });
                 }
             };
@@ -91,12 +84,24 @@ define(["commons/3rdparty/log",
                 var r = confirm("Weet je zeker dat je deze opmerking wilt verwijderen?");
                 if (r === true) {
                     log.debug("verwijder opmerking met id " + opmerking.id());
-                    dataServices.verwijderOpmerking(opmerking.id()).done(function(){
-                        _k.opmerkingen.remove(opmerking);
-                        _k.opmerkingen.valueHasMutated();
-                    });
+
+                    _k.opmerkingen.remove(opmerking);
+                    _k.opmerkingen.valueHasMutated();
                 }
             };
+
+            _k.voegOpmerkingToe = function() {
+                $.when(dataServices.haalIngelogdeGebruiker()).then(function(response){
+                    var opmerking = new Opmerking('');
+                    opmerking.medewerker(response.gebruikersnaam);
+                    opmerking.medewerkerId(response.id);
+                    opmerking.tijd(new moment().format("DD-MM-YYYY HH:mm"));
+
+                    _k.opmerkingen().push(opmerking);
+                    _k.opmerkingen.valueHasMutated();
+                    _k.nieuweOpmerking('');
+                });
+            }
 
         }
     }

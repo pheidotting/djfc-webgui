@@ -15,8 +15,9 @@ define(['jquery',
         'navRegister',
         'redirect',
         'fileUpload',
-        'opmerkingenModel'],
-	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, GroepBijlages, Taak, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel) {
+        'opmerkingenModel',
+        'service/gebruiker-service'],
+	function ($, commonFunctions, ko, RekeningNummer, TelefoonNummer, OnderlingeRelatie, Adres, Bijlage, GroepBijlages, Taak, moment, log, validation, dataServices, navRegister, redirect, fileUpload, opmerkingenModel, gebruikerService) {
 
 	return function (data, openstaandeTaken){
 		var _thisRelatie = this;
@@ -82,7 +83,7 @@ define(['jquery',
                     if(item.soortAdres() === 'POSTADRES') {
                         adres = item;
                     }
-}
+                }
 		    });
 
 		    if(adres !== null) {
@@ -243,23 +244,8 @@ define(['jquery',
 	    	if(!_thisRelatie.isValid()){
 	    		result.showAllMessages(true);
 	    	}else{
-    			$.each(_thisRelatie.telefoonnummers(), function(i, item){
-    			    item.telefoonnummer(item.telefoonnummer().replace(/ /g, "").replace("-", ""));
-    			    item.soortEntiteit('RELATIE');
-    			    item.entiteitId(_thisRelatie.id());
-    			});
-    			$.each(_thisRelatie.rekeningnummers(), function(i, item){
-    			    item.rekeningnummer(item.rekeningnummer().replace(/ /g, ""));
-    			    item.soortEntiteit('RELATIE');
-    			    item.entiteitId(_thisRelatie.id());
-    			});
-    			$.each(_thisRelatie.adressen(), function(i, item){
-    			    item.soortEntiteit('RELATIE');
-    			    item.entiteitId(_thisRelatie.id());
-    			});
-				commonFunctions.verbergMeldingen();
 				var foutmelding;
-				dataServices.opslaanRelatie(_thisRelatie).done(function(){
+				gebruikerService.opslaan(_thisRelatie).done(function(){
 					redirect.redirect('LIJST_RELATIES', _thisRelatie.achternaam());
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response){
@@ -287,11 +273,6 @@ define(['jquery',
 
 			dataServices.verwijderRelatie(ko.utils.unwrapObservable(relatie.id));
 			redirect.redirect('LIJST_RELATIES');
-		};
-
-		_thisRelatie.naarDetailScherm = function(relatie){
-			commonFunctions.verbergMeldingen();
-			redirect.redirect('BEHEREN_RELATIE', ko.utils.unwrapObservable(relatie.id));
 		};
 
         _thisRelatie.opzoekenAdres = function(adres){

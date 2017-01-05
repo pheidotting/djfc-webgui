@@ -1,5 +1,5 @@
 define(['jquery',
-        'js/beherenBedrijfMain',
+        'view/beheren-bedrijf-view',
         'js/beherenBedrijfJaarCijfers',
         'js/beherenBedrijfRisicoAnalyse',
         'js/beherenBedrijfPolissen',
@@ -42,7 +42,7 @@ define(['jquery',
 				//Onderliggende pagina aanroepen
 				$('#details').load("templates/beherenBedrijf" + pagina + ".html", function(){
 					if(actie === ""){
-						new beherenBedrijf(bedrijfId);
+						beherenBedrijf.init(bedrijfId);
 					}else if(actie === "jaarcijfers"){
 						new beherenBedrijfJaarCijfers(bedrijfId);
 					}else if(actie === "risicoanalyses"){
