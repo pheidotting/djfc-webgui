@@ -47,12 +47,6 @@ define(['jquery',
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, polisId, polis.opmerkingen);
                 _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, polisId, polis.bijlages, polis.groepenBijlages);
 
-                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
-                    if(toggleBeschikbaar) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, polisId);
-                    }
-                });
-
                 var $verzekeringsMaatschappijenSelect = $('#verzekeringsMaatschappijen');
                 $.each(maatschappijen, function(key, value) {
                     $('<option>', { value : key }).text(value).appendTo($verzekeringsMaatschappijenSelect);
@@ -63,7 +57,12 @@ define(['jquery',
                     $('<option>', { value : value }).text(value).appendTo($soortVerzekeringSelect);
                 });
 
-                return deferred.resolve();
+                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
+                    if(toggleBeschikbaar) {
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, polisId);
+                    }
+                    return deferred.resolve();
+                });
             });
 
             return deferred.promise();
