@@ -62,8 +62,8 @@ define(["commons/3rdparty/log",
                 return polisRepository.lijstZakelijkePolissen();
             },
 
-            lijstPolissen: function(relatieId){
-                return polisRepository.lijstPolissen(relatieId);
+            lijstPolissen: function(relatieId, bedrijfId){
+                return polisRepository.lijstPolissen(relatieId, bedrijfId);
             },
 
             beindigPolis: function(id){

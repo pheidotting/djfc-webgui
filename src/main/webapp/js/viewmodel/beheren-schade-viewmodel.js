@@ -38,13 +38,24 @@ define(['jquery',
             _this.basisEntiteit = basisEntiteit;
             _this.basisId = basisId;
             _this.id(schadeId);
-            $.when(schadeService.lees(schadeId), schadeService.lijstStatusSchade(), polisService.lijstPolissen(basisId)).then(function(schade, statussenSchade, polissen) {
+
+            var relatieId = null;
+            var bedrijfId = null;
+            if(basisEntiteit == 'RELATIE') {
+                relatieId = basisId;
+            } else {
+                bedrijfId = basisId;
+            }
+
+            $.when(schadeService.lees(schadeId), schadeService.lijstStatusSchade(), polisService.lijstPolissen(relatieId, bedrijfId)).then(function(schade, statussenSchade, polissen) {
                 _this.schade = schadeMapper.mapSchade(schade);
 
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, schadeId, schade.opmerkingen);
                 _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, schadeId, schade.bijlages, schade.groepenBijlages);
 
                 var $selectPolis = $('#polisVoorSchademelding');
+                $('<option>', { value : '' }).text('Kies een polis uit de lijst..').appendTo($selectPolis);
+
                 $.each(polissen, function(key, value) {
                     var polisTitel = value.soort + " (" + value.polisNummer + ")";
 

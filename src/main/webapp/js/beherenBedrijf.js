@@ -2,10 +2,10 @@ define(['jquery',
         'view/beheren-bedrijf-view',
         'js/beherenBedrijfJaarCijfers',
         'js/beherenBedrijfRisicoAnalyse',
-        'js/beherenBedrijfPolissen',
-        'js/beherenBedrijfPolis',
-        'js/beherenBedrijfSchades',
-        'js/beherenBedrijfSchade',
+        'view/lijst-polissen-view',
+        'view/beheren-polis-view',
+        'view/lijst-schades-view',
+        'view/beheren-schade-view',
         'commons/3rdparty/log',
         'commons/commonFunctions',
         'redirect'],
@@ -48,15 +48,15 @@ define(['jquery',
 					}else if(actie === "risicoanalyses"){
 					    new beherenBedrijfRisicoAnalyse(bedrijfId);
 					}else if(actie === "polissen"){
-					    new beherenBedrijfPolissen(bedrijfId);
+					    beherenBedrijfPolissen.init(bedrijfId, 'BEDRIJF');
 					}else if(actie == "polis"){
-						new beherenBedrijfPolis(subId, bedrijfId, false);
+						beherenBedrijfPolis.init(subId, bedrijfId, false, 'BEDRIJF');
 					}else if(actie == "polisInzien"){
-						new beherenBedrijfPolis(subId, bedrijfId, true);
+						beherenBedrijfPolis.init(subId, bedrijfId, true, 'BEDRIJF');
 					}else if(actie === "schades"){
-					    new beherenBedrijfSchades(bedrijfId);
+					    beherenBedrijfSchades.init(bedrijfId, 'BEDRIJF');
 					}else if(actie === "schade"){
-					    new beherenBedrijfSchade(subId, bedrijfId);
+					    beherenBedrijfSchade.init(subId, bedrijfId, false, 'BEDRIJF');
 					}
 					var _bedrijfId = bedrijfId;
 					var _subId = subId;
@@ -76,11 +76,11 @@ define(['jquery',
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId);
 				});
-				$("#polissen").click(function(){
+				$("#menuPolissen").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'polissen');
 				});
-				$("#polis").click(function(){
+				$("#menuPolis").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'polis', '0');
 				});
@@ -88,11 +88,11 @@ define(['jquery',
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'polisInzien', '0');
 				});
-				$("#schades").click(function(){
+				$("#menuSchades").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'schades');
 				});
-				$("#schade").click(function(){
+				$("#menuSchade").click(function(){
 			    	commonFunctions.verbergMeldingen();
 			    	redirect.redirect('BEHEREN_BEDRIJF', bedrijfId, 'schade', '0');
 				});

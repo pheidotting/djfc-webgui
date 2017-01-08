@@ -1,8 +1,9 @@
 define(['jquery',
         'model/taak/taak2',
         'commons/3rdparty/log2',
-        'knockout'],
-	function ($, Taak, log, ko) {
+        'knockout',
+        'moment'],
+	function ($, Taak, log, ko, moment) {
         var logger = log.getLogger('taak-mapper');
 
         return {
@@ -33,6 +34,16 @@ define(['jquery',
                 if(reminder) {
                     taak.reminder(_.first(data.reminders).due_date.format('DD-MM-YYYY HH:mm'));
                 }
+
+                $.each(data.notities, function(i, note){
+                    var notitie = {};
+                    notitie.id = ko.observable(note.id);
+                    notitie.omschrijving = ko.observable(note.omschrijving);
+                    notitie.user = ko.observable(note.user);
+                    notitie.tijdstip = moment(note.tijdstip).format('DD-MM-YYYY HH:mm');
+
+                    taak.notities.push(notitie);
+                });
 
                 return taak;
             }

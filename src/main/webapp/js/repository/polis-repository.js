@@ -33,8 +33,12 @@ define(["commons/3rdparty/log",
                 return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_ZAKELIJKEPOLISSEN'));
             },
 
-            lijstPolissen: function(relatieId){
-                return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_POLISSEN'), {relatieId : relatieId});
+            lijstPolissen: function(relatieId, bedrijfId){
+                if(relatieId != null) {
+                    return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_POLISSEN'), {relatieId : relatieId});
+                } else {
+                    return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_POLISSEN_BIJ_BEDRIJF'), {bedrijfId : bedrijfId});
+                }
             },
 
             beindigPolis: function(id, trackAndTraceId){

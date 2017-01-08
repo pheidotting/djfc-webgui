@@ -67,6 +67,18 @@ define(['commons/3rdparty/log2',
             }
         };
 
+        this.klapOpenOfDicht = function(taak) {
+            if($('#' + taak.id()).is(':visible')) {
+                $('#' + taak.id()).hide();
+                $('#' + taak.id() + '-hide').hide();
+                $('#' + taak.id() + '-show').show();
+            } else {
+                $('#' + taak.id()).show();
+                $('#' + taak.id() + '-hide').show();
+                $('#' + taak.id() + '-show').hide();
+            }
+        };
+
         exitNieuweTaakReminder = function() {
 		    _this.nieuweTaakReminder(zetDatumTijdOm(_this.nieuweTaakReminder()));
         };

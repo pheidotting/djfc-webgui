@@ -331,11 +331,12 @@ define(["commons/3rdparty/log2",
                     logger.debug('Todoist geauthoriseerd, code = ' + oAuthCode);
 
                     var types = [];
-                    types.push('projects');
-                    types.push('items');
-                    types.push('labels');
-                    types.push('notes');
-                    types.push('reminders');
+//                    types.push('projects');
+//                    types.push('items');
+//                    types.push('labels');
+//                    types.push('notes');
+//                    types.push('reminders');
+                    types.push('all');
 
                     var url = 'https://todoist.com/API/v7/sync?token=' + oAuthCode + '&sync_token=*&resource_types=' + JSON.stringify(types);
 
@@ -361,7 +362,7 @@ define(["commons/3rdparty/log2",
                             var project = {};
                             project.id = todoistproject.id;
                             project.naam = todoistproject.name;
-                            project.notities = filterNotities(response.notes, null, project.id);
+//                            project.notities = filterNotities(response.notes, null, project.id, response.collaborators);
                             project.items =  _.chain(response.items)
                                 .filter(function(todoistitem) {
                                     return todoistitem.project_id == project.id && todoistproject.is_deleted == 0;
@@ -370,7 +371,7 @@ define(["commons/3rdparty/log2",
                                     var item = {};
                                     item.id = todoistitem.id;
                                     item.omschrijving = todoistitem.content;
-                                    item.notities = filterNotities(response.notes, item.id);
+                                    item.notities = filterNotities(response.notes, item.id, null, response.collaborators);
                                     item.projectId = project.id;
 
                                     item.labels = _.chain(response.labels)
@@ -456,8 +457,6 @@ define(["commons/3rdparty/log2",
                         if(QueryString().code) {
                             var state = QueryString().state;
                             var code = QueryString().code;
-//                            logger.debug(state);
-//                            logger.debug(code);
 
                             var url = window.location.href;
                             url = url.replace('state=' + state, '');
@@ -487,7 +486,7 @@ define(["commons/3rdparty/log2",
              }
         }
 
-        function filterNotities(notities, itemId, projectId) {
+        function filterNotities(notities, itemId, projectId, collaborators) {
             return _.chain(notities)
                 .filter(function(todoistnote) {
                     if (itemId != null) {
@@ -500,6 +499,17 @@ define(["commons/3rdparty/log2",
                     var note = {};
                     note.id = todoistnote.id;
                     note.omschrijving = todoistnote.content;
+                    note.tijdstip = todoistnote.posted;
+
+                    note.user = _.chain(collaborators)
+                        .filter(function(todoistUser) {
+                            return todoistnote.posted_uid == todoistUser.id;
+                        })
+                        .map(function(todoistUser) {
+                            return todoistUser.full_name;
+                        })
+                        .first()
+                        .value();
 
                     return note;
                 })

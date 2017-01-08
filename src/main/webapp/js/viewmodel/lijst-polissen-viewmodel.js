@@ -25,7 +25,16 @@ define(['jquery',
 
             _this.id(id);
             _this.basisEntiteit = basisEntiteit;
-            $.when(polisService.lijstPolissen(id), polisService.lijstVerzekeringsmaatschappijen()).then(function(lijstPolissen, maatschappijen) {
+
+            var relatieId = null;
+            var bedrijfId = null;
+            if(basisEntiteit == 'RELATIE') {
+                relatieId = id;
+            } else {
+                bedrijfId = id;
+            }
+
+            $.when(polisService.lijstPolissen(relatieId, bedrijfId), polisService.lijstVerzekeringsmaatschappijen()).then(function(lijstPolissen, maatschappijen) {
                     _this.polissen = polisMapper.mapPolissen(lijstPolissen, maatschappijen);
 
                 return deferred.resolve();
