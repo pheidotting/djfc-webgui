@@ -1,6 +1,6 @@
 define(['jquery',
         'commons/3rdparty/log2',
-        'text!../../../djfc/templates/beherenRelatiepolis.html',
+        'text!../../../templates/beherenRelatiepolis.html',
         'viewmodel/beheren-polis-viewmodel',
         'knockout',
         'view/common/opmerking-view',

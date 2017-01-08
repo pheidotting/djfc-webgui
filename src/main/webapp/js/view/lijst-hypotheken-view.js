@@ -1,6 +1,6 @@
 define(['jquery',
         'commons/3rdparty/log2',
-        'text!../../../djfc/templates/beherenRelatiehypotheken.html',
+        'text!../../../templates/beherenRelatiehypotheken.html',
         'viewmodel/lijst-hypotheken-viewmodel',
         'knockout'],
     function($, log, html, viewmodel, ko) {

@@ -1,7 +1,7 @@
 define(['jquery',
         'commons/3rdparty/log2',
-        'text!../../../djfc/templates/dashboard/dashboard.html',
-        'text!../../../djfc/templates/commons/header.html',
+        'text!/../../templates/dashboard/dashboard.html',
+        'text!/../../templates/commons/header.html',
         'viewmodel/dashboard-viewmodel',
         'knockout'],
     function($, log, html, headerHtml, viewmodel, ko) {

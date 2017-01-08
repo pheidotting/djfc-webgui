@@ -2,7 +2,7 @@ define(['jquery',
         'commons/3rdparty/log2',
         'viewmodel/lijst-bedrijven-viewmodel',
         'knockout',
-        'text!../../../djfc/templates/lijstBedrijven.html'],
+        'text!../../../templates/lijstBedrijven.html'],
     function($, log, viewmodel, ko, html) {
 
         var logger = log.getLogger('lijst-bedrijven-view');
