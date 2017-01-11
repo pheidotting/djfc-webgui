@@ -63,7 +63,6 @@ define(['jquery',
                 _this.telefonie = new telefonieViewModel(relatie.telefoonnummers);
 
                 $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar){
-//                    console.error('jaofjiweoijfiweijfiojweoifowejfuerhguiheiuhguhvnvfjdnjdf');
                     if(toggleBeschikbaar) {
                         _this.taakModel             = new taakViewModel(false, soortEntiteit, id);
 
@@ -72,8 +71,6 @@ define(['jquery',
                         return deferred.resolve();
                     }
                 });
-
-//                        return deferred.resolve();
             });
 
             return deferred.promise();

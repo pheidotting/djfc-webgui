@@ -12,6 +12,14 @@ define(['commons/3rdparty/log2',
 		this.soortEntiteit = ko.observable(soortEntiteit);
 		this.rekeningnummers = ko.observableArray();
         $.each(rekeningnummerMapper.mapRekeningnummers(rekeningnummers)(), function(i, rekeningnummer){
+            var rek = rekeningnummer.rekeningnummer().toUpperCase();
+
+            if(rek !== undefined && rek.length === 18) {
+                rek = rek.substring(0, 4) + " " +rek.substring(4, 8) + " " +rek.substring(8, 12) + " " +rek.substring(12, 16) + " " +rek.substring(16, 18);
+            }
+
+            rekeningnummer.rekeningnummer(rek);
+
             _this.rekeningnummers.push(rekeningnummer);
         });
 

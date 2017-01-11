@@ -13,14 +13,18 @@ define(['commons/3rdparty/log2',
 		this.soortEntiteit = ko.observable(soortEntiteit);
 		this.adressen = ko.observableArray();
         $.each(adresMapper.mapAdressen(adressen)(), function(i, adres){
+            adres.postcode(adres.postcode().toUpperCase());
+            adres.postcode(adres.postcode().substring(0, 4) + " " + adres.postcode().substring(4));
+
             _this.adressen.push(adres);
         });
 
-        _this.adressen.subscribe(function(adressen) {
-            $.each(adressen, function(i, adres){
-                _this.zetPostcodeOm(adres);
-            });
-        });
+//        _this.adressen.subscribe(function(adressen) {
+//            logger.debug('adressen subscriber');
+//            $.each(adressen, function(i, adres){
+//                _this.zetPostcodeOm(adres);
+//            });
+//        });
 
 		this.verwijderAdres = function(adres) {
 		    logger.debug('verwijder adres');
