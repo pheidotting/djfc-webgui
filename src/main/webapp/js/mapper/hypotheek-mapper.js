@@ -32,15 +32,22 @@ define(['jquery',
                 hypotheek.boxIII(data.boxIII);
                 hypotheek.relatie(data.relatie);
 
-                $.each(soortenHypotheek, function(i, soort){
-                    if(parseInt(data.hypotheekVorm) == parseInt(soort.id)) {
-                        var d = {};
-                        d.id = soort.id;
-                        d.hypotheekVorm = soort.omschrijving;
+                if(data.hypotheekVorm) {
+                    $.each(soortenHypotheek, function(i, soort){
+                        if(parseInt(data.hypotheekVorm) == parseInt(soort.id)) {
+                            var d = {};
+                            d.id = soort.id;
+                            d.hypotheekVorm = soort.omschrijving;
 
-                        hypotheek.hypotheekVorm = d
-                    }
-                });
+                            hypotheek.hypotheekVorm = d
+                        }
+                    });
+                } else {
+                    var d = {};
+                    d.id = 0;
+
+                    hypotheek.hypotheekVorm = d
+                }
 
                 hypotheek.hypotheekBedrag(data.hypotheekBedrag);
                 hypotheek.rente(data.rente);
