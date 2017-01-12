@@ -4,8 +4,6 @@ define(['jquery',
         'knockout',
         'mapper/adres-mapper'],
 	function ($, Bedrijf, log, ko, adresMapper) {
-        var logger = log.getLogger('bedrijf-mapper');
-
         return {
             mapBedrijf: function(r) {
                 return mappen(r);

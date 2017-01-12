@@ -3,9 +3,6 @@ define(['jquery',
         'commons/3rdparty/log2',
         'knockout'],
 	function ($, RekeningNummer, log, ko) {
-        var logger = log.getLogger('rekeningnummer-mapper');
-        var _this = this;
-
         return {
             mapRekeningnummer: function(r) {
                 mappen(r);

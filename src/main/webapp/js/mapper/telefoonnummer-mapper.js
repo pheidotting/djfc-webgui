@@ -3,9 +3,6 @@ define(['jquery',
         'commons/3rdparty/log2',
         'knockout'],
 	function ($, Telefoonnummer, log, ko) {
-        var logger = log.getLogger('telefoonnummer-mapper');
-        var _this = this;
-
         return {
             mapTelefoonnummer: function(r) {
                 mappen(r);

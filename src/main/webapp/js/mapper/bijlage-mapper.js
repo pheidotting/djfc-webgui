@@ -3,8 +3,6 @@ define(['jquery',
         'commons/3rdparty/log2',
         'knockout'],
 	function ($, Bijlage, log, ko) {
-        var logger = log.getLogger('bijlage-mapper');
-
         return {
             mapBijlage: function(r) {
                 mappen(r);

@@ -4,9 +4,6 @@ define(['jquery',
         'knockout',
         'mapper/adres-mapper'],
 	function ($, Relatie, log, ko, adresMapper) {
-        var logger = log.getLogger('gebruiker-maper');
-        var _this = this;
-
         return {
             mapRelatie: function(data) {
             },

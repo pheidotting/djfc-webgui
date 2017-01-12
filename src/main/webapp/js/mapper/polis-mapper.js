@@ -4,8 +4,6 @@ define(['jquery',
         'knockout',
         'moment'],
 	function ($, Polis, log, ko, moment) {
-        var logger = log.getLogger('adres-mapper');
-
         return {
             mapPolis: function(r, maatschappijen) {
                 return mappen(r, maatschappijen);

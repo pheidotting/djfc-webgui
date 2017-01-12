@@ -3,8 +3,6 @@ define(['jquery',
         'commons/3rdparty/log2',
         'knockout'],
 	function ($, Hypotheek, log, ko) {
-        var logger = log.getLogger('hypotheek-mapper');
-
         return {
             mapHypotheek: function(r, soortenHypotheek) {
                 return mappen(r, soortenHypotheek);

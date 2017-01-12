@@ -4,8 +4,6 @@ define(['jquery',
         'knockout',
         'moment'],
 	function ($, Gesprek, log, ko, moment) {
-        var logger = log.getLogger('taak-mapper');
-
         return {
             mapGesprek: function(r) {
                 mappen(r);

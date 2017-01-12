@@ -4,8 +4,6 @@ define(['jquery',
         'knockout',
         'mapper/hypotheek-mapper'],
 	function ($, HypotheekPakket, log, ko, hypotheekMapper) {
-        var logger = log.getLogger('hypotheekPakket-mapper');
-
         return {
             mapHypotheekPakket: function(r, lijstSoortenHypotheek) {
                 return mappen(r, lijstSoortenHypotheek);

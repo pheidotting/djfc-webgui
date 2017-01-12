@@ -3,9 +3,6 @@ define(['jquery',
         'commons/3rdparty/log2',
         'knockout'],
 	function ($, Relatie, log, ko) {
-        var logger = log.getLogger('relatie-mapper');
-        var _this = this;
-
         return {
             mapRelatie: function(data) {
                 return mappen(data);

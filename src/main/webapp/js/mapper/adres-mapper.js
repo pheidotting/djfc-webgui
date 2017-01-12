@@ -3,8 +3,6 @@ define(['jquery',
         'commons/3rdparty/log2',
         'knockout'],
 	function ($, Adres, log, ko) {
-        var logger = log.getLogger('adres-mapper');
-
         return {
             mapAdres: function(r) {
                 mappen(r);

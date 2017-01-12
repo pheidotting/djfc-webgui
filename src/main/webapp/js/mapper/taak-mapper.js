@@ -4,8 +4,6 @@ define(['jquery',
         'knockout',
         'moment'],
 	function ($, Taak, log, ko, moment) {
-        var logger = log.getLogger('taak-mapper');
-
         return {
             mapTaak: function(r) {
                 mappen(r);

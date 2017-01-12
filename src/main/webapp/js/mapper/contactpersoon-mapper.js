@@ -4,9 +4,6 @@ define(['jquery',
         'knockout',
         'mapper/telefoonnummer-mapper'],
 	function ($, Contactpersoon, log, ko, telefoonnummerMapper) {
-        var logger = log.getLogger('gebruiker-maper');
-        var _this = this;
-
         return {
             mapContactpersoon: function(data) {
             },

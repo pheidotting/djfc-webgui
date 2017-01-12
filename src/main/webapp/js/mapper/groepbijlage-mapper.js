@@ -4,8 +4,6 @@ define(['jquery',
         'knockout',
         'mapper/bijlage-mapper'],
 	function ($, Groepbijlage, log, ko, bijlageMapper) {
-        var logger = log.getLogger('groepbijlage-mapper');
-
         return {
             mapGroepbijlage: function(r) {
                 mappen(r);
