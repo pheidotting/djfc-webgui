@@ -18,8 +18,6 @@ define(["commons/3rdparty/log",
 
             leesHypotheek: function(id) {
                 var deferred = $.Deferred();
-                var _this = this;
-
 
                 $.when(
                     hypotheekRepository.leesHypotheek(id),
@@ -46,7 +44,6 @@ define(["commons/3rdparty/log",
             },
 
             opslaanHypotheek: function(hypotheek, opmerkingen) {
-                var _this = this;
                 var deferred = $.Deferred();
 
                 hypotheek.hypotheekVorm = ko.observable(hypotheek.hypotheekVorm.id);
@@ -66,7 +63,6 @@ define(["commons/3rdparty/log",
             },
 
             verwijderHypotheek: function(id) {
-                var _this = this;
                 var deferred = $.Deferred();
 
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {

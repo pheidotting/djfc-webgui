@@ -15,19 +15,6 @@ define(["commons/3rdparty/log2",
             opslaan: function(relatie, adressen, telefoonnummers, rekeningnummers, opmerkingen) {
                 var deferred = $.Deferred();
 
-//                var adressen = relatie.adressen;
-//                var telefoonnummers = relatie.telefoonnummers;
-//                var rekeningnummers = relatie.rekeningnummers;
-//                var opmerkingen = relatie.opmerkingenModel == null ? null : relatie.opmerkingenModel.opmerkingen();
-//
-//                relatie.adressen = undefined;
-//                relatie.telefoonnummers = undefined;
-//                relatie.rekeningnummers = undefined;
-//                relatie.opmerkingen = undefined;
-//                relatie.bijlages = undefined;
-//                relatie.opmerkingenModel = undefined;
-//                relatie.adresOpgemaakt = undefined;
-
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {
                     $.when(gebruikerRepository.opslaan(relatie, trackAndTraceId)).then(function(response) {
                         var id = response.entity.foutmelding;
@@ -50,7 +37,6 @@ define(["commons/3rdparty/log2",
                 logger.debug('ophalen relatie met id ' + id);
 
                 var deferred = $.Deferred();
-                var _this = this;
 
                 $.when(gebruikerRepository.leesRelatie(id),
                         bijlageService.lijst('RELATIE', id),
@@ -77,7 +63,6 @@ define(["commons/3rdparty/log2",
             lijstRelaties: function(zoekTerm, weglaten) {
                 logger.debug('ophalen lijst relaties met zoekTerm '+ zoekTerm);
                 var deferred = $.Deferred();
-                var _this = this;
                 var aantal = 0;
                 var relatieRelaties;
 

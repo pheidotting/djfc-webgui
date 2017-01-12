@@ -33,7 +33,6 @@ define(["commons/3rdparty/log",
 
             lees: function(id){
                 var deferred = $.Deferred();
-                var _this = this;
 
                 $.when(polisRepository.lees(id),
                     bijlageService.lijst('POLIS', id),

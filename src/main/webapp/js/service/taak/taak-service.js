@@ -55,7 +55,6 @@ define(["commons/3rdparty/log2",
                 var deferred = $.Deferred();
                 var prefix = this.getPrefix();
                 var _this = this;
-                var projectnaam = soortEntiteit.charAt(0).toUpperCase() + soortEntiteit.slice(1).toLowerCase();;
 
                 logger.debug('Toevoegen taak');
                 $.when(_this.ophalenTaken(this.getPrefix())).then(function(todoist) {
@@ -124,7 +123,7 @@ define(["commons/3rdparty/log2",
                         meervoudnaam = projectnaam + 'en';
                     }
 
-                    project = _this.filterProjectenOpEntiteit(taken, 'Relaties', prefix);
+                    project = _this.filterProjectenOpEntiteit(taken, meervoudnaam, prefix);
                 }
 
                 if(project != null) {
@@ -190,8 +189,6 @@ define(["commons/3rdparty/log2",
 
                     var url = 'https://todoist.com/API/v7/sync?token=' + oAuthCode + '&commands=' + JSON.stringify(commands);
 
-                    var projecten = [];
-
                     $.ajax(
                         {
                             type: "GET",
@@ -225,8 +222,6 @@ define(["commons/3rdparty/log2",
                     commands.push(command);
 
                     var url = 'https://todoist.com/API/v7/sync?token=' + oAuthCode + '&commands=' + JSON.stringify(commands);
-
-                    var projecten = [];
 
                     $.ajax(
                         {
@@ -268,8 +263,6 @@ define(["commons/3rdparty/log2",
                     commands.push(command);
 
                     var url = 'https://todoist.com/API/v7/sync?token=' + oAuthCode + '&commands=' + JSON.stringify(commands);
-
-                    var projecten = [];
 
                     $.ajax(
                         {
