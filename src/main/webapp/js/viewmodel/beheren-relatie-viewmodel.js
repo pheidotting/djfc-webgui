@@ -1,7 +1,7 @@
 define(['jquery',
         'commons/commonFunctions',
         'knockout',
-        'model/relatie2',
+        'model/relatie',
         'commons/commonFunctions',
         'commons/block',
         'commons/3rdparty/log2',

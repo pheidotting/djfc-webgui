@@ -1,5 +1,5 @@
 define(['commons/3rdparty/log2',
-        'model/adres2',
+        'model/adres',
         'service/common/bijlage-service',
         'knockout',
         'fileUpload',

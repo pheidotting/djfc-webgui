@@ -23,7 +23,8 @@ define(['commons/3rdparty/log2',
             _this.rekeningnummers.push(rekeningnummer);
         });
 
-        _this.rekeningnummers.subscribe(function(rekeningnummers) {
+        this.rekeningnummers.subscribe(function(rekeningnummers) {
+            logger.debug('subscriber afgegaan');
             $.each(rekeningnummers, function(i, nummer){
                 _this.zetRekeningnummerOm(nummer);
             });

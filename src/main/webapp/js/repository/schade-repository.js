@@ -30,7 +30,6 @@ define(["commons/3rdparty/log",
             },
 
             verwijderSchade: function(id) {
-                var _this = this;
                 var deferred = $.Deferred();
 
                 $.when(abstractRepository.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))).then(function(trackAndTraceId) {

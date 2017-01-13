@@ -11,7 +11,6 @@ define(["commons/3rdparty/log2",
         var logger = log.getLogger('taak-service');
 
         var projectPrefix;
-        var oAuthCodeTodoist;
 
         return {
              openTakenBijRelatie: function(relatieId) {
@@ -113,7 +112,7 @@ define(["commons/3rdparty/log2",
 
                 var project = _this.filterProjectenOpEntiteit(taken, projectnaam, prefix);
                 if(project == null) {
-                    var meervoudnaam = null;
+                    var meervoudnaam;
                     var laatsteletter = projectnaam.substr(projectnaam.length - 1);
                     if (_.contains(['a', 'e', 'i', 'o', 'u'], laatsteletter)) {
                         meervoudnaam = projectnaam + 's';
@@ -301,8 +300,6 @@ define(["commons/3rdparty/log2",
 
                     var url = 'https://todoist.com/API/v7/sync?token=' + oAuthCode + '&commands=' + JSON.stringify(commands);
 
-                    var projecten = [];
-
                     $.ajax(
                         {
                             type: "GET",
@@ -324,11 +321,6 @@ define(["commons/3rdparty/log2",
                     logger.debug('Todoist geauthoriseerd, code = ' + oAuthCode);
 
                     var types = [];
-//                    types.push('projects');
-//                    types.push('items');
-//                    types.push('labels');
-//                    types.push('notes');
-//                    types.push('reminders');
                     types.push('all');
 
                     var url = 'https://todoist.com/API/v7/sync?token=' + oAuthCode + '&sync_token=*&resource_types=' + JSON.stringify(types);
@@ -428,7 +420,6 @@ define(["commons/3rdparty/log2",
                     prefix
                 ) {
                     projectPrefix = prefix;
-                    oAuthCodeTodoist = oAuthCode;
 
                     if (toggleBeschikbaar) {
                         if(!QueryString().code && !oAuthCode && !QueryString().error) {
@@ -441,26 +432,26 @@ define(["commons/3rdparty/log2",
                         if(QueryString().error) {
                             logger.debug('Gebruiker heeft waarschijnlijk geen toestemming gegeven voor koppeling met Todoist');
 
-                            var url = window.location.href;
-                            url = url.replace('error=' + QueryString().error, '');
+                            var urlTerug = window.location.href;
+                            urlTerug = urlTerug.replace('error=' + QueryString().error, '');
 
-                            window.location.href = url;
+                            window.location.href = urlTerug;
                         }
 
                         if(QueryString().code) {
                             var state = QueryString().state;
                             var code = QueryString().code;
 
-                            var url = window.location.href;
-                            url = url.replace('state=' + state, '');
-                            url = url.replace('code=' + code, '');
-                            url = url.replace('?&', '');
+                            var urlTerug = window.location.href;
+                            urlTerug = urlTerug.replace('state=' + state, '');
+                            urlTerug = urlTerug.replace('code=' + code, '');
+                            urlTerug = urlTerug.replace('?&', '');
 
                             var data = {};
                             data.client_id = clientIdEnClientSecret.clientId;
                             data.client_secret = clientIdEnClientSecret.clientSecret;
                             data.code = code;
-                            data.redirect_uri = url;
+                            data.redirect_uri = urlTerug;
 
                             $.when(oAuthCodeOphalen(data)).then(function(ccode) {
                                 gebruikerService.opslaanOAuthCode(ccode);

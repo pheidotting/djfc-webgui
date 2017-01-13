@@ -1,7 +1,7 @@
 define(['jquery',
         'commons/commonFunctions',
         'knockout',
-        'model/relatie2',
+        'model/relatie',
         'model/contactpersoon2',
         'commons/commonFunctions',
         'commons/block',

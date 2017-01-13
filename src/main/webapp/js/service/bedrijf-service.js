@@ -49,7 +49,6 @@ define(["commons/3rdparty/log",
 
             leesBedrijf: function(id) {
                 var deferred = $.Deferred();
-                var _this = this;
                 var bedrijf;
                 var bedrijfsId = id;
 
@@ -100,7 +99,6 @@ define(["commons/3rdparty/log",
 
             lijstBedrijven: function(zoekTerm) {
                 var deferred = $.Deferred();
-                var _this = this;
                 var aantal = 0;
                 var dataRelaties;
 

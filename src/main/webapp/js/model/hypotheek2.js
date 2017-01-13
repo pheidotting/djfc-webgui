@@ -44,7 +44,7 @@ define(['jquery',
 	        	}
 	        },
 	        message: 'Juiste invoerformaat is : dd-mm-eejj'
-	    }});;
+	    }});
 		_this.duur = ko.observable().extend({number: true});
 		_this.ingangsDatumRenteVastePeriode = ko.observable().extend({validation: {
 	        validator: function (val) {
