@@ -10,9 +10,9 @@ define(["commons/3rdparty/log",
 
                 _.each(telefoonnummers, function(telefoonnummer){
                     if (params == '') {
-                        params = '?telefoonnummer=' + telefoonnummer.telefoonnummer;
+                        params = '?telefoonnummers=' + telefoonnummer.telefoonnummer;
                     } else {
-                        params = params + '&telefoonnummer=' + telefoonnummer.telefoonnummer;
+                        params = params + '&telefoonnummers=' + telefoonnummer.telefoonnummer;
                     }
                 });
 
