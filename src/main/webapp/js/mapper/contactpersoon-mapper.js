@@ -6,6 +6,7 @@ define(['jquery',
 	function ($, Contactpersoon, log, ko, telefoonnummerMapper) {
         return {
             mapContactpersoon: function(data) {
+                return mappen(data);
             },
 
             mapContactpersonen: function(data) {

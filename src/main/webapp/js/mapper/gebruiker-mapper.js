@@ -6,6 +6,7 @@ define(['jquery',
 	function ($, Relatie, log, ko, adresMapper) {
         return {
             mapRelatie: function(data) {
+                mappen(data);
             },
 
             mapRelaties: function(data) {
