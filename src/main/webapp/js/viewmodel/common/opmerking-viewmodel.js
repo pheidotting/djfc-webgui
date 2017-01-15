@@ -1,5 +1,5 @@
 define(['commons/3rdparty/log2',
-        'model/opmerking2',
+        'model/opmerking',
         'knockout',
         'dataServices',
         'moment',
