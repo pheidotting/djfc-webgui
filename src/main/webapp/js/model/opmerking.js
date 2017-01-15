@@ -1,41 +1,16 @@
-define(['jquery',
-         'knockout',
-         'commons/3rdparty/log',
-         'commons/commonFunctions',
-         'redirect',
-         'dataServices'],
-	function ($, ko, log, commonFunctions, redirect, dataServices) {
+define(['knockout'],
+	function (ko) {
 
-	return function(data){
+	return function(){
 		var _this = this;
 
-		_this.id = ko.observable(data.id);
-        _this.bovenLiggendId = ko.observable();
-		_this.opmerking = ko.observable(data.opmerking);
-		_this.tijd = ko.observable(data.tijd);
-		_this.medewerker = ko.observable(data.medewerker);
-		_this.medewerkerId = ko.observable(data.medewerkerId);
-		_this.soortEntiteit = ko.observable(data.soort);
-		_this.entiteitId = ko.observable(data.entiteitId);
-
-        _this.tekstBackup = ko.observable();
-		_this.startBewerken = function(opmerking){
-		    opmerking.tekstBackup(opmerking.opmerking());
-		    $('#edit' + opmerking.id()).show();
-		    $('#tekst' + opmerking.id()).hide();
-		};
-
-		_this.opslaan = function(opmerking){
-		    opmerking.tekstBackup('');
-		    $('#edit' + opmerking.id()).hide();
-		    $('#tekst' + opmerking.id()).show();
-		};
-
-		_this.annuleren = function(opmerking){
-		    opmerking.opmerking(opmerking.tekstBackup());
-		    $('#edit' + opmerking.id()).hide();
-		    $('#tekst' + opmerking.id()).show();
-		};
+		_this.id = ko.observable();
+		_this.opmerking = ko.observable();
+		_this.tijd = ko.observable();
+		_this.medewerker = ko.observable();
+		_this.medewerkerId = ko.observable();
+		_this.soortEntiteit = ko.observable();
+		_this.entiteitId = ko.observable();
 
 		_this.idIsNull = ko.computed(function(){
 		    return _this.id() == null;

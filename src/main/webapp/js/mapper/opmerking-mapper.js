@@ -1,5 +1,5 @@
 define(['jquery',
-        'model/opmerking2',
+        'model/opmerking',
         'commons/3rdparty/log2',
         'knockout'],
 	function ($, Opmerking, log, ko) {
