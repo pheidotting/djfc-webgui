@@ -57,12 +57,12 @@ define(["commons/3rdparty/log2",
 
                 logger.debug('Toevoegen taak');
                 $.when(_this.ophalenTaken(this.getPrefix())).then(function(todoist) {
-                    $.when(_this.zoekProject(todoist.projecten, projectnaam, prefix)).then(function(proj) {
+                    $.when(_this.zoekProject(todoist.projecten, soortEntiteit, prefix)).then(function(proj) {
                         logger.debug('nu de labels er bij zoeken');
                         $.when(_this.zoekLabel(todoist.labels, entiteitId), _this.zoekLabel(todoist.labels, soortEntiteit)).then(function(idLabel, soortEntiteitLabel){
                             if(proj == null) {
                                 logger.debug('Eerst dus een project aanmaken, deze werd namelijk niet gevonden.');
-                                $.when(_this.toevoegenProject(prefix, projectnaam)).then(function(projectid) {
+                                $.when(_this.toevoegenProject(prefix, soortEntiteit)).then(function(projectid) {
                                     logger.debug('Project aangemaakt met id ' + projectid);
                                     proj = projectid;
                                     $.when(_this.voegItemToe(tekst, proj, idLabel, soortEntiteitLabel, duetime)).then(function(itemId){

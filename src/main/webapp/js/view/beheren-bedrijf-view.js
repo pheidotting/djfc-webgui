@@ -7,8 +7,9 @@ define(['jquery',
         'view/common/rekeningnummer-view',
         'view/common/telefoonnummer-view',
         'view/common/opmerking-view',
-        'view/common/bijlage-view'],
-    function($, log, html, viewmodel, ko, adresView, rekeningnummerView, telefoonnummerView, opmerkingView, bijlageView) {
+        'view/common/bijlage-view',
+        'view/common/taak-view'],
+    function($, log, html, viewmodel, ko, adresView, rekeningnummerView, telefoonnummerView, opmerkingView, bijlageView, taakView) {
         var logger = log.getLogger('beheren-relatie-view');
 
         return {
@@ -20,6 +21,7 @@ define(['jquery',
                 telefoonnummerView.init(id);
                 opmerkingView.init(id);
                 bijlageView.init(id);
+                taakView.init(id);
 
                 logger.debug('content geladen, viewmodel init');
 

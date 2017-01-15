@@ -8,8 +8,10 @@ define(['jquery',
         'service/hypotheek-service',
         'viewmodel/common/opmerking-viewmodel',
         'viewmodel/common/bijlage-viewmodel',
-        'moment'],
-    function($, commonFunctions, ko, log, redirect, opmerkingenModel, hypotheekMapper, hypotheekService, opmerkingViewModel, bijlageViewModel, moment) {
+        'moment',
+        'service/toggle-service',
+        'viewmodel/common/taak-viewmodel'],
+    function($, commonFunctions, ko, log, redirect, opmerkingenModel, hypotheekMapper, hypotheekService, opmerkingViewModel, bijlageViewModel, moment, toggleService, taakViewModel) {
 
     return function() {
         var _this = this;
@@ -66,7 +68,12 @@ define(['jquery',
                     $('<option>', { value : value.id }).text(value.omschrijving).appendTo($hypotheekVormSelect);
                 });
 
-                return deferred.resolve();
+                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
+                    if(toggleBeschikbaar) {
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, hypotheekId);
+                    }
+                    return deferred.resolve();
+                });
             });
 
             return deferred.promise();
@@ -126,6 +133,7 @@ define(['jquery',
 	    	if(!_this.hypotheek.isValid()){
 	    		result.showAllMessages(true);
 	    	}else{
+	    	    _this.hypotheek.relatie(_this.basisId);
 	    		logger.debug("Versturen : " + ko.toJSON(_this.hypotheek));
 
                 hypotheekService.opslaanHypotheek(_this.hypotheek, _this.opmerkingenModel.opmerkingen).done(function(){

@@ -15,8 +15,10 @@ define(['jquery',
         'viewmodel/common/rekeningnummer-viewmodel',
         'viewmodel/common/telefoonnummer-viewmodel',
         'viewmodel/common/opmerking-viewmodel',
-        'viewmodel/common/bijlage-viewmodel'],
-    function($, commonFunctions, ko, Relatie, Contactpersoon, functions, block, log, redirect, opmerkingenModel, bedrijfMapper, contactpersoonMapper, bedrijfService, adresViewModel, rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel) {
+        'viewmodel/common/bijlage-viewmodel',
+        'service/toggle-service',
+        'viewmodel/common/taak-viewmodel'],
+    function($, commonFunctions, ko, Relatie, Contactpersoon, functions, block, log, redirect, opmerkingenModel, bedrijfMapper, contactpersoonMapper, bedrijfService, adresViewModel, rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel, toggleService, taakViewModel) {
 
     return function(id) {
         var _this = this;
@@ -58,7 +60,12 @@ define(['jquery',
 
                 _this.contactpersonen = contactpersoonMapper.mapContactpersonen(bedrijf.contactpersonen);
 
-                return deferred.resolve();
+                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
+                    if(toggleBeschikbaar) {
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id);
+                    }
+                    return deferred.resolve();
+                });
             });
 
             return deferred.promise();

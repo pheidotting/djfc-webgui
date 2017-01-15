@@ -9,8 +9,10 @@ define(['jquery',
         'service/polis-service',
         'viewmodel/common/opmerking-viewmodel',
         'viewmodel/common/bijlage-viewmodel',
-        'moment'],
-    function($, commonFunctions, ko, log, redirect, opmerkingenModel, schadeMapper, schadeService, polisService, opmerkingViewModel, bijlageViewModel, moment) {
+        'moment',
+        'service/toggle-service',
+        'viewmodel/common/taak-viewmodel'],
+    function($, commonFunctions, ko, log, redirect, opmerkingenModel, schadeMapper, schadeService, polisService, opmerkingViewModel, bijlageViewModel, moment, toggleService, taakViewModel) {
 
     return function() {
         var _this = this;
@@ -67,8 +69,12 @@ define(['jquery',
                     $('<option>', { value : value }).text(value).appendTo($selectStatus);
                 });
 
-
-                return deferred.resolve();
+                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
+                    if(toggleBeschikbaar) {
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, schadeId);
+                    }
+                    return deferred.resolve();
+                });
             });
 
             return deferred.promise();

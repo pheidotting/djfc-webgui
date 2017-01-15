@@ -101,7 +101,9 @@ define(['jquery',
 				omschrijving += _this.bank() + " - ";
 			}
 			omschrijving += _this.rente() + "% - ";
-			omschrijving += opmaak.maakBedragOp(_this.hypotheekBedrag());
+			if(_this.hypotheekBedrag() != null && _this.hypotheekBedrag() != '') {
+		    	omschrijving += opmaak.maakBedragOp(_this.hypotheekBedrag());
+            }
 
 			return omschrijving;
 		}, this);
