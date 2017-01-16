@@ -28,12 +28,14 @@ define(['jquery',
                 if(toggleBeschikbaar) {
                     $.when(taakService.aantalOpenTaken()).then(function(aantal) {
                         _this.aantalOpenstaandeTaken(aantal);
+
+                        return deferred.resolve();
                     });
+                } else {
+                    _this.beheerZichtbaar(toggleBeheerBeschikbaar);
+
+                    return deferred.resolve();
                 }
-
-                _this.beheerZichtbaar(toggleBeheerBeschikbaar);
-
-                return deferred.resolve();
             });
 
             return deferred.promise();
