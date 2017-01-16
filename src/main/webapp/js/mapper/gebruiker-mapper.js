@@ -6,7 +6,7 @@ define(['jquery',
 	function ($, Relatie, log, ko, adresMapper) {
         return {
             mapRelatie: function(data) {
-                mappen(data);
+                return mappen(data);
             },
 
             mapRelaties: function(data) {
@@ -35,6 +35,7 @@ define(['jquery',
                 relatie.overlijdensdatum(data.overlijdensdatum);
                 relatie.geslacht(data.geslacht);
                 relatie.burgerlijkeStaat(data.burgerlijkeStaat);
+                relatie.emailadres(data.emailadres);
 
                 if(data.adressen != null){
                     relatie.adressen = ko.observableArray([]);

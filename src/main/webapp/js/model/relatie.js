@@ -26,5 +26,6 @@ define(['knockout',
 		_this.overlijdensdatum = ko.observable();
 		_this.geslacht = ko.observable();
 		_this.burgerlijkeStaat = ko.observable();
+		_this.emailadres = ko.observable();
     };
 });

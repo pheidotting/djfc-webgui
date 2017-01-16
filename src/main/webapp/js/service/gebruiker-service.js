@@ -60,6 +60,18 @@ define(["commons/3rdparty/log2",
                 return deferred.promise();
             },
 
+            leesMedewerker: function(id) {
+                logger.debug('ophalen medewerker met id ' + id);
+
+                var deferred = $.Deferred();
+
+                $.when(gebruikerRepository.leesMedewerker(id)).then(function(medewerker) {
+                    return deferred.resolve(medewerker);
+                });
+
+                return deferred.promise();
+            },
+
             lijstRelaties: function(zoekTerm, weglaten) {
                 logger.debug('ophalen lijst relaties met zoekTerm '+ zoekTerm);
                 var deferred = $.Deferred();

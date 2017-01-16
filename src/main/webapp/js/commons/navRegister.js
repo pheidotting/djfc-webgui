@@ -20,6 +20,8 @@ define([ ],
                             {naam: 'OPSLAAN_OAUTH_CODE',                url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanoauthcode'},
                             {naam: 'LEES_OAUTH_CODE',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/leesoauthcode'},
 
+                            {naam: 'LEES_MEDEWERKER',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/leesMedewerker'},
+
                             {naam: 'LIJST_ADRESSEN',                    url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alles'},
                             {naam: 'OPSLAAN_ADRESSEN',                  url: BASISURL_RELATIEBEHEER + '/medewerker/adres/opslaan'},
                             {naam: 'VERWIJDER_ADRESSEN',                url: BASISURL_RELATIEBEHEER + '/medewerker/adres/verwijderen'},

@@ -23,6 +23,10 @@ define(["commons/3rdparty/log2",
                 return abstractRepository.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id});
             },
 
+            leesMedewerker: function(id) {
+                return abstractRepository.voerUitGet(navRegister.bepaalUrl('LEES_MEDEWERKER'), {id : id});
+            },
+
             lijstRelaties: function(zoekTerm, weglaten){
                 logger.debug('ophalen lijst relaties met zoekTerm '+ zoekTerm);
                 return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_RELATIES'), {"zoekTerm" : zoekTerm, "weglaten" : weglaten});

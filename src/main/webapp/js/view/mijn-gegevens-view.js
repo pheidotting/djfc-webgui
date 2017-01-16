@@ -1,14 +1,15 @@
 define(['jquery',
         'commons/3rdparty/log2',
-        'text!/../../templates/dashboard/dashboard.html',
+        'text!/../../templates/mijn-gegevens.html',
         'text!/../../templates/commons/header.html',
-        'viewmodel/dashboard-viewmodel',
+        'viewmodel/mijn-gegevens-viewmodel',
         'knockout'],
     function($, log, html, headerHtml, viewmodel, ko) {
-        var logger = log.getLogger('dashboard-view');
+        var logger = log.getLogger('mijn-gegevens-view');
 
         return {
             init: function() {
+                logger.debug('Beheerpagina laden');
 				$('#hoofd').html(headerHtml);
 				$('#content').html(html);
 

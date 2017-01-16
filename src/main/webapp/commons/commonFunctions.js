@@ -76,6 +76,7 @@ define(['commons/3rdparty/log2',
 
 		haalIngelogdeGebruiker: function(){
 			logger.debug("Haal ingelogde gebruiker");
+			var deferred = $.Deferred();
 
 			dataServices.haalIngelogdeGebruiker().done(function(response){
 				if(response.kantoor != null){
@@ -88,16 +89,18 @@ define(['commons/3rdparty/log2',
 				$('#uitloggen').show();
 				$('#homeKnop').show();
 
-				return true;
+                return deferred.resolve(response);
 			}).fail(function(){
 				logger.debug("Niet ingelogd, naar de inlogpagina");
 				$('#ingelogdeGebruiker').html("");
 				$('#uitloggen').hide();
 				$('#homeKnop').hide();
-//				redirect.redirect('INLOGGEN');
+                location.href = 'index.html#inloggen';
 
-				return false;
+                return deferred.resolve();
 			});
+
+			return deferred.promise();
 		},
 
 		uploadBestand: function(formData, url){

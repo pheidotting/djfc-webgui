@@ -17,33 +17,45 @@ define(['jquery',
         var _this = this;
         this.aantalOpenstaandeTaken = ko.observable();
         var logger = log.getLogger('dahsboard-viewmodel');
+        this.beheerZichtbaar = ko.observable();
 
         this.init = function() {
-            $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar) {
+            var deferred = $.Deferred();
+
+            $.when(toggleService.isFeatureBeschikbaar('TODOIST'), toggleService.isFeatureBeschikbaar('BEHEERPAGINA')).then(function(toggleBeschikbaar, toggleBeheerBeschikbaar) {
                 logger.debug('ophalen aantal open taken');
 
                 if(toggleBeschikbaar) {
-                    $.when(taakService.aantalOpenTaken()).then(function(aantal){
+                    $.when(taakService.aantalOpenTaken()).then(function(aantal) {
                         _this.aantalOpenstaandeTaken(aantal);
                     });
                 }
+
+                _this.beheerZichtbaar(toggleBeheerBeschikbaar);
+
+                return deferred.resolve();
             });
+
+            return deferred.promise();
         };
 
         this.aantalOpenstaandeTakenTonen = ko.computed(function() {
             return parseInt(_this.aantalOpenstaandeTaken()) > 0;
         });
 
-        this.naarParticulier = function(){
+        this.naarParticulier = function() {
             logger.debug('lijst relaties');
             redirect.redirect('LIJST_RELATIES');
         };
 
-        this.naarZakelijk = function(){
+        this.naarZakelijk = function() {
             logger.debug('lijst bedrijven');
             redirect.redirect('LIJST_BEDRIJVEN');
         };
 
-        _this.init();
+        this.naarBeheer = function() {
+            logger.debug('naar beheer');
+            location.href = 'beheer.html';
+        };
 	};
 });
