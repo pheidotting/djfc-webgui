@@ -114,7 +114,9 @@ define([ ],
                             {naam: 'TODOIST_CLIENT_ID_EN_SECRET',       url: BASISURL_RELATIEBEHEER + '/medewerker/todoist/getClientIdEnClientSecret'},
 
                             {naam: 'TELEFONIE_RECORDINGS',              url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/recordings'},
-                            {naam: 'TELEFONIE_DOWNLOAD',                url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/download'}
+                            {naam: 'TELEFONIE_DOWNLOAD',                url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/download'},
+
+                            {naam: 'WIJZIG_WACHTWOORD',                url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/download'}
                         ];
 
                 var url = '';

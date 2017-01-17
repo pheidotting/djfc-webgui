@@ -8,8 +8,9 @@ define(['jquery',
 		'redirect',
 		'repository/common/repository',
         'service/gebruiker-service',
-        'mapper/gebruiker-mapper'],
-    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, gebruikerMapper) {
+        'mapper/gebruiker-mapper',
+        'service/common/wachtwoord-service'],
+    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, gebruikerMapper, wachtwoordService) {
 
     return function() {
         window.setInterval(commonFunctions.haalIngelogdeGebruiker, 300000);
@@ -74,11 +75,12 @@ define(['jquery',
         });
 
         this.magDoorgaan = ko.computed(function(){
-            return _this.wachtwoordNogmaals() != null && _this.wachtwoordNogmaals() !== '' && _this.wachtwoordAccoord();
+            return _this.nieuwWachtwoord() !== '' && ((_this.wachtwoordNogmaals() != null || _this.wachtwoordNogmaals() !== '') && _this.wachtwoordAccoord());
         });
 
         this.opslaan = function() {
             logger.debug('Opslaan');
+            wachtwoordService.verstuur({'identificatie': _this.medewerker.identificatie(), 'wachtwoord': _this.nieuwWachtwoord()});
         };
 
         function scorePassword(pass) {

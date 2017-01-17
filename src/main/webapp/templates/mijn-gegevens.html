@@ -23,7 +23,7 @@
     <label for="nieuw-wachtwoord">Nieuw wachtwoord</label>
     <input class="form-control" type="password" id="nieuw-wachtwoord" name="nieuw-wachtwoord"
            data-bind="value: nieuwWachtwoord, event: {blur: wachtwoordGewijzigd}"/>
-    <div data-bind="visible: tonenWachtwoordSterkte">
+    <div data-bind="visible: tonenWachtwoordSterkte" class="validationMessage" id="wachtwoordSterkteMelding">
         Dit is een <span data-bind="text: wachtwoordSterkte"></span> wachtwoord!
     </div>
 </div>
@@ -31,7 +31,7 @@
     <label for="wachtwoord-nogmaals">Nogmaals</label>
     <input class="form-control" type="password" id="wachtwoord-nogmaals" name="wachtwoord-nogmaals"
            data-bind="value: wachtwoordNogmaals, event: {blur: wachtwoordGewijzigd}"/>
-    <div data-bind="visible: wachtwoordNietAccoordTonen">
+    <div data-bind="visible: wachtwoordNietAccoordTonen" id="wachtwoordenKomNietOvereenMelding" class="validationMessage">
         De ingevulde wachtwoorden komen niet met elkaar overeen!
     </div>
 </div>
