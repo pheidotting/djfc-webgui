@@ -11,6 +11,7 @@ define(["commons/3rdparty/log2",
         var logger = log.getLogger('taak-service');
 
         var projectPrefix;
+        var oAuthCode;
 
         return {
              openTakenBijRelatie: function(relatieId) {
@@ -414,12 +415,18 @@ define(["commons/3rdparty/log2",
                     todoistRepository.prefix()
                 ).then(function(
                     toggleBeschikbaar,
-                    oAuthCode,
+                    oAuthCodeOpgehaald,
                     secret,
                     clientIdEnClientSecret,
                     prefix
                 ) {
                     projectPrefix = prefix;
+                    if (oAuthCodeOpgehaald == null || oAuthCodeOpgehaald == '') {
+                        oAuthCodeOpgehaald = oAuthCode;
+                    } else {
+                        oAuthCode = oAuthCodeOpgehaald;
+                    }
+
 
                     if (toggleBeschikbaar) {
                         if(!QueryString().code && !oAuthCode && !QueryString().error) {
@@ -454,6 +461,7 @@ define(["commons/3rdparty/log2",
                             data.redirect_uri = urlTerug;
 
                             $.when(oAuthCodeOphalen(data)).then(function(ccode) {
+                                oAuthCode = ccode;
                                 return gebruikerService.opslaanOAuthCode(ccode);
                             }).then(function(){
                                 window.location.href = urlTerug;
