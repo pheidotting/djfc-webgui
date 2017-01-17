@@ -456,7 +456,7 @@ define(["commons/3rdparty/log2",
                             $.when(oAuthCodeOphalen(data)).then(function(ccode) {
                                 gebruikerService.opslaanOAuthCode(ccode);
 
-                                window.location.href = url;
+                                window.location.href = urlTerug;
                             });
                         }
 
