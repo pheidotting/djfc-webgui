@@ -454,8 +454,8 @@ define(["commons/3rdparty/log2",
                             data.redirect_uri = urlTerug;
 
                             $.when(oAuthCodeOphalen(data)).then(function(ccode) {
-                                gebruikerService.opslaanOAuthCode(ccode);
-
+                                return gebruikerService.opslaanOAuthCode(ccode);
+                            }).then(function(){
                                 window.location.href = urlTerug;
                             });
                         }

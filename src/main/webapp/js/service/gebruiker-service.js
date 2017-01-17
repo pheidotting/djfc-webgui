@@ -117,7 +117,7 @@ define(["commons/3rdparty/log2",
 
             opslaanOAuthCode: function(code) {
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {
-                    gebruikerRepository.opslaanOAuthCode(code, trackAndTraceId);
+                    return gebruikerRepository.opslaanOAuthCode(code, trackAndTraceId);
                 });
             },
 
