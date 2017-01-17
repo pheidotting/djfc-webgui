@@ -116,9 +116,15 @@ define(["commons/3rdparty/log2",
             },
 
             opslaanOAuthCode: function(code) {
+                var deferred = $.Deferred();
+
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {
-                    return gebruikerRepository.opslaanOAuthCode(code, trackAndTraceId);
+                    $.when(gebruikerRepository.opslaanOAuthCode(code, trackAndTraceId)).then(function(){
+                        return deferred.resolve();
+                    });
                 });
+
+                return deferred.promise();
             },
 
             leesOAuthCode: function() {
