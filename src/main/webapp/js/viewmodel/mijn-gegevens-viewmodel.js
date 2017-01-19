@@ -9,8 +9,9 @@ define(['jquery',
 		'repository/common/repository',
         'service/gebruiker-service',
         'mapper/gebruiker-mapper',
-        'service/common/wachtwoord-service'],
-    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, gebruikerMapper, wachtwoordService) {
+        'service/common/wachtwoord-service',
+        'service/mijn-gegevens-service'],
+    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, gebruikerMapper, wachtwoordService, mijnGegevensService) {
 
     return function() {
         window.setInterval(commonFunctions.haalIngelogdeGebruiker, 300000);
@@ -80,7 +81,10 @@ define(['jquery',
 
         this.opslaan = function() {
             logger.debug('Opslaan');
-            wachtwoordService.verstuur({'identificatie': _this.medewerker.identificatie(), 'wachtwoord': _this.nieuwWachtwoord()});
+            if(_this.nieuwWachtwoord()) {
+                wachtwoordService.verstuur({'identificatie': _this.medewerker.identificatie(), 'wachtwoord': _this.nieuwWachtwoord()});
+            }
+
         };
 
         function scorePassword(pass) {
