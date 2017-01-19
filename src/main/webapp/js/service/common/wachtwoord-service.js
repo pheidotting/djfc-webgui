@@ -1,8 +1,10 @@
 define(['commons/3rdparty/log2',
         'navRegister',
         'knockout',
-        'repository/common/repository'],
-    function(log, navRegister, ko, repository) {
+        'repository/common/repository',
+        '../../node_modules/crypto-js/crypto-js',
+        '../../node_modules/crypto-js/sha3'],
+    function(log, navRegister, ko, repository, CryptoJs, sha3) {
         var logger = log.getLogger('wachtwoord-service');
 
         return {
@@ -21,6 +23,10 @@ define(['commons/3rdparty/log2',
                         wachtwoord: encryptWachtwoord(gebruikersnaamEnWachtwoord.wachtwoord)
                     }
 
+                    console.log(request);
+                    console.log(JSON.stringify(request));
+
+                    repository.voerUitPost(navRegister.bepaalUrl('WIJZIG_WACHTWOORD'), JSON.stringify(request), trackAndTraceId);
                 });
 
                 return deferred.promise();
@@ -30,7 +36,7 @@ define(['commons/3rdparty/log2',
         function encryptWachtwoord(wachtwoord) {
             logger.debug('encrypt');
 
-            return wachtwoord;
+            return sha3(wachtwoord).toString(CryptoJs.enc.Base64);
         }
     }
 );

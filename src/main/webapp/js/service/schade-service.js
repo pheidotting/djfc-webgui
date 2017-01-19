@@ -50,8 +50,8 @@ define(["commons/3rdparty/log",
                 return schadeRepository.lijstStatusSchade();
             },
 
-            lijstSchades: function(relatieId) {
-                return schadeRepository.lijstSchades(relatieId);
+            lijstSchades: function(relatieId, soortEntiteit) {
+                return schadeRepository.lijstSchades(relatieId, soortEntiteit);
             },
 
             verwijderSchade: function(id) {

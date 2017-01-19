@@ -25,8 +25,12 @@ define(["commons/3rdparty/log",
                 return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_STATUS_SCHADE'), null);
             },
 
-            lijstSchades: function(relatieId) {
-                return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_SCHADES'), {relatieId : relatieId});
+            lijstSchades: function(entiteitId, soortEntiteit) {
+                if(soortEntiteit == 'RELATIE') {
+                    return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_SCHADES'), {relatieId : entiteitId});
+                } else {
+                    return abstractRepository.voerUitGet(navRegister.bepaalUrl('LIJST_SCHADES_BIJ_BEDRIJF'), {bedrijfId : entiteitId});
+                }
             },
 
             verwijderSchade: function(id) {

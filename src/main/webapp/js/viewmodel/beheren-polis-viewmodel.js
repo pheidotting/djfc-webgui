@@ -59,7 +59,14 @@ define(['jquery',
 
                 toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
                     if(toggleBeschikbaar) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, polisId);
+                        var relatieId;
+                        var bedrijfId;
+                        if(_this.basisEntiteit == 'RELATIE'){
+                            relatieId = _this.basisId;
+                        } else {
+                            bedrijfId = _this.basisId;
+                        }
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, polisId, relatieId, bedrijfId);
                     }
                     return deferred.resolve();
                 });

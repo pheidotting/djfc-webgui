@@ -17,7 +17,7 @@ define(['jquery',
         var _this = this;
         this.aantalOpenstaandeTaken = ko.observable();
         var logger = log.getLogger('dahsboard-viewmodel');
-        this.beheerZichtbaar = ko.observable(false);
+        this.beheerZichtbaar = ko.observable();
 
         this.init = function() {
             var deferred = $.Deferred();

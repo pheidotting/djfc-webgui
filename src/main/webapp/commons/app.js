@@ -38,7 +38,15 @@ requirejs.config({
         moment: {
             noGlobal: true
         }
-    }
+//    },
+//    packages: {[
+//            {
+//                name: '../node_modules/crypto-js',
+//                location: '../node_modules/crypto-js/crypto-js',
+//                main: 'index'
+//            }
+//        ]
+        }
 });
 
 requirejs(['jquery',

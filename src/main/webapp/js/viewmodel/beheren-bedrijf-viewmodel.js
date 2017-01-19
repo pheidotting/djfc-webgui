@@ -61,8 +61,8 @@ define(['jquery',
                 _this.contactpersonen = contactpersoonMapper.mapContactpersonen(bedrijf.contactpersonen);
 
                 toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
-                    if(toggleBeschikbaar) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id);
+                    if(toggleBeschikbaar && id != 0) {
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id, null, id);
                     }
                     return deferred.resolve();
                 });

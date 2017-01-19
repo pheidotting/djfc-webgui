@@ -64,7 +64,7 @@ define(['jquery',
 
                 $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar){
                     if(toggleBeschikbaar) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id);
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id, id);
 
                         return deferred.resolve();
                     } else {

@@ -8,12 +8,14 @@ define(['commons/3rdparty/log2',
         'commonFunctions'],
     function(log, taakService, toggleService, taakMapper, Taak, ko, moment, commonFunctions) {
 
-    return function(readOnly, soortEntiteit, entiteitId) {
+    return function(readOnly, soortEntiteit, entiteitId, relatieId, bedrijfId) {
         var _this = this;
         var logger = log.getLogger('taak-viewmodel');
 
 		this.id = ko.observable(entiteitId);
 		this.soortEntiteit = ko.observable(soortEntiteit);
+		this.relatieId = relatieId;
+		this.bedrijfId = bedrijfId;
 
         this.taken = ko.observableArray();
 
@@ -35,7 +37,7 @@ define(['commons/3rdparty/log2',
 
         $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar){
             if(toggleBeschikbaar) {
-                $.when(taakService.alleTaken(_this.soortEntiteit(), _this.id())).then(function(opgehaaldeTaken){
+                $.when(taakService.alleTaken(_this.soortEntiteit(), _this.id(), _this.relatieId, _this.bedrijfId)).then(function(opgehaaldeTaken){
                     _.each(taakMapper.mapTaken(opgehaaldeTaken)(), function(gemapteTaak) {
                         _this.taken.push(gemapteTaak);
                         _this.taken.valueHasMutated()
@@ -47,7 +49,7 @@ define(['commons/3rdparty/log2',
         this.voegTaakToe = function() {
             logger.debug('Toevoegen taak');
             if(_this.nieuweTaakTekst.isValid() && _this.nieuweTaakReminder.isValid()) {
-                $.when(taakService.voegTaakToe(_this.soortEntiteit(), _this.id(), _this.nieuweTaakTekst(), _this.nieuweTaakReminder())).then(function(itemId){
+                $.when(taakService.voegTaakToe(_this.soortEntiteit(), _this.id(), _this.nieuweTaakTekst(), _this.nieuweTaakReminder(), _this.relatieId, _this.bedrijfId)).then(function(itemId){
                     var taak = new Taak();
                     taak.omschrijving(_this.nieuweTaakTekst());
                     taak.projectId(itemId);

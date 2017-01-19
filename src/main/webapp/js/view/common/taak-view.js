@@ -9,9 +9,11 @@ define(['jquery',
             init: function(id) {
                 $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar) {
                     if(toggleBeschikbaar) {
-                        $('#taken').html(html);
+                        if(toggleBeschikbaar && id != 0) {
+                            $('#taken').html(html);
 
-                        logger.debug('content geladen, viewmodel init');
+                            logger.debug('content geladen, viewmodel init');
+                        }
                     }
                 });
             }

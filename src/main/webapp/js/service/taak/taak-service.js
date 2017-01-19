@@ -5,15 +5,38 @@ define(["commons/3rdparty/log2",
         'repository/todoist-repository',
         'service/toggle-service',
         'service/gebruiker-service',
+        'service/bedrijf-service',
         'underscore',
         'moment'],
-    function(log, navRegister, taakRepository, repository, todoistRepository, toggleService, gebruikerService, _, moment) {
+    function(log, navRegister, taakRepository, repository, todoistRepository, toggleService, gebruikerService, bedrijfService, _, moment) {
         var logger = log.getLogger('taak-service');
 
         var projectPrefix;
         var oAuthCode;
 
         return {
+            genereerPrefixVoorTaakNaam(relatieId, bedrijfId) {
+                var deferred = $.Deferred();
+
+                if(relatieId != null) {
+                    $.when(gebruikerService.leesRelatie(relatieId)).then(function(relatie){
+                        var naam = relatie.voornaam + ' ';
+                        if(relatie.tussenvoegsel != '') {
+                            naam += relatie.tussenvoegsel + ' ';
+                        }
+                        naam += relatie.achternaam + ' - ';
+
+                        return deferred.resolve(naam);
+                    });
+                } else {
+                    $.when(bedrijfService.leesBedrijf(bedrijfId)).then(function(bedrijf){
+                        return deferred.resolve(bedrijf.naam + ' - ');
+                    });
+                }
+
+                return deferred.promise();
+            },
+
              openTakenBijRelatie: function(relatieId) {
                  return taakRepository.openTakenBijRelatie(relatieId);
              },
@@ -24,11 +47,11 @@ define(["commons/3rdparty/log2",
                 });
              },
 
-             alleTaken: function(soortEntiteit, entiteitId) {
+             alleTaken: function(soortEntiteit, entiteitId, relatieId, bedrijfId) {
                 var deferred = $.Deferred();
                 var _this = this;
 
-                $.when(todoistRepository.prefix()).then(function(prefix) {
+                $.when(todoistRepository.prefix(), _this.genereerPrefixVoorTaakNaam(relatieId, bedrijfId)).then(function(prefix, naamPrefix) {
                     projectPrefix = prefix;
                     $.when(_this.ophalenTaken(_this.getPrefix())).then(function(todoist) {
                         var items = _.chain(todoist.projecten)
@@ -42,6 +65,10 @@ define(["commons/3rdparty/log2",
 
                                 return _.contains(labels, soortEntiteit) && _.contains(labels, entiteitId);
                             })
+                            .map(function(item){
+                                item.omschrijving = item.omschrijving.replace(naamPrefix, '');
+                                return item;
+                            })
                             .value();
 
                             return deferred.resolve(items);
@@ -51,7 +78,7 @@ define(["commons/3rdparty/log2",
                 return deferred.promise();
              },
 
-             voegTaakToe: function(soortEntiteit, entiteitId, tekst, duetime) {
+             voegTaakToe: function(soortEntiteit, entiteitId, tekst, duetime, relatieId, bedrijfId) {
                 var deferred = $.Deferred();
                 var prefix = this.getPrefix();
                 var _this = this;
@@ -63,15 +90,17 @@ define(["commons/3rdparty/log2",
                         $.when(_this.zoekLabel(todoist.labels, entiteitId), _this.zoekLabel(todoist.labels, soortEntiteit)).then(function(idLabel, soortEntiteitLabel){
                             if(proj == null) {
                                 logger.debug('Eerst dus een project aanmaken, deze werd namelijk niet gevonden.');
-                                $.when(_this.toevoegenProject(prefix, soortEntiteit)).then(function(projectid) {
+                                $.when(_this.toevoegenProject(prefix, soortEntiteit), _this.genereerPrefixVoorTaakNaam(relatieId, bedrijfId)).then(function(projectid, naamPrefix) {
                                     logger.debug('Project aangemaakt met id ' + projectid);
                                     proj = projectid;
-                                    $.when(_this.voegItemToe(tekst, proj, idLabel, soortEntiteitLabel, duetime)).then(function(itemId){
+                                    $.when(_this.voegItemToe(naamPrefix + tekst, proj, idLabel, soortEntiteitLabel, duetime)).then(function(itemId){
                                         return deferred.resolve(proj);
                                     });
                                 });
                             } else {
-                                $.when(_this.voegItemToe(tekst, proj, idLabel, soortEntiteitLabel, duetime)).then(function(itemId){
+                                $.when(_this.genereerPrefixVoorTaakNaam(relatieId, bedrijfId)).then(function(naamPrefix) {
+                                    return _this.voegItemToe(naamPrefix + tekst, proj, idLabel, soortEntiteitLabel, duetime);
+                                }).then(function(itemId){
                                     return deferred.resolve(proj);
                                 });
                             }

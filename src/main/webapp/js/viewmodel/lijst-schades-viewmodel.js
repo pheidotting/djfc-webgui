@@ -25,7 +25,7 @@ define(['jquery',
 
             _this.id(id);
             _this.basisEntiteit = basisEntiteit;
-            $.when(schadeService.lijstSchades(id), schadeService.lijstStatusSchade()).then(function(lijstSchades, statussenSchade) {
+            $.when(schadeService.lijstSchades(id, basisEntiteit), schadeService.lijstStatusSchade()).then(function(lijstSchades, statussenSchade) {
                     _this.schades = schadeMapper.mapSchades(lijstSchades, statussenSchade);
 
                 return deferred.resolve();

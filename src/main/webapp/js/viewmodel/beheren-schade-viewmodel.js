@@ -71,7 +71,7 @@ define(['jquery',
 
                 toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
                     if(toggleBeschikbaar) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, schadeId);
+                        _this.taakModel             = new taakViewModel(false, soortEntiteit, schadeId, relatieId, bedrijfId);
                     }
                     return deferred.resolve();
                 });
