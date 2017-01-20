@@ -1,18 +1,19 @@
 requirejs.config({
     baseUrl: '',
     paths: {
-        commons: 'commons',
         jquery: 'node_modules/jquery/dist/jquery.min',
-        sammy: 'commons/3rdparty/sammy',
-        moment: 'commons/3rdparty/moment',
+        sammy: 'node_modules/sammy/lib/min/sammy-latest.min',
+        moment: 'node_modules/moment/min/moment.min',
+    	knockout: 'node_modules/knockout/build/output/knockout-latest',
+        knockoutValidation: 'node_modules/knockout.validation/dist/knockout.validation.min',
+        blockUI: 'node_modules/block-ui/jquery.blockUI',
+        jqueryUI: 'node_modules/jquery-ui/jquery-ui',
+        text: 'node_modules/requirejs-text/text',
+        underscore: 'node_modules/underscore/underscore-min',
+        commons: 'commons',
     	js: 'js',
     	pages: 'pages',
     	model: 'js/model',
-    	knockout: 'commons/3rdparty/knockout',
-        knockoutValidation: 'commons/3rdparty/knockoutValidation/knockout.validation',
-        blockUI: 'commons/3rdparty/blockui',
-        jqueryUI: 'commons/3rdparty/jquery-ui-1.10.3',
-        text: 'commons/3rdparty/text',
         dataServices: 'js/commons/dataServices',
         navRegister: 'js/commons/navRegister',
         fileUpload: 'js/commons/fileUpload',
@@ -27,8 +28,7 @@ requirejs.config({
         repository: 'js/repository',
         view: 'js/view',
         viewmodel: 'js/viewmodel',
-        mapper: 'js/mapper',
-        underscore: 'js/commons/thirdparty/underscore'
+        mapper: 'js/mapper'
     },
 	shim: {
         "knockoutValidation": ["knockout"],
