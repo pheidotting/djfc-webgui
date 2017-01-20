@@ -4,9 +4,9 @@ define(['jquery',
          'commons/block',
          'dataServices',
          'redirect',
-         'commons/3rdparty/log2'],
+         'commons/3rdparty/log2',
+         'knockoutValidation'],
 	function ($, ko, commonFunctions, block, dataServices, redirect, log) {
-
 	var logger = log.getLogger('inlog');
 
 	return function(){

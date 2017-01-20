@@ -15,7 +15,7 @@ define(["commons/3rdparty/log2",
         var oAuthCode;
 
         return {
-            genereerPrefixVoorTaakNaam(relatieId, bedrijfId) {
+            genereerPrefixVoorTaakNaam: function(relatieId, bedrijfId) {
                 var deferred = $.Deferred();
 
                 if(relatieId != null) {

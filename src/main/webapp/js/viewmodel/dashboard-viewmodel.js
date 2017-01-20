@@ -25,6 +25,8 @@ define(['jquery',
             $.when(toggleService.isFeatureBeschikbaar('TODOIST'), toggleService.isFeatureBeschikbaar('BEHEERPAGINA')).then(function(toggleBeschikbaar, toggleBeheerBeschikbaar) {
                 logger.debug('ophalen aantal open taken');
 
+                _this.beheerZichtbaar(toggleBeheerBeschikbaar);
+
                 if(toggleBeschikbaar) {
                     $.when(taakService.aantalOpenTaken()).then(function(aantal) {
                         _this.aantalOpenstaandeTaken(aantal);
@@ -32,8 +34,6 @@ define(['jquery',
                         return deferred.resolve();
                     });
                 } else {
-                    _this.beheerZichtbaar(toggleBeheerBeschikbaar);
-
                     return deferred.resolve();
                 }
             });

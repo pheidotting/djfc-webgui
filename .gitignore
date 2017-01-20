@@ -1,3 +1,4 @@
 
 djfc-webgui.iml
 target/*
+node_modules/*
