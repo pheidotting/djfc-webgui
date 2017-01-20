@@ -23,8 +23,8 @@ define(['commons/3rdparty/log2',
                         wachtwoord: encryptWachtwoord(gebruikersnaamEnWachtwoord.wachtwoord)
                     }
 
-                    console.log(request);
-                    console.log(JSON.stringify(request));
+                    logger.debug(request);
+                    logger.debug(JSON.stringify(request));
 
                     repository.voerUitPost(navRegister.bepaalUrl('WIJZIG_WACHTWOORD'), JSON.stringify(request), trackAndTraceId);
                 });
