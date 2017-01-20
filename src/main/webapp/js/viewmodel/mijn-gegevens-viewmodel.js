@@ -84,7 +84,11 @@ define(['jquery',
             if(_this.nieuwWachtwoord()) {
                 wachtwoordService.verstuur({'identificatie': _this.medewerker.identificatie(), 'wachtwoord': _this.nieuwWachtwoord()});
             }
-            mijnGegevensService.opslaan(_this.medewerker);
+
+            $.when(mijnGegevensService.opslaan(_this.medewerker)).then(function(){
+                commonFunctions.plaatsMelding('De gegevens zijn opgeslagen');
+                commonFunctions.haalIngelogdeGebruiker();
+            });
         };
 
         function scorePassword(pass) {
