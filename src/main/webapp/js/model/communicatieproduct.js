@@ -99,7 +99,6 @@ define(['jquery',
 		opslaanCm = function(cm){
             var deferred = $.Deferred();
 
-		    console.log('Opslaan ' + ko.toJSON(cm));
 		    dataServices.opslaanCommunciatieProduct(cm).done(function(id){
 		        cm.id(id);
                 return deferred.resolve(id);
