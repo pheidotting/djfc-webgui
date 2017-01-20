@@ -15,6 +15,14 @@ define(["commons/3rdparty/log2",
                 return abstractRepository.voerUitPost(url, ko.toJSON(data), trackAndTraceId);
             },
 
+            opslaanMedewerker: function(data, trackAndTraceId) {
+                var url = navRegister.bepaalUrl('OPSLAAN_MEDEWERKER');
+                logger.debug("Versturen naar " + url + " : ");
+                logger.debug(ko.toJSON(data));
+
+                return abstractRepository.voerUitPost(url, ko.toJSON(data), trackAndTraceId);
+            },
+
             verwijderRelatie: function(id, trackAndTraceId) {
                 return abstractRepository.voerUitPost(navRegister.bepaalUrl('VERWIJDER_RELATIE') + '/' + id, null, trackAndTraceId);
             },

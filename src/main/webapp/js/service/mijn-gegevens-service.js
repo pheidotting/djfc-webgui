@@ -1,15 +1,21 @@
-define(["commons/3rdparty/log",
+define(["commons/3rdparty/log2",
         "navRegister",
-        'knockout',
         'repository/common/repository',
-        'repository/polis-repository',],
-    function(log, navRegister, ko, repository) {
+        'repository/gebruiker-repository'],
+    function(log, navRegister, repository, gebruikerRepository) {
         var logger = log.getLogger('mijn-gegevens-service');
 
         return {
-            opslaan: function(polis, opmerkingen){
+            opslaan: function(medewerker){
                 var deferred = $.Deferred();
 
+                $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId){
+                    $.when(gebruikerRepository.opslaanMedewerker(medewerker, trackAndTraceId)).then(function(response){
+                        logger.debug('opslaan medewerker');
+
+                        return deferred.resolve();
+                    });
+                });
 
                 return deferred.promise();
             }

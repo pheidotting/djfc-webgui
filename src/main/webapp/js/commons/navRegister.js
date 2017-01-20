@@ -21,6 +21,7 @@ define([ ],
                             {naam: 'LEES_OAUTH_CODE',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/leesoauthcode'},
 
                             {naam: 'LEES_MEDEWERKER',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/leesMedewerker'},
+                            {naam: 'OPSLAAN_MEDEWERKER',                url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanMedewerker'},
 
                             {naam: 'LIJST_ADRESSEN',                    url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alles'},
                             {naam: 'OPSLAAN_ADRESSEN',                  url: BASISURL_RELATIEBEHEER + '/medewerker/adres/opslaan'},

@@ -84,7 +84,7 @@ define(['jquery',
             if(_this.nieuwWachtwoord()) {
                 wachtwoordService.verstuur({'identificatie': _this.medewerker.identificatie(), 'wachtwoord': _this.nieuwWachtwoord()});
             }
-
+            mijnGegevensService.opslaan(_this.medewerker);
         };
 
         function scorePassword(pass) {
