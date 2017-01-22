@@ -20,11 +20,6 @@
     "underscore": "1.8.3",
     "crypto-js": "3.1.9-1",
     "block-ui": "2.70.1",
-    "requirejs-text": "2.0.12"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-watch": "~0.5.3"
+    "requirejs-text": "2.0.15"
   }
 }
