@@ -19,7 +19,7 @@ define(['commons/3rdparty/log2',
 
         this.taken = ko.observableArray();
 
-        this.nieuweTaakTekst = ko.observable().extend({required: true});
+        this.nieuweTaakTekst = ko.observable();
         this.nieuweTaakReminder = ko.observable().extend({validation: {
             validator: function (val) {
                 if(val) {
