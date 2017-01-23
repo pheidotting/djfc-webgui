@@ -30,13 +30,13 @@ define(['jquery',
                 if(toggleBeschikbaar) {
                     $.when(taakService.aantalOpenTaken()).then(function(aantal) {
                         _this.aantalOpenstaandeTaken(aantal);
+                        _this.aantalOpenstaandeTaken.valueHasMutated();
 
-                        return deferred.resolve();
+                        taakService.ophalenAfgerondeTaken();
                     });
-                } else {
-                    return deferred.resolve();
                 }
             });
+                    return deferred.resolve();
 
             return deferred.promise();
         };
