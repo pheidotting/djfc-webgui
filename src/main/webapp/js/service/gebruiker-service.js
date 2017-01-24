@@ -75,11 +75,9 @@ define(["commons/3rdparty/log2",
             lijstRelaties: function(zoekTerm, weglaten) {
                 logger.debug('ophalen lijst relaties met zoekTerm '+ zoekTerm);
                 var deferred = $.Deferred();
-                var aantal = 0;
                 var relatieRelaties;
 
                 gebruikerRepository.lijstRelaties(zoekTerm, weglaten).done(function(relatie) {
-                    aantal = relatie.jsonRelaties.length;
                     relatieRelaties = relatie;
 
                     var ids = _.map(relatie.jsonRelaties, function(relatie){

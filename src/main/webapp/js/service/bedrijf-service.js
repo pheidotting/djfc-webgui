@@ -99,11 +99,9 @@ define(["commons/3rdparty/log",
 
             lijstBedrijven: function(zoekTerm) {
                 var deferred = $.Deferred();
-                var aantal = 0;
                 var dataRelaties;
 
                 bedrijfRepository.lijstBedrijven(zoekTerm).done(function(data) {
-                    aantal = data.length;
                     dataBedrijven = data;
 
                     var ids = _.map(dataBedrijven, function(bedrijf){

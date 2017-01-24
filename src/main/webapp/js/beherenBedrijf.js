@@ -58,9 +58,6 @@ define(['jquery',
 					}else if(actie === "schade"){
 					    beherenBedrijfSchade.init(subId, bedrijfId, false, 'BEDRIJF');
 					}
-					var _bedrijfId = bedrijfId;
-					var _subId = subId;
-
 				});
 
 				if(actie === ""){
