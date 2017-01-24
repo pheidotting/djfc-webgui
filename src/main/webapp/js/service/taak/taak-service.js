@@ -344,6 +344,59 @@ define(["commons/3rdparty/log2",
                 return deferred.promise();
              },
 
+             ophalenAfgerondeTaken: function(prefix) {
+                var deferred = $.Deferred();
+
+                $.when(this.authoriseerTodoist()).then(function(oAuthCode) {
+                    logger.debug('Todoist geauthoriseerd, code = ' + oAuthCode);
+
+                    var url = 'https://todoist.com/API/v7/completed/get_all?token=' + oAuthCode;
+
+                    $.ajax(
+                        {
+                            type: "GET",
+                            url: url
+                        }
+                    )
+                    .done(function(response) {
+                        var a = _.chain(response.items)
+                        .filter(function(item){
+                            return item.content.split('@').length === 3;
+                        })
+                        .map(function(item){
+                            var nwItem = {};
+
+                            var splits = item.content.split('@');
+                            nwItem.omschrijving = splits[0].trim();
+
+                            if($.isNumeric(splits[1])) {
+                                nwItem.entiteitId = splits[1];
+                                nwItem.soortEntiteit = splits[2];
+                            } else {
+                                nwItem.soortEntiteit = splits[1];
+                                nwItem.entiteitId = splits[2];
+                            }
+
+                            var url = 'https://todoist.com/API/v7/items/get?token=' + oAuthCode + '&item_id=' + item.id;
+
+                            $.ajax(
+                                {
+                                    type: "GET",
+                                    url: url
+                                }
+                            )
+                            .done(function(response) {
+                                console.log(response);
+                            });
+
+                            return nwItem;
+                        }).value();
+
+                        console.log(a);
+                    });
+                });
+            },
+
              ophalenTaken: function(prefix) {
                 var deferred = $.Deferred();
 

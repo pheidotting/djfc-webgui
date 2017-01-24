@@ -31,8 +31,6 @@ define(['jquery',
                     $.when(taakService.aantalOpenTaken()).then(function(aantal) {
                         _this.aantalOpenstaandeTaken(aantal);
                         _this.aantalOpenstaandeTaken.valueHasMutated();
-
-                        taakService.ophalenAfgerondeTaken();
                     });
                 }
             });
