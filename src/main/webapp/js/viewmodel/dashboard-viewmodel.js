@@ -24,6 +24,7 @@ define(['jquery',
                 logger.debug('ophalen aantal open taken');
 
                 _this.beheerZichtbaar(toggleBeheerBeschikbaar);
+                taakService.ophalenAfgerondeTaken();
 
                 if(toggleBeschikbaar) {
                     $.when(taakService.aantalOpenTaken()).then(function(aantal) {

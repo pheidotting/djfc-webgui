@@ -105,11 +105,19 @@ define(["commons/3rdparty/log",
                 bedrijfRepository.lijstBedrijven(zoekTerm).done(function(data) {
                     aantal = data.length;
                     dataBedrijven = data;
-                    $.each(data, function(i, item) {
-                        adresService.lijst('BEDRIJF', item.id).done(function(adressen) {
-                            item.adressen = adressen;
-                            teruggeven(--aantal);
+
+                    var ids = _.map(dataBedrijven, function(bedrijf){
+                        return bedrijf.id;
+                    });
+
+                    $.when(repository.voerUitGet(navRegister.bepaalUrl('ALLE_ADRESSEN_BIJ_ENTITEIT') + '?soortEntiteit=BEDRIJF&lijst=' + ids.join('&lijst='))).then(function(lijstAdressen){
+                        $.each(dataBedrijven, function(i, item) {
+                            item.adressen = _.filter(lijstAdressen, function(adres){
+                                return adres.entiteitId == item.id;
+                            });
                         });
+
+                        return deferred.resolve(dataBedrijven);
                     });
                 });
 

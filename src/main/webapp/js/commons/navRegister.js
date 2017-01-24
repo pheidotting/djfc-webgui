@@ -117,7 +117,9 @@ define([ ],
                             {naam: 'TELEFONIE_RECORDINGS',              url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/recordings'},
                             {naam: 'TELEFONIE_DOWNLOAD',                url: BASISURL_RELATIEBEHEER + '/medewerker/telefonie/download'},
 
-                            {naam: 'WIJZIG_WACHTWOORD',                url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/wijzig-wachtwoord'}
+                            {naam: 'WIJZIG_WACHTWOORD',                 url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/wijzig-wachtwoord'},
+
+                            {naam: 'ALLE_ADRESSEN_BIJ_ENTITEIT',        url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alleAdressenBijLijstMetEntiteiten'}
                         ];
 
                 var url = '';

@@ -81,19 +81,21 @@ define(["commons/3rdparty/log2",
                 gebruikerRepository.lijstRelaties(zoekTerm, weglaten).done(function(relatie) {
                     aantal = relatie.jsonRelaties.length;
                     relatieRelaties = relatie;
-                    $.each(relatie.jsonRelaties, function(i, item) {
-                        adresService.lijst('RELATIE', item.id).done(function(adressen) {
-                            item.adressen = adressen;
-                            teruggeven(--aantal);
+
+                    var ids = _.map(relatie.jsonRelaties, function(relatie){
+                        return relatie.id;
+                    });
+
+                    $.when(repository.voerUitGet(navRegister.bepaalUrl('ALLE_ADRESSEN_BIJ_ENTITEIT') + '?soortEntiteit=RELATIE&lijst=' + ids.join('&lijst='))).then(function(lijstAdressen){
+                        $.each(relatie.jsonRelaties, function(i, item) {
+                            item.adressen = _.filter(lijstAdressen, function(adres){
+                                return adres.entiteitId == item.id;
+                            });
                         });
+
+                        return deferred.resolve(relatieRelaties);
                     });
                 });
-
-                function teruggeven(aantalOphalen) {
-                    if(aantalOphalen === 0) {
-                        return deferred.resolve(relatieRelaties);
-                    }
-                }
 
                 return deferred.promise();
             },
