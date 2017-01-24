@@ -20,8 +20,6 @@ define(['jquery',
         this.beheerZichtbaar = ko.observable();
 
         this.init = function() {
-            var deferred = $.Deferred();
-
             $.when(toggleService.isFeatureBeschikbaar('TODOIST'), toggleService.isFeatureBeschikbaar('BEHEERPAGINA')).then(function(toggleBeschikbaar, toggleBeheerBeschikbaar) {
                 logger.debug('ophalen aantal open taken');
 
@@ -34,9 +32,6 @@ define(['jquery',
                     });
                 }
             });
-                    return deferred.resolve();
-
-            return deferred.promise();
         };
 
         this.aantalOpenstaandeTakenTonen = ko.computed(function() {
