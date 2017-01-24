@@ -97,7 +97,7 @@ define(['jquery',
                 return score;
 
             // award every unique letter until 5 repetitions
-            var letters = new Object();
+            var letters = [];
             for (var i=0; i<pass.length; i++) {
                 letters[pass[i]] = (letters[pass[i]] || 0) + 1;
                 score += 5.0 / letters[pass[i]];
@@ -113,7 +113,9 @@ define(['jquery',
 
             variationCount = 0;
             for (var check in variations) {
-                variationCount += (variations[check] == true) ? 1 : 0;
+                if (variations.hasOwnProperty(check)) {
+                    variationCount += (variations[check] == true) ? 1 : 0;
+                }
             }
             score += (variationCount - 1) * 10;
 
