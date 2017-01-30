@@ -344,13 +344,80 @@ define(["commons/3rdparty/log2",
                 return deferred.promise();
              },
 
-             ophalenAfgerondeTaken: function(prefix) {
+             ophalenTaak: function(id) {
                 var deferred = $.Deferred();
 
-                $.when(this.authoriseerTodoist()).then(function(oAuthCode) {
+                var url = 'https://todoist.com/API/v7/items/get?token=' + oAuthCode + '&item_id=' + id;
+
+                $.ajax(
+                    {
+                        type: "GET",
+                        url: url
+                    }
+                )
+                .done(function(response) {
+                    return deferred.resolve(response);
+                });
+
+                return deferred.promise();
+            },
+
+             ophalenLabel: function(id) {
+                var deferred = $.Deferred();
+
+                var url = 'https://todoist.com/API/v7/labels/get?token=' + oAuthCode + '&label_id=' + id;
+
+                $.ajax(
+                    {
+                        type: "GET",
+                        url: url
+                    }
+                )
+                .done(function(response) {
+                    return deferred.resolve(response);
+                });
+
+                return deferred.promise();
+            },
+
+             ophalenMedewerker: function(id) {
+                var deferred = $.Deferred();
+
+                var url = 'https://todoist.com/API/v7/collaborators/get?token=' + oAuthCode + '&collaboratorId=' + id;
+
+                $.ajax(
+                    {
+                        type: "GET",
+                        url: url
+                    }
+                )
+                .done(function(response) {
+                    return deferred.resolve(response);
+                });
+
+                return deferred.promise();
+            },
+
+            haalAfgerondeTaken: function() {
+                var _this = this;
+                var deferred = $.Deferred();
+
+                $.when(_this.ophalenAfgerondeTaken()).then(function(afgerondeTaken){
+                    return deferred.resolve(afgerondeTaken);
+                });
+
+                return deferred.promise();
+            },
+
+            ophalenAfgerondeTaken: function() {
+                var deferred = $.Deferred();
+                var _this = this;
+
+                $.when(todoistRepository.prefix(), this.authoriseerTodoist()).then(function(prefix, oAuthCode) {
                     logger.debug('Todoist geauthoriseerd, code = ' + oAuthCode);
 
                     var url = 'https://todoist.com/API/v7/completed/get_all?token=' + oAuthCode;
+                    var aantal;
 
                     $.ajax(
                         {
@@ -359,42 +426,73 @@ define(["commons/3rdparty/log2",
                         }
                     )
                     .done(function(response) {
-                        var a = _.chain(response.items)
-                        .filter(function(item){
-                            return item.content.split('@').length === 3;
-                        })
+                        var opTeHalenItems = _.chain(response.items)
                         .map(function(item){
-                            var nwItem = {};
-
-                            var splits = item.content.split('@');
-                            nwItem.omschrijving = splits[0].trim();
-
-                            if($.isNumeric(splits[1])) {
-                                nwItem.entiteitId = splits[1];
-                                nwItem.soortEntiteit = splits[2];
-                            } else {
-                                nwItem.soortEntiteit = splits[1];
-                                nwItem.entiteitId = splits[2];
-                            }
-
-                            var url = 'https://todoist.com/API/v7/items/get?token=' + oAuthCode + '&item_id=' + item.id;
-
-                            $.ajax(
-                                {
-                                    type: "GET",
-                                    url: url
-                                }
-                            )
-                            .done(function(response) {
-                                console.log(response);
+                            item.project = _.find(response.projects, function(project) {
+                                return project.id == item.project_id;
                             });
 
-                            return nwItem;
-                        }).value();
+                            return item;
+                        })
+                        .filter(function(item) {
+                            if(prefix) {
+                                return item.project.name.startsWith(prefix);
+                            } else {
+                                return !item.project.name.startsWith('{{');
+                            }
+                        }).value()
+                        ;
 
-                        console.log(a);
+                        aantal = opTeHalenItems.length;
+
+                        var items = [];
+
+                        $.when(_this.ophalenTaken(prefix)).then(function(aa){
+                            console.log(aa);
+                        });
+
+                        $.each(opTeHalenItems, function(i, item){
+                            $.when(_this.ophalenTaak(item.id)).then(function(opgehaaldItem){
+                                opgehaaldItem.item.notities = _.chain(opgehaaldItem.notes)
+                                    .filter(function(note){
+                                        return note.item_id == item.id;
+                                    })
+                                    .map(function(note){
+                                        var n = {};
+                                        n.tekst = note.content;
+                                        n.tijdstip = moment(note.tijdstip).format().replace('+01:00', '');//'YYYY-MM-DD HH:mm:ss');
+                                        n.medewerker = note.posted_uid + '';
+                                        n.todoistId = note.id;
+
+                                        return n;
+                                    }).value();
+                                aantal--;
+                                var aantalLabels = opgehaaldItem.item.labels.length;
+                                var labels = opgehaaldItem.item.labels;
+                                $.each(labels, function(i, opTeHalenLabel){
+                                    opgehaaldItem.item.labels = [];
+
+                                    $.when(_this.ophalenLabel(opTeHalenLabel)).then(function(label) {
+                                        opgehaaldItem.item.labels.push(label.label.name);
+                                        aantalLabels--;
+
+                                        if(aantalLabels == 0) {
+                                            opgehaaldItem.item.project = opgehaaldItem.project;
+                                            items.push(opgehaaldItem.item);
+                                        }
+
+                                        if(aantal == 0 && aantalLabels == 0) {
+                                            return deferred.resolve(items);
+                                        }
+                                    });
+
+                                });
+                            });
+                        });
                     });
                 });
+
+                return deferred.promise();
             },
 
              ophalenTaken: function(prefix) {
@@ -430,7 +528,6 @@ define(["commons/3rdparty/log2",
                             var project = {};
                             project.id = todoistproject.id;
                             project.naam = todoistproject.name;
-//                            project.notities = filterNotities(response.notes, null, project.id, response.collaborators);
                             project.items =  _.chain(response.items)
                                 .filter(function(todoistitem) {
                                     return todoistitem.project_id == project.id && todoistproject.is_deleted == 0;

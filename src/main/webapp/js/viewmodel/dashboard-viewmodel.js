@@ -10,8 +10,9 @@ define(['jquery',
         'service/gebruiker-service',
 		'service/taak/taak-service',
         'service/toggle-service',
-		'underscore'],
-    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, taakService, toggleService, _) {
+		'underscore',
+		'repository/common/repository'],
+    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, taakService, toggleService, _, repository) {
 
     return function() {
         var _this = this;
@@ -24,7 +25,36 @@ define(['jquery',
                 logger.debug('ophalen aantal open taken');
 
                 _this.beheerZichtbaar(toggleBeheerBeschikbaar);
-                taakService.ophalenAfgerondeTaken();
+                $.when(taakService.haalAfgerondeTaken()).then(function(taken) {
+                    console.log(taken);
+
+                    var opslaan = _.chain(taken)
+                    .filter(function(taak) {
+                        return taak.labels.length == 2;
+                    })
+                    .map(function(taak) {
+                        var t = {};
+                        t.omschrijving = taak.content;
+                        t.afgerond = true;
+                        if($.isNumeric(taak.labels[0])) {
+                            t.entiteitId = taak.labels[0];
+                            t.soortEntiteit = taak.labels[1];
+                        } else {
+                            t.entiteitId = taak.labels[1];
+                            t.soortEntiteit = taak.labels[0];
+                        }
+                        t.todoistId = taak.id;
+                        t.notities = taak.notities;
+
+                        return t;
+                    }).value();
+
+                    $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId){
+                        repository.voerUitPost('../dejonge/rest/medewerker/taak/opslaanAfgerondeTaken', JSON.stringify(opslaan), trackAndTraceId);
+                    });
+
+                    logger.debug(JSON.stringify(opslaan));
+                });
 
                 if(toggleBeschikbaar) {
                     $.when(taakService.aantalOpenTaken()).then(function(aantal) {
