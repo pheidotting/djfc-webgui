@@ -48,7 +48,7 @@ define(['commons/3rdparty/log2',
 
         this.voegTaakToe = function() {
             logger.debug('Toevoegen taak');
-            if(_this.nieuweTaakReminder.isValid()) {
+            if(_this.nieuweTaakReminder.isValid() && _this.nieuweTaakTekst() != null && _this.nieuweTaakTekst() != '') {
                 $.when(taakService.voegTaakToe(_this.soortEntiteit(), _this.id(), _this.nieuweTaakTekst(), _this.nieuweTaakReminder(), _this.relatieId, _this.bedrijfId)).then(function(itemId){
                     var taak = new Taak();
                     taak.omschrijving(_this.nieuweTaakTekst());
