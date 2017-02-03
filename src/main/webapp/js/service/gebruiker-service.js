@@ -103,11 +103,6 @@ define(["commons/3rdparty/log2",
 
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {
                     gebruikerRepository.verwijderRelatie(id, trackAndTraceId);
-                    bijlageService.opslaan(ko.observableArray([]), trackAndTraceId, 'RELATIE', id);
-                    opmerkingService.opslaan(ko.observableArray([]), trackAndTraceId, 'RELATIE', id);
-                    adresService.opslaan(ko.observableArray([]), trackAndTraceId, 'RELATIE', id);
-                    telefoonnummerService.opslaan(ko.observableArray([]), trackAndTraceId, 'RELATIE', id);
-                    rekeningnummerService.opslaan(ko.observableArray([]), trackAndTraceId, 'RELATIE', id);
 
                     return deferred.resolve();
                 });
