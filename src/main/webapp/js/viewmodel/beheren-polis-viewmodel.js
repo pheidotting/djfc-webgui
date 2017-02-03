@@ -58,6 +58,7 @@ define(['jquery',
                 }
 
                 var $soortVerzekeringSelect = $('#soortVerzekering');
+                    $('<option>', { value : 0 }).text('Kies een soort polis...').appendTo($soortVerzekeringSelect);
                 $.each(lijst, function(key, value) {
                     $('<option>', { value : value }).text(value).appendTo($soortVerzekeringSelect);
                 });
