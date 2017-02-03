@@ -11,6 +11,10 @@ define(["commons/3rdparty/log",
 
             aantalOpenTaken: function() {
                 return abstractRepository.voerUitGet(navRegister.bepaalUrl('AANTAL_OPEN_TAKEN'));
+            },
+
+            afgerondeTaken: function(soortEntiteit, entiteitId) {
+                return abstractRepository.voerUitGet(navRegister.bepaalUrl('AFGERONDE_TAKEN') + '/' + soortEntiteit + '/' + entiteitId);
             }
         }
     }

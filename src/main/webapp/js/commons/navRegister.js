@@ -88,6 +88,7 @@ define([ ],
                             {naam: 'OPPAKKEN_TAAK',                     url: BASISURL_RELATIEBEHEER + '/medewerker/taak/oppakken'},
                             {naam: 'OPEN_TAKEN_BIJ_RELATIE',            url: BASISURL_RELATIEBEHEER + '/medewerker/taak/alleOpenTakenVoorRelatie'},
                             {naam: 'AANTAL_OPEN_TAKEN',                 url: BASISURL_RELATIEBEHEER + '/medewerker/taak/aantalOpenTaken'},
+                            {naam: 'AFGERONDE_TAKEN',                   url: BASISURL_RELATIEBEHEER + '/medewerker/taak/alleAfgerondeTaken'},
 
                             {naam: 'OPSLAAN_OPMERKING',                 url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/opslaan'},
                             {naam: 'VERWIJDER_OPMERKING',               url: BASISURL_RELATIEBEHEER + '/medewerker/opmerking/verwijder'},

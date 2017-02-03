@@ -15,6 +15,10 @@ define(["commons/3rdparty/log2",
         var oAuthCode;
 
         return {
+            afgerondeTaken: function(soortEntiteit, entiteitId) {
+                return taakRepository.afgerondeTaken(soortEntiteit, entiteitId);
+            },
+
             genereerPrefixVoorTaakNaam: function(relatieId, bedrijfId) {
                 var deferred = $.Deferred();
 
@@ -51,7 +55,13 @@ define(["commons/3rdparty/log2",
                 var deferred = $.Deferred();
                 var _this = this;
 
-                $.when(todoistRepository.prefix(), _this.genereerPrefixVoorTaakNaam(relatieId, bedrijfId)).then(function(prefix, naamPrefix) {
+                $.when(
+                    todoistRepository.prefix(),
+                    _this.genereerPrefixVoorTaakNaam(relatieId, bedrijfId)
+                ).then(function(
+                    prefix,
+                    naamPrefix
+                ) {
                     projectPrefix = prefix;
                     $.when(_this.ophalenTaken(_this.getPrefix())).then(function(todoist) {
                         var items = _.chain(todoist.projecten)
@@ -446,10 +456,6 @@ define(["commons/3rdparty/log2",
                         aantal = opTeHalenItems.length;
 
                         var items = [];
-
-                        $.when(_this.ophalenTaken(prefix)).then(function(aa){
-                            console.log(aa);
-                        });
 
                         $.each(opTeHalenItems, function(i, item){
                             $.when(_this.ophalenTaak(item.id)).then(function(opgehaaldItem){

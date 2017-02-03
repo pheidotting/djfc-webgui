@@ -18,6 +18,7 @@ define(['commons/3rdparty/log2',
 		this.bedrijfId = bedrijfId;
 
         this.taken = ko.observableArray();
+        this.afgerondeTaken = ko.observableArray();
 
         this.nieuweTaakTekst = ko.observable();
         this.nieuweTaakReminder = ko.observable().extend({validation: {
@@ -37,10 +38,20 @@ define(['commons/3rdparty/log2',
 
         $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar){
             if(toggleBeschikbaar) {
-                $.when(taakService.alleTaken(_this.soortEntiteit(), _this.id(), _this.relatieId, _this.bedrijfId)).then(function(opgehaaldeTaken){
+                $.when(
+                    taakService.alleTaken(_this.soortEntiteit(), _this.id(), _this.relatieId, _this.bedrijfId),
+                    taakService.afgerondeTaken(_this.soortEntiteit(), _this.id())
+                ).then(function(
+                    opgehaaldeTaken,
+                    afgerondeTaken
+                ) {
                     _.each(taakMapper.mapTaken(opgehaaldeTaken)(), function(gemapteTaak) {
                         _this.taken.push(gemapteTaak);
                         _this.taken.valueHasMutated()
+                    });
+                    _.each(taakMapper.mapTaken(afgerondeTaken)(), function(gemapteTaak) {
+                        _this.afgerondeTaken.push(gemapteTaak);
+                        _this.afgerondeTaken.valueHasMutated()
                     });
                 });
             }

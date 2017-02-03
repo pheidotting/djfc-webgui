@@ -24,7 +24,11 @@ define(['jquery',
             if(data != null) {
                 var taak = new Taak();
 
-                taak.id(data.id);
+                if(data.todoistId) {
+                    taak.id(data.todoistId);
+                } else {
+                    taak.id(data.id);
+                }
                 taak.projectId(data.projectId);
                 taak.omschrijving(data.omschrijving);
 
@@ -36,9 +40,16 @@ define(['jquery',
                 $.each(data.notities, function(i, note){
                     var notitie = {};
                     notitie.id = ko.observable(note.id);
-                    notitie.omschrijving = ko.observable(note.omschrijving);
+                    if(note.omschrijving != null) {
+                        notitie.omschrijving = ko.observable(note.omschrijving);
+                    } else {
+                        notitie.omschrijving = ko.observable(note.tekst);
+                    }
                     notitie.user = ko.observable(note.user);
                     notitie.tijdstip = moment(note.tijdstip).format('DD-MM-YYYY HH:mm');
+                    if(notitie.tijdstip == 'Invalid date') {
+                        notitie.tijdstip = note.tijdstip;
+                    }
 
                     taak.notities.push(notitie);
                 });
