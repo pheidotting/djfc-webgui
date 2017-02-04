@@ -1,22 +1,31 @@
 <html>
 <head>
-    <title>DJFC - Beheer</title>
+    <title>Symplex - Inloggen</title>
     <script src="node_modules/requirejs/require.js" data-main="js/commons/app" type="text/javascript"></script>
 
     <!-- Eigen CSS -->
-    <link rel="stylesheet" href="lakedigital.css">
+    <link rel="stylesheet" href="default.css">
+    <script>
+		var refreshIntervalId = 0;
+
+    </script>
 </head>
-<body style="background-color: #000000;">
+<body>
+<div class="alert alert-success" style="display:none;" id="alertSucces"></div>
+<div class="alert alert-danger" style="display:none;" id="alertDanger"></div>
 <script type="text/javascript">
-    require(['sammyconfig'], function (App) {
-        var app = new App();
+        require(['sammyconfig'], function (App) {
+            var app = new App();
 
-        <!--app.addView('inloggen', 'view/inloggen-view');-->
+            app.addView('inloggen', 'view/inloggen-view');
 
-        <!--app.run('#inloggen');-->
-    });
+            app.run('#inloggen');
+        });
+
 
 </script>
+<div class="top"></div>
+
 <div id="hoofd"></div>
 <div id="content"></div>
 </body>

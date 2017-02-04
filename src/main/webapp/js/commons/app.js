@@ -5,7 +5,8 @@ requirejs.config({
         sammy: 'node_modules/sammy/lib/min/sammy-latest.min',
         moment: 'node_modules/moment/min/moment.min',
     	knockout: 'node_modules/knockout/build/output/knockout-latest',
-        knockoutValidation: 'node_modules/knockout.validation/dist/knockout.validation.min',
+        'knockout.validation': 'node_modules/knockout.validation/dist/knockout.validation.min',
+        knockoutValidationLocal: 'node_modules/knockout.validation/localization/nl-NL',
         blockUI: 'node_modules/block-ui/jquery.blockUI',
         jqueryUI: 'node_modules/jquery-ui/jquery-ui',
         text: 'node_modules/requirejs-text/text',
@@ -31,7 +32,7 @@ requirejs.config({
         mapper: 'js/mapper'
     },
 	shim: {
-        "knockoutValidation": ["knockout"],
+        'knockout.validation': ['knockout'],
         'blockUI': ['jquery'],
         'jqueryUI': ['jquery']
     },

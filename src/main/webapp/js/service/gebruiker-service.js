@@ -122,6 +122,17 @@ define(["commons/3rdparty/log2",
                 return deferred.promise();
             },
 
+            inloggen: function(data){
+                var deferred = $.Deferred();
+                var _this = this;
+
+                $.when(repository.voerUitPost(navRegister.bepaalUrl('INLOGGEN'), data, '')).always(function(result){
+                    return deferred.resolve(result);
+                });
+
+                return deferred.promise();
+            },
+
             leesOAuthCode: function() {
                 return gebruikerRepository.leesOAuthCode();
             }
