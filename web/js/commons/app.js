@@ -11,6 +11,7 @@ requirejs.config({
         jqueryUI: 'node_modules/jquery-ui/jquery-ui',
         text: 'node_modules/requirejs-text/text',
         underscore: 'node_modules/underscore/underscore-min',
+        lodash: 'node_modules/lodash/lodash.min'
         commons: 'commons',
     	js: 'js',
     	pages: 'pages',
@@ -29,7 +30,7 @@ requirejs.config({
         repository: 'js/repository',
         view: 'js/view',
         viewmodel: 'js/viewmodel',
-        mapper: 'js/mapper'
+        mapper: 'js/mapper',
     },
 	shim: {
         'knockout.validation': ['knockout'],

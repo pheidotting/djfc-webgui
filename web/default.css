@@ -1,8 +1,27 @@
 body {
     margin: 0 auto;
+    height: 100%;
 }
 
 .top {
     background: linear-gradient(to right, white , black);
-    min-height:100px;
+    min-height:75px;
+    margin-bottom:20px;
+}
+
+.bar {
+    min-height: 30px;
+    background-color: #0000FF;
+}
+
+.main {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -30;
+}
+
+.bottom, .push {
+    min-height: 30px;
+    background-color: #0000FF;
 }
