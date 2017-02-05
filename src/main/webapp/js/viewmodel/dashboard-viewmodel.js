@@ -10,9 +10,8 @@ define(['jquery',
         'service/gebruiker-service',
 		'service/taak/taak-service',
         'service/toggle-service',
-		'underscore',
-		'repository/common/repository'],
-    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, taakService, toggleService, _, repository) {
+		'underscore'],
+    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, repository, gebruikerService, taakService, toggleService, _) {
 
     return function() {
         var _this = this;
