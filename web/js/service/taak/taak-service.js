@@ -634,16 +634,16 @@ define(["commons/3rdparty/log2",
                             var state = QueryString().state;
                             var code = QueryString().code;
 
-                            var urlTerug = window.location.href;
-                            urlTerug = urlTerug.replace('state=' + state, '');
-                            urlTerug = urlTerug.replace('code=' + code, '');
-                            urlTerug = urlTerug.replace('?&', '');
+                            var urlTerugNaar = window.location.href;
+                            urlTerugNaar = urlTerugNaar.replace('state=' + state, '');
+                            urlTerugNaar = urlTerugNaar.replace('code=' + code, '');
+                            urlTerugNaar = urlTerugNaar.replace('?&', '');
 
                             var data = {};
                             data.client_id = clientIdEnClientSecret.clientId;
                             data.client_secret = clientIdEnClientSecret.clientSecret;
                             data.code = code;
-                            data.redirect_uri = urlTerug;
+                            data.redirect_uri = urlTerugNaar;
 
                             $.when(oAuthCodeOphalen(data)).then(function(ccode) {
                                 oAuthCode = ccode;
