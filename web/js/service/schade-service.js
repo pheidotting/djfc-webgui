@@ -12,6 +12,8 @@ define(["commons/3rdparty/log",
                 var deferred = $.Deferred();
 
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {
+                    schade.opmerkingen = opmerkingen;
+
                     $.when(schadeRepository.opslaan(schade, trackAndTraceId)).then(function(response) {
                         var id = response.entity.foutmelding;
                         var soortEntiteit = 'SCHADE';
