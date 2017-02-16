@@ -1,6 +1,6 @@
 define(['jquery',
         'commons/3rdparty/log2',
-        'text!/../../templates/inloggen.html',
+        'text!/../../templates/inloggen/inloggen.html',
         'viewmodel/inloggen-viewmodel',
         'knockout'],
     function($, log, html, viewmodel, ko) {

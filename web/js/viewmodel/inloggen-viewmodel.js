@@ -18,6 +18,9 @@ define([
 		this.wachtwoord = ko.observable().extend({ required: true });
 		this.onthouden = ko.observable(false);
 
+		this.onjuisteGebruikersnaam = ko.observable(false);
+		this.onjuistWachtwoord = ko.observable(false);
+
 		this.inloggen = function() {
             logger.debug('inloggen ?');
             commonFunctions.verbergMeldingen();
@@ -29,13 +32,19 @@ define([
 
                 $.when(gebruikerService.inloggen(ko.toJSON(this))).then(function(result){
                     if (result == 0) {
+                        _this.onjuisteGebruikersnaam(false);
+                        _this.onjuistWachtwoord(false);
                         commonFunctions.haalIngelogdeGebruiker();
 //                        $.unblockUI();
                         document.location.href = 'dashboard.html';
                     } else if (result == 1) {
+                        _this.onjuisteGebruikersnaam('onjuiste-waarde');
+                        _this.onjuistWachtwoord(false);
                         commonFunctions.plaatsFoutmeldingString('De ingevoerde gebruikersnaam werd niet gevonden');
                         $.unblockUI();
                     } else {
+                        _this.onjuisteGebruikersnaam(false);
+                        _this.onjuistWachtwoord('onjuiste-waarde');
                         commonFunctions.plaatsFoutmeldingString('Het ingevoerde wachtwoord is onjuist');
                         $.unblockUI();
                     }
@@ -43,6 +52,14 @@ define([
             } else {
                 result.showAllMessages(true);
             }
+        };
+
+        this.resetfoutmeldingGebruikersnaam = function() {
+            _this.onjuisteGebruikersnaam(false);
+        };
+
+        this.resetfoutmeldingWachtwoord = function() {
+            _this.onjuistWachtwoord(false);
         };
 	};
 });

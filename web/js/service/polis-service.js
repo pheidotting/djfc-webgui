@@ -14,13 +14,17 @@ define(["commons/3rdparty/log",
                 polis.maatschappij = ko.observable(polis.maatschappij.id);
 
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId){
-                    $.when(polisRepository.opslaan(polis, trackAndTraceId)).then(function(id){
-                        var soortEntiteit = 'POLIS';
+                    polis.opmerkingen = opmerkingen;
 
-                        $.when(opmerkingService.opslaan(opmerkingen, trackAndTraceId, soortEntiteit, id))
-                        .then(function(opmerkingResponse){
-                            return deferred.resolve(id);
-                        });
+                    $.when(polisRepository.opslaan(polis, trackAndTraceId)).then(function(id){
+                        if(id != null && id != '') {
+                            var soortEntiteit = 'POLIS';
+
+                            $.when(opmerkingService.opslaan(opmerkingen, trackAndTraceId, soortEntiteit, id))
+                            .then(function(opmerkingResponse){
+                                return deferred.resolve(id);
+                            });
+                        }
                     });
                 });
 

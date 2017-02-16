@@ -1,27 +1,108 @@
 body {
     margin: 0 auto;
     height: 100%;
+    font-family:verdana;
 }
 
 .top {
     background: linear-gradient(to right, white , black);
-    min-height:75px;
-    margin-bottom:20px;
+    min-height:50px;
+    margin-bottom:6px;
 }
 
 .bar {
-    min-height: 30px;
-    background-color: #0000FF;
+    min-height: 28px;
+    background-color: #0e71b8;
 }
 
 .main {
     min-height: 100%;
     height: auto !important;
-    height: 100%;
     margin: 0 auto -30;
 }
 
 .bottom, .push {
     min-height: 30px;
-    background-color: #0000FF;
+    background-color: #0e71b8;
+}
+
+.logo-background {
+    margin: auto;
+    width: 800px;
+    height: 573px;
+    background-size: 100%;
+    background-image: url('templates/inloggen/background.png');
+}
+
+.inloggen-main {
+    margin: auto;
+    margin-top: 200px;
+    width:380px;
+}
+
+.inloggen-main-background {
+    background-color: #575656;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.inloggen-main-wit {
+    background: linear-gradient(to bottom, #ffffff , #c7c6c6);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.inloggen-main-header {
+    margin-left: 1px;
+    margin-right: 1px;
+    text-align: center;
+    color: #575656;
+    background: linear-gradient(to bottom, #a2a1a1 , #fbfbfb);
+    min-height: 34px;
+    font-size: 25px;
+}
+
+.inloggen-main-form {
+    border: 1px solid #575656;
+    margin-top: 4px;
+    background-color: #ececec;
+    color: #575656;
+    padding: 45px;
+    padding-top: 5px;
+}
+
+.getbruikersnaam-wachtwoord {
+    margin-bottom:5px;
+    margin-left:5px;
+    margin-top:20px;
+}
+
+.onjuiste-waarde {
+    border: 2px solid #ff0000 !important;
+}
+
+.onjuiste-waarde-melding {
+    color: #ff0000;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.inloggen-main-form input {
+    width: 285px;
+    padding-left: 5px;
+    border: 1px solid #575656;
+    height: 30px;
+    font-size: 16px;
+}
+
+.inloggen-main-form button {
+    margin-top: 20px;
+    margin-left: 185px;
+    width: 100px;
+    border: 1px solid #575656;
+    height: 30px;
+    background: linear-gradient(to bottom, #ffffff , #d5dbe2);
+    font-size: 16px;
 }
