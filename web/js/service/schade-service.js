@@ -15,13 +15,13 @@ define(["commons/3rdparty/log",
                     schade.opmerkingen = opmerkingen;
 
                     $.when(schadeRepository.opslaan(schade, trackAndTraceId)).then(function(response) {
-                        var id = response.entity.foutmelding;
-                        var soortEntiteit = 'SCHADE';
-
-                        $.when(opmerkingService.opslaan(opmerkingen, trackAndTraceId, soortEntiteit, id))
-                        .then(function(opmerkingResponse) {
-                            return deferred.resolve(id);
-                        });
+//                        var id = response.entity.foutmelding;
+//                        var soortEntiteit = 'SCHADE';
+//
+//                        $.when(opmerkingService.opslaan(opmerkingen, trackAndTraceId, soortEntiteit, id))
+//                        .then(function(opmerkingResponse) {
+                            return deferred.resolve();
+//                        });
                     });
                 });
 
