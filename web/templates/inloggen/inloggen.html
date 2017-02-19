@@ -9,23 +9,25 @@
             </div>
         </div>
         <div class="inloggen-main-form">
-            <div class="getbruikersnaam-wachtwoord">
-                Gebruikernaam
-            </div>
-            <input type="text" onClick="this.select();" autocomplete="off"
-                   data-bind="value: identificatie, attr: {class: onjuisteGebruikersnaam}, event: {keyup: resetfoutmeldingGebruikersnaam}"/>
-            <div class="onjuiste-waarde-melding" data-bind="visible: onjuisteGebruikersnaam">
-                De gebruikersnaam is onjuist
-            </div>
-            <div class="getbruikersnaam-wachtwoord">
-                Wachtwoord
-            </div>
-            <input type="password"
-                   data-bind="value: wachtwoord, attr: {class: onjuistWachtwoord}, event: {keyup: resetfoutmeldingWachtwoord}"/><br/>
-            <div class="onjuiste-waarde-melding" data-bind="visible: onjuistWachtwoord">
-                Het wachtwoord is onjuist
-            </div>
-            <button data-bind="click: inloggen">Inloggen</button>
+            <form>
+                <div class="getbruikersnaam-wachtwoord">
+                    Gebruikernaam
+                </div>
+                <input type="text" onClick="this.select();" autocomplete="off"
+                       data-bind="value: identificatie, attr: {class: onjuisteGebruikersnaam}, event: {change: resetfoutmeldingGebruikersnaam}"/>
+                <div class="validationMessage" data-bind="visible: onjuisteGebruikersnaam">
+                    De gebruikersnaam is onjuist
+                </div>
+                <div class="getbruikersnaam-wachtwoord">
+                    Wachtwoord
+                </div>
+                <input type="password"
+                       data-bind="value: wachtwoord, attr: {class: onjuistWachtwoord}, event: {change: resetfoutmeldingWachtwoord}"/><br/>
+                <div class="validationMessage" data-bind="visible: onjuistWachtwoord">
+                    Het wachtwoord is onjuist
+                </div>
+                <button data-bind="click: inloggen">Inloggen</button>
+            </form>
         </div>
     </div>
 </div>

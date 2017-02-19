@@ -1,14 +1,13 @@
-define([
-'jquery',
+define(['jquery',
         'knockout',
         'commons/commonFunctions',
         'commons/3rdparty/log2',
 		'redirect',
         'service/gebruiker-service',
         'knockout.validation',
-        'knockoutValidationLocal'
-    ],
-    function($, ko, commonFunctions, log, redirect, gebruikerService) {
+        'knockoutValidationLocal',
+        'blockUI'],
+    function($, ko, commonFunctions, log, redirect, gebruikerService, block) {
 
     return function() {
         var _this = this;
@@ -22,31 +21,29 @@ define([
 		this.onjuistWachtwoord = ko.observable(false);
 
 		this.inloggen = function() {
-            logger.debug('inloggen ?');
             commonFunctions.verbergMeldingen();
 
             var result = ko.validation.group(_this, {deep: true});
             if(_this.identificatie.isValid() && _this.wachtwoord.isValid()){
-                logger.debug('inloggen');
-//                block.block();
+                $.blockUI({message: '<span class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></span>' });
 
-                $.when(gebruikerService.inloggen(ko.toJSON(this))).then(function(result){
+                $.when(gebruikerService.inloggen(this)).then(function(result){
                     if (result == 0) {
                         _this.onjuisteGebruikersnaam(false);
                         _this.onjuistWachtwoord(false);
                         commonFunctions.haalIngelogdeGebruiker();
-//                        $.unblockUI();
+                        $.unblockUI();
                         document.location.href = 'dashboard.html';
                     } else if (result == 1) {
+                        $.unblockUI();
                         _this.onjuisteGebruikersnaam('onjuiste-waarde');
                         _this.onjuistWachtwoord(false);
                         commonFunctions.plaatsFoutmeldingString('De ingevoerde gebruikersnaam werd niet gevonden');
-                        $.unblockUI();
                     } else {
+                        $.unblockUI();
                         _this.onjuisteGebruikersnaam(false);
                         _this.onjuistWachtwoord('onjuiste-waarde');
                         commonFunctions.plaatsFoutmeldingString('Het ingevoerde wachtwoord is onjuist');
-                        $.unblockUI();
                     }
                 });
             } else {
@@ -54,7 +51,10 @@ define([
             }
         };
 
-        this.resetfoutmeldingGebruikersnaam = function() {
+        this.resetfoutmeldingGebruikersnaam = function(a) {
+            logger.debug('resetfoutmeldingGebruikersnaam');
+            logger.debug(a);
+            logger.debug('# resetfoutmeldingGebruikersnaam');
             _this.onjuisteGebruikersnaam(false);
         };
 

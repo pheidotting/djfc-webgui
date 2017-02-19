@@ -125,7 +125,7 @@ define(["commons/3rdparty/log2",
             inloggen: function(data){
                 var deferred = $.Deferred();
 
-                $.when(repository.voerUitPost(navRegister.bepaalUrl('INLOGGEN'), data, '')).always(function(result){
+                $.when(repository.voerUitPost(navRegister.bepaalUrl('INLOGGEN'), ko.toJSON(data), '')).always(function(result){
                     return deferred.resolve(result);
                 });
 
