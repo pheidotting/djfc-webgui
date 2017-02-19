@@ -7,7 +7,7 @@ define(['jquery',
         'knockout.validation',
         'knockoutValidationLocal',
         'blockUI'],
-    function($, ko, commonFunctions, log, redirect, gebruikerService, block) {
+    function($, ko, commonFunctions, log, redirect, gebruikerService) {
 
     return function() {
         var _this = this;
