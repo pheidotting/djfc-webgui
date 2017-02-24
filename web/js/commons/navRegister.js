@@ -120,7 +120,9 @@ define([ ],
 
                             {naam: 'WIJZIG_WACHTWOORD',                 url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/wijzig-wachtwoord'},
 
-                            {naam: 'ALLE_ADRESSEN_BIJ_ENTITEIT',        url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alleAdressenBijLijstMetEntiteiten'}
+                            {naam: 'ALLE_ADRESSEN_BIJ_ENTITEIT',        url: BASISURL_RELATIEBEHEER + '/medewerker/adres/alleAdressenBijLijstMetEntiteiten'},
+
+                            {naam: 'ZOEKEN',                            url: BASISURL_RELATIEBEHEER + '/medewerker/zoeken/zoeken'}
                         ];
 
                 var url = '';
