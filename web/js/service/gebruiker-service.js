@@ -134,6 +134,35 @@ define(["commons/3rdparty/log2",
 
             leesOAuthCode: function() {
                 return gebruikerRepository.leesOAuthCode();
+            },
+
+            haalIngelogdeGebruiker: function(){
+                logger.debug("Haal ingelogde gebruiker");
+                var deferred = $.Deferred();
+
+                gebruikerRepository.haalIngelogdeGebruiker().done(function(response){
+                    if(response.kantoor != null){
+                        logger.debug("Ingelogde gebruiker : " + response.gebruikersnaam + ", (" + response.kantoor + ")");
+//                        $('#ingelogdeGebruiker').html("Ingelogd als : " + response.gebruikersnaam + ", (" + response.kantoor + ")");
+                    }else{
+                        logger.debug("Ingelogde gebruiker : " + response.gebruikersnaam);
+//                        $('#ingelogdeGebruiker').html("Ingelogd als : " + response.gebruikersnaam);
+                    }
+//                    $('#uitloggen').show();
+//                    $('#homeKnop').show();
+
+                    return deferred.resolve(response);
+                }).fail(function(){
+                    logger.debug("Niet ingelogd, naar de inlogpagina");
+//                    $('#ingelogdeGebruiker').html("");
+//                    $('#uitloggen').hide();
+//                    $('#homeKnop').hide();
+                    location.href = 'inloggen.html';
+
+                    return deferred.resolve();
+                });
+
+                return deferred.promise();
             }
         }
     }

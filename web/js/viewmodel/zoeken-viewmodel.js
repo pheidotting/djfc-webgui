@@ -9,9 +9,10 @@ define(['jquery',
 		'redirect',
         'service/toggle-service',
         'service/zoeken-service',
+        'service/gebruiker-service',
         'mapper/zoekresultaat-mapper',
         'moment'],
-    function($, commonFunctions, ko, Relatie, zoekvelden, functions, block, log, redirect, toggleService, zoekenService, zoekresultaatMapper, moment) {
+    function($, commonFunctions, ko, Relatie, zoekvelden, functions, block, log, redirect, toggleService, zoekenService, gebruikerService, zoekresultaatMapper, moment) {
 
     return function() {
         var _this = this;
@@ -31,7 +32,7 @@ define(['jquery',
         this.init = function() {
             var deferred = $.Deferred();
 
-            $.when(zoekenService.zoeken()).then(function(zoekResultaat){
+            $.when(zoekenService.zoeken(), gebruikerService.haalIngelogdeGebruiker()).then(function(zoekResultaat){
                 $.each(zoekresultaatMapper.mapZoekresultaten(zoekResultaat.bedrijfOfRelatieList)(), function(i, gemapt) {
                     _this.zoekResultaat.push(gemapt);
                     _this.zoekResultaat.valueHasMutated();
@@ -45,10 +46,8 @@ define(['jquery',
 
         this.zoeken = function() {
             if(_this.zoekvelden.geboortedatum() != null) {
-                if(_this.zoekvelden.geboortedatum() != '') {
-                    _this.zoekvelden.geboortedatum(moment(_this.zoekvelden.geboortedatum(), 'DD-MM-YYYY').format('YYYY-MM-DD'));
-                } else {
-                    _this.zoekvelden.geboortedatum(null);
+                if(_this.zoekvelden.geboortedatum() == '') {
+                    _this.zoekvelden.geboortedatum(undefined);
                 }
             }
             $.when(zoekenService.zoeken(btoa(ko.toJSON(_this.zoekvelden)))).then(function(zoekResultaat){
@@ -58,9 +57,6 @@ define(['jquery',
                     _this.zoekResultaat.valueHasMutated();
                 });
             });
-            if(_this.zoekvelden.geboortedatum() != null) {
-                _this.zoekvelden.geboortedatum(moment(_this.zoekvelden.geboortedatum(), 'YYYY-MM-DD').format('DD-MM-YYYY'));
-            }
         };
 
         this.maaklink = function(index) {
