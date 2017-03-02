@@ -25,22 +25,23 @@ define(['jquery',
             if(data != null) {
                 var zoekresultaat = new Zoekresultaat();
 
+                zoekresultaat.identificatie(data.identificatie);
                 zoekresultaat.id(data.id);
                 if(data.naam != null) {
                     //Dus een bedrijf
                     zoekresultaat.naam(data.naam);
-
+                    zoekresultaat.soortEntiteit('BEDRIJF');
                 } else {
                     //Een relatie..
                     var naam = data.roepnaam;
                     if(data.voorvoegsel != null) {
                         naam += ' ' + data.tussenvoegsel;
                     }
-//                    naam += ' ' + data.achternaam;
+                    naam += ' ' + data.achternaam;
 
-                    zoekresultaat.naam(data.achternaam);
-                    zoekresultaat.voornaam(naam);
+                    zoekresultaat.naam(naam);
                     zoekresultaat.geboortedatum(data.geboortedatum);
+                    zoekresultaat.soortEntiteit('RELATIE');
                 }
 
                 if(data.adres != null) {

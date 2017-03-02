@@ -2,17 +2,18 @@ define(['jquery',
         'commons/commonFunctions',
         'knockout',
         'model/relatie',
-        'model/contactpersoon2',
+        'model/zoekvelden',
         'commons/commonFunctions',
         'commons/block',
         'commons/3rdparty/log2',
 		'redirect',
         'service/toggle-service',
         'service/zoeken-service',
-        'mapper/zoekresultaat-mapper'],
-    function($, commonFunctions, ko, Relatie, Contactpersoon, functions, block, log, redirect, toggleService, zoekenService, zoekresultaatMapper) {
+        'mapper/zoekresultaat-mapper',
+        'moment'],
+    function($, commonFunctions, ko, Relatie, zoekvelden, functions, block, log, redirect, toggleService, zoekenService, zoekresultaatMapper, moment) {
 
-    return function(id) {
+    return function() {
         var _this = this;
         var logger = log.getLogger('zoeken-viewmodel');
         var soortEntiteit = '';
@@ -21,6 +22,7 @@ define(['jquery',
 
         this.zoekTerm = ko.observable('Henkie');
         this.zoekResultaat = ko.observableArray([]);
+        this.zoekvelden = new zoekvelden();
 
 		this.veranderDatum = function(datum){
 			datum(commonFunctions.zetDatumOm(datum()));
@@ -29,34 +31,43 @@ define(['jquery',
         this.init = function() {
             var deferred = $.Deferred();
 
-//            window.context.param
-
             $.when(zoekenService.zoeken()).then(function(zoekResultaat){
-                console.log(zoekResultaat);
                 $.each(zoekresultaatMapper.mapZoekresultaten(zoekResultaat.bedrijfOfRelatieList)(), function(i, gemapt) {
                     _this.zoekResultaat.push(gemapt);
                     _this.zoekResultaat.valueHasMutated();
                 });
-//                _this.bedrijf = bedrijfMapper.mapBedrijf(bedrijf);
-//
-//                _this.telefoonnummersModel  = new telefoonnummerViewModel(false, soortEntiteit, id, bedrijf.telefoonnummers);
-//                _this.adressenModel         = new adresViewModel(false, soortEntiteit, id, bedrijf.adressen);
-//                _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, id, bedrijf.opmerkingen);
-//                _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, id, bedrijf.bijlages, bedrijf.groepBijlages);
-//
-//                _this.contactpersonen = contactpersoonMapper.mapContactpersonen(bedrijf.contactpersonen);
-//
-//                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
-//                    if(toggleBeschikbaar && id != 0) {
-//                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id, null, id);
-//                    }
 
-                    return deferred.resolve();
-//                });
+                return deferred.resolve();
             });
 
             return deferred.promise();
         };
 
+        this.zoeken = function() {
+            if(_this.zoekvelden.geboortedatum() != null) {
+                if(_this.zoekvelden.geboortedatum() != '') {
+                    _this.zoekvelden.geboortedatum(moment(_this.zoekvelden.geboortedatum(), 'DD-MM-YYYY').format('YYYY-MM-DD'));
+                } else {
+                    _this.zoekvelden.geboortedatum(null);
+                }
+            }
+            $.when(zoekenService.zoeken(btoa(ko.toJSON(_this.zoekvelden)))).then(function(zoekResultaat){
+                _this.zoekResultaat.destroyAll();
+                $.each(zoekresultaatMapper.mapZoekresultaten(zoekResultaat.bedrijfOfRelatieList)(), function(i, gemapt) {
+                    _this.zoekResultaat.push(gemapt);
+                    _this.zoekResultaat.valueHasMutated();
+                });
+            });
+            if(_this.zoekvelden.geboortedatum() != null) {
+                _this.zoekvelden.geboortedatum(moment(_this.zoekvelden.geboortedatum(), 'YYYY-MM-DD').format('DD-MM-YYYY'));
+            }
+        };
+
+        this.maaklink = function(index) {
+            var entiteit = _this.zoekResultaat()[index()];
+            var soortEntiteit = entiteit.soortEntiteit().toLowerCase();
+
+            return 'beheren-'+ soortEntiteit +'.html#' + soortEntiteit + '/' + entiteit.identificatie();
+        };
 	};
 });

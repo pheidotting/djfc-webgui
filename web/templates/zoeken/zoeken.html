@@ -1,19 +1,21 @@
 <div class="top-zoek-scherm">
-    <div class="zoekvelden">
-        <label>Naam</label><input type="text"/>
-        <label>Geboortedatum</label><input type="text"/>
-        <label>Tussenvoegsel</label><input type="text"/>
-        <label>Polisnummer</label><input type="text"/>
-        <label>Voorletters</label><input type="text"/>
-        <label>Schadenummer</label><input type="text"/>
-        <label>Adres</label><input type="text"/>
-        <label>Postcode</label><input type="text"/>
-        <label>Woonplaats</label><input type="text"/>
-        <label>Bedrijf</label><input type="checkbox"/>
-    </div>
-    <div class="zoekknop">
-        <button>Zoeken&nbsp;<span class="fa fa-search" aria-hidden="true"/></button>
-    </div>
+    <form>
+        <div class="zoekvelden">
+            <label>Naam</label><input type="text" data-bind="value: zoekvelden.naam"/>
+            <label>Geboortedatum</label><input type="text" data-bind="value: zoekvelden.geboortedatum"/>
+            <label>Tussenvoegsel</label><input type="text" data-bind="value: zoekvelden.tussenvoegsel"/>
+            <label>Polisnummer</label><input type="text" data-bind="value: zoekvelden.polisnummer"/>
+            <label>Voorletters</label><input type="text" data-bind="value: zoekvelden.voorletters"/>
+            <label>Schadenummer</label><input type="text" data-bind="value: zoekvelden.schadenummer"/>
+            <label>Adres</label><input type="text" data-bind="value: zoekvelden.adres"/>
+            <label>Postcode</label><input type="text" data-bind="value: zoekvelden.postcode"/>
+            <label>Woonplaats</label><input type="text" data-bind="value: zoekvelden.woonplaats"/>
+            <label>Bedrijf</label><input type="checkbox" data-bind="checked: zoekvelden.bedrijf"/>
+        </div>
+        <div class="zoekknop">
+            <button data-bind="click: zoeken">Zoeken&nbsp;<span class="fa fa-search" aria-hidden="true"/></button>
+        </div>
+    </form>
     <div class="actiepunten">
         &nbsp;
     </div>
@@ -26,7 +28,6 @@
         <thead>
         <tr>
             <th>Naam</th>
-            <th>Voornaam</th>
             <th class="geboortedatum">Geboortedatum</th>
             <th>Adres</th>
             <th class="postcode">Postcode</th>
@@ -35,12 +36,11 @@
         </thead>
         <tbody data-bind="foreach: zoekResultaat">
         <tr>
-            <td data-bind="text: naam"></td>
-            <td data-bind="text: voornaam"></td>
-            <td data-bind="text: geboortedatum"></td>
-            <td data-bind="text: adres"></td>
-            <td data-bind="text: postcode"></td>
-            <td data-bind="text: plaats"></td>
+            <td><a data-bind="text: naam, attr: {href: $parent.maaklink($index)}"></a></td>
+            <td><a data-bind="text: geboortedatum, attr: {href: $parent.maaklink($index)}"></a></td>
+            <td><a data-bind="text: adres, attr: {href: $parent.maaklink($index)}"></a></td>
+            <td><a data-bind="text: postcode, attr: {href: $parent.maaklink($index)}"></a></td>
+            <td><a data-bind="text: plaats, attr: {href: $parent.maaklink($index)}"></a></td>
         </tr>
         </tbody>
     </table>

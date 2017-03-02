@@ -68,6 +68,11 @@ h3 {
     padding: 3px;
 }
 
+.zoek-resultaten td  a {
+    text-decoration: none;
+    color: black;
+}
+
 .geboortedatum {
     width: 130px;
 }
