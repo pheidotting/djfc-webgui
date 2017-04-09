@@ -12,7 +12,7 @@ define(['commons/3rdparty/log2',
 
                 if(opmerkingen != null && opmerkingen() != null && opmerkingen().length > 0) {
                     $.each(opmerkingen(), function(i, opmerking){
-                        opmerking.entiteitId(id);
+                        opmerking.parentIdentificatie(id);
                         opmerking.soortEntiteit(soortEntiteit);
                     });
 

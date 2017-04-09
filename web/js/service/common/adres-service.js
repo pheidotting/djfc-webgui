@@ -12,7 +12,7 @@ define(['commons/3rdparty/log2',
 
                 if(adressen() != null && adressen().length > 0) {
                     $.each(adressen(), function(i, adres){
-                        adres.entiteitId(id);
+                        adres.parentIdentificatie(id);
                         adres.soortEntiteit(soortEntiteit);
                     });
 

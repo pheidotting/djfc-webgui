@@ -11,7 +11,7 @@ define(['jquery',
 
 		thisBijlage.id = ko.observable(modelData.id);
 		thisBijlage.url = ko.computed(function() {
-			return "../dejonge/rest/medewerker/bijlage/download?id=" + modelData.id;
+			return "../dejonge/rest/medewerker/bijlage/download?id=" + modelData.identificatie;
 		}, this);
 		thisBijlage.bestandsNaam = ko.observable(modelData.bestandsNaam);
 		thisBijlage.soortBijlage = ko.observable(modelData.soortBijlage);

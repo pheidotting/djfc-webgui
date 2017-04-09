@@ -13,7 +13,9 @@ define(['jquery',
                 var gesprekken = ko.observableArray([]);
 
                 $.each(data, function(i, r){
-                    gesprekken.push(mappen(r));
+                    $.each(mappen(r), function(i, g) {
+                        gesprekken.push(g);
+                    });
                 });
 
                 return gesprekken;
@@ -22,25 +24,31 @@ define(['jquery',
 
         function mappen(data){
             if(data != null) {
-                var gesprek = new Gesprek();
+                var result = [];
+                $.each(data.telefoongesprekken, function(i, telefoongesprek) {
+                    var gesprek = new Gesprek();
 
-                gesprek.bestandsnaam(data);
+                    gesprek.telefoonnummer(data.telefoonnummer);
 
-                var parts = data.split('-');
-                if(parts[0] == 'out') {
-                    gesprek.uitgaand(true);
-                    gesprek.inkomend(false);
-                    gesprek.telefoonnummer(parts[1]);
+                    gesprek.bestandsnaam(telefoongesprek.bestandsnaam);
 
-                } else {
-                    gesprek.uitgaand(false);
-                    gesprek.inkomend(true);
-                    gesprek.telefoonnummer(parts[2]);
+                    var parts = telefoongesprek.bestandsnaam.split('-');
+                    if(parts[0] == 'out') {
+                        gesprek.uitgaand(true);
+                        gesprek.inkomend(false);
+                        gesprek.telefoonnummer(parts[1]);
 
-                }
-                gesprek.tijdstip(moment(parts[3] + parts[4], 'YYYYMMDDHHmmSS'));
+                    } else {
+                        gesprek.uitgaand(false);
+                        gesprek.inkomend(true);
+                        gesprek.telefoonnummer(parts[2]);
 
-                return gesprek;
+                    }
+                    gesprek.tijdstip(moment(parts[3] + parts[4], 'YYYYMMDDHHmmSS'));
+
+                    result.push(gesprek);
+                });
+                return result;
             }
         }
     }

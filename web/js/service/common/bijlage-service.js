@@ -10,7 +10,7 @@ define(["commons/3rdparty/log",
 
                 if(bijlages != null && bijlages() != null && bijlages().length > 0) {
                     $.each(bijlages(), function(i, bijlage) {
-                        bijlage.entiteitId(id);
+                        bijlage.parentIdentificatie(id);
                         bijlage.soortEntiteit(soortEntiteit);
                     });
 

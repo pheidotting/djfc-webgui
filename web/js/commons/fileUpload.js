@@ -23,7 +23,7 @@ define(['commons/3rdparty/log2',
             },
 
             uploaden: function(){
-    		    block.block();
+//    		    block.block();
 
                 var deferred = $.Deferred();
 
@@ -33,7 +33,7 @@ define(['commons/3rdparty/log2',
 
                     $('#bijlageFile').val("");
 
-                    $.unblockUI();
+//                    $.unblockUI();
                     var ret = null;
                     if(response.bijlage != null) {
                         ret = new Bijlage(response.bijlage);

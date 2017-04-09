@@ -1,0 +1,47 @@
+.kolom {
+    width: 31%;
+    float: left;
+    padding: 1em;
+}
+
+.kolom h3 {
+    padding-bottom: 5px;
+    border-bottom: 4px solid #4a95ca;
+    text-decoration: none;
+}
+
+input {
+    background-color: #ececec;
+    border: 0px;
+    width: 65%;
+    height: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: inline-block;
+    width: 33%;
+}
+
+select {
+    background-color: #ececec;
+    border: 0px;
+    width: 65%;
+    height: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.rechts-icon {
+    float: right;
+    color: #4a95ca;
+}
+
+.rechts-icon::before{
+    margin-right: 10px
+}
+
+#telefoonomschrijving{
+    width: 65%;
+}

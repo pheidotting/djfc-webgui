@@ -24,6 +24,7 @@ define(['jquery',
                 var opmerking = new Opmerking();
 
                 opmerking.id(data.id);
+                opmerking.identificatie(data.identificatie);
                 opmerking.opmerking(data.opmerking);
                 opmerking.tijd(data.tijd);
                 opmerking.medewerker(data.medewerker);

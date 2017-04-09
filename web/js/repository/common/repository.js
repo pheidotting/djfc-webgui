@@ -14,14 +14,16 @@ define(["commons/3rdparty/log2",
                 } else {
                     logger.trace('uitvoeren get op url \'' + url + '\' met data \'' + JSON.stringify(data) + '\'');
                 }
-                $.get(url, data).done(function(response) {
+                $.get(url, data)
+                .done(function(response) {
                     return deferred.resolve(response);
-                }).fail(function(response){
+                });
+//                .fail(function(response){
 //                    if (response.status === 401) {
 //                        redirect.redirect('INLOGGEN');
 //                    }
-                    return deferred.reject();
-                });
+//                    return deferred.reject();
+//                });
 
                 return deferred.promise();
             },
@@ -34,12 +36,14 @@ define(["commons/3rdparty/log2",
                     url: url,
                     contentType: "application/json",
                     data: data,
+                    ataType: "json",
+                    async: false,
                     beforeSend: function(xhr){xhr.setRequestHeader('trackAndTraceId', trackAndTraceId);},
                     success: function (response) {
                         return deferred.resolve(response);
                     },
-                    error: function (data) {
-                        return deferred.reject(data);
+                    error: function (response) {
+                        return deferred.resolve(response);
                     }
                 });
 

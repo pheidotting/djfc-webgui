@@ -7,13 +7,9 @@ define(['jquery',
 
         return {
             init: function() {
-                $.when(toggleService.isFeatureBeschikbaar('TELEFONIE')).then(function(toggleBeschikbaar){
-                    if(toggleBeschikbaar) {
-                        $('#telefonie').html(html);
+                $('#telefonie').html(html);
 
-                        logger.debug('content geladen');
-                    }
-                });
+                logger.debug('content geladen');
             }
         }
     }

@@ -1,6 +1,6 @@
 define(['jquery',
         'commons/3rdparty/log2',
-        'text!../../../templates/beherenRelatie.html',
+        'text!../../../templates/beheren/beheren-relatie.html',
         'viewmodel/beheren-relatie-viewmodel',
         'knockout',
         'view/common/adres-view',
@@ -15,7 +15,7 @@ define(['jquery',
 
         return {
             init: function(id) {
-				$('#details').html(html);
+				$('#content').html(html);
 
                 adresView.init(id);
                 rekeningnummerView.init(id);

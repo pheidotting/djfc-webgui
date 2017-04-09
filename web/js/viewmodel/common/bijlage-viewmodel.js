@@ -3,7 +3,7 @@ define(['commons/3rdparty/log2',
         'service/common/bijlage-service',
         'knockout',
         'fileUpload',
-        'commonFunctions',
+        'commons/commonFunctions',
         'mapper/bijlage-mapper',
         'mapper/groepbijlage-mapper'],
     function(log, Adres, bijlageService, ko, fileUpload, commonFunctions, bijlageMapper, groepbijlageMapper) {
@@ -25,7 +25,7 @@ define(['commons/3rdparty/log2',
             _this.groepBijlages.push(groepbijlage);
         });
 
-		this.id = ko.observable(entiteitId);
+		this.id = ko.observable(entiteitId.identificatie);
 		this.soortEntiteit = ko.observable(soortEntiteit);
 
         this.tonenUploadVeld = ko.computed(function(){

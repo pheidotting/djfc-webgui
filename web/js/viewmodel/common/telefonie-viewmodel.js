@@ -6,19 +6,19 @@ define(['commons/3rdparty/log2',
         'navRegister'],
     function(log, ko, telefonieService, telefonieMapper, moment, navRegister) {
 
-    return function(telefoonnummers) {
+    return function(recordings) {
         var _this = this;
         var logger = log.getLogger('telefonie-viewmodel');
     	var korteNetnummers = ['010', '013', '014', '015', '020', '023', '024', '026', '030', '033', '035', '036', '038', '040', '043', '045', '046', '050', '053', '055', '058', '070', '071', '072', '073', '074', '075', '076', '077', '078', '079'];
 
 		this.gesprekken = ko.observableArray();
 
-        if(telefoonnummers.length !== 0) {
-            $.when(telefonieService.haalOp(telefoonnummers)).then(function(recordings) {
-                $.each(telefonieMapper.mapGesprekken(recordings.recordings)(), function(i, gesprek){
+        if(recordings && recordings.length !== 0) {
+//            $.when(telefonieService.haalOp(telefoonnummers)).then(function(recordings) {
+                $.each(telefonieMapper.mapGesprekken(recordings)(), function(i, gesprek){
                     _this.gesprekken.push(gesprek);
                 });
-            });
+//            });
 		}
 
 		this.maakUrl = function(bestandsnaam) {

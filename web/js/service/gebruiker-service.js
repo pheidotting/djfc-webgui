@@ -15,9 +15,10 @@ define(["commons/3rdparty/log2",
             opslaan: function(relatie, adressen, telefoonnummers, rekeningnummers, opmerkingen) {
                 var deferred = $.Deferred();
 
-                $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {
-                    $.when(gebruikerRepository.opslaan(relatie, trackAndTraceId)).then(function(response) {
-                        var id = response.entity.foutmelding;
+                repository.leesTrackAndTraceId().done(function(trackAndTraceId) {
+                    gebruikerRepository.opslaan(relatie, trackAndTraceId).done(function(response) {
+                        var id = response;
+                        logger.debug(id);
                         var soortEntiteit = 'RELATIE';
 
                         $.when(adresService.opslaan(adressen, trackAndTraceId, soortEntiteit, id),
@@ -38,23 +39,8 @@ define(["commons/3rdparty/log2",
 
                 var deferred = $.Deferred();
 
-                $.when(gebruikerRepository.leesRelatie(id),
-                        bijlageService.lijst('RELATIE', id),
-                        bijlageService.lijstGroep('RELATIE', id),
-                        opmerkingService.lijst('RELATIE', id),
-                        adresService.lijst('RELATIE', id),
-                        telefoonnummerService.lijst('RELATIE', id),
-                        rekeningnummerService.lijst('RELATIE', id)
-                        ).then(function(relatie, bijlages, groepBijlages, opmerkingen, adressen, telefoonnummers, rekeningnummers ) {
-
-                            relatie.bijlages = bijlages;
-                            relatie.groepBijlages = groepBijlages;
-                            relatie.opmerkingen = opmerkingen;
-                            relatie.adressen = adressen;
-                            relatie.telefoonnummers = telefoonnummers;
-                            relatie.rekeningnummers = rekeningnummers;
-
-                            return deferred.resolve(relatie);
+                $.when(gebruikerRepository.leesRelatie(id)).then(function(relatie) {
+                    return deferred.resolve(relatie);
                 });
 
                 return deferred.promise();

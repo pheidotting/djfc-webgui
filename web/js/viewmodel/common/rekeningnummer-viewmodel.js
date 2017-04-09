@@ -20,6 +20,12 @@ define(['commons/3rdparty/log2',
 
             rekeningnummer.rekeningnummer(rek);
 
+            if(rek.startsWith('NL')) {
+                rekeningnummer.bicTonen(false);
+            } else {
+                rekeningnummer.bicTonen(true);
+            }
+
             _this.rekeningnummers.push(rekeningnummer);
         });
 
@@ -63,6 +69,12 @@ define(['commons/3rdparty/log2',
                 }
 
                 nummer.rekeningnummer(rek);
+
+                if(rek.startsWith('NL')) {
+                    nummer.bicTonen(false);
+                } else {
+                    nummer.bicTonen(true);
+                }
             }
         };
     };

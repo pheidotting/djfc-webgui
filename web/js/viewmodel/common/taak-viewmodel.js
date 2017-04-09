@@ -5,7 +5,7 @@ define(['commons/3rdparty/log2',
         'model/taak/taak2',
         'knockout',
         'moment',
-        'commonFunctions'],
+        'commons/commonFunctions'],
     function(log, taakService, toggleService, taakMapper, Taak, ko, moment, commonFunctions) {
 
     return function(readOnly, soortEntiteit, entiteitId, relatieId, bedrijfId) {
@@ -36,26 +36,26 @@ define(['commons/3rdparty/log2',
             message: 'Juiste invoerformaat is : dd-mm-eejj uu:mm'
         }});
 
-        $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar){
-            if(toggleBeschikbaar) {
-                $.when(
-                    taakService.alleTaken(_this.soortEntiteit(), _this.id(), _this.relatieId, _this.bedrijfId),
-                    taakService.afgerondeTaken(_this.soortEntiteit(), _this.id())
-                ).then(function(
-                    opgehaaldeTaken,
-                    afgerondeTaken
-                ) {
-                    _.each(taakMapper.mapTaken(opgehaaldeTaken)(), function(gemapteTaak) {
-                        _this.taken.push(gemapteTaak);
-                        _this.taken.valueHasMutated()
-                    });
-                    _.each(taakMapper.mapTaken(afgerondeTaken)(), function(gemapteTaak) {
-                        _this.afgerondeTaken.push(gemapteTaak);
-                        _this.afgerondeTaken.valueHasMutated()
-                    });
-                });
-            }
-        });
+//        $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar){
+//            if(toggleBeschikbaar) {
+//                $.when(
+//                    taakService.alleTaken(_this.soortEntiteit(), _this.id(), _this.relatieId, _this.bedrijfId),
+//                    taakService.afgerondeTaken(_this.soortEntiteit(), _this.id())
+//                ).then(function(
+//                    opgehaaldeTaken,
+//                    afgerondeTaken
+//                ) {
+//                    _.each(taakMapper.mapTaken(opgehaaldeTaken)(), function(gemapteTaak) {
+//                        _this.taken.push(gemapteTaak);
+//                        _this.taken.valueHasMutated()
+//                    });
+//                    _.each(taakMapper.mapTaken(afgerondeTaken)(), function(gemapteTaak) {
+//                        _this.afgerondeTaken.push(gemapteTaak);
+//                        _this.afgerondeTaken.valueHasMutated()
+//                    });
+//                });
+//            }
+//        });
 
         this.voegTaakToe = function() {
             logger.debug('Toevoegen taak');

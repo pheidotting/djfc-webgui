@@ -33,6 +33,7 @@ body {
 }
 
 .bottom, .push {
+    clear: both;
     min-height: 30px;
     background-color: #0e71b8;
 }
@@ -180,4 +181,19 @@ body {
 #content {
     margin-left:75px;
     margin-right:75px;
+    margin-bottom: 40px;
+}
+
+#telefoonomschrijving {
+    width: 65%;
+}
+
+.nieuweOpmerking {
+    width: 63%;
+}
+
+.btn-awesome {
+    border: 0px;
+    background: none;
+    cursor: pointer;
 }

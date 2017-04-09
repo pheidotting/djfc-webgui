@@ -12,7 +12,7 @@ define(['commons/3rdparty/log2',
 
                 if(rekeningnummers() != null && rekeningnummers().length > 0) {
                     $.each(rekeningnummers(), function(i, rekeningnummer){
-                        rekeningnummer.entiteitId(id);
+                        rekeningnummer.parentIdentificatie(id);
                         rekeningnummer.soortEntiteit(soortEntiteit);
         			    rekeningnummer.rekeningnummer(rekeningnummer.rekeningnummer().replace(/ /g, ""));
                     });

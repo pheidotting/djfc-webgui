@@ -21,7 +21,7 @@ define(['jquery',
 
 		this.lijst = ko.observableArray();
 
-        this.zoekTerm = ko.observable('Henkie');
+        this.zoekTerm = ko.observable('');
         this.zoekResultaat = ko.observableArray([]);
         this.zoekvelden = new zoekvelden();
 
@@ -63,7 +63,7 @@ define(['jquery',
             var entiteit = _this.zoekResultaat()[index()];
             var soortEntiteit = entiteit.soortEntiteit().toLowerCase();
 
-            return 'beheren-'+ soortEntiteit +'.html#' + soortEntiteit + '/' + entiteit.identificatie();
+            return 'beheren.html#' + soortEntiteit + '/' + entiteit.identificatie();
         };
 	};
 });

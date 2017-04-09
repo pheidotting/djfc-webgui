@@ -9,5 +9,8 @@ define(['knockout'],
         _this.bic = ko.observable()
 		_this.soortEntiteit = ko.observable();
 		_this.entiteitId = ko.observable();
+
+		_this.bicTonen = ko.observable(false);
+		_this.parentIdentificatie = ko.observable();
 	};
 });

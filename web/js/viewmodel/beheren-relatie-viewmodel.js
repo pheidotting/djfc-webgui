@@ -9,6 +9,7 @@ define(['jquery',
         'opmerkingenModel',
         'mapper/gebruiker-mapper',
         'service/gebruiker-service',
+        'service/relatie-service',
         'service/toggle-service',
         'viewmodel/common/adres-viewmodel',
         'viewmodel/common/rekeningnummer-viewmodel',
@@ -16,8 +17,11 @@ define(['jquery',
         'viewmodel/common/opmerking-viewmodel',
         'viewmodel/common/bijlage-viewmodel',
         'viewmodel/common/taak-viewmodel',
-        'viewmodel/common/telefonie-viewmodel'],
-    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, opmerkingenModel, relatieMapper, gebruikerService, toggleService, adresViewModel, rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel, taakViewModel, telefonieViewModel) {
+        'viewmodel/common/telefonie-viewmodel',
+        'knockout.validation',
+        'knockoutValidationLocal',
+        'blockUI'],
+    function($, commonFunctions, ko, Relatie, functions, block, log, redirect, opmerkingenModel, relatieMapper, gebruikerService, relatieService, toggleService, adresViewModel, rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel, taakViewModel, telefonieViewModel) {
 
     return function(id) {
         var _this = this;
@@ -50,27 +54,19 @@ define(['jquery',
         this.init = function(id, toggleBeschikbaar) {
             var deferred = $.Deferred();
 
-            $.when(gebruikerService.leesRelatie(id)).then(function(relatie) {
+            $.when(relatieService.lees(id.identificatie)).then(function(relatie) {
 
                 _this.relatie = relatieMapper.mapRelatie(relatie);
 
                 _this.telefoonnummersModel  = new telefoonnummerViewModel(false, soortEntiteit, id, relatie.telefoonnummers);
-                _this.rekeningnummerModel   = new rekeningnummerViewModel(false, soortEntiteit, id, relatie.rekeningnummers);
+                _this.telefonie             = new telefonieViewModel(relatie.telefoonnummerMetGesprekkens);
+                _this.rekeningnummerModel   = new rekeningnummerViewModel(false, soortEntiteit, id, relatie.rekeningNummers);
                 _this.adressenModel         = new adresViewModel(false, soortEntiteit, id, relatie.adressen);
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, id, relatie.opmerkingen);
                 _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, id, relatie.bijlages, relatie.groepBijlages);
+                _this.taakModel             = new taakViewModel(false, soortEntiteit, id, id);
 
-                _this.telefonie = new telefonieViewModel(relatie.telefoonnummers);
-
-                $.when(toggleService.isFeatureBeschikbaar('TODOIST')).then(function(toggleBeschikbaar){
-                    if(toggleBeschikbaar) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id, id);
-
-                        return deferred.resolve();
-                    } else {
-                        return deferred.resolve();
-                    }
-                });
+                return deferred.resolve();
             });
 
             return deferred.promise();
@@ -104,19 +100,19 @@ define(['jquery',
 
 		this.opslaan = function() {
 	    	var result = ko.validation.group(_this, {deep: true});
-	    	if(!_this.isValid()) {
+	    	if(result().length > 0) {
 	    		result.showAllMessages(true);
 	    	}else{
 				var foutmelding;
 				gebruikerService.opslaan(_this.relatie, _this.adressenModel.adressen, _this.telefoonnummersModel.telefoonnummers, _this.rekeningnummerModel.rekeningnummers, _this.opmerkingenModel.opmerkingen).done(function() {
-					redirect.redirect('LIJST_RELATIES', _this.relatie.achternaam());
+                    document.location.href = 'zoeken.html';
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response) {
 					commonFunctions.plaatsFoutmelding(response);
 					foutmelding = true;
 				});
 				if(foutmelding === undefined || foutmelding === null) {
-					redirect.redirect('LIJST_RELATIES', _this.relatie.achternaam());
+                    document.location.href = 'zoeken.html';
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}
 	    	}

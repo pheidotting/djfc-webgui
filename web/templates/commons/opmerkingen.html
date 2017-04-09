@@ -1,6 +1,9 @@
-<h3>Opmerkingen</h3>
-<span class="glyphicon glyphicon-plus" data-bind="click: opmerkingenModel.voegOpmerkingToe" id="voegOpmerkingToe"
-      style="cursor:pointer"></span>
+<h3>
+    Opmerkingen
+    &nbsp;<span class="fa fa-plus-square-o rechts-icon" aria-hidden="true"
+                data-bind="click: opmerkingenModel.voegOpmerkingToe" id="voegOpmerkingToe"
+                style="cursor:pointer">Toevoegen</span>
+</h3>
 <div id="opmerkingen" data-bind="foreach: opmerkingenModel.opmerkingen">
     <div data-bind="if: idIsNietNull">
         <strong>
@@ -10,12 +13,11 @@
                     id="verwijder" style="cursor:pointer"></span>
         <br/>
         <div style="white-space: pre-wrap"
-             data-bind="text: opmerking, click: $parent.opmerkingenModel.startBewerken, visible: $parent.opmerkingenModel.notReadOnly, attr:{id: 'tekst' + id()}"
-             name="wateenrareidisdit"></div>
+             data-bind="text: opmerking, click: $parent.opmerkingenModel.startBewerken, visible: $parent.opmerkingenModel.notReadOnly, attr:{id: 'tekst' + id()}"></div>
         <div style="white-space: pre-wrap"
              data-bind="text: opmerking, visible: $parent.opmerkingenModel.readOnly, attr:{id: 'tekst' + id()}"></div>
         <div data-bind="attr:{id: 'edit' + id()}" style="display: none;">
-            <textarea data-bind="value: opmerking" rows="5"></textarea><br/>
+            <textarea class="nieuweOpmerking" data-bind="value: opmerking" rows="5"></textarea><br/>
             <button data-bind="click: $parent.opmerkingenModel.opslaan">Opslaan</button>
             <button data-bind="click: $parent.opmerkingenModel.annuleren">Annuleren</button>
         </div>
@@ -28,6 +30,6 @@
         </label>
         &nbsp;<span class="glyphicon glyphicon-minus" data-bind="click: $parent.opmerkingenModel.verwijder"
                     id="verwijderNieuweOpmerking" style="cursor:pointer"></span>
-        <textarea name="nieuweOpmerking" data-bind="value: opmerking" rows="5"></textarea><br/>
+        <textarea class="nieuweOpmerking" name="nieuweOpmerking" data-bind="value: opmerking" rows="5"></textarea><br/>
     </div>
 </div>

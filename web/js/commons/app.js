@@ -43,24 +43,3 @@ requirejs.config({
         }
     }
 });
-
-
-// require(['jquery', 'foundation'], function($, foundation) {
-
-//   // Foundation JavaScript
-//   // Documentation can be found at: http://foundation.zurb.com/docs
-//     $(document).load(function() {
-//         new foundation();
-//         // foundation.Dropdown(this);
-//     //   $(this).foundation({
-//     // Dropdown: {
-//     //       animation: 'slide',
-//     //       timer_speed: 1000,
-//     //       pause_on_hover: true,
-//     //       animation_speed: 500,
-//     //       navigation_arrows: true,
-//     //       bullets: false
-//     // }
-//     // });
-//     });
-// });   

@@ -34,7 +34,7 @@ define(['jquery',
                 } else {
                     //Een relatie..
                     var naam = data.roepnaam;
-                    if(data.voorvoegsel != null) {
+                    if(data.tussenvoegsel != null) {
                         naam += ' ' + data.tussenvoegsel;
                     }
                     naam += ' ' + data.achternaam;

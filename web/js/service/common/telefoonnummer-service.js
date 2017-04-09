@@ -13,7 +13,7 @@ define(['commons/3rdparty/log2',
 
                 if(telefoonnummers() != null && telefoonnummers().length > 0) {
                     $.each(telefoonnummers(), function(i, telefoonnummer){
-                        telefoonnummer.entiteitId(id);
+                        telefoonnummer.parentIdentificatie(id);
                         telefoonnummer.soortEntiteit(soortEntiteit);
                         if(telefoonnummer.telefoonnummer() != null && telefoonnummer.telefoonnummer() != '') {
             			    telefoonnummer.telefoonnummer(telefoonnummer.telefoonnummer().replace(/ /g, "").replace("-", ""));
