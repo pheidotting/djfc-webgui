@@ -45,13 +45,13 @@ define(['jquery',
         };
 
         this.zoeken = function() {
+            _this.zoekResultaat([]);
             if(_this.zoekvelden.geboortedatum() != null) {
                 if(_this.zoekvelden.geboortedatum() == '') {
                     _this.zoekvelden.geboortedatum(undefined);
                 }
             }
             $.when(zoekenService.zoeken(btoa(ko.toJSON(_this.zoekvelden)))).then(function(zoekResultaat){
-                _this.zoekResultaat.destroyAll();
                 $.each(zoekresultaatMapper.mapZoekresultaten(zoekResultaat.bedrijfOfRelatieList)(), function(i, gemapt) {
                     _this.zoekResultaat.push(gemapt);
                     _this.zoekResultaat.valueHasMutated();
