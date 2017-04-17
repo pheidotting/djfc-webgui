@@ -13,7 +13,8 @@ define([ "commons/3rdparty/log2"],
                             {naam: 'DASHBOARD',         url: '#dashboard'},
                             {naam: 'TAAK',              url: '#taak'},
                             {naam: 'TAKEN',             url: '#taken'},
-                            {naam: 'BEHEREN_BEDRIJF',   url: '#beherenBedrijf'}
+                            {naam: 'BEHEREN_BEDRIJF',   url: '#beherenBedrijf'},
+                            {naam: 'LIJST_POLISSEN',    url: '#polissen'}
                             ];
 
                 var url = '';

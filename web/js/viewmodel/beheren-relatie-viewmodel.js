@@ -42,6 +42,7 @@ define(['jquery',
 
         this.zoekTerm = function() {};
         this.zoekRelaties = function() {};
+        this.identificatie = null;
 
 		this.voegRelatieToe = function(datum) {
 
@@ -52,10 +53,10 @@ define(['jquery',
 		};
 
         this.init = function(id, toggleBeschikbaar) {
+            _this.identificatie = id.identificatie;
             var deferred = $.Deferred();
 
             $.when(relatieService.lees(id.identificatie)).then(function(relatie) {
-
                 _this.relatie = relatieMapper.mapRelatie(relatie);
 
                 _this.telefoonnummersModel  = new telefoonnummerViewModel(false, soortEntiteit, id, relatie.telefoonnummers);
@@ -129,5 +130,9 @@ define(['jquery',
         this.annuleren = function() {
             redirect.redirect('LIJST_RELATIES');
         };
+
+        this.naarPolissen = function() {
+            redirect.redirect('LIJST_POLISSEN', _this.identificatie);
+        }
 	};
 });
