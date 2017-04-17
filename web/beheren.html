@@ -19,6 +19,8 @@
             var app = new App();
 
             app.addView('relatie/:identificatie', 'view/beheren-relatie-view');
+            app.addView('polissen/:identificatie', 'view/beheren-polis-view');
+            app.addView('polis/:identificatie', 'view/beheren-polis-view');
 
             app.run('#relatie');
         });
@@ -27,10 +29,24 @@
 <div class="top">
     <img src="images/Symplex-logo.png"/>
 </div>
-<div class="bar-inloggen"></div>
+<div class="bar">
+    <button class="uitloggen-button">Uitloggen</button>
+</div>
+
+<img class="logo-bedrijf" src="images/logo-djfc.jpg"/>
 
 <div class="main">
     <div id="hoofd"></div>
+    <div class="menu-balk">
+        <div class="menu-balk-within">
+            <div class="menu-balk-holder">
+                <ul>
+                    <li class="first"><a href="zoeken.html">Home</a></li>
+                    <!--<li><a href="#" data-bind="click: naarPolissen">Polissen</a></li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
     <div id="content"></div>
 </div>
 
