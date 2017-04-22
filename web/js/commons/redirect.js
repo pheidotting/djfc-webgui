@@ -8,13 +8,14 @@ define([ "commons/3rdparty/log2"],
                 var vars = [{naam: 'LIJST_RELATIES',    url: '#lijstRelaties'},
                             {naam: 'LIJST_BEDRIJVEN',   url: '#lijstBedrijven'},
                             {naam: 'INLOGGEN',          url: '#inloggen'},
-                            {naam: 'BEHEREN_RELATIE',   url: '#beherenRelatie'},
+                            {naam: 'BEHEREN_RELATIE',   url: '#relatie'},
                             {naam: 'BEHEREN_BEDRIJF',   url: '#beherenBedrijf'},
                             {naam: 'DASHBOARD',         url: '#dashboard'},
                             {naam: 'TAAK',              url: '#taak'},
                             {naam: 'TAKEN',             url: '#taken'},
                             {naam: 'BEHEREN_BEDRIJF',   url: '#beherenBedrijf'},
-                            {naam: 'LIJST_POLISSEN',    url: '#polissen'}
+                            {naam: 'LIJST_POLISSEN',    url: '#polissen'},
+                            {naam: 'BEHEER_POLIS',      url: '#polis'}
                             ];
 
                 var url = '';
@@ -49,6 +50,7 @@ define([ "commons/3rdparty/log2"],
 
                 logger.debug(url);
                 document.location.hash = url;
+                location.reload();
             }
         }
     }

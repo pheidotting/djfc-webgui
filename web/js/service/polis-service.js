@@ -3,9 +3,10 @@ define(["commons/3rdparty/log",
         'knockout',
         'repository/common/repository',
         'repository/polis-repository',
+        'repository/gebruiker-repository',
         'service/common/opmerking-service',
         'service/common/bijlage-service'],
-    function(log, navRegister, ko, repository, polisRepository, opmerkingService, bijlageService) {
+    function(log, navRegister, ko, repository, polisRepository, gebruikerRepository, opmerkingService, bijlageService) {
 
         return {
             opslaan: function(polis, opmerkingen){
@@ -36,18 +37,12 @@ define(["commons/3rdparty/log",
             },
 
             lees: function(id){
+                var identificatie = id.identificatie;
                 var deferred = $.Deferred();
 
-                $.when(polisRepository.lees(id),
-                    bijlageService.lijst('POLIS', id),
-                    opmerkingService.lijst('POLIS', id),
-                    bijlageService.lijstGroep('POLIS', id))
-                    .then(function(data, bijlages, opmerkingen, groepenBijlages) {
-                        data.bijlages = bijlages;
-                        data.opmerkingen = opmerkingen;
-                        data.groepenBijlages = groepenBijlages;
+                $.when(gebruikerRepository.leesRelatie(identificatie)).then(function(data) {
 
-                        return deferred.resolve(data);
+                    return deferred.resolve(data);
                 });
 
                 return deferred.promise();
@@ -66,7 +61,14 @@ define(["commons/3rdparty/log",
             },
 
             lijstPolissen: function(relatieId, bedrijfId){
-                return polisRepository.lijstPolissen(relatieId, bedrijfId);
+                var deferred = $.Deferred();
+
+//                return polisRepository.lijstPolissen(relatieId, bedrijfId);
+                $.when(gebruikerRepository.leesRelatie(relatieId)).then(function(data) {
+                    return deferred.resolve(data.polissen);
+                });
+
+                return deferred.promise();
             },
 
             beindigPolis: function(id){

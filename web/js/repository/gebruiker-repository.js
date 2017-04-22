@@ -28,7 +28,7 @@ define(["commons/3rdparty/log2",
             },
 
             leesRelatie: function(id) {
-                return abstractRepository.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE'), {id : id});
+                return abstractRepository.voerUitGet(navRegister.bepaalUrl('LEES_RELATIE_NW') + '/' + id);
             },
 
             leesMedewerker: function(id) {

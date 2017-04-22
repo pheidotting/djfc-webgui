@@ -19,8 +19,9 @@
             var app = new App();
 
             app.addView('relatie/:identificatie', 'view/beheren-relatie-view');
-            app.addView('polissen/:identificatie', 'view/beheren-polis-view');
+            app.addView('polissen/:identificatie', 'view/lijst-polissen-view');
             app.addView('polis/:identificatie', 'view/beheren-polis-view');
+            app.addView('polis/:identificatie/:readonly', 'view/beheren-polis-view');
 
             app.run('#relatie');
         });
@@ -42,7 +43,10 @@
             <div class="menu-balk-holder">
                 <ul>
                     <li class="first"><a href="zoeken.html">Home</a></li>
-                    <!--<li><a href="#" data-bind="click: naarPolissen">Polissen</a></li>-->
+                    <li><a style="cursor: pointer;" data-bind="click: $root.menubalkViewmodel.naarRelatiegegevens">Relatie</a>
+                    </li>
+                    <li><a style="cursor: pointer;" data-bind="click: $root.menubalkViewmodel.naarPolissen">Polissen</a>
+                    </li>
                 </ul>
             </div>
         </div>

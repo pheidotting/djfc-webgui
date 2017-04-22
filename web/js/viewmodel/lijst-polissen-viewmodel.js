@@ -7,41 +7,62 @@ define(['jquery',
 		'redirect',
         'service/polis-service',
         'mapper/polis-mapper',
+        'viewmodel/common/menubalk-viewmodel',
         'moment',
-         'commons/opmaak'],
-    function($, commonFunctions, ko, functions, block, log, redirect, polisService, polisMapper, moment, opmaak) {
+        'commons/opmaak'],
+    function($, commonFunctions, ko, functions, block, log, redirect, polisService, polisMapper, menubalkViewmodel, moment, opmaak) {
 
     return function() {
         var _this = this;
         var logger = log.getLogger('lijst-polissen-viewmodel');
         var soortEntiteit = 'POLIS';
+		this.menubalkViewmodel      = null;
 
         this.basisEntiteit = null;
         this.id = ko.observable();
         this.polissen = ko.observableArray();
+        this.identificatie = null;
 
         this.init = function(id, basisEntiteit) {
+            _this.identificatie = id.identificatie;
+
             var deferred = $.Deferred();
 
-            _this.id(id);
+//            _this.id(id);
             _this.basisEntiteit = basisEntiteit;
 
-            var relatieId = null;
-            var bedrijfId = null;
-            if(basisEntiteit == 'RELATIE') {
-                relatieId = id;
-            } else {
-                bedrijfId = id;
-            }
+//            var relatieId = null;
+//            var bedrijfId = null;
+//            if(basisEntiteit == 'RELATIE') {
+//                relatieId = id;
+//            } else {
+//                bedrijfId = id;
+//            }
 
-            $.when(polisService.lijstPolissen(relatieId, bedrijfId), polisService.lijstVerzekeringsmaatschappijen()).then(function(lijstPolissen, maatschappijen) {
+            $.when(polisService.lijstPolissen(_this.identificatie), polisService.lijstVerzekeringsmaatschappijen()).then(function(lijstPolissen, maatschappijen) {
                     _this.polissen = polisMapper.mapPolissen(lijstPolissen, maatschappijen);
+
+                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie);
 
                 return deferred.resolve();
             });
 
             return deferred.promise();
         };
+
+        this.bewerk = function(polis) {
+        logger.debug(' sojifjaweofijweojfwaoefj ');
+
+			redirect.redirect('BEHEER_POLIS', polis.identificatie());
+        }
+
+        this.inzien = function(polis) {
+			redirect.redirect('BEHEER_POLIS', polis.identificatie(), true);
+        }
+
+        this.verwijder = function(polis) {
+            logger.debug(polis);
+        }
 
 		this.formatDatum = function(datum) {
 		    datum(moment(datum(), 'YYYY-MM-DD').format('DD-MM-YYYY'));

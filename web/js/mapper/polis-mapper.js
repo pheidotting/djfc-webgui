@@ -24,21 +24,21 @@ define(['jquery',
             if(data != null) {
                 var polis = new Polis();
 
-                polis.id(data.id);
+                polis.identificatie(data.identificatie);
                 polis.status(data.status);
                 polis.polisNummer(data.polisNummer);
                 polis.kenmerk(data.kenmerk);
                 if(data.ingangsDatum != null) {
-                    polis.ingangsDatum(moment(data.ingangsDatum, 'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    polis.ingangsDatum(data.ingangsDatum);
                 }
                 if(data.eindDatum != null) {
-                    polis.eindDatum(moment(data.eindDatum, 'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    polis.eindDatum(data.eindDatum);
                 }
                 if(data.wijzigingsDatum != null) {
-                    polis.wijzigingsDatum(moment(data.wijzigingsDatum, 'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    polis.wijzigingsDatum(data.wijzigingsDatum);
                 }
                 if(data.prolongatieDatum) {
-                    polis.prolongatieDatum(moment(data.prolongatieDatum, 'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    polis.prolongatieDatum(data.prolongatieDatum);
                 }
                 polis.soort(data.soort);
                 polis.premie(data.premie);
