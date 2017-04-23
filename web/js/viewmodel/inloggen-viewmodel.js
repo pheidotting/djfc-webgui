@@ -7,7 +7,7 @@ define(['jquery',
         'knockout.validation',
         'knockoutValidationLocal',
         'blockUI'],
-    function($, ko, commonFunctions, log, redirect, gebruikerService) {
+    function($, ko, commonFunctions, log, redirect, gebruikerService, redirect) {
 
     return function() {
         var _this = this;
@@ -33,7 +33,7 @@ define(['jquery',
                         _this.onjuistWachtwoord(false);
                         commonFunctions.haalIngelogdeGebruiker();
                         $.unblockUI();
-                        document.location.href = 'zoeken.html';
+                        window.location.href = 'zoeken.html#zoeken';
                     } else if (result == 1) {
                         $.unblockUI();
                         _this.onjuisteGebruikersnaam('onjuiste-waarde');
