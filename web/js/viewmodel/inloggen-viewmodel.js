@@ -31,8 +31,8 @@ define(['jquery',
                     if (result == 0) {
                         _this.onjuisteGebruikersnaam(false);
                         _this.onjuistWachtwoord(false);
-                        commonFunctions.haalIngelogdeGebruiker();
-                        $.unblockUI();
+//                        commonFunctions.haalIngelogdeGebruiker();
+//                        $.unblockUI();
                         window.location = 'zoeken.html';
                     } else if (result == 1) {
                         $.unblockUI();
