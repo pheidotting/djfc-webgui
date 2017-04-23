@@ -33,7 +33,7 @@ define(['jquery',
                         _this.onjuistWachtwoord(false);
                         commonFunctions.haalIngelogdeGebruiker();
                         $.unblockUI();
-                        window.location.href = 'zoeken.html#zoeken';
+                        window.location = 'zoeken.html';
                     } else if (result == 1) {
                         $.unblockUI();
                         _this.onjuisteGebruikersnaam('onjuiste-waarde');
