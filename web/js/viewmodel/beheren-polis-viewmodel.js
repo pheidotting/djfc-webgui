@@ -101,8 +101,6 @@ define(['jquery',
 	    	if(result().length > 0) {
 	    		result.showAllMessages(true);
 	    	}else{
-//                _this.polis.identificatie(_this.id());
-//                _this.polis.soortEntiteit(_this.basisEntiteit);
 	    		commonFunctions.verbergMeldingen();
 	    		polisService.opslaan(_this.polis, _this.opmerkingenModel.opmerkingen).done(function() {
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");

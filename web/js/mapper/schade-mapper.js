@@ -38,6 +38,7 @@ define(['jquery',
                 schade.datumAfgehandeld(data.datumAfgehandeld);
                 schade.eigenRisico(data.eigenRisico);
                 schade.omschrijving(data.omschrijving);
+                schade.identificatie(data.identificatie);
 
                 return schade;
             }

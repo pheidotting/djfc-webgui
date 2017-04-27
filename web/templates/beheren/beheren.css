@@ -95,3 +95,16 @@ td.Geschorst {
 td.Premievrij {
     color: #00c541;
 }
+
+td.schade-overzicht {
+    background-color: #ececec;
+    padding: 4px;
+    border-bottom: 4px solid #ffffff;
+    border-right: 2px solid #ffffff;
+}
+td.soort-schade {
+    width: 200px;
+}
+td.schadenummer-maatschappij {
+    width: 300px;
+}

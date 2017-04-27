@@ -11,8 +11,11 @@ define(['jquery',
         'viewmodel/common/bijlage-viewmodel',
         'moment',
         'service/toggle-service',
-        'viewmodel/common/taak-viewmodel'],
-    function($, commonFunctions, ko, log, redirect, opmerkingenModel, schadeMapper, schadeService, polisService, opmerkingViewModel, bijlageViewModel, moment, toggleService, taakViewModel) {
+        'viewmodel/common/menubalk-viewmodel',
+        'viewmodel/common/taak-viewmodel',
+        'knockout.validation',
+        'knockoutValidationLocal'],
+    function($, commonFunctions, ko, log, redirect, opmerkingenModel, schadeMapper, schadeService, polisService, opmerkingViewModel, bijlageViewModel, moment, toggleService, menubalkViewmodel, taakViewModel) {
 
     return function() {
         var _this = this;
@@ -23,6 +26,7 @@ define(['jquery',
         this.basisId = null;
         this.bijlageModel           = null;
 		this.polis                = null;
+		this.menubalkViewmodel      = null;
 
 		this.id = ko.observable();
         this.readOnly = ko.observable();
@@ -39,7 +43,7 @@ define(['jquery',
             _this.notReadOnly(!readOnly);
             _this.basisEntiteit = basisEntiteit;
             _this.basisId = basisId;
-            _this.id(schadeId);
+            _this.id(schadeId.identificatie);
 
             var relatieId = null;
             var bedrijfId = null;
@@ -49,11 +53,28 @@ define(['jquery',
                 bedrijfId = basisId;
             }
 
-            $.when(schadeService.lees(schadeId), schadeService.lijstStatusSchade(), polisService.lijstPolissen(relatieId, bedrijfId)).then(function(schade, statussenSchade, polissen) {
+//            $.when(schadeService.lees(_this.id()), schadeService.lijstStatusSchade(), polisService.lijstPolissen(relatieId, bedrijfId)).then(function(schade, statussenSchade, polissen) {
+            $.when(schadeService.lees(_this.id()), schadeService.lijstStatusSchade()).then(function(data, statussenSchade) {
+                var polissen = data.polissen;
+                var schade = _.chain(polissen)
+                    .map(function(polis) {
+                        _.each(polis.schades, function(schade) {
+                            schade.polis = polis.identificatie;
+                        });
+
+                        return polis;
+                    })
+                    .map('schades')
+                    .flatten()
+                    .find(function(schade) {
+                        return schade.identificatie === _this.id();
+                    })
+                    .value();
                 _this.schade = schadeMapper.mapSchade(schade);
 
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, schadeId, schade.opmerkingen);
-                _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, schadeId, schade.bijlages, schade.groepenBijlages);
+                _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, schadeId, schade.bijlages, schade.groepBijlages);
+                _this.menubalkViewmodel     = new menubalkViewmodel(data.identificatie);
 
                 var $selectPolis = $('#polisVoorSchademelding');
                 $('<option>', { value : '' }).text('Kies een polis uit de lijst..').appendTo($selectPolis);
@@ -61,7 +82,7 @@ define(['jquery',
                 $.each(polissen, function(key, value) {
                     var polisTitel = value.soort + " (" + value.polisNummer + ")";
 
-                    $('<option>', { value : value.id }).text(polisTitel).appendTo($selectPolis);
+                    $('<option>', { value : value.identificatie }).text(polisTitel).appendTo($selectPolis);
                 });
 
                 var $selectStatus = $('#statusSchade');
@@ -69,12 +90,8 @@ define(['jquery',
                     $('<option>', { value : value }).text(value).appendTo($selectStatus);
                 });
 
-                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
-                    if(toggleBeschikbaar) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, schadeId, relatieId, bedrijfId);
-                    }
-                    return deferred.resolve();
-                });
+                _this.taakModel             = new taakViewModel(false, soortEntiteit, schadeId, relatieId, bedrijfId);
+                return deferred.resolve();
             });
 
             return deferred.promise();
@@ -94,17 +111,17 @@ define(['jquery',
             return commonFunctions.zetDatumTijdOm(d);
         };
 
-        this.exitDatumTijdSchade = function() {
-		    _this.schade.datumTijdSchade(zetDatumTijdOm(_this.schade.datumTijdSchade()));
-        };
-
-		this.exitDatumTijdMelding = function() {
-		    _this.schade.datumTijdMelding(zetDatumTijdOm(_this.schade.datumTijdMelding()));
-		}
-
-		this.exitDatumAfgehandeld = function() {
-		    _this.schade.datumAfgehandeld(zetDatumOm(_this.schade.datumAfgehandeld()));
-		};
+//        this.exitDatumTijdSchade = function() {
+//		    _this.schade.datumTijdSchade(zetDatumTijdOm(_this.schade.datumTijdSchade()));
+//        };
+//
+//		this.exitDatumTijdMelding = function() {
+//		    _this.schade.datumTijdMelding(zetDatumTijdOm(_this.schade.datumTijdMelding()));
+//		}
+//
+//		this.exitDatumAfgehandeld = function() {
+//		    _this.schade.datumAfgehandeld(zetDatumOm(_this.schade.datumAfgehandeld()));
+//		};
 
 		this.formatBedrag = function(datum) {
             return opmaak.maakBedragOp(bedrag());
@@ -117,15 +134,16 @@ define(['jquery',
 		};
 
 		this.opslaan = function() {
+		    logger.debug('opslaan');
 	    	var result = ko.validation.group(_this.schade, {deep: true});
-	    	if(!_this.schade.isValid()){
+	    	if(result().length > 0) {
 	    		result.showAllMessages(true);
 	    	}else{
 	    		logger.debug("Versturen : " + ko.toJSON(_this.schade));
 
                 schadeService.opslaan(_this.schade, _this.opmerkingenModel.opmerkingen).done(function(){
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-                    redirect.redirect('BEHEREN_' + _this.basisEntiteit, _this.basisId, 'schades');
+//                    redirect.redirect('BEHEREN_' + _this.basisEntiteit, _this.basisId, 'schades');
 	    		}).fail(function(data){
 					commonFunctions.plaatsFoutmelding(data);
 	    		});

@@ -8,28 +8,34 @@ define(['jquery',
         'service/schade-service',
         'mapper/schade-mapper',
         'moment',
-         'commons/opmaak'],
-    function($, commonFunctions, ko, functions, block, log, redirect, schadeService, schadeMapper, moment, opmaak) {
+        'viewmodel/common/menubalk-viewmodel',
+        'commons/opmaak'],
+    function($, commonFunctions, ko, functions, block, log, redirect, schadeService, schadeMapper, moment, menubalkViewmodel, opmaak) {
 
     return function() {
         var _this = this;
         var logger = log.getLogger('lijst-schades-viewmodel');
         var soortEntiteit = 'SCHADE';
+		this.menubalkViewmodel      = null;
 
         this.basisEntiteit = null;
         this.id = ko.observable();
         this.schades = ko.observableArray();
+        this.identificatie = null;
 
         this.init = function(id, basisEntiteit) {
+            _this.identificatie = id.identificatie;
+
             var deferred = $.Deferred();
 
             _this.id(id);
             _this.basisEntiteit = basisEntiteit;
-            $.when(schadeService.lijstSchades(id, basisEntiteit), schadeService.lijstStatusSchade()).then(function(lijstSchades, statussenSchade) {
-                    _this.schades = schadeMapper.mapSchades(lijstSchades, statussenSchade);
+            $.when(schadeService.lijstSchades(_this.identificatie), schadeService.lijstStatusSchade()).then(function(lijstSchades, statussenSchade) {
+                _this.schades = schadeMapper.mapSchades(lijstSchades, statussenSchade);
 
                 return deferred.resolve();
             });
+            _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie);
 
             return deferred.promise();
         };
@@ -44,9 +50,17 @@ define(['jquery',
             return opmaak.maakBedragOp(bedrag());
 		};
 
-		this.bewerkSchade = function(schade) {
-            redirect.redirect('BEHEREN_' + _this.basisEntiteit, _this.id(), 'schade', schade.id());
-        };
+        this.bewerk = function(schade) {
+			redirect.redirect('BEHEER_SCHADE', schade.identificatie());
+        }
+
+        this.inzien = function(schade) {
+			redirect.redirect('BEHEER_SCHADE', schade.identificatie(), true);
+        }
+
+        this.verwijder = function(schade) {
+            logger.debug(schade);
+        }
 
 		this.verwijderSchade = function(schade) {
             var r=confirm("Weet je zeker dat je deze schade wilt verwijderen?");

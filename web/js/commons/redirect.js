@@ -15,7 +15,9 @@ define([ "commons/3rdparty/log2"],
                             {naam: 'TAKEN',             url: '#taken'},
                             {naam: 'BEHEREN_BEDRIJF',   url: '#beherenBedrijf'},
                             {naam: 'LIJST_POLISSEN',    url: '#polissen'},
-                            {naam: 'BEHEER_POLIS',      url: '#polis'}
+                            {naam: 'BEHEER_POLIS',      url: '#polis'},
+                            {naam: 'LIJST_SCHADES',     url: '#schades'},
+                            {naam: 'BEHEER_SCHADE',     url: '#schade'}
                             ];
 
                 var url = '';

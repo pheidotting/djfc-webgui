@@ -7,6 +7,7 @@ define(['knockout',
 
 	    _this.id = ko.observable();
 		_this.soortEntiteit = ko.observable();
+		_this.identificatie = ko.observable();
 	    _this.relatie = ko.observable();
 	    _this.bedrijf = ko.observable();
 	    _this.polis = ko.observable().extend({validation: {
@@ -78,15 +79,15 @@ define(['knockout',
 	    _this.eigenRisico = ko.observable().extend({number: true});
 	    _this.omschrijving = ko.observable();
 
-	    _this.titel = ko.computed(function() {
-	    	return _this.soortSchade() + " (" + _this.schadeNummerMaatschappij() + ")";
-	    }, this);
-
-		_this.idDiv = ko.computed(function() {
-	        return "collapsableSchade" + _this.id();
-		}, this);
-		_this.idDivLink = ko.computed(function() {
-	        return "#collapsableSchade" + _this.id();
-		}, this);
+//	    _this.titel = ko.computed(function() {
+//	    	return _this.soortSchade() + " (" + _this.schadeNummerMaatschappij() + ")";
+//	    }, this);
+//
+//		_this.idDiv = ko.computed(function() {
+//	        return "collapsableSchade" + _this.id();
+//		}, this);
+//		_this.idDivLink = ko.computed(function() {
+//	        return "#collapsableSchade" + _this.id();
+//		}, this);
 	};
 });

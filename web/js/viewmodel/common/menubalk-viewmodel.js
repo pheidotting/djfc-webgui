@@ -14,5 +14,8 @@ define(['redirect'],
             redirect.redirect('LIJST_POLISSEN', _this.identificatie);
         };
 
+        this.naarSchades = function() {
+            redirect.redirect('LIJST_SCHADES', _this.identificatie);
+        };
 	};
 });

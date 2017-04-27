@@ -3,9 +3,11 @@ define(["commons/3rdparty/log",
         'knockout',
         'repository/common/repository',
         'repository/schade-repository',
+        'repository/gebruiker-repository',
         'service/common/opmerking-service',
-        'service/common/bijlage-service'],
-    function(log, navRegister, ko, repository, schadeRepository, opmerkingService, bijlageService) {
+        'service/common/bijlage-service',
+        'underscore'],
+    function(log, navRegister, ko, repository, schadeRepository, gebruikerRepository, opmerkingService, bijlageService, _) {
 
         return {
             opslaan: function(schade, opmerkingen) {
@@ -29,19 +31,10 @@ define(["commons/3rdparty/log",
             },
 
             lees: function(id) {
+                var identificatie = id;
                 var deferred = $.Deferred();
 
-                $.when(
-                    schadeRepository.lees(id),
-                    bijlageService.lijst('SCHADE', id),
-                    opmerkingService.lijst('SCHADE', id),
-                    bijlageService.lijstGroep('SCHADE', id)
-                )
-                .then(function(data, bijlages, opmerkingen, groepenBijlages) {
-                    data.bijlages = bijlages;
-                    data.opmerkingen = opmerkingen;
-                    data.groepenBijlages = groepenBijlages;
-
+                $.when(gebruikerRepository.leesRelatie(identificatie)).then(function(data) {
                     return deferred.resolve(data);
                 });
 
@@ -52,8 +45,19 @@ define(["commons/3rdparty/log",
                 return schadeRepository.lijstStatusSchade();
             },
 
-            lijstSchades: function(relatieId, soortEntiteit) {
-                return schadeRepository.lijstSchades(relatieId, soortEntiteit);
+            lijstSchades: function(relatieId) {
+                var deferred = $.Deferred();
+
+                $.when(gebruikerRepository.leesRelatie(relatieId)).then(function(data) {
+                    var schades = _.chain(data.polissen)
+                    .map('schades')
+                    .flatten()
+                    .value();
+
+                    return deferred.resolve(schades);
+                });
+
+                return deferred.promise();
             },
 
             verwijderSchade: function(id) {

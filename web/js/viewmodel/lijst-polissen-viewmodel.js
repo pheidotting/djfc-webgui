@@ -51,8 +51,6 @@ define(['jquery',
         };
 
         this.bewerk = function(polis) {
-        logger.debug(' sojifjaweofijweojfwaoefj ');
-
 			redirect.redirect('BEHEER_POLIS', polis.identificatie());
         }
 
