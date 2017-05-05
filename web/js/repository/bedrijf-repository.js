@@ -18,7 +18,7 @@ define(["commons/3rdparty/log",
             },
 
             leesBedrijf: function(id){
-                return abstractRepository.voerUitGet(navRegister.bepaalUrl('LEES_BEDRIJF'), {id : id});
+                return abstractRepository.voerUitGet(navRegister.bepaalUrl('LEES_BEDRIJF') + '/' + id);
             },
 
             lijstBedrijven: function(zoekTerm){

@@ -34,6 +34,7 @@ define(['jquery',
                 bedrijf.hoedanigheid(data.hoedanigheid);
                 bedrijf.cAoVerplichtingen(data.cAoVerplichtingen);
                 bedrijf.contactpersonen(data.contactpersonen);
+                bedrijf.identificatie(data.identificatie);
 
                if(data.adressen != null){
                     bedrijf.adressen = ko.observableArray([]);

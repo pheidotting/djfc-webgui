@@ -14,6 +14,7 @@ define(['knockout'],
 		_this.cAoVerplichtingen = ko.observable();
 		_this.contactpersonen = ko.observableArray();
 		_this.soortEntiteit = ko.observable('BEDRIJF');
+		_this.identificatie = ko.observable();
 
 		_this.idDiv = ko.computed(function() {
 	        return "collapsable" + _this.id();

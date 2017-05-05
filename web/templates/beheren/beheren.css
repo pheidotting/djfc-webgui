@@ -10,6 +10,16 @@
     text-decoration: none;
 }
 
+.telefoongegevens {
+    margin-left: 15px;
+}
+
+.telefoongegevens h4 {
+    padding-bottom: 5px;
+    border-bottom: 4px solid #4a95ca;
+    text-decoration: none;
+}
+
 input {
     background-color: #ececec;
     border: 0px;

@@ -19,9 +19,12 @@
             var app = new App();
 
             app.addView('relatie/:identificatie', 'view/beheren-relatie-view');
+            app.addView('bedrijf/:identificatie', 'view/beheren-bedrijf-view');
+
             app.addView('polissen/:identificatie', 'view/lijst-polissen-view');
             app.addView('polis/:identificatie', 'view/beheren-polis-view');
             app.addView('polis/:identificatie/:readonly', 'view/beheren-polis-view');
+
             app.addView('schades/:identificatie', 'view/lijst-schades-view');
             app.addView('schade/:identificatie', 'view/beheren-schade-view');
             app.addView('schade/:identificatie/:readonly', 'view/beheren-schade-view');

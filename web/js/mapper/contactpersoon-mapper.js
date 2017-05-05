@@ -24,7 +24,7 @@ define(['jquery',
             if(data != null) {
                 var contactpersoon = new Contactpersoon();
 
-                contactpersoon.id(data.id);
+                contactpersoon.identificatie(data.identificatie);
                 contactpersoon.voornaam(data.voornaam);
                 contactpersoon.tussenvoegsel(data.tussenvoegsel);
                 contactpersoon.achternaam(data.achternaam);

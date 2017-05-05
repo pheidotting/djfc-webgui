@@ -7,16 +7,26 @@ define(["commons/3rdparty/log",
         'service/common/telefoonnummer-service',
         'service/common/rekeningnummer-service',
         'service/common/opmerking-service',
-        'service/common/bijlage-service'],
-    function(log, navRegister, ko, repository, bedrijfRepository, adresService, telefoonnummerService, rekeningnummerService, opmerkingService, bijlageService) {
+        'service/common/bijlage-service',
+        'underscore'],
+    function(log, navRegister, ko, repository, bedrijfRepository, adresService, telefoonnummerService, rekeningnummerService, opmerkingService, bijlageService, _) {
 
         return {
-            opslaan: function(bedrijf, adressen, telefoonnummers, opmerkingen, contactpersonen) {
+            opslaan: function(bedrijf) {
                 var deferred = $.Deferred();
 
+                var adressen = bedrijf.adressen;
+                delete bedrijf.adressen;
+                var telefoonnummers = bedrijf.telefoonnummers;
+                delete bedrijf.telefoonnummers;
+                var opmerkingen = bedrijf.opmerkingen;
+                delete bedrijf.opmerkingen;
+                var contactpersonen = bedrijf.contactpersonen;
+                delete bedrijf.contactpersonen;
+
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId) {
-                    $.when(bedrijfRepository.opslaan(bedrijf, trackAndTraceId)).then(function(response) {
-                        var id = response.entity;
+                    bedrijfRepository.opslaan(bedrijf, trackAndTraceId).done(function(response) {
+                        var id = response;
                         var soortEntiteit = 'BEDRIJF';
 
                         $.when(adresService.opslaan(adressen, trackAndTraceId, soortEntiteit, id),
@@ -25,11 +35,25 @@ define(["commons/3rdparty/log",
                         .then(function(adresResponse, telefoonnummerResponse, rekeningnummerResponse, opmerkingResponse) {
 
                             if(contactpersonen().length > 0) {
+                                _.each(contactpersonen(), function(cp) {
+//                                    cp.telefoonnummers = cp.telefoonnummersModel;
+                                    delete cp.telefoonnummersModel;// = undefined;
+                                });
+
                                 $.each(contactpersonen(), function(i, contactpersoon){
                                     contactpersoon.bedrijf(id);
                                     var telefoonnummers = contactpersoon.telefoonnummers;
                                     contactpersoon.telefoonnummers = null;
                                     repository.voerUitPost(navRegister.bepaalUrl('OPSLAAN_CONTACTPERSOON'), ko.toJSON(contactpersoon), trackAndTraceId).done(function(cpId){
+
+                        _.each(telefoonnummers(), function(telefoonnummer) {
+                            telefoonnummer.parentIdentificatie(id);
+                            telefoonnummer.soortEntiteit("CONTACTPERSOON");
+                        });
+
+
+
+
                                         telefoonnummerService.opslaan(telefoonnummers, trackAndTraceId, 'CONTACTPERSOON', cpId)
                                     });
                                 });
@@ -53,44 +77,44 @@ define(["commons/3rdparty/log",
                 var bedrijfsId = id;
 
                 $.when(
-                    bedrijfRepository.leesBedrijf(id),
-                    bijlageService.lijst('BEDRIJF', id),
-                    bijlageService.lijstGroep('BEDRIJF', id),
-                    opmerkingService.lijst('BEDRIJF', id),
-                    adresService.lijst('BEDRIJF', id),
-                    telefoonnummerService.lijst('BEDRIJF', id)
-                ).then(function(bedrijf, bijlages, groepBijlages, opmerkingen, adressen, telefoonnummers) {
-                                    bedrijf.bijlages = bijlages;
-                                    bedrijf.groepBijlages = groepBijlages;
-                                    bedrijf.opmerkingen = opmerkingen;
-                                    bedrijf.adressen = adressen;
-                                    bedrijf.telefoonnummers = telefoonnummers;
-                                    bedrijf.contactpersonen = [];
+                    bedrijfRepository.leesBedrijf(id)//,
+//                    bijlageService.lijst('BEDRIJF', id),
+//                    bijlageService.lijstGroep('BEDRIJF', id),
+//                    opmerkingService.lijst('BEDRIJF', id),
+//                    adresService.lijst('BEDRIJF', id),
+//                    telefoonnummerService.lijst('BEDRIJF', id)
+                ).then(function(bedrijf){//}, bijlages, groepBijlages, opmerkingen, adressen, telefoonnummers) {
+//                                    bedrijf.bijlages = bijlages;
+//                                    bedrijf.groepBijlages = groepBijlages;
+//                                    bedrijf.opmerkingen = opmerkingen;
+//                                    bedrijf.adressen = adressen;
+//                                    bedrijf.telefoonnummers = telefoonnummers;
+//                                    bedrijf.contactpersonen = [];
 
                     if(id == 0) {
                         return deferred.resolve(bedrijf);
                     } else {
-                        $.when(repository.voerUitGet(navRegister.bepaalUrl('LIJST_CONTACTPERSONEN'), {"bedrijfsId" : bedrijfsId})).then(function(contactpersonen) {
-                            var aantalOphalen = contactpersonen.length;
-
-                            if(aantalOphalen === 0) {
-                                teruggeven();
-                            }
-
-                            $.each(contactpersonen, function(index, contactpersoon) {
-                                repository.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/CONTACTPERSOON/' + contactpersoon.id).done(function(telefoonnummers) {
-                                    contactpersoon.telefoonnummers = telefoonnummers;
-                                    bedrijf.contactpersonen.push(contactpersoon);
-                                    if(--aantalOphalen === 0) {
-                                        teruggeven();
-                                    }
-                                });
-                            });
-
-                            function teruggeven() {
+//                        $.when(repository.voerUitGet(navRegister.bepaalUrl('LIJST_CONTACTPERSONEN'), {"bedrijfsId" : bedrijfsId})).then(function(contactpersonen) {
+//                            var aantalOphalen = contactpersonen.length;
+//
+//                            if(aantalOphalen === 0) {
+//                                teruggeven();
+//                            }
+//
+//                            $.each(contactpersonen, function(index, contactpersoon) {
+//                                repository.voerUitGet(navRegister.bepaalUrl('LIJST_TELEFOONNUMMERS') + '/CONTACTPERSOON/' + contactpersoon.id).done(function(telefoonnummers) {
+//                                    contactpersoon.telefoonnummers = telefoonnummers;
+//                                    bedrijf.contactpersonen.push(contactpersoon);
+//                                    if(--aantalOphalen === 0) {
+//                                        teruggeven();
+//                                    }
+//                                });
+//                            });
+//
+//                            function teruggeven() {
                                 return deferred.resolve(bedrijf);
-                            }
-                        });
+//                            }
+//                        });
                     }
                 });
 

@@ -16,9 +16,13 @@ define(['jquery',
         'viewmodel/common/telefoonnummer-viewmodel',
         'viewmodel/common/opmerking-viewmodel',
         'viewmodel/common/bijlage-viewmodel',
+        'viewmodel/common/telefonie-viewmodel',
         'service/toggle-service',
-        'viewmodel/common/taak-viewmodel'],
-    function($, commonFunctions, ko, Relatie, Contactpersoon, functions, block, log, redirect, opmerkingenModel, bedrijfMapper, contactpersoonMapper, bedrijfService, adresViewModel, rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel, toggleService, taakViewModel) {
+        'viewmodel/common/menubalk-viewmodel',
+        'viewmodel/common/taak-viewmodel',
+        'knockout.validation',
+        'knockoutValidationLocal'],
+    function($, commonFunctions, ko, Relatie, Contactpersoon, functions, block, log, redirect, opmerkingenModel, bedrijfMapper, contactpersoonMapper, bedrijfService, adresViewModel, rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel, telefonieViewModel, toggleService, taakViewModel, menubalkViewmodel) {
 
     return function(id) {
         var _this = this;
@@ -30,6 +34,7 @@ define(['jquery',
         this.telefoonnummersModel   = null;
         this.opmerkingenModel       = null;
         this.bijlageModel           = null;
+		this.telefonie              = null;
 		this.bedrijf                = null;
 		this.conactpersonen         = null;
 
@@ -44,28 +49,28 @@ define(['jquery',
 		};
 
 		this.veranderDatum = function(datum){
-			datum(commonFunctions.zetDatumOm(datum()));
+			datum(commonFunctions.zetDatumOm(datum()));zo
 		};
 
         this.init = function(id) {
             var deferred = $.Deferred();
 
-            $.when(bedrijfService.leesBedrijf(id)).then(function(bedrijf){
+            $.when(bedrijfService.leesBedrijf(id.identificatie)).then(function(bedrijf){
                 _this.bedrijf = bedrijfMapper.mapBedrijf(bedrijf);
 
                 _this.telefoonnummersModel  = new telefoonnummerViewModel(false, soortEntiteit, id, bedrijf.telefoonnummers);
                 _this.adressenModel         = new adresViewModel(false, soortEntiteit, id, bedrijf.adressen);
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, id, bedrijf.opmerkingen);
                 _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, id, bedrijf.bijlages, bedrijf.groepBijlages);
+                _this.telefonie             = new telefonieViewModel(bedrijf.telefoonnummerMetGesprekkens);
 
-                _this.contactpersonen = contactpersoonMapper.mapContactpersonen(bedrijf.contactpersonen);
+                _this.contactpersonen = contactpersoonMapper.mapContactpersonen(bedrijf.contactPersoons);
 
-                toggleService.isFeatureBeschikbaar('TODOIST').done(function(toggleBeschikbaar){
-                    if(toggleBeschikbaar && id != 0) {
-                        _this.taakModel             = new taakViewModel(false, soortEntiteit, id, null, id);
-                    }
-                    return deferred.resolve();
-                });
+                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie);
+
+                _this.taakModel             = new taakViewModel(false, soortEntiteit, id, null, id);
+
+                return deferred.resolve();
             });
 
             return deferred.promise();
@@ -101,20 +106,25 @@ define(['jquery',
 		};
 
 		this.opslaan = function(){
-	    	var result = ko.validation.group(_this, {deep: true});
-	    	if(!_this.isValid()){
+		    _this.bedrijf.adressen = _this.adressenModel.adressen;
+		    _this.bedrijf.telefoonnummers = _this.telefoonnummersModel.telefoonnummers;
+		    _this.bedrijf.opmerkingen = _this.opmerkingenModel.opmerkingen;
+		    _this.bedrijf.contactpersonen = _this.contactpersonen;
+
+	    	var result = ko.validation.group(_this.bedrijf, {deep: true});
+	    	if(result().length > 0) {
 	    		result.showAllMessages(true);
 	    	}else{
 				var foutmelding;
-				bedrijfService.opslaan(_this.bedrijf, _this.adressenModel.adressen, _this.telefoonnummersModel.telefoonnummers, _this.opmerkingenModel.opmerkingen, _this.contactpersonen).done(function(){
-					redirect.redirect('LIJST_BEDRIJVEN');//, _this.bedrijf.naam());
+				bedrijfService.opslaan(_this.bedrijf).done(function(){
+//					redirect.redirect('LIJST_BEDRIJVEN');//, _this.bedrijf.naam());
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response){
 					commonFunctions.plaatsFoutmelding(response);
 					foutmelding = true;
 				});
 				if(foutmelding === undefined || foutmelding === null){
-					redirect.redirect('LIJST_BEDRIJVEN');//, _this.bedrijf.naam());
+//					redirect.redirect('LIJST_BEDRIJVEN');//, _this.bedrijf.naam());
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}
 	    	}

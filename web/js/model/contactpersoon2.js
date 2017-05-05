@@ -9,7 +9,7 @@ define(['jquery',
 	return function(){
 	    var _this = this;
 
-        _this.id = ko.observable();
+        _this.identificatie = ko.observable();
 		_this.voornaam = ko.observable();
 		_this.tussenvoegsel = ko.observable();
 		_this.achternaam = ko.observable();
@@ -32,7 +32,7 @@ define(['jquery',
 			_this.telefoonnummers.valueHasMutated();
 		};
 
-        _this.telefoonnummersModel  = new telefoonnummerViewModel(false, 'CONTACTPERSOON', _this.id(), _this.telefoonnummers());
+        _this.telefoonnummersModel  = new telefoonnummerViewModel(false, 'CONTACTPERSOON', _this.identificatie(), _this.telefoonnummers());
 
     };
 });
