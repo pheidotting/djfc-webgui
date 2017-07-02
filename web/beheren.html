@@ -18,7 +18,9 @@
         require(['sammyconfig'], function (App) {
             var app = new App();
 
+            app.addView('relatie', 'view/beheren-relatie-view');
             app.addView('relatie/:identificatie', 'view/beheren-relatie-view');
+            app.addView('bedrijf', 'view/beheren-bedrijf-view');
             app.addView('bedrijf/:identificatie', 'view/beheren-bedrijf-view');
 
             app.addView('polissen/:identificatie', 'view/lijst-polissen-view');

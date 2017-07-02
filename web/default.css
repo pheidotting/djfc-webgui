@@ -23,10 +23,13 @@ body {
 
 .logo-bedrijf {
     margin-top: 20px;
+    margin-bottom: 20px;
     width: 200px;
+    float: left;
 }
 
 .main {
+    clear: both;
     min-height: 100%;
     height: auto !important;
     margin: 0 auto -30;
@@ -196,4 +199,17 @@ body {
     border: 0px;
     background: none;
     cursor: pointer;
+}
+
+.nieuw {
+    background-color: #0e71b8;
+    border: 0px;
+    color: #ffffff;
+    height: 44px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    margin-left:40px;
+    padding-left:10px;
+    padding-right:10px;
 }

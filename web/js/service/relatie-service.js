@@ -33,10 +33,14 @@ define(["commons/3rdparty/log2",
 
                 var deferred = $.Deferred();
 
-                $.when(relatieRepository.lees(id)
-                        ).then(function(relatie) {
-                            return deferred.resolve(relatie);
-                });
+                if (id == null) {
+                    return deferred.resolve({});
+                } else {
+                    $.when(relatieRepository.lees(id)
+                            ).then(function(relatie) {
+                                return deferred.resolve(relatie);
+                    });
+                }
 
                 return deferred.promise();
             },

@@ -59,11 +59,24 @@ define(['jquery',
             });
         };
 
-        this.maaklink = function(index) {
-            var entiteit = _this.zoekResultaat()[index()];
-            var soortEntiteit = entiteit.soortEntiteit().toLowerCase();
+        this.maaklink = function(index, se) {
+            var postLink = '';
+            var soortEntiteit = se;
+            if(index) {
+                var entiteit = _this.zoekResultaat()[index()];
+                soortEntiteit = entiteit.soortEntiteit().toLowerCase();
 
-            return 'beheren.html#' + soortEntiteit + '/' + entiteit.identificatie();
+                postLink = '/' + entiteit.identificatie();
+            }
+            return 'beheren.html#' + soortEntiteit + postLink;
+        };
+
+        this.nieuweRelatie = function(){
+            window.location = _this.maaklink(0, 'relatie');
+        };
+
+        this.nieuwBedrijf = function(){
+            window.location = _this.maaklink(0, 'bedrijf');
         };
 	};
 });
