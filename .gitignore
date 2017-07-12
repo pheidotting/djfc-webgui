@@ -1,3 +1,5 @@
 
 djfc-webgui.iml
 node_modules
+*.iml
+*.log
