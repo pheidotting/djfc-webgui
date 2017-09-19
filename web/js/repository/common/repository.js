@@ -51,8 +51,29 @@ define(["commons/3rdparty/log2",
             },
 
             leesTrackAndTraceId: function() {
-                return this.voerUitGet(navRegister.bepaalUrl('TRACKANDTRACEID'))
+                var deferred = $.Deferred();
+
+                $.get(navRegister.bepaalUrl('TRACKANDTRACEID'))
+                .done(function(response) {
+                    return deferred.resolve(response);
+                })
+                .fail(function(response){
+                    return deferred.resolve(guid());
+                });
+
+
+                return deferred.promise();
             }
+        }
+
+        function guid() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
         }
     }
 );
