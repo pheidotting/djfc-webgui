@@ -17,13 +17,13 @@ define(["commons/3rdparty/log2",
                 $.get(url, data)
                 .done(function(response) {
                     return deferred.resolve(response);
+                })
+                .fail(function(response){
+                    if (response.status === 401) {
+                        location.href = 'inloggen.html';
+                    }
+                    return deferred.reject();
                 });
-//                .fail(function(response){
-//                    if (response.status === 401) {
-//                        redirect.redirect('INLOGGEN');
-//                    }
-//                    return deferred.reject();
-//                });
 
                 return deferred.promise();
             },

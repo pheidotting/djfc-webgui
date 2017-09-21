@@ -138,14 +138,14 @@ define(["commons/3rdparty/log2",
 //                    $('#homeKnop').show();
 
                     return deferred.resolve(response);
-                }).fail(function(){
-                    logger.debug("Niet ingelogd, naar de inlogpagina");
+//                }).fail(function(response){
+//                    logger.debug("Niet ingelogd, naar de inlogpagina");
 //                    $('#ingelogdeGebruiker').html("");
 //                    $('#uitloggen').hide();
 //                    $('#homeKnop').hide();
-                    location.href = 'inloggen.html';
-
-                    return deferred.resolve();
+//                    location.href = 'inloggen.html';
+//
+//                    return deferred.resolve();
                 });
 
                 return deferred.promise();
