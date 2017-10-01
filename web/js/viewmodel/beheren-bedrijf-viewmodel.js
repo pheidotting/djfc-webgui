@@ -117,14 +117,14 @@ define(['jquery',
 	    	}else{
 				var foutmelding;
 				bedrijfService.opslaan(_this.bedrijf).done(function(){
-//					redirect.redirect('LIJST_BEDRIJVEN');//, _this.bedrijf.naam());
+                    document.location.href = 'zoeken.html';
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}).fail(function(response){
 					commonFunctions.plaatsFoutmelding(response);
 					foutmelding = true;
 				});
 				if(foutmelding === undefined || foutmelding === null){
-//					redirect.redirect('LIJST_BEDRIJVEN');//, _this.bedrijf.naam());
+                    document.location.href = 'zoeken.html';
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
 				}
 	    	}
