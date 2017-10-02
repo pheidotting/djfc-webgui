@@ -29,7 +29,7 @@ define(['jquery',
                 adres.toevoeging(data.toevoeging);
                 adres.postcode(data.postcode);
                 adres.soortAdres(data.soortAdres);
-                adres.plaats(data.plaats);
+                adres.plaats(data.plaats.toUpperCase());
                 adres.soortEntiteit(data.soortEntiteit);
                 adres.entiteitId(data.entiteitId);
 
