@@ -14,6 +14,7 @@ define(['commons/3rdparty/log2',
                     $.each(adressen(), function(i, adres){
                         adres.parentIdentificatie(id);
                         adres.soortEntiteit(soortEntiteit);
+                        adres.plaats(adres.plaats().toUpperCase());
                     });
 
                     return adresRepository.opslaan(adressen, trackAndTraceId);
