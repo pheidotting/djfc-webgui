@@ -24,6 +24,7 @@
             app.addView('bedrijf/:identificatie', 'view/beheren-bedrijf-view');
 
             app.addView('polissen/:identificatie', 'view/lijst-polissen-view');
+            app.addView('polis', 'view/beheren-polis-view');
             app.addView('polis/:identificatie', 'view/beheren-polis-view');
             app.addView('polis/:identificatie/:readonly', 'view/beheren-polis-view');
 
@@ -52,6 +53,9 @@
                 <ul>
                     <li class="first"><a href="zoeken.html">Home</a></li>
                     <li><a style="cursor: pointer;" data-bind="click: $root.menubalkViewmodel.naarRelatiegegevens">Relatie</a>
+                    </li>
+                    <li><a style="cursor: pointer;" data-bind="click: $root.menubalkViewmodel.nieuwePolis">Nieuwe
+                        polis</a>
                     </li>
                     <li><a style="cursor: pointer;" data-bind="click: $root.menubalkViewmodel.naarPolissen">Polissen</a>
                     </li>

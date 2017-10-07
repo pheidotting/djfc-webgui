@@ -39,11 +39,19 @@ define(['jquery',
 
             _this.readOnly(readOnly);
             _this.notReadOnly(!readOnly);
-            _this.basisEntiteit = polisId.basisEntiteit;
-            _this.basisId = basisId;
             _this.id(polisId.identificatie);
             $.when(polisService.lees(polisId), polisService.lijstVerzekeringsmaatschappijen(), polisService.lijstParticulierePolissen(), polisService.lijstZakelijkePolissen()).then(function(entiteit, maatschappijen, lijstParticulierePolissen, lijstZakelijkePolissen) {
+                _this.basisId = entiteit.identificatie;;
+
                 var polis = _.find(entiteit.polissen, function(polis) {return polis.identificatie === polisId.identificatie;});
+                if(polis == null){
+                    polis = {
+                        'opmerkingen' : [],
+                        'bijlages' : [],
+                        'groepBijlages' : []
+                    }
+                }
+
                 _this.polis = polisMapper.mapPolis(polis, maatschappijen);
 
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, polisId, polis.opmerkingen);
@@ -102,7 +110,7 @@ define(['jquery',
 	    		result.showAllMessages(true);
 	    	}else{
 	    		commonFunctions.verbergMeldingen();
-	    		polisService.opslaan(_this.polis, _this.opmerkingenModel.opmerkingen).done(function() {
+	    		polisService.opslaan(_this.polis, _this.opmerkingenModel.opmerkingen, _this.basisId).done(function() {
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
                     redirect.redirect('BEHEREN_' + _this.basisEntiteit, _this.basisId, 'polissen');
 	    		}).fail(function(data) {
