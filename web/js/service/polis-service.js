@@ -9,13 +9,14 @@ define(["commons/3rdparty/log",
     function(log, navRegister, ko, repository, polisRepository, gebruikerRepository, opmerkingService, bijlageService) {
 
         return {
-            opslaan: function(polis, opmerkingen){
+            opslaan: function(polis, opmerkingen, basisId){
                 var deferred = $.Deferred();
 
                 polis.maatschappij = ko.observable(polis.maatschappij.id);
 
                 $.when(repository.leesTrackAndTraceId()).then(function(trackAndTraceId){
                     polis.opmerkingen = opmerkingen;
+                    polis.parentIdentificatie = basisId;
 
                     $.when(polisRepository.opslaan(polis, trackAndTraceId)).then(function(id){
                         if(id != null && id != '') {
