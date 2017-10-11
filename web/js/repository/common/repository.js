@@ -19,7 +19,7 @@ define(["commons/3rdparty/log2",
                     return deferred.resolve(response);
                 })
                 .fail(function(response){
-                    if (response.status === 401) {
+                    if (response.status.toString().startsWith(40)) {
                         location.href = 'inloggen.html';
                     }
                     return deferred.reject();
