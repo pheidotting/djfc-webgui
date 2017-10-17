@@ -63,9 +63,7 @@ define(['jquery',
         }
 
 		this.formatDatum = function(datum) {
-		    datum(moment(datum(), 'YYYY-MM-DD').format('DD-MM-YYYY'));
-
-		    return datum;
+		    return moment(datum(), 'YYYY-MM-DD').format('DD-MM-YYYY');
 		};
 
 		this.formatBedrag = function(bedrag) {

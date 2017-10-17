@@ -12,7 +12,7 @@ define([ ],
 
                             {naam: 'LIJST_RELATIES',                    url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/zoekOpNaamAdresOfPolisNummer'},
                             {naam: 'LEES_RELATIE',                      url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/lees'},
-                            {naam: 'LEES_RELATIE_NW',                      url: BASISURL_RELATIEBEHEER + '/medewerker/relatie/lees'},
+                            {naam: 'LEES_RELATIE_NW',                   url: BASISURL_RELATIEBEHEER + '/medewerker/relatie/lees'},
                             {naam: 'OPSLAAN_RELATIE',                   url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaan'},
                             {naam: 'OPSLAAN_CONTACTPERSOON',            url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/opslaanContactPersoon'},
                             {naam: 'VERWIJDER_RELATIE',                 url: BASISURL_RELATIEBEHEER + '/medewerker/gebruiker/verwijderen'},
