@@ -110,12 +110,17 @@ define(['jquery',
 	    		result.showAllMessages(true);
 	    	}else{
 	    		commonFunctions.verbergMeldingen();
+	    		var allOk = true;
 	    		polisService.opslaan(_this.polis, _this.opmerkingenModel.opmerkingen, _this.basisId).done(function() {
 					commonFunctions.plaatsMelding("De gegevens zijn opgeslagen");
-                    redirect.redirect('BEHEREN_' + _this.basisEntiteit, _this.basisId, 'polissen');
+                    redirect.redirect('BEHEREN_RELATIE', _this.basisId);
 	    		}).fail(function(data) {
+    	    		allOk = false;
 					commonFunctions.plaatsFoutmelding(data);
 	    		});
+	    		if(allOk){
+                    redirect.redirect('LIJST_POLISSEN', _this.basisId);
+	    		}
 	    	}
 		};
 
