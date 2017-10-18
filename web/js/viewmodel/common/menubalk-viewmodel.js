@@ -18,6 +18,10 @@ define(['redirect'],
             redirect.redirect('BEHEER_POLIS', _this.identificatie);
         };
 
+        this.nieuweSchade = function() {
+            redirect.redirect('BEHEER_SCHADE', _this.identificatie);
+        };
+
         this.naarSchades = function() {
             redirect.redirect('LIJST_SCHADES', _this.identificatie);
         };

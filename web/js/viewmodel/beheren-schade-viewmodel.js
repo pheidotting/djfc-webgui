@@ -70,6 +70,13 @@ define(['jquery',
                         return schade.identificatie === _this.id();
                     })
                     .value();
+                if(schade == null){
+                    schade = {
+                        'opmerkingen' : [],
+                        'bijlages' : [],
+                        'groepBijlages' : []
+                    }
+                }
                 _this.schade = schadeMapper.mapSchade(schade);
 
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, schadeId, schade.opmerkingen);
