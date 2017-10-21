@@ -69,7 +69,7 @@ define(['jquery',
                 _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, id, relatie.bijlages, relatie.groepBijlages);
                 _this.taakModel             = new taakViewModel(false, soortEntiteit, id, id);
 
-                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie);
+                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie, 'Relatie');
 
                 return deferred.resolve();
             });

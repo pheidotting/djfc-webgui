@@ -1,10 +1,15 @@
 define(['redirect'],
     function(redirect) {
 
-    return function(identificatie) {
+    return function(identificatie, soortEntiteit) {
         var _this = this;
 
         this.identificatie = identificatie;
+        this.soortEntiteit = soortEntiteit.substring(0, 1).toUpperCase() + soortEntiteit.substring(1).toLowerCase();
+
+        this.getSoortEntiteit = function() {
+            return _this.soortEntiteit;
+        }
 
         this.naarRelatiegegevens = function() {
             redirect.redirect('BEHEREN_RELATIE', _this.identificatie);

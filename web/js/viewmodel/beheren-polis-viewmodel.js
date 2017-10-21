@@ -40,8 +40,13 @@ define(['jquery',
             _this.readOnly(readOnly);
             _this.notReadOnly(!readOnly);
             _this.id(polisId.identificatie);
-            $.when(polisService.lees(polisId), polisService.lijstVerzekeringsmaatschappijen(), polisService.lijstParticulierePolissen(), polisService.lijstZakelijkePolissen()).then(function(entiteit, maatschappijen, lijstParticulierePolissen, lijstZakelijkePolissen) {
+            $.when(polisService.lees(polisId, basisEntiteit), polisService.lijstVerzekeringsmaatschappijen(), polisService.lijstParticulierePolissen(), polisService.lijstZakelijkePolissen()).then(function(entiteit, maatschappijen, lijstParticulierePolissen, lijstZakelijkePolissen) {
                 _this.basisId = entiteit.identificatie;;
+                if(entiteit.naam != null) {
+                    _this.basisEntiteit = "BEDRIJF";
+                } else {
+                    _this.basisEntiteit = "RELATIE";
+                }
 
                 var polis = _.find(entiteit.polissen, function(polis) {return polis.identificatie === polisId.identificatie;});
                 if(polis == null){
@@ -56,7 +61,7 @@ define(['jquery',
 
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, polisId, polis.opmerkingen);
                 _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, polisId, polis.bijlages, polis.groepBijlages);
-                _this.menubalkViewmodel     = new menubalkViewmodel(entiteit.identificatie);
+                _this.menubalkViewmodel     = new menubalkViewmodel(entiteit.identificatie, _this.basisEntiteit);
 
                 var $verzekeringsMaatschappijenSelect = $('#verzekeringsMaatschappijen');
                 $.each(maatschappijen, function(key, value) {
