@@ -68,7 +68,6 @@ define(["commons/3rdparty/log",
             lijstPolissen: function(relatieId, bedrijfId){
                 var deferred = $.Deferred();
 
-//                return polisRepository.lijstPolissen(relatieId, bedrijfId);
                 $.when(gebruikerRepository.leesRelatie(relatieId)).then(function(data) {
                     return deferred.resolve(data.polissen);
                 }).fail(function() {
