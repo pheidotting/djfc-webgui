@@ -27,7 +27,7 @@ define(['jquery',
 
                 zoekresultaat.identificatie(data.identificatie);
                 zoekresultaat.id(data.id);
-                if(data.naam != null) {
+                if(data.kvk != null) {
                     //Dus een bedrijf
                     zoekresultaat.naam(data.naam);
                     zoekresultaat.soortEntiteit('BEDRIJF');
