@@ -31,7 +31,7 @@ define(['jquery',
             _this.basisEntiteit = basisEntiteit;
 
             $.when(polisService.lijstPolissen(_this.identificatie), polisService.lijstVerzekeringsmaatschappijen()).then(function(data, maatschappijen) {
-                if(data.naam != null) {
+                if(data.kvk != null) {
                     _this.basisEntiteit = "BEDRIJF";
                 } else {
                     _this.basisEntiteit = "RELATIE";

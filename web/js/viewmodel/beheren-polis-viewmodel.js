@@ -42,7 +42,7 @@ define(['jquery',
             _this.id(polisId.identificatie);
             $.when(polisService.lees(polisId, basisEntiteit), polisService.lijstVerzekeringsmaatschappijen(), polisService.lijstParticulierePolissen(), polisService.lijstZakelijkePolissen()).then(function(entiteit, maatschappijen, lijstParticulierePolissen, lijstZakelijkePolissen) {
                 _this.basisId = entiteit.identificatie;;
-                if(entiteit.naam != null) {
+                if(entiteit.kvk != null) {
                     _this.basisEntiteit = "BEDRIJF";
                 } else {
                     _this.basisEntiteit = "RELATIE";

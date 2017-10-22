@@ -32,7 +32,7 @@ define(['jquery',
             _this.basisEntiteit = basisEntiteit;
             $.when(schadeService.lijstSchades(_this.identificatie), schadeService.lijstStatusSchade()).then(function(data, statussenSchade) {
                 _this.basisId = data.identificatie;
-                if(data.naam != null) {
+                if(data.kvk != null) {
                     _this.basisEntiteit = "BEDRIJF";
                 } else {
                     _this.basisEntiteit = "RELATIE";
