@@ -4,10 +4,11 @@ define(["commons/3rdparty/log",
         'repository/common/repository',
         'repository/schade-repository',
         'repository/gebruiker-repository',
+        'repository/bedrijf-repository',
         'service/common/opmerking-service',
         'service/common/bijlage-service',
         'underscore'],
-    function(log, navRegister, ko, repository, schadeRepository, gebruikerRepository, opmerkingService, bijlageService, _) {
+    function(log, navRegister, ko, repository, schadeRepository, gebruikerRepository, bedrijfRepository, opmerkingService, bijlageService, _) {
 
         return {
             opslaan: function(schade, opmerkingen) {
@@ -36,6 +37,10 @@ define(["commons/3rdparty/log",
 
                 $.when(gebruikerRepository.leesRelatie(identificatie)).then(function(data) {
                     return deferred.resolve(data);
+                }).fail(function() {
+                    $.when(bedrijfRepository.leesBedrijf(identificatie)).then(function(data) {
+                        return deferred.resolve(data);
+                    })
                 });
 
                 return deferred.promise();
@@ -45,16 +50,15 @@ define(["commons/3rdparty/log",
                 return schadeRepository.lijstStatusSchade();
             },
 
-            lijstSchades: function(relatieId) {
+            lijstSchades: function(identificatie) {
                 var deferred = $.Deferred();
 
-                $.when(gebruikerRepository.leesRelatie(relatieId)).then(function(data) {
-                    var schades = _.chain(data.polissen)
-                    .map('schades')
-                    .flatten()
-                    .value();
-
-                    return deferred.resolve(schades);
+                $.when(gebruikerRepository.leesRelatie(identificatie)).then(function(data) {
+                    return deferred.resolve(data);
+                }).fail(function() {
+                    $.when(bedrijfRepository.leesBedrijf(identificatie)).then(function(data) {
+                        return deferred.resolve(data);
+                    })
                 });
 
                 return deferred.promise();
