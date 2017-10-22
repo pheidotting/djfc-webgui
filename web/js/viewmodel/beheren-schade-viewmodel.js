@@ -53,8 +53,13 @@ define(['jquery',
                 bedrijfId = basisId;
             }
 
-//            $.when(schadeService.lees(_this.id()), schadeService.lijstStatusSchade(), polisService.lijstPolissen(relatieId, bedrijfId)).then(function(schade, statussenSchade, polissen) {
             $.when(schadeService.lees(_this.id()), schadeService.lijstStatusSchade()).then(function(data, statussenSchade) {
+                _this.basisId = data.identificatie;
+                if(data.naam != null) {
+                    _this.basisEntiteit = "BEDRIJF";
+                } else {
+                    _this.basisEntiteit = "RELATIE";
+                }
                 var polissen = data.polissen;
                 var schade = _.chain(polissen)
                     .map(function(polis) {
@@ -81,7 +86,7 @@ define(['jquery',
 
                 _this.opmerkingenModel      = new opmerkingViewModel(false, soortEntiteit, schadeId, schade.opmerkingen);
                 _this.bijlageModel          = new bijlageViewModel(false, soortEntiteit, schadeId, schade.bijlages, schade.groepBijlages);
-                _this.menubalkViewmodel     = new menubalkViewmodel(data.identificatie);
+                _this.menubalkViewmodel     = new menubalkViewmodel(data.identificatie, _this.basisEntiteit);
 
                 var $selectPolis = $('#polisVoorSchademelding');
                 $('<option>', { value : '' }).text('Kies een polis uit de lijst..').appendTo($selectPolis);

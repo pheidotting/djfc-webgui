@@ -22,7 +22,8 @@ define(['jquery',
         'viewmodel/common/taak-viewmodel',
         'knockout.validation',
         'knockoutValidationLocal'],
-    function($, commonFunctions, ko, Relatie, Contactpersoon, functions, block, log, redirect, opmerkingenModel, bedrijfMapper, contactpersoonMapper, bedrijfService, adresViewModel, rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel, telefonieViewModel, toggleService, taakViewModel, menubalkViewmodel) {
+    function($, commonFunctions, ko, Relatie, Contactpersoon, functions, block, log, redirect, opmerkingenModel, bedrijfMapper, contactpersoonMapper, bedrijfService, adresViewModel,
+    rekeningnummerViewModel, telefoonnummerViewModel, opmerkingViewModel, bijlageViewModel, telefonieViewModel, toggleService, menubalkViewmodel, taakViewModel) {
 
     return function(id) {
         var _this = this;
@@ -66,7 +67,7 @@ define(['jquery',
 
                 _this.contactpersonen = contactpersoonMapper.mapContactpersonen(bedrijf.contactPersoons);
 
-                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie);
+                _this.menubalkViewmodel     = new menubalkViewmodel(id.identificatie, 'Bedrijf');
 
                 _this.taakModel             = new taakViewModel(false, soortEntiteit, id, null, id);
 

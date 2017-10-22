@@ -4,9 +4,10 @@ define(["commons/3rdparty/log",
         'repository/common/repository',
         'repository/polis-repository',
         'repository/gebruiker-repository',
+        'repository/bedrijf-repository',
         'service/common/opmerking-service',
         'service/common/bijlage-service'],
-    function(log, navRegister, ko, repository, polisRepository, gebruikerRepository, opmerkingService, bijlageService) {
+    function(log, navRegister, ko, repository, polisRepository, gebruikerRepository, bedrijfRepository, opmerkingService, bijlageService) {
 
         return {
             opslaan: function(polis, opmerkingen, basisId){
@@ -37,13 +38,16 @@ define(["commons/3rdparty/log",
                 return repository.voerUitGet(navRegister.bepaalUrl('VERWIJDER_POLIS'), {id : id});
             },
 
-            lees: function(id){
+            lees: function(id, basisEntiteit){
                 var identificatie = id.identificatie;
                 var deferred = $.Deferred();
 
                 $.when(gebruikerRepository.leesRelatie(identificatie)).then(function(data) {
-
                     return deferred.resolve(data);
+                }).fail(function() {
+                    $.when(bedrijfRepository.leesBedrijf(identificatie)).then(function(data) {
+                        return deferred.resolve(data);
+                    })
                 });
 
                 return deferred.promise();
@@ -64,9 +68,12 @@ define(["commons/3rdparty/log",
             lijstPolissen: function(relatieId, bedrijfId){
                 var deferred = $.Deferred();
 
-//                return polisRepository.lijstPolissen(relatieId, bedrijfId);
                 $.when(gebruikerRepository.leesRelatie(relatieId)).then(function(data) {
                     return deferred.resolve(data.polissen);
+                }).fail(function() {
+                    $.when(bedrijfRepository.leesBedrijf(relatieId)).then(function(data) {
+                        return deferred.resolve(data);
+                    })
                 });
 
                 return deferred.promise();

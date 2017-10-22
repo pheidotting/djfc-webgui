@@ -28,21 +28,18 @@ define(['jquery',
 
             var deferred = $.Deferred();
 
-//            _this.id(id);
             _this.basisEntiteit = basisEntiteit;
 
-//            var relatieId = null;
-//            var bedrijfId = null;
-//            if(basisEntiteit == 'RELATIE') {
-//                relatieId = id;
-//            } else {
-//                bedrijfId = id;
-//            }
+            $.when(polisService.lijstPolissen(_this.identificatie), polisService.lijstVerzekeringsmaatschappijen()).then(function(data, maatschappijen) {
+                if(data.naam != null) {
+                    _this.basisEntiteit = "BEDRIJF";
+                } else {
+                    _this.basisEntiteit = "RELATIE";
+                }
 
-            $.when(polisService.lijstPolissen(_this.identificatie), polisService.lijstVerzekeringsmaatschappijen()).then(function(lijstPolissen, maatschappijen) {
-                    _this.polissen = polisMapper.mapPolissen(lijstPolissen, maatschappijen);
+                _this.polissen = polisMapper.mapPolissen(data.polissen, maatschappijen);
 
-                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie);
+                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie, _this.basisEntiteit);
 
                 return deferred.resolve();
             });
