@@ -4,10 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                cd web
-                npm cache clear
-                npm install
-                zip -r gui *
+                sh '''
+                    cd web
+                    npm cache clear
+                    npm install
+                    zip -r gui *
+                '''
             }
         }
     }
