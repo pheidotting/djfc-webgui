@@ -44,10 +44,10 @@ define(['jquery',
                     .value();
 
                 _this.schades = schadeMapper.mapSchades(lijstSchades, statussenSchade);
+                _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie, _this.basisEntiteit);
 
                 return deferred.resolve();
             });
-            _this.menubalkViewmodel     = new menubalkViewmodel(_this.identificatie, _this.basisEntiteit);
 
             return deferred.promise();
         };

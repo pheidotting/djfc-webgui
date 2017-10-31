@@ -19,6 +19,8 @@ define(["commons/3rdparty/log",
                     polis.opmerkingen = opmerkingen;
                     polis.parentIdentificatie = basisId;
 
+                    console.log(polis);
+
                     $.when(polisRepository.opslaan(polis, trackAndTraceId)).then(function(id){
                         if(id != null && id != '') {
                             var soortEntiteit = 'POLIS';
@@ -69,7 +71,7 @@ define(["commons/3rdparty/log",
                 var deferred = $.Deferred();
 
                 $.when(gebruikerRepository.leesRelatie(relatieId)).then(function(data) {
-                    return deferred.resolve(data.polissen);
+                    return deferred.resolve(data);
                 }).fail(function() {
                     $.when(bedrijfRepository.leesBedrijf(relatieId)).then(function(data) {
                         return deferred.resolve(data);

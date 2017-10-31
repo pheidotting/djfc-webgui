@@ -41,5 +41,6 @@ requirejs.config({
         moment: {
             noGlobal: true
         }
-    }
+    }//,
+//    urlArgs: "bust=" + (new Date()).getTime()
 });

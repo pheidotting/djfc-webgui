@@ -43,7 +43,11 @@ define(["commons/3rdparty/log2",
                         return deferred.resolve(response);
                     },
                     error: function (response) {
-                        return deferred.resolve(response);
+                        if (response.status.toString().startsWith(40)) {
+                            location.href = 'inloggen.html';
+                        }else{
+                            return deferred.resolve(response);
+                        }
                     }
                 });
 
